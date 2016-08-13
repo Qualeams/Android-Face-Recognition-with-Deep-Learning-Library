@@ -21,6 +21,7 @@ Code has been derived from the following sources:
 ###Include as an Android module
 1. git clone https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning-Library.git
 2. Import as module in existing Android Studio project
+
 ###Parameters
 Most parameters are set in the settings/preferences.
 ###Train, Classify
