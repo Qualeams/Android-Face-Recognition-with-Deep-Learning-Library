@@ -27,7 +27,7 @@ Most parameters are set in the settings/preferences.
 ###Train, Classify
 Either train and classify by passing images (OpenCV Mat object) to the library or if features already obtained from the image (getFeatureVector), the feature vector can be passed (OpenCV Mat object) together with the flag "featuresAlreadyExtracted" set to 'true'.
 
-####Android NDK - C++
+###Android NDK - C++
 The libs for LIBSVM and TensorFlow can be compiled outside of Android Studio with the make command (the Makefile is located under /jni-build).
 There are 3 different usages:
 - make clean (executes ndk-build clean)
