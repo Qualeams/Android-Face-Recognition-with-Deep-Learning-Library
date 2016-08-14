@@ -77,6 +77,14 @@ public class FileHelper {
         folder.mkdir();
     }
 
+    public static boolean isFileAnImage(File file){
+        if (file.toString().endsWith(".jpg") || file.toString().endsWith(".jpeg") || file.toString().endsWith(".gif") || file.toString().endsWith(".png")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Returns an array of all files in the specified directory
      * @param path of the directory
