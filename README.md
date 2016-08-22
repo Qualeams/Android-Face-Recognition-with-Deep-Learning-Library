@@ -20,7 +20,8 @@ Code has been derived from the following sources:
 ##Usage
 ###Include as an Android module
 1. git clone https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning-Library.git
-2. Import as module in existing Android Studio project
+2. Import the openCV library in an existing Android Studio project
+3. Import the facerecognitionlibrary in the existing Android Studio project (has dependencies to the openCV library)
 
 ###Parameters
 Most parameters are set in the settings/preferences.
