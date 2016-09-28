@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,5 +15,15 @@ limitations under the License.
 
 /* tslint:disable:no-namespace */
 module TF.Globals {
-  export var TABS = ['events', 'images', 'audio', 'graphs', 'histograms'];
+  // The names of TensorBoard tabs.
+  export var TABS =
+      ['events', 'images', 'audio', 'graphs', 'distributions', 'histograms'];
+
+  // If true, TensorBoard stores its hash in the URI state.
+  // If false, tab switching in TensorBoard will not update location hash,
+  // because hash updates interfere with wct_tests.
+  export var USE_HASH = false;
+
+  // If USE_HASH is false, FAKE_HASH holds the hash contents.
+  export var FAKE_HASH = '';
 }

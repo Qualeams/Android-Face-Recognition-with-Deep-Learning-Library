@@ -283,6 +283,16 @@ class SumReductionTest(tf.test.TestCase):
       error = tf.test.compute_gradient_error(x, [0, 3], y, [0])
       self.assertEqual(error, 0)
 
+  def testDegenerate(self):
+    for use_gpu in False, True:
+      with self.test_session(use_gpu=use_gpu):
+        for dtype in (tf.float16, tf.float32, tf.float64, tf.complex64,
+                      tf.complex128):
+          # A large number is needed to get Eigen to die
+          x = tf.zeros((0, 9938), dtype=dtype)
+          y = tf.reduce_sum(x, [0])
+          self.assertAllEqual(y.eval(), np.zeros(9938))
+
 
 class MeanReductionTest(tf.test.TestCase):
 
@@ -376,6 +386,16 @@ class MeanReductionTest(tf.test.TestCase):
       error = tf.test.compute_gradient_error(x, [0, 3], y, [0])
       self.assertEqual(error, 0)
 
+  def testDegenerate(self):
+    for use_gpu in False, True:
+      with self.test_session(use_gpu=use_gpu):
+        for dtype in (tf.float16, tf.float32, tf.float64):
+          # A large number is needed to get Eigen to die
+          x = tf.zeros((0, 9938), dtype=dtype)
+          y = tf.reduce_mean(x, [0]).eval()
+          self.assertEqual(y.shape, (9938,))
+          self.assertTrue(np.all(np.isnan(y)))
+
 
 class ProdReductionTest(tf.test.TestCase):
 
@@ -412,16 +432,13 @@ class ProdReductionTest(tf.test.TestCase):
     self._compareAll(np_arr, [0, 2])
     self._compareAll(np_arr, [0, 1, 2])
 
-  def testGradient(self):
-    s = [2, 3, 4, 2]
-    # NOTE(kearnes): divide by 20 so product is a reasonable size
-    x = np.arange(1.0, 49.0).reshape(s).astype(np.float32) / 20.
+  def _compareGradient(self, x):
     with self.test_session():
       t = tf.convert_to_tensor(x)
 
       su = tf.reduce_prod(t, [])
       jacob_t, jacob_n = tf.test.compute_gradient(t,
-                                                  s,
+                                                  x.shape,
                                                   su,
                                                   [2, 3, 4, 2],
                                                   x_init_value=x,
@@ -430,7 +447,7 @@ class ProdReductionTest(tf.test.TestCase):
 
       su = tf.reduce_prod(t, [1, 2])
       jacob_t, jacob_n = tf.test.compute_gradient(t,
-                                                  s,
+                                                  x.shape,
                                                   su,
                                                   [2, 2],
                                                   x_init_value=x,
@@ -439,26 +456,34 @@ class ProdReductionTest(tf.test.TestCase):
 
       su = tf.reduce_prod(t, [0, 1, 2, 3])
       jacob_t, jacob_n = tf.test.compute_gradient(t,
-                                                  s,
+                                                  x.shape,
                                                   su,
                                                   [1],
                                                   x_init_value=x,
                                                   delta=1)
       self.assertAllClose(jacob_t, jacob_n, rtol=1e-3, atol=1e-3)
 
-    # NOTE(kearnes): the current gradient calculation gives NaNs for 0 inputs
-    x = np.arange(0.0, 48.0).reshape(s).astype(np.float32) / 20.
-    with self.test_session():
-      t = tf.convert_to_tensor(x)
-      su = tf.reduce_prod(t, [])
-      jacob_t, _ = tf.test.compute_gradient(t,
-                                            s,
-                                            su,
-                                            [2, 3, 4, 2],
-                                            x_init_value=x,
-                                            delta=1)
-      with self.assertRaisesOpError("Tensor had NaN values"):
-        tf.check_numerics(jacob_t, message="_ProdGrad NaN test").op.run()
+  def testGradientWithZeros(self):
+    s = [2, 3, 4, 2]
+    x = np.arange(1.0, 49.0).reshape(s).astype(np.float32) / 20.
+    # No zeros in input
+    self._compareGradient(x)
+    # Zero at beginning
+    x1 = x.copy()
+    x1[:,:,0,:] = 0
+    self._compareGradient(x1)
+    # Zero at end
+    x2 = x.copy()
+    x2[:,:,-1,:] = 0
+    self._compareGradient(x2)
+    # Zero in middle
+    x3 = x.copy()
+    x3[:,:,2,:] = 0
+    self._compareGradient(x3)
+    # All zeros
+    x4 = x.copy()
+    x4[:,:,:,:] = 0
+    self._compareGradient(x4)
 
   def testEmptyGradients(self):
     with self.test_session():
@@ -466,6 +491,15 @@ class ProdReductionTest(tf.test.TestCase):
       y = tf.reduce_prod(x, [1])
       error = tf.test.compute_gradient_error(x, [0, 3], y, [0])
       self.assertEqual(error, 0)
+
+  def testDegenerate(self):
+    for use_gpu in False, True:
+      with self.test_session(use_gpu=use_gpu):
+        for dtype in (tf.float16, tf.float32, tf.float64):
+          # A large number is needed to get Eigen to die
+          x = tf.zeros((0, 9938), dtype=dtype)
+          y = tf.reduce_prod(x, [0])
+          self.assertAllEqual(y.eval(), np.ones(9938))
 
 
 class MinReductionTest(tf.test.TestCase):

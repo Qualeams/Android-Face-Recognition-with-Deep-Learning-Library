@@ -30,6 +30,7 @@
 #include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "tensorflow/core/framework/cost_graph.pb.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 // @@protoc_insertion_point(includes)
 
@@ -41,11 +42,13 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
 void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
 
 class ConfigProto;
+class DebugTensorWatch;
 class GPUOptions;
 class GraphOptions;
 class OptimizerOptions;
 class RunMetadata;
 class RunOptions;
+class ThreadPoolOptionProto;
 
 enum OptimizerOptions_Level {
   OptimizerOptions_Level_L1 = 0,
@@ -70,7 +73,9 @@ inline bool OptimizerOptions_Level_Parse(
 }
 enum RunOptions_TraceLevel {
   RunOptions_TraceLevel_NO_TRACE = 0,
-  RunOptions_TraceLevel_FULL_TRACE = 1,
+  RunOptions_TraceLevel_SOFTWARE_TRACE = 1,
+  RunOptions_TraceLevel_HARDWARE_TRACE = 2,
+  RunOptions_TraceLevel_FULL_TRACE = 3,
   RunOptions_TraceLevel_RunOptions_TraceLevel_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   RunOptions_TraceLevel_RunOptions_TraceLevel_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -103,9 +108,14 @@ class GPUOptions : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const GPUOptions& default_instance();
 
+  void UnsafeArenaSwap(GPUOptions* other);
   void Swap(GPUOptions* other);
 
   // implements Message ----------------------------------------------
@@ -132,6 +142,11 @@ class GPUOptions : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(GPUOptions* other);
+  protected:
+  explicit GPUOptions(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -163,6 +178,9 @@ class GPUOptions : public ::google::protobuf::Message {
   ::std::string* mutable_allocator_type();
   ::std::string* release_allocator_type();
   void set_allocated_allocator_type(::std::string* allocator_type);
+  ::std::string* unsafe_arena_release_allocator_type();
+  void unsafe_arena_set_allocated_allocator_type(
+      ::std::string* allocator_type);
 
   // optional int64 deferred_deletion_bytes = 3;
   void clear_deferred_deletion_bytes();
@@ -180,6 +198,9 @@ class GPUOptions : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   double per_process_gpu_memory_fraction_;
   ::google::protobuf::internal::ArenaStringPtr allocator_type_;
@@ -207,9 +228,14 @@ class OptimizerOptions : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const OptimizerOptions& default_instance();
 
+  void UnsafeArenaSwap(OptimizerOptions* other);
   void Swap(OptimizerOptions* other);
 
   // implements Message ----------------------------------------------
@@ -236,6 +262,11 @@ class OptimizerOptions : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(OptimizerOptions* other);
+  protected:
+  explicit OptimizerOptions(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -250,8 +281,10 @@ class OptimizerOptions : public ::google::protobuf::Message {
   // nested types ----------------------------------------------------
 
   typedef OptimizerOptions_Level Level;
-  static const Level L1 = OptimizerOptions_Level_L1;
-  static const Level L0 = OptimizerOptions_Level_L0;
+  static const Level L1 =
+    OptimizerOptions_Level_L1;
+  static const Level L0 =
+    OptimizerOptions_Level_L0;
   static inline bool Level_IsValid(int value) {
     return OptimizerOptions_Level_IsValid(value);
   }
@@ -303,6 +336,9 @@ class OptimizerOptions : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   bool do_common_subexpression_elimination_;
   bool do_constant_folding_;
@@ -330,9 +366,14 @@ class GraphOptions : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const GraphOptions& default_instance();
 
+  void UnsafeArenaSwap(GraphOptions* other);
   void Swap(GraphOptions* other);
 
   // implements Message ----------------------------------------------
@@ -359,6 +400,11 @@ class GraphOptions : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(GraphOptions* other);
+  protected:
+  explicit GraphOptions(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -384,25 +430,51 @@ class GraphOptions : public ::google::protobuf::Message {
   bool has_optimizer_options() const;
   void clear_optimizer_options();
   static const int kOptimizerOptionsFieldNumber = 3;
+  private:
+  void _slow_mutable_optimizer_options();
+  void _slow_set_allocated_optimizer_options(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::OptimizerOptions** optimizer_options);
+  ::tensorflow::OptimizerOptions* _slow_release_optimizer_options();
+  public:
   const ::tensorflow::OptimizerOptions& optimizer_options() const;
   ::tensorflow::OptimizerOptions* mutable_optimizer_options();
   ::tensorflow::OptimizerOptions* release_optimizer_options();
   void set_allocated_optimizer_options(::tensorflow::OptimizerOptions* optimizer_options);
+  ::tensorflow::OptimizerOptions* unsafe_arena_release_optimizer_options();
+  void unsafe_arena_set_allocated_optimizer_options(
+      ::tensorflow::OptimizerOptions* optimizer_options);
 
-  // optional bool build_cost_model = 4;
+  // optional int64 build_cost_model = 4;
   void clear_build_cost_model();
   static const int kBuildCostModelFieldNumber = 4;
-  bool build_cost_model() const;
-  void set_build_cost_model(bool value);
+  ::google::protobuf::int64 build_cost_model() const;
+  void set_build_cost_model(::google::protobuf::int64 value);
+
+  // optional bool infer_shapes = 5;
+  void clear_infer_shapes();
+  static const int kInferShapesFieldNumber = 5;
+  bool infer_shapes() const;
+  void set_infer_shapes(bool value);
+
+  // optional bool place_pruned_graph = 6;
+  void clear_place_pruned_graph();
+  static const int kPlacePrunedGraphFieldNumber = 6;
+  bool place_pruned_graph() const;
+  void set_place_pruned_graph(bool value);
 
   // @@protoc_insertion_point(class_scope:tensorflow.GraphOptions)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::OptimizerOptions* optimizer_options_;
+  ::google::protobuf::int64 build_cost_model_;
   bool enable_recv_scheduling_;
-  bool build_cost_model_;
+  bool infer_shapes_;
+  bool place_pruned_graph_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   friend void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
@@ -410,6 +482,97 @@ class GraphOptions : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static GraphOptions* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ThreadPoolOptionProto : public ::google::protobuf::Message {
+ public:
+  ThreadPoolOptionProto();
+  virtual ~ThreadPoolOptionProto();
+
+  ThreadPoolOptionProto(const ThreadPoolOptionProto& from);
+
+  inline ThreadPoolOptionProto& operator=(const ThreadPoolOptionProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ThreadPoolOptionProto& default_instance();
+
+  void UnsafeArenaSwap(ThreadPoolOptionProto* other);
+  void Swap(ThreadPoolOptionProto* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ThreadPoolOptionProto* New() const { return New(NULL); }
+
+  ThreadPoolOptionProto* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ThreadPoolOptionProto& from);
+  void MergeFrom(const ThreadPoolOptionProto& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ThreadPoolOptionProto* other);
+  protected:
+  explicit ThreadPoolOptionProto(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 num_threads = 1;
+  void clear_num_threads();
+  static const int kNumThreadsFieldNumber = 1;
+  ::google::protobuf::int32 num_threads() const;
+  void set_num_threads(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:tensorflow.ThreadPoolOptionProto)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 num_threads_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  friend void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  friend void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+
+  void InitAsDefaultInstance();
+  static ThreadPoolOptionProto* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -425,9 +588,14 @@ class ConfigProto : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const ConfigProto& default_instance();
 
+  void UnsafeArenaSwap(ConfigProto* other);
   void Swap(ConfigProto* other);
 
   // implements Message ----------------------------------------------
@@ -454,6 +622,11 @@ class ConfigProto : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(ConfigProto* other);
+  protected:
+  explicit ConfigProto(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -497,6 +670,18 @@ class ConfigProto : public ::google::protobuf::Message {
   bool use_per_session_threads() const;
   void set_use_per_session_threads(bool value);
 
+  // repeated .tensorflow.ThreadPoolOptionProto session_inter_op_thread_pool = 12;
+  int session_inter_op_thread_pool_size() const;
+  void clear_session_inter_op_thread_pool();
+  static const int kSessionInterOpThreadPoolFieldNumber = 12;
+  const ::tensorflow::ThreadPoolOptionProto& session_inter_op_thread_pool(int index) const;
+  ::tensorflow::ThreadPoolOptionProto* mutable_session_inter_op_thread_pool(int index);
+  ::tensorflow::ThreadPoolOptionProto* add_session_inter_op_thread_pool();
+  ::google::protobuf::RepeatedPtrField< ::tensorflow::ThreadPoolOptionProto >*
+      mutable_session_inter_op_thread_pool();
+  const ::google::protobuf::RepeatedPtrField< ::tensorflow::ThreadPoolOptionProto >&
+      session_inter_op_thread_pool() const;
+
   // optional int32 placement_period = 3;
   void clear_placement_period();
   static const int kPlacementPeriodFieldNumber = 3;
@@ -523,10 +708,19 @@ class ConfigProto : public ::google::protobuf::Message {
   bool has_gpu_options() const;
   void clear_gpu_options();
   static const int kGpuOptionsFieldNumber = 6;
+  private:
+  void _slow_mutable_gpu_options();
+  void _slow_set_allocated_gpu_options(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::GPUOptions** gpu_options);
+  ::tensorflow::GPUOptions* _slow_release_gpu_options();
+  public:
   const ::tensorflow::GPUOptions& gpu_options() const;
   ::tensorflow::GPUOptions* mutable_gpu_options();
   ::tensorflow::GPUOptions* release_gpu_options();
   void set_allocated_gpu_options(::tensorflow::GPUOptions* gpu_options);
+  ::tensorflow::GPUOptions* unsafe_arena_release_gpu_options();
+  void unsafe_arena_set_allocated_gpu_options(
+      ::tensorflow::GPUOptions* gpu_options);
 
   // optional bool allow_soft_placement = 7;
   void clear_allow_soft_placement();
@@ -544,10 +738,19 @@ class ConfigProto : public ::google::protobuf::Message {
   bool has_graph_options() const;
   void clear_graph_options();
   static const int kGraphOptionsFieldNumber = 10;
+  private:
+  void _slow_mutable_graph_options();
+  void _slow_set_allocated_graph_options(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::GraphOptions** graph_options);
+  ::tensorflow::GraphOptions* _slow_release_graph_options();
+  public:
   const ::tensorflow::GraphOptions& graph_options() const;
   ::tensorflow::GraphOptions* mutable_graph_options();
   ::tensorflow::GraphOptions* release_graph_options();
   void set_allocated_graph_options(::tensorflow::GraphOptions* graph_options);
+  ::tensorflow::GraphOptions* unsafe_arena_release_graph_options();
+  void unsafe_arena_set_allocated_graph_options(
+      ::tensorflow::GraphOptions* graph_options);
 
   // optional int64 operation_timeout_in_ms = 11;
   void clear_operation_timeout_in_ms();
@@ -559,6 +762,9 @@ class ConfigProto : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   typedef ::google::protobuf::internal::MapEntryLite<
       ::std::string, ::google::protobuf::int32,
@@ -573,6 +779,7 @@ class ConfigProto : public ::google::protobuf::Message {
       0 > device_count_;
   ::google::protobuf::int32 intra_op_parallelism_threads_;
   ::google::protobuf::int32 inter_op_parallelism_threads_;
+  ::google::protobuf::RepeatedPtrField< ::tensorflow::ThreadPoolOptionProto > session_inter_op_thread_pool_;
   ::google::protobuf::RepeatedPtrField< ::std::string> device_filters_;
   ::google::protobuf::int32 placement_period_;
   bool use_per_session_threads_;
@@ -591,6 +798,146 @@ class ConfigProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class DebugTensorWatch : public ::google::protobuf::Message {
+ public:
+  DebugTensorWatch();
+  virtual ~DebugTensorWatch();
+
+  DebugTensorWatch(const DebugTensorWatch& from);
+
+  inline DebugTensorWatch& operator=(const DebugTensorWatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const DebugTensorWatch& default_instance();
+
+  void UnsafeArenaSwap(DebugTensorWatch* other);
+  void Swap(DebugTensorWatch* other);
+
+  // implements Message ----------------------------------------------
+
+  inline DebugTensorWatch* New() const { return New(NULL); }
+
+  DebugTensorWatch* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const DebugTensorWatch& from);
+  void MergeFrom(const DebugTensorWatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DebugTensorWatch* other);
+  protected:
+  explicit DebugTensorWatch(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string node_name = 1;
+  void clear_node_name();
+  static const int kNodeNameFieldNumber = 1;
+  const ::std::string& node_name() const;
+  void set_node_name(const ::std::string& value);
+  void set_node_name(const char* value);
+  void set_node_name(const char* value, size_t size);
+  ::std::string* mutable_node_name();
+  ::std::string* release_node_name();
+  void set_allocated_node_name(::std::string* node_name);
+  ::std::string* unsafe_arena_release_node_name();
+  void unsafe_arena_set_allocated_node_name(
+      ::std::string* node_name);
+
+  // optional int32 output_slot = 2;
+  void clear_output_slot();
+  static const int kOutputSlotFieldNumber = 2;
+  ::google::protobuf::int32 output_slot() const;
+  void set_output_slot(::google::protobuf::int32 value);
+
+  // repeated string debug_ops = 3;
+  int debug_ops_size() const;
+  void clear_debug_ops();
+  static const int kDebugOpsFieldNumber = 3;
+  const ::std::string& debug_ops(int index) const;
+  ::std::string* mutable_debug_ops(int index);
+  void set_debug_ops(int index, const ::std::string& value);
+  void set_debug_ops(int index, const char* value);
+  void set_debug_ops(int index, const char* value, size_t size);
+  ::std::string* add_debug_ops();
+  void add_debug_ops(const ::std::string& value);
+  void add_debug_ops(const char* value);
+  void add_debug_ops(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& debug_ops() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_debug_ops();
+
+  // repeated string debug_urls = 4;
+  int debug_urls_size() const;
+  void clear_debug_urls();
+  static const int kDebugUrlsFieldNumber = 4;
+  const ::std::string& debug_urls(int index) const;
+  ::std::string* mutable_debug_urls(int index);
+  void set_debug_urls(int index, const ::std::string& value);
+  void set_debug_urls(int index, const char* value);
+  void set_debug_urls(int index, const char* value, size_t size);
+  ::std::string* add_debug_urls();
+  void add_debug_urls(const ::std::string& value);
+  void add_debug_urls(const char* value);
+  void add_debug_urls(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& debug_urls() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_debug_urls();
+
+  // @@protoc_insertion_point(class_scope:tensorflow.DebugTensorWatch)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr node_name_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> debug_ops_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> debug_urls_;
+  ::google::protobuf::int32 output_slot_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  friend void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  friend void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+
+  void InitAsDefaultInstance();
+  static DebugTensorWatch* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class RunOptions : public ::google::protobuf::Message {
  public:
   RunOptions();
@@ -603,9 +950,14 @@ class RunOptions : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const RunOptions& default_instance();
 
+  void UnsafeArenaSwap(RunOptions* other);
   void Swap(RunOptions* other);
 
   // implements Message ----------------------------------------------
@@ -632,6 +984,11 @@ class RunOptions : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(RunOptions* other);
+  protected:
+  explicit RunOptions(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -646,8 +1003,14 @@ class RunOptions : public ::google::protobuf::Message {
   // nested types ----------------------------------------------------
 
   typedef RunOptions_TraceLevel TraceLevel;
-  static const TraceLevel NO_TRACE = RunOptions_TraceLevel_NO_TRACE;
-  static const TraceLevel FULL_TRACE = RunOptions_TraceLevel_FULL_TRACE;
+  static const TraceLevel NO_TRACE =
+    RunOptions_TraceLevel_NO_TRACE;
+  static const TraceLevel SOFTWARE_TRACE =
+    RunOptions_TraceLevel_SOFTWARE_TRACE;
+  static const TraceLevel HARDWARE_TRACE =
+    RunOptions_TraceLevel_HARDWARE_TRACE;
+  static const TraceLevel FULL_TRACE =
+    RunOptions_TraceLevel_FULL_TRACE;
   static inline bool TraceLevel_IsValid(int value) {
     return RunOptions_TraceLevel_IsValid(value);
   }
@@ -683,13 +1046,36 @@ class RunOptions : public ::google::protobuf::Message {
   ::google::protobuf::int64 timeout_in_ms() const;
   void set_timeout_in_ms(::google::protobuf::int64 value);
 
+  // optional int32 inter_op_thread_pool = 3;
+  void clear_inter_op_thread_pool();
+  static const int kInterOpThreadPoolFieldNumber = 3;
+  ::google::protobuf::int32 inter_op_thread_pool() const;
+  void set_inter_op_thread_pool(::google::protobuf::int32 value);
+
+  // repeated .tensorflow.DebugTensorWatch debug_tensor_watch_opts = 4;
+  int debug_tensor_watch_opts_size() const;
+  void clear_debug_tensor_watch_opts();
+  static const int kDebugTensorWatchOptsFieldNumber = 4;
+  const ::tensorflow::DebugTensorWatch& debug_tensor_watch_opts(int index) const;
+  ::tensorflow::DebugTensorWatch* mutable_debug_tensor_watch_opts(int index);
+  ::tensorflow::DebugTensorWatch* add_debug_tensor_watch_opts();
+  ::google::protobuf::RepeatedPtrField< ::tensorflow::DebugTensorWatch >*
+      mutable_debug_tensor_watch_opts();
+  const ::google::protobuf::RepeatedPtrField< ::tensorflow::DebugTensorWatch >&
+      debug_tensor_watch_opts() const;
+
   // @@protoc_insertion_point(class_scope:tensorflow.RunOptions)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::int64 timeout_in_ms_;
   int trace_level_;
+  ::google::protobuf::int32 inter_op_thread_pool_;
+  ::google::protobuf::RepeatedPtrField< ::tensorflow::DebugTensorWatch > debug_tensor_watch_opts_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   friend void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
@@ -712,9 +1098,14 @@ class RunMetadata : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const RunMetadata& default_instance();
 
+  void UnsafeArenaSwap(RunMetadata* other);
   void Swap(RunMetadata* other);
 
   // implements Message ----------------------------------------------
@@ -741,6 +1132,11 @@ class RunMetadata : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(RunMetadata* other);
+  protected:
+  explicit RunMetadata(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -760,17 +1156,48 @@ class RunMetadata : public ::google::protobuf::Message {
   bool has_step_stats() const;
   void clear_step_stats();
   static const int kStepStatsFieldNumber = 1;
+  private:
+  void _slow_mutable_step_stats();
+  void _slow_set_allocated_step_stats(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::StepStats** step_stats);
+  ::tensorflow::StepStats* _slow_release_step_stats();
+  public:
   const ::tensorflow::StepStats& step_stats() const;
   ::tensorflow::StepStats* mutable_step_stats();
   ::tensorflow::StepStats* release_step_stats();
   void set_allocated_step_stats(::tensorflow::StepStats* step_stats);
+  ::tensorflow::StepStats* unsafe_arena_release_step_stats();
+  void unsafe_arena_set_allocated_step_stats(
+      ::tensorflow::StepStats* step_stats);
+
+  // optional .tensorflow.CostGraphDef cost_graph = 2;
+  bool has_cost_graph() const;
+  void clear_cost_graph();
+  static const int kCostGraphFieldNumber = 2;
+  private:
+  void _slow_mutable_cost_graph();
+  void _slow_set_allocated_cost_graph(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::CostGraphDef** cost_graph);
+  ::tensorflow::CostGraphDef* _slow_release_cost_graph();
+  public:
+  const ::tensorflow::CostGraphDef& cost_graph() const;
+  ::tensorflow::CostGraphDef* mutable_cost_graph();
+  ::tensorflow::CostGraphDef* release_cost_graph();
+  void set_allocated_cost_graph(::tensorflow::CostGraphDef* cost_graph);
+  ::tensorflow::CostGraphDef* unsafe_arena_release_cost_graph();
+  void unsafe_arena_set_allocated_cost_graph(
+      ::tensorflow::CostGraphDef* cost_graph);
 
   // @@protoc_insertion_point(class_scope:tensorflow.RunMetadata)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::StepStats* step_stats_;
+  ::tensorflow::CostGraphDef* cost_graph_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   friend void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
@@ -803,36 +1230,46 @@ inline void GPUOptions::set_per_process_gpu_memory_fraction(double value) {
 
 // optional string allocator_type = 2;
 inline void GPUOptions::clear_allocator_type() {
-  allocator_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  allocator_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& GPUOptions::allocator_type() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.allocator_type)
-  return allocator_type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_type_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void GPUOptions::set_allocator_type(const ::std::string& value) {
   
-  allocator_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.allocator_type)
 }
 inline void GPUOptions::set_allocator_type(const char* value) {
   
-  allocator_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.GPUOptions.allocator_type)
 }
-inline void GPUOptions::set_allocator_type(const char* value, size_t size) {
+inline void GPUOptions::set_allocator_type(const char* value,
+    size_t size) {
   
-  allocator_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.GPUOptions.allocator_type)
 }
 inline ::std::string* GPUOptions::mutable_allocator_type() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.GPUOptions.allocator_type)
-  return allocator_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_type_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* GPUOptions::release_allocator_type() {
+  // @@protoc_insertion_point(field_release:tensorflow.GPUOptions.allocator_type)
   
-  return allocator_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_type_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* GPUOptions::unsafe_arena_release_allocator_type() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.GPUOptions.allocator_type)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return allocator_type_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void GPUOptions::set_allocated_allocator_type(::std::string* allocator_type) {
   if (allocator_type != NULL) {
@@ -840,8 +1277,21 @@ inline void GPUOptions::set_allocated_allocator_type(::std::string* allocator_ty
   } else {
     
   }
-  allocator_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_type);
+  allocator_type_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_type,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.GPUOptions.allocator_type)
+}
+inline void GPUOptions::unsafe_arena_set_allocated_allocator_type(
+    ::std::string* allocator_type) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (allocator_type != NULL) {
+    
+  } else {
+    
+  }
+  allocator_type_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      allocator_type, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.GPUOptions.allocator_type)
 }
 
 // optional int64 deferred_deletion_bytes = 3;
@@ -965,19 +1415,30 @@ inline const ::tensorflow::OptimizerOptions& GraphOptions::optimizer_options() c
 inline ::tensorflow::OptimizerOptions* GraphOptions::mutable_optimizer_options() {
   
   if (optimizer_options_ == NULL) {
-    optimizer_options_ = new ::tensorflow::OptimizerOptions;
+    _slow_mutable_optimizer_options();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.GraphOptions.optimizer_options)
   return optimizer_options_;
 }
 inline ::tensorflow::OptimizerOptions* GraphOptions::release_optimizer_options() {
+  // @@protoc_insertion_point(field_release:tensorflow.GraphOptions.optimizer_options)
   
-  ::tensorflow::OptimizerOptions* temp = optimizer_options_;
-  optimizer_options_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_optimizer_options();
+  } else {
+    ::tensorflow::OptimizerOptions* temp = optimizer_options_;
+    optimizer_options_ = NULL;
+    return temp;
+  }
 }
-inline void GraphOptions::set_allocated_optimizer_options(::tensorflow::OptimizerOptions* optimizer_options) {
-  delete optimizer_options_;
+inline  void GraphOptions::set_allocated_optimizer_options(::tensorflow::OptimizerOptions* optimizer_options) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete optimizer_options_;
+  }
+  if (optimizer_options != NULL) {
+    _slow_set_allocated_optimizer_options(message_arena, &optimizer_options);
+  }
   optimizer_options_ = optimizer_options;
   if (optimizer_options) {
     
@@ -987,18 +1448,64 @@ inline void GraphOptions::set_allocated_optimizer_options(::tensorflow::Optimize
   // @@protoc_insertion_point(field_set_allocated:tensorflow.GraphOptions.optimizer_options)
 }
 
-// optional bool build_cost_model = 4;
+// optional int64 build_cost_model = 4;
 inline void GraphOptions::clear_build_cost_model() {
-  build_cost_model_ = false;
+  build_cost_model_ = GOOGLE_LONGLONG(0);
 }
-inline bool GraphOptions::build_cost_model() const {
+inline ::google::protobuf::int64 GraphOptions::build_cost_model() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.build_cost_model)
   return build_cost_model_;
 }
-inline void GraphOptions::set_build_cost_model(bool value) {
+inline void GraphOptions::set_build_cost_model(::google::protobuf::int64 value) {
   
   build_cost_model_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.build_cost_model)
+}
+
+// optional bool infer_shapes = 5;
+inline void GraphOptions::clear_infer_shapes() {
+  infer_shapes_ = false;
+}
+inline bool GraphOptions::infer_shapes() const {
+  // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.infer_shapes)
+  return infer_shapes_;
+}
+inline void GraphOptions::set_infer_shapes(bool value) {
+  
+  infer_shapes_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.infer_shapes)
+}
+
+// optional bool place_pruned_graph = 6;
+inline void GraphOptions::clear_place_pruned_graph() {
+  place_pruned_graph_ = false;
+}
+inline bool GraphOptions::place_pruned_graph() const {
+  // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.place_pruned_graph)
+  return place_pruned_graph_;
+}
+inline void GraphOptions::set_place_pruned_graph(bool value) {
+  
+  place_pruned_graph_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.place_pruned_graph)
+}
+
+// -------------------------------------------------------------------
+
+// ThreadPoolOptionProto
+
+// optional int32 num_threads = 1;
+inline void ThreadPoolOptionProto::clear_num_threads() {
+  num_threads_ = 0;
+}
+inline ::google::protobuf::int32 ThreadPoolOptionProto::num_threads() const {
+  // @@protoc_insertion_point(field_get:tensorflow.ThreadPoolOptionProto.num_threads)
+  return num_threads_;
+}
+inline void ThreadPoolOptionProto::set_num_threads(::google::protobuf::int32 value) {
+  
+  num_threads_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.ThreadPoolOptionProto.num_threads)
 }
 
 // -------------------------------------------------------------------
@@ -1065,6 +1572,36 @@ inline void ConfigProto::set_use_per_session_threads(bool value) {
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.use_per_session_threads)
 }
 
+// repeated .tensorflow.ThreadPoolOptionProto session_inter_op_thread_pool = 12;
+inline int ConfigProto::session_inter_op_thread_pool_size() const {
+  return session_inter_op_thread_pool_.size();
+}
+inline void ConfigProto::clear_session_inter_op_thread_pool() {
+  session_inter_op_thread_pool_.Clear();
+}
+inline const ::tensorflow::ThreadPoolOptionProto& ConfigProto::session_inter_op_thread_pool(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.session_inter_op_thread_pool)
+  return session_inter_op_thread_pool_.Get(index);
+}
+inline ::tensorflow::ThreadPoolOptionProto* ConfigProto::mutable_session_inter_op_thread_pool(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.ConfigProto.session_inter_op_thread_pool)
+  return session_inter_op_thread_pool_.Mutable(index);
+}
+inline ::tensorflow::ThreadPoolOptionProto* ConfigProto::add_session_inter_op_thread_pool() {
+  // @@protoc_insertion_point(field_add:tensorflow.ConfigProto.session_inter_op_thread_pool)
+  return session_inter_op_thread_pool_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::tensorflow::ThreadPoolOptionProto >*
+ConfigProto::mutable_session_inter_op_thread_pool() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.ConfigProto.session_inter_op_thread_pool)
+  return &session_inter_op_thread_pool_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::tensorflow::ThreadPoolOptionProto >&
+ConfigProto::session_inter_op_thread_pool() const {
+  // @@protoc_insertion_point(field_list:tensorflow.ConfigProto.session_inter_op_thread_pool)
+  return session_inter_op_thread_pool_;
+}
+
 // optional int32 placement_period = 3;
 inline void ConfigProto::clear_placement_period() {
   placement_period_ = 0;
@@ -1108,6 +1645,7 @@ inline void ConfigProto::set_device_filters(int index, const char* value, size_t
   // @@protoc_insertion_point(field_set_pointer:tensorflow.ConfigProto.device_filters)
 }
 inline ::std::string* ConfigProto::add_device_filters() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.ConfigProto.device_filters)
   return device_filters_.Add();
 }
 inline void ConfigProto::add_device_filters(const ::std::string& value) {
@@ -1148,19 +1686,30 @@ inline const ::tensorflow::GPUOptions& ConfigProto::gpu_options() const {
 inline ::tensorflow::GPUOptions* ConfigProto::mutable_gpu_options() {
   
   if (gpu_options_ == NULL) {
-    gpu_options_ = new ::tensorflow::GPUOptions;
+    _slow_mutable_gpu_options();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.ConfigProto.gpu_options)
   return gpu_options_;
 }
 inline ::tensorflow::GPUOptions* ConfigProto::release_gpu_options() {
+  // @@protoc_insertion_point(field_release:tensorflow.ConfigProto.gpu_options)
   
-  ::tensorflow::GPUOptions* temp = gpu_options_;
-  gpu_options_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_gpu_options();
+  } else {
+    ::tensorflow::GPUOptions* temp = gpu_options_;
+    gpu_options_ = NULL;
+    return temp;
+  }
 }
-inline void ConfigProto::set_allocated_gpu_options(::tensorflow::GPUOptions* gpu_options) {
-  delete gpu_options_;
+inline  void ConfigProto::set_allocated_gpu_options(::tensorflow::GPUOptions* gpu_options) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete gpu_options_;
+  }
+  if (gpu_options != NULL) {
+    _slow_set_allocated_gpu_options(message_arena, &gpu_options);
+  }
   gpu_options_ = gpu_options;
   if (gpu_options) {
     
@@ -1213,19 +1762,30 @@ inline const ::tensorflow::GraphOptions& ConfigProto::graph_options() const {
 inline ::tensorflow::GraphOptions* ConfigProto::mutable_graph_options() {
   
   if (graph_options_ == NULL) {
-    graph_options_ = new ::tensorflow::GraphOptions;
+    _slow_mutable_graph_options();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.ConfigProto.graph_options)
   return graph_options_;
 }
 inline ::tensorflow::GraphOptions* ConfigProto::release_graph_options() {
+  // @@protoc_insertion_point(field_release:tensorflow.ConfigProto.graph_options)
   
-  ::tensorflow::GraphOptions* temp = graph_options_;
-  graph_options_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_graph_options();
+  } else {
+    ::tensorflow::GraphOptions* temp = graph_options_;
+    graph_options_ = NULL;
+    return temp;
+  }
 }
-inline void ConfigProto::set_allocated_graph_options(::tensorflow::GraphOptions* graph_options) {
-  delete graph_options_;
+inline  void ConfigProto::set_allocated_graph_options(::tensorflow::GraphOptions* graph_options) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete graph_options_;
+  }
+  if (graph_options != NULL) {
+    _slow_set_allocated_graph_options(message_arena, &graph_options);
+  }
   graph_options_ = graph_options;
   if (graph_options) {
     
@@ -1247,6 +1807,200 @@ inline void ConfigProto::set_operation_timeout_in_ms(::google::protobuf::int64 v
   
   operation_timeout_in_ms_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.operation_timeout_in_ms)
+}
+
+// -------------------------------------------------------------------
+
+// DebugTensorWatch
+
+// optional string node_name = 1;
+inline void DebugTensorWatch::clear_node_name() {
+  node_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline const ::std::string& DebugTensorWatch::node_name() const {
+  // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.node_name)
+  return node_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void DebugTensorWatch::set_node_name(const ::std::string& value) {
+  
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.node_name)
+}
+inline void DebugTensorWatch::set_node_name(const char* value) {
+  
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.node_name)
+}
+inline void DebugTensorWatch::set_node_name(const char* value,
+    size_t size) {
+  
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.node_name)
+}
+inline ::std::string* DebugTensorWatch::mutable_node_name() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.node_name)
+  return node_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* DebugTensorWatch::release_node_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.DebugTensorWatch.node_name)
+  
+  return node_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* DebugTensorWatch::unsafe_arena_release_node_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.DebugTensorWatch.node_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return node_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+inline void DebugTensorWatch::set_allocated_node_name(::std::string* node_name) {
+  if (node_name != NULL) {
+    
+  } else {
+    
+  }
+  node_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), node_name,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.DebugTensorWatch.node_name)
+}
+inline void DebugTensorWatch::unsafe_arena_set_allocated_node_name(
+    ::std::string* node_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (node_name != NULL) {
+    
+  } else {
+    
+  }
+  node_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      node_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.DebugTensorWatch.node_name)
+}
+
+// optional int32 output_slot = 2;
+inline void DebugTensorWatch::clear_output_slot() {
+  output_slot_ = 0;
+}
+inline ::google::protobuf::int32 DebugTensorWatch::output_slot() const {
+  // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.output_slot)
+  return output_slot_;
+}
+inline void DebugTensorWatch::set_output_slot(::google::protobuf::int32 value) {
+  
+  output_slot_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.output_slot)
+}
+
+// repeated string debug_ops = 3;
+inline int DebugTensorWatch::debug_ops_size() const {
+  return debug_ops_.size();
+}
+inline void DebugTensorWatch::clear_debug_ops() {
+  debug_ops_.Clear();
+}
+inline const ::std::string& DebugTensorWatch::debug_ops(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.debug_ops)
+  return debug_ops_.Get(index);
+}
+inline ::std::string* DebugTensorWatch::mutable_debug_ops(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.debug_ops)
+  return debug_ops_.Mutable(index);
+}
+inline void DebugTensorWatch::set_debug_ops(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.debug_ops)
+  debug_ops_.Mutable(index)->assign(value);
+}
+inline void DebugTensorWatch::set_debug_ops(int index, const char* value) {
+  debug_ops_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.debug_ops)
+}
+inline void DebugTensorWatch::set_debug_ops(int index, const char* value, size_t size) {
+  debug_ops_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.debug_ops)
+}
+inline ::std::string* DebugTensorWatch::add_debug_ops() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.DebugTensorWatch.debug_ops)
+  return debug_ops_.Add();
+}
+inline void DebugTensorWatch::add_debug_ops(const ::std::string& value) {
+  debug_ops_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:tensorflow.DebugTensorWatch.debug_ops)
+}
+inline void DebugTensorWatch::add_debug_ops(const char* value) {
+  debug_ops_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:tensorflow.DebugTensorWatch.debug_ops)
+}
+inline void DebugTensorWatch::add_debug_ops(const char* value, size_t size) {
+  debug_ops_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:tensorflow.DebugTensorWatch.debug_ops)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+DebugTensorWatch::debug_ops() const {
+  // @@protoc_insertion_point(field_list:tensorflow.DebugTensorWatch.debug_ops)
+  return debug_ops_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+DebugTensorWatch::mutable_debug_ops() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.DebugTensorWatch.debug_ops)
+  return &debug_ops_;
+}
+
+// repeated string debug_urls = 4;
+inline int DebugTensorWatch::debug_urls_size() const {
+  return debug_urls_.size();
+}
+inline void DebugTensorWatch::clear_debug_urls() {
+  debug_urls_.Clear();
+}
+inline const ::std::string& DebugTensorWatch::debug_urls(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.debug_urls)
+  return debug_urls_.Get(index);
+}
+inline ::std::string* DebugTensorWatch::mutable_debug_urls(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.debug_urls)
+  return debug_urls_.Mutable(index);
+}
+inline void DebugTensorWatch::set_debug_urls(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.debug_urls)
+  debug_urls_.Mutable(index)->assign(value);
+}
+inline void DebugTensorWatch::set_debug_urls(int index, const char* value) {
+  debug_urls_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.debug_urls)
+}
+inline void DebugTensorWatch::set_debug_urls(int index, const char* value, size_t size) {
+  debug_urls_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.debug_urls)
+}
+inline ::std::string* DebugTensorWatch::add_debug_urls() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.DebugTensorWatch.debug_urls)
+  return debug_urls_.Add();
+}
+inline void DebugTensorWatch::add_debug_urls(const ::std::string& value) {
+  debug_urls_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:tensorflow.DebugTensorWatch.debug_urls)
+}
+inline void DebugTensorWatch::add_debug_urls(const char* value) {
+  debug_urls_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:tensorflow.DebugTensorWatch.debug_urls)
+}
+inline void DebugTensorWatch::add_debug_urls(const char* value, size_t size) {
+  debug_urls_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:tensorflow.DebugTensorWatch.debug_urls)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+DebugTensorWatch::debug_urls() const {
+  // @@protoc_insertion_point(field_list:tensorflow.DebugTensorWatch.debug_urls)
+  return debug_urls_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+DebugTensorWatch::mutable_debug_urls() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.DebugTensorWatch.debug_urls)
+  return &debug_urls_;
 }
 
 // -------------------------------------------------------------------
@@ -1281,6 +2035,50 @@ inline void RunOptions::set_timeout_in_ms(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.RunOptions.timeout_in_ms)
 }
 
+// optional int32 inter_op_thread_pool = 3;
+inline void RunOptions::clear_inter_op_thread_pool() {
+  inter_op_thread_pool_ = 0;
+}
+inline ::google::protobuf::int32 RunOptions::inter_op_thread_pool() const {
+  // @@protoc_insertion_point(field_get:tensorflow.RunOptions.inter_op_thread_pool)
+  return inter_op_thread_pool_;
+}
+inline void RunOptions::set_inter_op_thread_pool(::google::protobuf::int32 value) {
+  
+  inter_op_thread_pool_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.RunOptions.inter_op_thread_pool)
+}
+
+// repeated .tensorflow.DebugTensorWatch debug_tensor_watch_opts = 4;
+inline int RunOptions::debug_tensor_watch_opts_size() const {
+  return debug_tensor_watch_opts_.size();
+}
+inline void RunOptions::clear_debug_tensor_watch_opts() {
+  debug_tensor_watch_opts_.Clear();
+}
+inline const ::tensorflow::DebugTensorWatch& RunOptions::debug_tensor_watch_opts(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.RunOptions.debug_tensor_watch_opts)
+  return debug_tensor_watch_opts_.Get(index);
+}
+inline ::tensorflow::DebugTensorWatch* RunOptions::mutable_debug_tensor_watch_opts(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.RunOptions.debug_tensor_watch_opts)
+  return debug_tensor_watch_opts_.Mutable(index);
+}
+inline ::tensorflow::DebugTensorWatch* RunOptions::add_debug_tensor_watch_opts() {
+  // @@protoc_insertion_point(field_add:tensorflow.RunOptions.debug_tensor_watch_opts)
+  return debug_tensor_watch_opts_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::tensorflow::DebugTensorWatch >*
+RunOptions::mutable_debug_tensor_watch_opts() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.RunOptions.debug_tensor_watch_opts)
+  return &debug_tensor_watch_opts_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::tensorflow::DebugTensorWatch >&
+RunOptions::debug_tensor_watch_opts() const {
+  // @@protoc_insertion_point(field_list:tensorflow.RunOptions.debug_tensor_watch_opts)
+  return debug_tensor_watch_opts_;
+}
+
 // -------------------------------------------------------------------
 
 // RunMetadata
@@ -1300,19 +2098,30 @@ inline const ::tensorflow::StepStats& RunMetadata::step_stats() const {
 inline ::tensorflow::StepStats* RunMetadata::mutable_step_stats() {
   
   if (step_stats_ == NULL) {
-    step_stats_ = new ::tensorflow::StepStats;
+    _slow_mutable_step_stats();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.RunMetadata.step_stats)
   return step_stats_;
 }
 inline ::tensorflow::StepStats* RunMetadata::release_step_stats() {
+  // @@protoc_insertion_point(field_release:tensorflow.RunMetadata.step_stats)
   
-  ::tensorflow::StepStats* temp = step_stats_;
-  step_stats_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_step_stats();
+  } else {
+    ::tensorflow::StepStats* temp = step_stats_;
+    step_stats_ = NULL;
+    return temp;
+  }
 }
-inline void RunMetadata::set_allocated_step_stats(::tensorflow::StepStats* step_stats) {
-  delete step_stats_;
+inline  void RunMetadata::set_allocated_step_stats(::tensorflow::StepStats* step_stats) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete step_stats_;
+  }
+  if (step_stats != NULL) {
+    _slow_set_allocated_step_stats(message_arena, &step_stats);
+  }
   step_stats_ = step_stats;
   if (step_stats) {
     
@@ -1322,7 +2131,59 @@ inline void RunMetadata::set_allocated_step_stats(::tensorflow::StepStats* step_
   // @@protoc_insertion_point(field_set_allocated:tensorflow.RunMetadata.step_stats)
 }
 
+// optional .tensorflow.CostGraphDef cost_graph = 2;
+inline bool RunMetadata::has_cost_graph() const {
+  return !_is_default_instance_ && cost_graph_ != NULL;
+}
+inline void RunMetadata::clear_cost_graph() {
+  if (GetArenaNoVirtual() == NULL && cost_graph_ != NULL) delete cost_graph_;
+  cost_graph_ = NULL;
+}
+inline const ::tensorflow::CostGraphDef& RunMetadata::cost_graph() const {
+  // @@protoc_insertion_point(field_get:tensorflow.RunMetadata.cost_graph)
+  return cost_graph_ != NULL ? *cost_graph_ : *default_instance_->cost_graph_;
+}
+inline ::tensorflow::CostGraphDef* RunMetadata::mutable_cost_graph() {
+  
+  if (cost_graph_ == NULL) {
+    _slow_mutable_cost_graph();
+  }
+  // @@protoc_insertion_point(field_mutable:tensorflow.RunMetadata.cost_graph)
+  return cost_graph_;
+}
+inline ::tensorflow::CostGraphDef* RunMetadata::release_cost_graph() {
+  // @@protoc_insertion_point(field_release:tensorflow.RunMetadata.cost_graph)
+  
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_cost_graph();
+  } else {
+    ::tensorflow::CostGraphDef* temp = cost_graph_;
+    cost_graph_ = NULL;
+    return temp;
+  }
+}
+inline  void RunMetadata::set_allocated_cost_graph(::tensorflow::CostGraphDef* cost_graph) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete cost_graph_;
+  }
+  if (cost_graph != NULL) {
+    _slow_set_allocated_cost_graph(message_arena, &cost_graph);
+  }
+  cost_graph_ = cost_graph;
+  if (cost_graph) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.RunMetadata.cost_graph)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -142,6 +142,31 @@ Notice that the function adds the given losses to the regularization losses.
 
 - - -
 
+### `tf.contrib.losses.hinge_loss(logits, target, scope=None)` {#hinge_loss}
+
+Method that returns the loss tensor for hinge loss.
+
+##### Args:
+
+
+*  <b>`logits`</b>: The logits, a float tensor.
+*  <b>`target`</b>: The ground truth output tensor. Its shape should match the shape of
+    logits. The values of the tensor are expected to be 0.0 or 1.0.
+*  <b>`scope`</b>: The scope for the operations performed in computing the loss.
+
+##### Returns:
+
+  A `Tensor` of same shape as logits and target representing the loss values
+    across the batch.
+
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If the shapes of `logits` and `target` don't match.
+
+
+- - -
+
 ### `tf.contrib.losses.log_loss(predictions, targets, weight=1.0, epsilon=1e-07, scope=None)` {#log_loss}
 
 Adds a Log Loss term to the training procedure.
@@ -181,6 +206,15 @@ measurable element of `predictions` is scaled by the corresponding value of
 
 Creates a cross-entropy loss using tf.nn.sigmoid_cross_entropy_with_logits.
 
+`weight` acts as a coefficient for the loss. If a scalar is provided,
+then the loss is simply scaled by the given value. If `weight` is a
+tensor of size [`batch_size`], then the loss weights apply to each
+corresponding sample.
+
+If `label_smoothing` is nonzero, smooth the labels towards 1/2:
+    new_multiclass_labels = multiclass_labels * (1 - label_smoothing)
+                            + 0.5 * label_smoothing
+
 ##### Args:
 
 
@@ -195,6 +229,12 @@ Creates a cross-entropy loss using tf.nn.sigmoid_cross_entropy_with_logits.
 
   A scalar `Tensor` representing the loss value.
 
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If the shape of `predictions` doesn't match that of `targets` or
+    if the shape of `weight` is invalid or if `weight` is None.
+
 
 - - -
 
@@ -202,7 +242,14 @@ Creates a cross-entropy loss using tf.nn.sigmoid_cross_entropy_with_logits.
 
 Creates a cross-entropy loss using tf.nn.softmax_cross_entropy_with_logits.
 
-It can scale the loss by weight factor, and smooth the labels.
+`weight` acts as a coefficient for the loss. If a scalar is provided,
+then the loss is simply scaled by the given value. If `weight` is a
+tensor of size [`batch_size`], then the loss weights apply to each
+corresponding sample.
+
+If `label_smoothing` is nonzero, smooth the labels towards 1/num_classes:
+    new_onehot_labels = onehot_labels * (1 - label_smoothing)
+                        + label_smoothing / num_classes
 
 ##### Args:
 
@@ -217,6 +264,12 @@ It can scale the loss by weight factor, and smooth the labels.
 ##### Returns:
 
   A scalar `Tensor` representing the loss value.
+
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If the shape of `predictions` doesn't match that of `targets` or
+    if the shape of `weight` is invalid or if `weight` is None.
 
 
 - - -

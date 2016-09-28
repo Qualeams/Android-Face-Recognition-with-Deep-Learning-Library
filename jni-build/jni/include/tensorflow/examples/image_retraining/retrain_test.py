@@ -18,12 +18,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os
 import tensorflow as tf
 
 from tensorflow.examples.image_retraining import retrain
 from tensorflow.python.framework import test_util
-from tensorflow.python.platform import googletest
 
 
 class ImageRetrainingTest(test_util.TensorFlowTestCase):
@@ -70,9 +68,9 @@ class ImageRetrainingTest(test_util.TensorFlowTestCase):
   def testAddFinalTrainingOps(self):
     with tf.Graph().as_default():
       with tf.Session() as sess:
-        bottleneck = tf.placeholder(tf.float32,
-                                    [1, retrain.BOTTLENECK_TENSOR_SIZE],
-                                    name=retrain.BOTTLENECK_TENSOR_NAME)
+        bottleneck = tf.placeholder(
+            tf.float32, [1, retrain.BOTTLENECK_TENSOR_SIZE],
+            name=retrain.BOTTLENECK_TENSOR_NAME.split(':')[0])
         retrain.add_final_training_ops(5, 'final', bottleneck)
         self.assertIsNotNone(sess.graph.get_tensor_by_name('final:0'))
 

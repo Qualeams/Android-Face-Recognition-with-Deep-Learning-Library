@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ limitations under the License.
 #include <vector>
 #include "tensorflow/core/framework/numeric_op.h"
 #include "tensorflow/core/framework/op_kernel.h"
+#include "tensorflow/core/framework/register_types.h"
 #include "tensorflow/core/framework/tensor.h"
 #include "tensorflow/core/framework/type_index.h"
 #include "tensorflow/core/lib/core/errors.h"
@@ -92,15 +93,22 @@ class TileOp : public OpKernel {
   HANDLE_DIM(T, 4)     \
   HANDLE_DIM(T, 5)
 
-    HANDLE_TYPE(DT_BOOL);
-    HANDLE_TYPE(DT_FLOAT);
-    HANDLE_TYPE(DT_DOUBLE);
-    HANDLE_TYPE(DT_UINT8);
-    HANDLE_TYPE(DT_INT32);
-    HANDLE_TYPE(DT_INT16);
-    HANDLE_TYPE(DT_INT64);
-    HANDLE_TYPE(DT_STRING);  // when DEVICE=CPUDevice.
+#define HANDLE_TYPE_NAME(T) HANDLE_TYPE(DataTypeToEnum<T>::value)
 
+    // Invoke macro using TF_CALL_* so type-filtering for platform applies.
+    TF_CALL_bool(HANDLE_TYPE_NAME);
+    TF_CALL_float(HANDLE_TYPE_NAME);
+    TF_CALL_double(HANDLE_TYPE_NAME);
+    TF_CALL_uint8(HANDLE_TYPE_NAME);
+    TF_CALL_int32(HANDLE_TYPE_NAME);
+    TF_CALL_int16(HANDLE_TYPE_NAME);
+    TF_CALL_int64(HANDLE_TYPE_NAME);
+    TF_CALL_half(HANDLE_TYPE_NAME);
+    TF_CALL_string(HANDLE_TYPE_NAME);  // when DEVICE=CPUDevice.
+    TF_CALL_complex64(HANDLE_TYPE_NAME);
+    TF_CALL_complex128(HANDLE_TYPE_NAME);
+
+#undef HANDLE_TYPE_NAME
 #undef HANDLE_TYPE
 #undef HANDLE_DIM
 
@@ -162,14 +170,20 @@ inline void TileOp<Device>::HandleCase(
   HANDLE_CASE(device, dtype, 4);       \
   HANDLE_CASE(device, dtype, 5);
 
-HANDLE_CASE_DIM(CPUDevice, DT_BOOL);
-HANDLE_CASE_DIM(CPUDevice, DT_FLOAT);
-HANDLE_CASE_DIM(CPUDevice, DT_DOUBLE);
-HANDLE_CASE_DIM(CPUDevice, DT_UINT8);
-HANDLE_CASE_DIM(CPUDevice, DT_INT32);
-HANDLE_CASE_DIM(CPUDevice, DT_INT16);
-HANDLE_CASE_DIM(CPUDevice, DT_INT64);
-HANDLE_CASE_DIM(CPUDevice, DT_STRING);
+#define HANDLE_TYPE_NAME_CPU(T) \
+  HANDLE_CASE_DIM(CPUDevice, DataTypeToEnum<T>::value);
+
+TF_CALL_bool(HANDLE_TYPE_NAME_CPU);
+TF_CALL_float(HANDLE_TYPE_NAME_CPU);
+TF_CALL_double(HANDLE_TYPE_NAME_CPU);
+TF_CALL_uint8(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int32(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int16(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int64(HANDLE_TYPE_NAME_CPU);
+TF_CALL_half(HANDLE_TYPE_NAME_CPU);
+TF_CALL_complex64(HANDLE_TYPE_NAME_CPU);
+TF_CALL_complex128(HANDLE_TYPE_NAME_CPU);
+TF_CALL_string(HANDLE_TYPE_NAME_CPU);
 
 #if GOOGLE_CUDA
 HANDLE_CASE_DIM(GPUDevice, DT_FLOAT);
@@ -177,8 +191,10 @@ HANDLE_CASE_DIM(GPUDevice, DT_DOUBLE);
 HANDLE_CASE_DIM(GPUDevice, DT_INT16);
 HANDLE_CASE_DIM(GPUDevice, DT_INT32);
 HANDLE_CASE_DIM(GPUDevice, DT_INT64);
+HANDLE_CASE_DIM(GPUDevice, DT_HALF);
 #endif  // GOOGLE_CUDA
 
+#undef HANDLE_TYPE_NAME_CPU
 #undef HANDLE_CASE_DIM
 #undef HANDLE_CASE
 
@@ -242,12 +258,16 @@ class TileGradientOp : public OpKernel {
   HANDLE_DIM(T, 4)     \
   HANDLE_DIM(T, 5)
 
-    HANDLE_TYPE(DT_FLOAT);
-    HANDLE_TYPE(DT_DOUBLE);
-    HANDLE_TYPE(DT_INT32);
-    HANDLE_TYPE(DT_INT16);
-    HANDLE_TYPE(DT_INT64);
+#define HANDLE_TYPE_NAME(T) HANDLE_TYPE(DataTypeToEnum<T>::value)
 
+    TF_CALL_float(HANDLE_TYPE_NAME);
+    TF_CALL_double(HANDLE_TYPE_NAME);
+    TF_CALL_int32(HANDLE_TYPE_NAME);
+    TF_CALL_int16(HANDLE_TYPE_NAME);
+    TF_CALL_int64(HANDLE_TYPE_NAME);
+    TF_CALL_half(HANDLE_TYPE_NAME);
+
+#undef HANDLE_TYPE_NAME
 #undef HANDLE_TYPE
 #undef HANDLE_DIM
 
@@ -382,11 +402,17 @@ inline void TileGradientOp<Device>::HandleCase(
   HANDLE_CASE(device, dtype, 4);       \
   HANDLE_CASE(device, dtype, 5);
 
-HANDLE_CASE_DIM(CPUDevice, DT_FLOAT);
-HANDLE_CASE_DIM(CPUDevice, DT_DOUBLE);
-HANDLE_CASE_DIM(CPUDevice, DT_INT16);
-HANDLE_CASE_DIM(CPUDevice, DT_INT32);
-HANDLE_CASE_DIM(CPUDevice, DT_INT64);
+#define HANDLE_TYPE_NAME_CPU(T) \
+  HANDLE_CASE_DIM(CPUDevice, DataTypeToEnum<T>::value);
+
+TF_CALL_float(HANDLE_TYPE_NAME_CPU);
+TF_CALL_double(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int16(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int32(HANDLE_TYPE_NAME_CPU);
+TF_CALL_int64(HANDLE_TYPE_NAME_CPU);
+TF_CALL_half(HANDLE_TYPE_NAME_CPU);
+TF_CALL_complex64(HANDLE_TYPE_NAME_CPU);
+TF_CALL_complex128(HANDLE_TYPE_NAME_CPU);
 
 #if GOOGLE_CUDA
 HANDLE_CASE_DIM(GPUDevice, DT_FLOAT);
@@ -394,8 +420,11 @@ HANDLE_CASE_DIM(GPUDevice, DT_DOUBLE);
 HANDLE_CASE_DIM(GPUDevice, DT_INT16);
 HANDLE_CASE_DIM(GPUDevice, DT_INT32);
 HANDLE_CASE_DIM(GPUDevice, DT_INT64);
+HANDLE_CASE_DIM(GPUDevice, DT_HALF);
+
 #endif  // GOOGLE_CUDA
 
+#undef HANDLE_TYPE_NAME_CPU
 #undef HANDLE_CASE_DIM
 #undef HANDLE_CASE
 
@@ -442,6 +471,7 @@ DEFINE_GPU_TYPE(double);
 DEFINE_GPU_TYPE(int64);
 DEFINE_GPU_TYPE(int32);
 DEFINE_GPU_TYPE(int16);
+DEFINE_GPU_TYPE(Eigen::half);
 }  // end namespace functor
 
 #undef DEFINE_GPU_DIM
@@ -459,6 +489,11 @@ REGISTER_KERNEL_BUILDER(Name("Tile")
                         TileOp<GPUDevice>);
 REGISTER_KERNEL_BUILDER(Name("Tile")
                             .Device(DEVICE_GPU)
+                            .TypeConstraint<Eigen::half>("T")
+                            .HostMemory("multiples"),
+                        TileOp<GPUDevice>);
+REGISTER_KERNEL_BUILDER(Name("Tile")
+                            .Device(DEVICE_GPU)
                             .TypeConstraint<int16>("T")
                             .HostMemory("multiples"),
                         TileOp<GPUDevice>);
@@ -471,6 +506,11 @@ REGISTER_KERNEL_BUILDER(Name("TileGrad")
 REGISTER_KERNEL_BUILDER(Name("TileGrad")
                             .Device(DEVICE_GPU)
                             .TypeConstraint<double>("T")
+                            .HostMemory("multiples"),
+                        TileGradientOp<GPUDevice>);
+REGISTER_KERNEL_BUILDER(Name("TileGrad")
+                            .Device(DEVICE_GPU)
+                            .TypeConstraint<Eigen::half>("T")
                             .HostMemory("multiples"),
                         TileGradientOp<GPUDevice>);
 REGISTER_KERNEL_BUILDER(Name("TileGrad")

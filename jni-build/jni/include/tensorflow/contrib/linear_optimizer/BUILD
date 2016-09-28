@@ -47,6 +47,7 @@ py_library(
     srcs = [
         "__init__.py",
         "python/ops/sdca_ops.py",
+        "python/sdca_optimizer.py",
     ],
     data = [":python/ops/_sdca_ops.so"],
     srcs_version = "PY2AND3",
@@ -58,7 +59,7 @@ py_library(
 
 py_test(
     name = "sdca_ops_test",
-    size = "small",
+    size = "medium",
     srcs = ["python/kernel_tests/sdca_ops_test.py"],
     srcs_version = "PY2AND3",
     deps = [

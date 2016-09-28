@@ -1,4 +1,4 @@
-# Description: Tensorflow Serving session bundle.
+# Description: TensorFlow Serving session bundle.
 
 package(
     default_visibility = ["//visibility:public"],
@@ -23,13 +23,18 @@ filegroup(
     ),
 )
 
-load("//tensorflow/core:platform/default/build_config.bzl", "tf_proto_library")
+py_library(
+    name = "constants",
+    srcs = ["constants.py"],
+    srcs_version = "PY2AND3",
+)
 
 py_library(
     name = "exporter",
     srcs = ["exporter.py"],
     srcs_version = "PY2AND3",
     deps = [
+        ":constants",
         ":gc",
         ":manifest_proto_py",
         "//tensorflow/python:framework",
@@ -45,6 +50,7 @@ py_test(
     srcs_version = "PY2AND3",
     visibility = ["//visibility:private"],
     deps = [
+        ":constants",
         ":exporter",
         ":gc",
         ":manifest_proto_py",
@@ -74,6 +80,22 @@ py_test(
     ],
 )
 
+filegroup(
+    name = "session_bundle_srcs",
+    srcs = [
+        "session_bundle.cc",
+        "session_bundle.h",
+    ],
+)
+
+filegroup(
+    name = "signature_srcs",
+    srcs = [
+        "signature.cc",
+        "signature.h",
+    ],
+)
+
 cc_library(
     name = "session_bundle",
     srcs = ["session_bundle.cc"],
@@ -86,6 +108,24 @@ cc_library(
         "//tensorflow/core:lib",
         "//tensorflow/core:protos_all_cc",
         "//tensorflow/core:tensorflow_opensource",
+    ],
+)
+
+# This is a lite version of the session_bundle target that does not link in any
+# Tensorflow ops in order to minimize its size. Clients using this should link
+# any required ops manually.
+cc_library(
+    name = "session_bundle_lite",
+    srcs = ["session_bundle.cc"],
+    hdrs = ["session_bundle.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":manifest_proto_cc",
+        ":signature_lite",
+        "//tensorflow/core:core_cpu",
+        "//tensorflow/core:framework",
+        "//tensorflow/core:lib",
+        "//tensorflow/core:protos_all_cc",
     ],
 )
 
@@ -111,6 +151,39 @@ cc_test(
     ],
 )
 
+py_library(
+    name = "session_bundle_py",
+    srcs = ["session_bundle.py"],
+    srcs_version = "PY2AND3",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":constants",
+        ":manifest_proto_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/core:protos_all_py",
+    ],
+)
+
+py_test(
+    name = "session_bundle_py_test",
+    size = "small",
+    srcs = [
+        "session_bundle_test.py",
+    ],
+    data = [
+        "//tensorflow/contrib/session_bundle/example:half_plus_two",
+    ],
+    main = "session_bundle_test.py",
+    srcs_version = "PY2AND3",
+    deps = [
+        ":constants",
+        ":manifest_proto_py",
+        ":session_bundle_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/core:protos_all_py",
+    ],
+)
+
 cc_library(
     name = "signature",
     srcs = ["signature.cc"],
@@ -121,6 +194,22 @@ cc_library(
         "//tensorflow/core:framework",
         "//tensorflow/core:lib",
         "//tensorflow/core:tensorflow_opensource",
+    ],
+)
+
+# This is a lite version of the signature target that does not link in any
+# Tensorflow ops in order to minimize its size. Clients using this should
+# link any required ops manually.
+cc_library(
+    name = "signature_lite",
+    srcs = ["signature.cc"],
+    hdrs = ["signature.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":manifest_proto_cc",
+        "//tensorflow/core:core_cpu",
+        "//tensorflow/core:framework",
+        "//tensorflow/core:lib",
     ],
 )
 
@@ -156,6 +245,8 @@ cc_library(
         "//tensorflow/core:test",
     ],
 )
+
+load("//tensorflow/core:platform/default/build_config.bzl", "tf_proto_library")
 
 tf_proto_library(
     name = "manifest_proto",

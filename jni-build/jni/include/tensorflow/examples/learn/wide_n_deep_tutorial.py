@@ -1,4 +1,3 @@
-# pylint: disable=g-bad-file-header
 # Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +59,7 @@ def maybe_download():
     urllib.urlretrieve("https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data", train_file.name)  # pylint: disable=line-too-long
     train_file_name = train_file.name
     train_file.close()
-    print("Training data is downlaoded to %s" % train_file_name)
+    print("Training data is downloaded to %s" % train_file_name)
 
   if FLAGS.test_data:
     test_file_name = FLAGS.test_data
@@ -69,7 +68,7 @@ def maybe_download():
     urllib.urlretrieve("https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test", test_file.name)  # pylint: disable=line-too-long
     test_file_name = test_file.name
     test_file.close()
-    print("Test data is downlaoded to %s" % test_file_name)
+    print("Test data is downloaded to %s" % test_file_name)
 
   return train_file_name, test_file_name
 
@@ -169,7 +168,8 @@ def input_fn(df):
       shape=[df[k].size, 1])
                       for k in CATEGORICAL_COLUMNS}
   # Merges the two dictionaries into one.
-  feature_cols = dict(continuous_cols.items() + categorical_cols.items())
+  feature_cols = dict(continuous_cols)
+  feature_cols.update(categorical_cols)
   # Converts the label column into a constant Tensor.
   label = tf.constant(df[LABEL_COLUMN].values)
   # Returns the feature columns and the label.

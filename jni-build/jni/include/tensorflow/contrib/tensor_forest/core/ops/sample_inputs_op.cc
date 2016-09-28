@@ -21,12 +21,17 @@
 #include "tensorflow/contrib/tensor_forest/core/ops/tree_utils.h"
 #include "tensorflow/core/framework/op.h"
 #include "tensorflow/core/framework/op_kernel.h"
+#include "tensorflow/core/framework/shape_inference.h"
 #include "tensorflow/core/kernels/bounds_check.h"
 #include "tensorflow/core/lib/random/philox_random.h"
 #include "tensorflow/core/lib/random/simple_philox.h"
 #include "tensorflow/core/platform/logging.h"
 
 namespace tensorflow {
+
+using shape_inference::Dimension;
+using shape_inference::InferenceContext;
+using shape_inference::Shape;
 
 using tensorforest::CheckTensorBounds;
 using tensorforest::IsAllInitialized;
@@ -35,6 +40,9 @@ REGISTER_OP("SampleInputs")
     .Attr("split_initializations_per_input: int")
     .Attr("split_sampling_random_seed: int")
     .Input("input_data: float")
+    .Input("sparse_input_indices: int64")
+    .Input("sparse_input_values: float")
+    .Input("sparse_input_shape: int64")
     .Input("node_to_accumulator: int32")
     .Input("leaves: int32")
     .Input("candidate_split_features: int32")
@@ -42,6 +50,16 @@ REGISTER_OP("SampleInputs")
     .Output("accumulators_to_update: int32")
     .Output("new_split_feature_rows: int32")
     .Output("new_split_threshold_rows: float")
+    .SetShapeFn([](InferenceContext* c) {
+      const Shape* candidate_split_features;
+      TF_RETURN_IF_ERROR(
+          c->WithRank(c->input(6), 2, &candidate_split_features));
+      const Dimension* split_dim = c->Dim(candidate_split_features, 1);
+      c->set_output(0, c->Vector(InferenceContext::kUnknownDim));
+      c->set_output(1, c->Matrix(InferenceContext::kUnknownDim, split_dim));
+      c->set_output(2, c->Matrix(InferenceContext::kUnknownDim, split_dim));
+      return Status::OK();
+    })
     .Doc(R"doc(
 Initializes candidate splits for newly fertile nodes.
 
@@ -60,6 +78,9 @@ a single training example can initialize, and the attribute
 
 input_data: The features for the current batch of training data.
   `input_data[i][j]` is the j-th feature of the i-th input.
+sparse_input_indices: The indices tensor from the SparseTensor input.
+sparse_input_values: The values tensor from the SparseTensor input.
+sparse_input_shape: The shape tensor from the SparseTensor input.
 node_to_accumulator: For a fertile node i, node_to_accumulator[i] is the
   associated accumulator slot.  For non-fertile nodes, it is -1.
 leaves: `leaves[i]` is the leaf that the i-th input landed in, as
@@ -82,6 +103,7 @@ new_split_threshold_rows:  The new values for the candidate_split_thresholds
   `tf.scatter_update(candidate_split_thresholds,
                      accumulators_to_update,
                      new_split_feature_thresholds)`
+
 )doc");
 
 class SampleInputs : public OpKernel {
@@ -106,16 +128,82 @@ class SampleInputs : public OpKernel {
         new random::SimplePhilox(single_rand_.get()));
   }
 
+  // Returns true if index and val were successfully set.
+  template <typename T>
+  bool GetRandomFeatureDense(const T& inputs, int32 num_features,
+                             int32 input_index, int32* index, float* val) {
+    *index = rng_->Uniform(num_features);
+    *val = inputs(input_index, *index);
+    return true;
+  }
+
+  // Returns true if index and val were successfully set.
+  template <typename T1, typename T2>
+  bool GetRandomFeatureSparse(const T1& sparse_indices, const T2& sparse_values,
+                              int32 input_index, int32* index, float* val) {
+    int32 low = 0;
+    int32 high = sparse_values.dimension(0);
+    while (low < high) {
+      int32 vi = low + rng_->Uniform(high - low);
+      int64 i = internal::SubtleMustCopy(sparse_indices(vi, 0));
+      if (i == input_index) {
+        *index =
+            static_cast<int32>(internal::SubtleMustCopy(sparse_indices(vi, 1)));
+        *val = sparse_values(vi);
+        return true;
+      }
+      if (i < input_index) {
+        low = vi + 1;
+      } else {
+        high = vi;
+      }
+    }
+
+    // If we get here, an example was empty.  That's unfortunate, but we try
+    // to continue anyway by trying to look at another example.
+    LOG(WARNING) << "Could not find any values for input " << input_index
+                 << " inside sparse_input_indices";
+    return false;
+  }
+
   void Compute(OpKernelContext* context) override {
     const Tensor& input_data = context->input(0);
-    const Tensor& node_to_accumulator = context->input(1);
-    const Tensor& leaves = context->input(2);
-    const Tensor& split_features = context->input(3);
-    const Tensor& split_thresholds = context->input(4);
+    const Tensor& sparse_input_indices = context->input(1);
+    const Tensor& sparse_input_values = context->input(2);
+    const Tensor& sparse_input_shape = context->input(3);
+    const Tensor& node_to_accumulator = context->input(4);
+    const Tensor& leaves = context->input(5);
+    const Tensor& split_features = context->input(6);
+    const Tensor& split_thresholds = context->input(7);
 
-    OP_REQUIRES(context, input_data.shape().dims() == 2,
-                errors::InvalidArgument(
-                    "input_data should be two-dimensional"));
+    bool sparse_input = (sparse_input_indices.shape().dims() == 2);
+
+    if (sparse_input) {
+      OP_REQUIRES(context, sparse_input_shape.shape().dims() == 1,
+                  errors::InvalidArgument(
+                      "sparse_input_shape should be one-dimensional"));
+      OP_REQUIRES(context,
+                  sparse_input_shape.shape().dim_size(0) == 2,
+                  errors::InvalidArgument(
+                      "The sparse input data should be two-dimensional"));
+      OP_REQUIRES(context, sparse_input_values.shape().dims() == 1,
+                  errors::InvalidArgument(
+                      "sparse_input_values should be one-dimensional"));
+      OP_REQUIRES(context, sparse_input_indices.shape().dims() == 2,
+                  errors::InvalidArgument(
+                      "The sparse input data should be two-dimensional"));
+      OP_REQUIRES(context,
+                  sparse_input_indices.shape().dim_size(0) ==
+                  sparse_input_values.shape().dim_size(0),
+                  errors::InvalidArgument(
+                      "sparse_input_indices and sparse_input_values should "
+                      "agree on the number of non-zero values"));
+    } else {
+      OP_REQUIRES(context, input_data.shape().dims() == 2,
+                  errors::InvalidArgument(
+                  "input_data should be two-dimensional"));
+    }
+
     OP_REQUIRES(context, node_to_accumulator.shape().dims() == 1,
                 errors::InvalidArgument(
                     "node_to_accumulator should be one-dimensional"));
@@ -137,12 +225,37 @@ class SampleInputs : public OpKernel {
 
     // Check tensor bounds.
     if (!CheckTensorBounds(context, input_data)) return;
+    if (!CheckTensorBounds(context, sparse_input_indices)) return;
+    if (!CheckTensorBounds(context, sparse_input_values)) return;
+    if (!CheckTensorBounds(context, sparse_input_shape)) return;
     if (!CheckTensorBounds(context, node_to_accumulator)) return;
     if (!CheckTensorBounds(context, leaves)) return;
     if (!CheckTensorBounds(context, split_features)) return;
     if (!CheckTensorBounds(context, split_thresholds)) return;
 
-    const auto inputs = input_data.tensor<float, 2>();
+    int32 num_features;
+    std::function<bool(int32, int32*, float*)> get_random_feature;
+    // TODO(thomaswc): Figure out a way to avoid calling .vec, etc. over and
+    // over again
+    if (sparse_input) {
+      num_features = sparse_input_shape.unaligned_flat<int64>()(1);
+      get_random_feature = [&sparse_input_indices, &sparse_input_values, this](
+          int32 input_index, int32* index, float* val) -> bool {
+        const auto sparse_indices = sparse_input_indices.matrix<int64>();
+        const auto sparse_values = sparse_input_values.vec<float>();
+        return GetRandomFeatureSparse(sparse_indices, sparse_values,
+                                      input_index, index, val);
+      };
+    } else {
+      num_features = static_cast<int32>(input_data.shape().dim_size(1));
+      get_random_feature = [&input_data, num_features, this](
+          int32 input_index, int32* index, float* val) -> bool {
+        const auto inputs = input_data.tensor<float, 2>();
+        return GetRandomFeatureDense(inputs, num_features, input_index, index,
+                                     val);
+      };
+    }
+
     const auto leaves_vec = leaves.unaligned_flat<int32>();
     const auto node_map = node_to_accumulator.unaligned_flat<int32>();
     const auto features = split_features.tensor<int32, 2>();
@@ -151,8 +264,6 @@ class SampleInputs : public OpKernel {
     const int32 num_data = static_cast<int32>(leaves.shape().dim_size(0));
     const int32 num_splits = static_cast<int32>(
         split_features.shape().dim_size(1));
-    const int32 num_features = static_cast<int32>(
-        input_data.shape().dim_size(1));
     const int32 num_accumulators = static_cast<int32>(
         split_features.shape().dim_size(0));
 
@@ -234,11 +345,16 @@ class SampleInputs : public OpKernel {
         for (int split = 0; split < num_splits && num_inits > 0; split++) {
           if (new_split_feature_rows_flat(output_slot, split) < 0) {
             VLOG(1) << "Over-writing @ " << output_slot << "," << split;
-            const int32 index = rng_->Uniform(num_features);
-            new_split_feature_rows_flat(output_slot, split) = index;
-            new_split_threshold_rows_flat(output_slot, split) =
-                inputs(i, index);
-            --num_inits;
+            int32 index;
+            float val;
+            const bool success = get_random_feature(i, &index, &val);
+            if (success) {
+              new_split_feature_rows_flat(output_slot, split) = index;
+              new_split_threshold_rows_flat(output_slot, split) = val;
+              --num_inits;
+            } else {
+              break;
+            }
           }
         }
       }

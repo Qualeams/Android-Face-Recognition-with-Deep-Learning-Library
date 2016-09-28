@@ -53,9 +53,14 @@ class TensorShapeProto_Dim : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const TensorShapeProto_Dim& default_instance();
 
+  void UnsafeArenaSwap(TensorShapeProto_Dim* other);
   void Swap(TensorShapeProto_Dim* other);
 
   // implements Message ----------------------------------------------
@@ -82,6 +87,11 @@ class TensorShapeProto_Dim : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(TensorShapeProto_Dim* other);
+  protected:
+  explicit TensorShapeProto_Dim(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -113,11 +123,17 @@ class TensorShapeProto_Dim : public ::google::protobuf::Message {
   ::std::string* mutable_name();
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
+  ::std::string* unsafe_arena_release_name();
+  void unsafe_arena_set_allocated_name(
+      ::std::string* name);
 
   // @@protoc_insertion_point(class_scope:tensorflow.TensorShapeProto.Dim)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::int64 size_;
   ::google::protobuf::internal::ArenaStringPtr name_;
@@ -143,9 +159,14 @@ class TensorShapeProto : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const TensorShapeProto& default_instance();
 
+  void UnsafeArenaSwap(TensorShapeProto* other);
   void Swap(TensorShapeProto* other);
 
   // implements Message ----------------------------------------------
@@ -172,6 +193,11 @@ class TensorShapeProto : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(TensorShapeProto* other);
+  protected:
+  explicit TensorShapeProto(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -211,6 +237,9 @@ class TensorShapeProto : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::TensorShapeProto_Dim > dim_;
   bool unknown_rank_;
@@ -246,36 +275,46 @@ inline void TensorShapeProto_Dim::set_size(::google::protobuf::int64 value) {
 
 // optional string name = 2;
 inline void TensorShapeProto_Dim::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& TensorShapeProto_Dim::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorShapeProto.Dim.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TensorShapeProto_Dim::set_name(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.TensorShapeProto.Dim.name)
 }
 inline void TensorShapeProto_Dim::set_name(const char* value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.TensorShapeProto.Dim.name)
 }
-inline void TensorShapeProto_Dim::set_name(const char* value, size_t size) {
+inline void TensorShapeProto_Dim::set_name(const char* value,
+    size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.TensorShapeProto.Dim.name)
 }
 inline ::std::string* TensorShapeProto_Dim::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorShapeProto.Dim.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* TensorShapeProto_Dim::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorShapeProto.Dim.name)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* TensorShapeProto_Dim::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorShapeProto.Dim.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void TensorShapeProto_Dim::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -283,8 +322,21 @@ inline void TensorShapeProto_Dim::set_allocated_name(::std::string* name) {
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TensorShapeProto.Dim.name)
+}
+inline void TensorShapeProto_Dim::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorShapeProto.Dim.name)
 }
 
 // -------------------------------------------------------------------

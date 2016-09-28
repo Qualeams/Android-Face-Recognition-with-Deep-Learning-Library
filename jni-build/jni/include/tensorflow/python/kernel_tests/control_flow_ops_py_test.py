@@ -31,6 +31,7 @@ from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import gen_array_ops
 from tensorflow.python.ops import gen_data_flow_ops
 from tensorflow.python.ops import logging_ops
+from tensorflow.python.ops import state_ops
 from tensorflow.python.util import nest
 
 def check_op_order(graph):
@@ -402,6 +403,33 @@ class ControlFlowTest(tf.test.TestCase):
       r = tf.cond(pred, fn1, fn2)
       self.assertAllEqual([11, 12], sess.run(r))
 
+  def testCondRef(self):
+    with self.test_session():
+      x = state_ops.variable_op([1], tf.float32)
+      true_fn = lambda: x
+      false_fn = lambda: tf.constant([2.0])
+      r = tf.cond(tf.constant(False), true_fn, false_fn)
+      self.assertAllEqual([2.0], r.eval())
+
+  def testUninitializedRefIdentity(self):
+    with self.test_session() as sess:
+      v = state_ops.variable_op([1], tf.float32)
+      inited = state_ops.is_variable_initialized(v)
+      v_f, v_t = control_flow_ops.ref_switch(v, inited)
+      # Both v_f and v_t are uninitialized references. However, an actual use
+      # of the reference in the 'true' branch in the 'tf.identity' op will
+      # not 'fire' when v is uninitialized, so this is a valid construction.
+      # This test tests that _ref_identity allows uninitialized ref as input
+      # so that this construction is allowed.
+      v_f_op = gen_array_ops._ref_identity(v_f)
+      v_t_op = gen_array_ops._ref_identity(v_t)
+      with tf.control_dependencies([v_f_op]):
+        assign_v = tf.assign(v, [1.0])
+      with tf.control_dependencies([v_t_op]):
+        orig_v = tf.identity(v)
+      merged_op = control_flow_ops.merge([assign_v, orig_v])
+      self.assertAllEqual([1.0], sess.run(merged_op.output))
+
   def testCondGrad_1(self):
     with self.test_session():
       x = tf.constant(10.0, name="x")
@@ -606,6 +634,22 @@ class ControlFlowTest(tf.test.TestCase):
       r = r[1] * tf.ones([8, 8])
       self.assertAllEqual(np.ones((8, 8)), r.eval())
 
+  def testWhileWithNonTensorInput_Scalar(self):
+    with self.test_session():
+      n = 0
+      c = lambda x: x < 10000
+      b = lambda x: x + 1
+      r = tf.while_loop(c, b, [n], parallel_iterations=20)
+      self.assertEqual(10000, r.eval())
+
+  def testWhileWithNonTensorInput_Vector(self):
+    with self.test_session():
+      n = np.array([0])  # Note, [0] would not work here; that is a list
+      c = lambda x: x[0] < 10000
+      b = lambda x: tf.pack([x[0] + 1])
+      r = tf.while_loop(c, b, [n], parallel_iterations=20)
+      self.assertEqual([10000], r.eval())
+
   def testWhileShapeInference(self):
     with self.test_session():
       i = tf.constant(0)
@@ -672,10 +716,20 @@ class ControlFlowTest(tf.test.TestCase):
   def testWhileWithControl_3(self):
     with self.test_session() as sess:
       b = tf.placeholder(tf.bool)
-      c = tf.constant(0)
+      c = tf.constant(1)
+      x0 = tf.constant(0)
       with tf.control_dependencies([b]):
-        c = tf.while_loop(lambda x: x < 10, lambda x: x + 1, [c])
-      self.assertEqual(10, sess.run(c, {b: True}))
+        r = tf.while_loop(lambda x: x < 10, lambda x: x + c, [x0])
+      self.assertEqual(10, sess.run(r, {b: True}))
+
+  def testWhileWithControl_4(self):
+    with self.test_session() as sess:
+      b = tf.placeholder(tf.bool)
+      c = tf.constant(1)
+      x0 = tf.constant(0)
+      with tf.control_dependencies([b]):
+        r = tf.while_loop(lambda x: x < 10, lambda x: x + tf.identity(c), [x0])
+      self.assertEqual(10, sess.run(r, {b: True}))
 
   def testCondWhile_1(self):
     with self.test_session():
@@ -926,6 +980,35 @@ class ControlFlowTest(tf.test.TestCase):
       _, rx = tf.while_loop(c1, b1, [r, x], parallel_iterations=1)
       self.assertEqual(45, rx.eval())
 
+  def _testWhileGrad_ColocateGradients(self, colocate):
+    with self.test_session(graph=tf.Graph()) as sess:
+      v = tf.constant(2.0, name="v")
+      c = lambda v: tf.less(v, 100.0)
+      def b(x):
+        with tf.device("/gpu:0"):
+          return tf.square(x)
+      loop = tf.while_loop(c, b, [v], parallel_iterations=1)
+      r = tf.gradients(loop, v, colocate_gradients_with_ops=colocate)[0]
+    r_ops = r.graph.get_operations()
+    r_devices = [(op.name, op.device.lower()) for op in r_ops]
+
+    self.assertTrue(any("Square" in op.name for op in r_ops))
+
+    for (name, dev) in r_devices:
+      if not colocate and name.endswith("Square"):
+        # Only forward graph contain gpu in Square device
+        self.assertTrue("gpu:0" in dev)
+      elif colocate and "Square" in name:
+        # Forward and backward graphs contain gpu in Square/Square_grad devices
+        self.assertTrue("gpu:0" in dev)
+      else:
+        self.assertFalse("gpu:0" in dev)
+    self.assertAllClose(1024.0, sess.run(r))
+
+  def testWhileGrad_ColocateGradients(self):
+    self._testWhileGrad_ColocateGradients(colocate=False)
+    self._testWhileGrad_ColocateGradients(colocate=True)
+
   def testWhileGrad_Square(self):
     with self.test_session():
       v = tf.constant(2.0, name="v")
@@ -1163,6 +1246,27 @@ class ControlFlowTest(tf.test.TestCase):
       r = tf.gradients([rx], x)
       self.assertAllClose(64.0, r[0].eval())
 
+  def testWhileGrad_OneOutputWithControlDependencyOnSecond(self):
+    with self.test_session():
+      i = tf.constant(0, name="i")
+      x = tf.constant(1.0, name="x")
+      y = tf.constant(1.0, name="y")
+      c = lambda i, *_: tf.less(i, 1, name="cond_less")
+      def b(i, xi, yi):
+        # return (i + 1, xi, xi + yi)
+        return (tf.add(i, 1, name="inc"),
+                tf.identity(xi, name="xi"),
+                tf.add(xi, yi, name="xi_plus_yi"))
+
+      _, x_f, y_f = tf.while_loop(c, b, [i, x, y])
+      with tf.control_dependencies([x_f]):
+        y_f_d = tf.identity(y_f, name="y_f_d")
+
+      self.assertAllClose(2.0, y_f_d.eval())  # y_f_d = 1.0 + 1.0
+      g = tf.gradients([y_f_d], [x])[0]
+      self.assertTrue(g is not None)
+      self.assertAllClose(1.0, g.eval())  # y_f_d = x + 1.0, dy_f_d/dx = 1.0
+
   def _testNestedWhileGrad_Simple(self, use_gpu):
     with self.test_session(use_gpu=use_gpu):
       v = tf.constant(1.0)
@@ -1354,9 +1458,9 @@ class ControlFlowTest(tf.test.TestCase):
 
   def testWhileGradGrad(self):
     theta = tf.Variable(initial_value=1.)
-    def fn(x, prev):
+    def fn(prev, x):
       return prev + x * theta
-    result = tf.scan(fn, [1., 2., 3.])
+    result = tf.scan(fn, np.array([1., 2., 3.], dtype=np.float32))
     grad_theta = tf.gradients(result, theta)
     with self.assertRaisesRegexp(TypeError, "Second-order gradient"):
       tf.gradients(grad_theta, theta)

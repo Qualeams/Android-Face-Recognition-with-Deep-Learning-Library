@@ -213,6 +213,32 @@ py_test(
     ],
 )
 
+py_test(
+    name = "embedding_ops_test",
+    size = "small",
+    srcs = ["python/layers/embedding_ops_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":layers_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+        "//tensorflow/python:platform_test",
+    ],
+)
+
+py_test(
+    name = "utils_test",
+    size = "small",
+    srcs = ["python/layers/utils_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":layers_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+        "//tensorflow/python:platform_test",
+    ],
+)
+
 filegroup(
     name = "all_files",
     srcs = glob(

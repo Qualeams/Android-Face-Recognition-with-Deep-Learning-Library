@@ -28,6 +28,7 @@ const ::google::protobuf::Descriptor* MetaGraphDef_MetaInfoDef_descriptor_ = NUL
 const ::google::protobuf::internal::GeneratedMessageReflection*
   MetaGraphDef_MetaInfoDef_reflection_ = NULL;
 const ::google::protobuf::Descriptor* MetaGraphDef_CollectionDefEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* MetaGraphDef_SignatureDefEntry_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* CollectionDef_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CollectionDef_reflection_ = NULL;
@@ -53,6 +54,14 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* CollectionDef_AnyList_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CollectionDef_AnyList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* TensorInfo_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  TensorInfo_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SignatureDef_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SignatureDef_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SignatureDef_InputsEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* SignatureDef_OutputsEntry_descriptor_ = NULL;
 
 }  // namespace
 
@@ -64,11 +73,12 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
       "tensorflow/core/protobuf/meta_graph.proto");
   GOOGLE_CHECK(file != NULL);
   MetaGraphDef_descriptor_ = file->message_type(0);
-  static const int MetaGraphDef_offsets_[4] = {
+  static const int MetaGraphDef_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, meta_info_def_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, graph_def_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, saver_def_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, collection_def_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, signature_def_),
   };
   MetaGraphDef_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -82,10 +92,11 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef, _is_default_instance_));
   MetaGraphDef_MetaInfoDef_descriptor_ = MetaGraphDef_descriptor_->nested_type(0);
-  static const int MetaGraphDef_MetaInfoDef_offsets_[3] = {
+  static const int MetaGraphDef_MetaInfoDef_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, meta_graph_version_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, stripped_op_list_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, any_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, tags_),
   };
   MetaGraphDef_MetaInfoDef_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -99,6 +110,7 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetaGraphDef_MetaInfoDef, _is_default_instance_));
   MetaGraphDef_CollectionDefEntry_descriptor_ = MetaGraphDef_descriptor_->nested_type(1);
+  MetaGraphDef_SignatureDefEntry_descriptor_ = MetaGraphDef_descriptor_->nested_type(2);
   CollectionDef_descriptor_ = file->message_type(1);
   static const int CollectionDef_offsets_[6] = {
     PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(CollectionDef_default_oneof_instance_, node_list_),
@@ -196,6 +208,42 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
       sizeof(CollectionDef_AnyList),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectionDef_AnyList, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectionDef_AnyList, _is_default_instance_));
+  TensorInfo_descriptor_ = file->message_type(2);
+  static const int TensorInfo_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorInfo, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorInfo, dtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorInfo, tensor_shape_),
+  };
+  TensorInfo_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      TensorInfo_descriptor_,
+      TensorInfo::default_instance_,
+      TensorInfo_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(TensorInfo),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorInfo, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorInfo, _is_default_instance_));
+  SignatureDef_descriptor_ = file->message_type(3);
+  static const int SignatureDef_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignatureDef, inputs_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignatureDef, outputs_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignatureDef, method_name_),
+  };
+  SignatureDef_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      SignatureDef_descriptor_,
+      SignatureDef::default_instance_,
+      SignatureDef_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(SignatureDef),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignatureDef, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignatureDef, _is_default_instance_));
+  SignatureDef_InputsEntry_descriptor_ = SignatureDef_descriptor_->nested_type(0);
+  SignatureDef_OutputsEntry_descriptor_ = SignatureDef_descriptor_->nested_type(1);
 }
 
 namespace {
@@ -222,6 +270,15 @@ void protobuf_RegisterTypes(const ::std::string&) {
             0>::CreateDefaultInstance(
                 MetaGraphDef_CollectionDefEntry_descriptor_));
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        MetaGraphDef_SignatureDefEntry_descriptor_,
+        ::google::protobuf::internal::MapEntry<
+            ::std::string,
+            ::tensorflow::SignatureDef,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+            0>::CreateDefaultInstance(
+                MetaGraphDef_SignatureDefEntry_descriptor_));
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       CollectionDef_descriptor_, &CollectionDef::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       CollectionDef_NodeList_descriptor_, &CollectionDef_NodeList::default_instance());
@@ -233,6 +290,28 @@ void protobuf_RegisterTypes(const ::std::string&) {
       CollectionDef_FloatList_descriptor_, &CollectionDef_FloatList::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       CollectionDef_AnyList_descriptor_, &CollectionDef_AnyList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      TensorInfo_descriptor_, &TensorInfo::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      SignatureDef_descriptor_, &SignatureDef::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        SignatureDef_InputsEntry_descriptor_,
+        ::google::protobuf::internal::MapEntry<
+            ::std::string,
+            ::tensorflow::TensorInfo,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+            0>::CreateDefaultInstance(
+                SignatureDef_InputsEntry_descriptor_));
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        SignatureDef_OutputsEntry_descriptor_,
+        ::google::protobuf::internal::MapEntry<
+            ::std::string,
+            ::tensorflow::TensorInfo,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+            0>::CreateDefaultInstance(
+                SignatureDef_OutputsEntry_descriptor_));
 }
 
 }  // namespace
@@ -255,6 +334,10 @@ void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto()
   delete CollectionDef_FloatList_reflection_;
   delete CollectionDef_AnyList::default_instance_;
   delete CollectionDef_AnyList_reflection_;
+  delete TensorInfo::default_instance_;
+  delete TensorInfo_reflection_;
+  delete SignatureDef::default_instance_;
+  delete SignatureDef_reflection_;
 }
 
 void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
@@ -266,38 +349,56 @@ void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto();
   ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fop_5fdef_2eproto();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto();
   ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n)tensorflow/core/protobuf/meta_graph.pr"
     "oto\022\ntensorflow\032\031google/protobuf/any.pro"
     "to\032%tensorflow/core/framework/graph.prot"
     "o\032&tensorflow/core/framework/op_def.prot"
-    "o\032$tensorflow/core/protobuf/saver.proto\""
-    "\264\003\n\014MetaGraphDef\022;\n\rmeta_info_def\030\001 \001(\0132"
-    "$.tensorflow.MetaGraphDef.MetaInfoDef\022\'\n"
-    "\tgraph_def\030\002 \001(\0132\024.tensorflow.GraphDef\022\'"
-    "\n\tsaver_def\030\003 \001(\0132\024.tensorflow.SaverDef\022"
-    "C\n\016collection_def\030\004 \003(\0132+.tensorflow.Met"
-    "aGraphDef.CollectionDefEntry\032\177\n\013MetaInfo"
-    "Def\022\032\n\022meta_graph_version\030\001 \001(\t\022,\n\020strip"
-    "ped_op_list\030\002 \001(\0132\022.tensorflow.OpList\022&\n"
-    "\010any_info\030\003 \001(\0132\024.google.protobuf.Any\032O\n"
-    "\022CollectionDefEntry\022\013\n\003key\030\001 \001(\t\022(\n\005valu"
-    "e\030\002 \001(\0132\031.tensorflow.CollectionDef:\0028\001\"\337"
-    "\003\n\rCollectionDef\0227\n\tnode_list\030\001 \001(\0132\".te"
-    "nsorflow.CollectionDef.NodeListH\000\0229\n\nbyt"
-    "es_list\030\002 \001(\0132#.tensorflow.CollectionDef"
-    ".BytesListH\000\0229\n\nint64_list\030\003 \001(\0132#.tenso"
-    "rflow.CollectionDef.Int64ListH\000\0229\n\nfloat"
-    "_list\030\004 \001(\0132#.tensorflow.CollectionDef.F"
-    "loatListH\000\0225\n\010any_list\030\005 \001(\0132!.tensorflo"
-    "w.CollectionDef.AnyListH\000\032\031\n\010NodeList\022\r\n"
-    "\005value\030\001 \003(\t\032\032\n\tBytesList\022\r\n\005value\030\001 \003(\014"
-    "\032\036\n\tInt64List\022\021\n\005value\030\001 \003(\003B\002\020\001\032\036\n\tFloa"
-    "tList\022\021\n\005value\030\001 \003(\002B\002\020\001\032.\n\007AnyList\022#\n\005v"
-    "alue\030\001 \003(\0132\024.google.protobuf.AnyB\006\n\004kind"
-    "B-\n\030org.tensorflow.frameworkB\017MetaGraphP"
-    "rotosP\001b\006proto3", 1175);
+    "o\032,tensorflow/core/framework/tensor_shap"
+    "e.proto\032%tensorflow/core/framework/types"
+    ".proto\032$tensorflow/core/protobuf/saver.p"
+    "roto\"\325\004\n\014MetaGraphDef\022;\n\rmeta_info_def\030\001"
+    " \001(\0132$.tensorflow.MetaGraphDef.MetaInfoD"
+    "ef\022\'\n\tgraph_def\030\002 \001(\0132\024.tensorflow.Graph"
+    "Def\022\'\n\tsaver_def\030\003 \001(\0132\024.tensorflow.Save"
+    "rDef\022C\n\016collection_def\030\004 \003(\0132+.tensorflo"
+    "w.MetaGraphDef.CollectionDefEntry\022A\n\rsig"
+    "nature_def\030\005 \003(\0132*.tensorflow.MetaGraphD"
+    "ef.SignatureDefEntry\032\215\001\n\013MetaInfoDef\022\032\n\022"
+    "meta_graph_version\030\001 \001(\t\022,\n\020stripped_op_"
+    "list\030\002 \001(\0132\022.tensorflow.OpList\022&\n\010any_in"
+    "fo\030\003 \001(\0132\024.google.protobuf.Any\022\014\n\004tags\030\004"
+    " \003(\t\032O\n\022CollectionDefEntry\022\013\n\003key\030\001 \001(\t\022"
+    "(\n\005value\030\002 \001(\0132\031.tensorflow.CollectionDe"
+    "f:\0028\001\032M\n\021SignatureDefEntry\022\013\n\003key\030\001 \001(\t\022"
+    "\'\n\005value\030\002 \001(\0132\030.tensorflow.SignatureDef"
+    ":\0028\001\"\337\003\n\rCollectionDef\0227\n\tnode_list\030\001 \001("
+    "\0132\".tensorflow.CollectionDef.NodeListH\000\022"
+    "9\n\nbytes_list\030\002 \001(\0132#.tensorflow.Collect"
+    "ionDef.BytesListH\000\0229\n\nint64_list\030\003 \001(\0132#"
+    ".tensorflow.CollectionDef.Int64ListH\000\0229\n"
+    "\nfloat_list\030\004 \001(\0132#.tensorflow.Collectio"
+    "nDef.FloatListH\000\0225\n\010any_list\030\005 \001(\0132!.ten"
+    "sorflow.CollectionDef.AnyListH\000\032\031\n\010NodeL"
+    "ist\022\r\n\005value\030\001 \003(\t\032\032\n\tBytesList\022\r\n\005value"
+    "\030\001 \003(\014\032\036\n\tInt64List\022\021\n\005value\030\001 \003(\003B\002\020\001\032\036"
+    "\n\tFloatList\022\021\n\005value\030\001 \003(\002B\002\020\001\032.\n\007AnyLis"
+    "t\022#\n\005value\030\001 \003(\0132\024.google.protobuf.AnyB\006"
+    "\n\004kind\"s\n\nTensorInfo\022\014\n\004name\030\001 \001(\t\022#\n\005dt"
+    "ype\030\002 \001(\0162\024.tensorflow.DataType\0222\n\014tenso"
+    "r_shape\030\003 \001(\0132\034.tensorflow.TensorShapePr"
+    "oto\"\240\002\n\014SignatureDef\0224\n\006inputs\030\001 \003(\0132$.t"
+    "ensorflow.SignatureDef.InputsEntry\0226\n\007ou"
+    "tputs\030\002 \003(\0132%.tensorflow.SignatureDef.Ou"
+    "tputsEntry\022\023\n\013method_name\030\003 \001(\t\032E\n\013Input"
+    "sEntry\022\013\n\003key\030\001 \001(\t\022%\n\005value\030\002 \001(\0132\026.ten"
+    "sorflow.TensorInfo:\0028\001\032F\n\014OutputsEntry\022\013"
+    "\n\003key\030\001 \001(\t\022%\n\005value\030\002 \001(\0132\026.tensorflow."
+    "TensorInfo:\0028\001B0\n\030org.tensorflow.framewo"
+    "rkB\017MetaGraphProtosP\001\370\001\001b\006proto3", 1832);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/protobuf/meta_graph.proto", &protobuf_RegisterTypes);
   MetaGraphDef::default_instance_ = new MetaGraphDef();
@@ -309,6 +410,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
   CollectionDef_Int64List::default_instance_ = new CollectionDef_Int64List();
   CollectionDef_FloatList::default_instance_ = new CollectionDef_FloatList();
   CollectionDef_AnyList::default_instance_ = new CollectionDef_AnyList();
+  TensorInfo::default_instance_ = new TensorInfo();
+  SignatureDef::default_instance_ = new SignatureDef();
   MetaGraphDef::default_instance_->InitAsDefaultInstance();
   MetaGraphDef_MetaInfoDef::default_instance_->InitAsDefaultInstance();
   CollectionDef::default_instance_->InitAsDefaultInstance();
@@ -317,6 +420,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto() {
   CollectionDef_Int64List::default_instance_->InitAsDefaultInstance();
   CollectionDef_FloatList::default_instance_->InitAsDefaultInstance();
   CollectionDef_AnyList::default_instance_->InitAsDefaultInstance();
+  TensorInfo::default_instance_->InitAsDefaultInstance();
+  SignatureDef::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto);
 }
 
@@ -339,16 +444,108 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+void MetaGraphDef_MetaInfoDef::_slow_mutable_stripped_op_list() {
+  stripped_op_list_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::OpList >(
+      GetArenaNoVirtual());
+}
+::tensorflow::OpList* MetaGraphDef_MetaInfoDef::_slow_release_stripped_op_list() {
+  if (stripped_op_list_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::OpList* temp = new ::tensorflow::OpList;
+    temp->MergeFrom(*stripped_op_list_);
+    stripped_op_list_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::OpList* MetaGraphDef_MetaInfoDef::unsafe_arena_release_stripped_op_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.MetaInfoDef.stripped_op_list)
+  
+  ::tensorflow::OpList* temp = stripped_op_list_;
+  stripped_op_list_ = NULL;
+  return temp;
+}
+void MetaGraphDef_MetaInfoDef::_slow_set_allocated_stripped_op_list(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::OpList** stripped_op_list) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*stripped_op_list) == NULL) {
+      message_arena->Own(*stripped_op_list);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*stripped_op_list)) {
+      ::tensorflow::OpList* new_stripped_op_list = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::OpList >(
+            message_arena);
+      new_stripped_op_list->CopyFrom(**stripped_op_list);
+      *stripped_op_list = new_stripped_op_list;
+    }
+}
+void MetaGraphDef_MetaInfoDef::unsafe_arena_set_allocated_stripped_op_list(
+    ::tensorflow::OpList* stripped_op_list) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete stripped_op_list_;
+  }
+  stripped_op_list_ = stripped_op_list;
+  if (stripped_op_list) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.MetaInfoDef.stripped_op_list)
+}
+void MetaGraphDef_MetaInfoDef::_slow_mutable_any_info() {
+  any_info_ = ::google::protobuf::Arena::Create< ::google::protobuf::Any >(
+      GetArenaNoVirtual());
+}
+::google::protobuf::Any* MetaGraphDef_MetaInfoDef::_slow_release_any_info() {
+  if (any_info_ == NULL) {
+    return NULL;
+  } else {
+    ::google::protobuf::Any* temp = new ::google::protobuf::Any;
+    temp->MergeFrom(*any_info_);
+    any_info_ = NULL;
+    return temp;
+  }
+}
+::google::protobuf::Any* MetaGraphDef_MetaInfoDef::unsafe_arena_release_any_info() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.MetaInfoDef.any_info)
+  
+  ::google::protobuf::Any* temp = any_info_;
+  any_info_ = NULL;
+  return temp;
+}
+void MetaGraphDef_MetaInfoDef::unsafe_arena_set_allocated_any_info(
+    ::google::protobuf::Any* any_info) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete any_info_;
+  }
+  any_info_ = any_info;
+  if (any_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.MetaInfoDef.any_info)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MetaGraphDef_MetaInfoDef::kMetaGraphVersionFieldNumber;
 const int MetaGraphDef_MetaInfoDef::kStrippedOpListFieldNumber;
 const int MetaGraphDef_MetaInfoDef::kAnyInfoFieldNumber;
+const int MetaGraphDef_MetaInfoDef::kTagsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MetaGraphDef_MetaInfoDef::MetaGraphDef_MetaInfoDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.MetaGraphDef.MetaInfoDef)
+}
+
+MetaGraphDef_MetaInfoDef::MetaGraphDef_MetaInfoDef(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  tags_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.MetaGraphDef.MetaInfoDef)
 }
 
 void MetaGraphDef_MetaInfoDef::InitAsDefaultInstance() {
@@ -380,13 +577,23 @@ MetaGraphDef_MetaInfoDef::~MetaGraphDef_MetaInfoDef() {
 }
 
 void MetaGraphDef_MetaInfoDef::SharedDtor() {
-  meta_graph_version_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  meta_graph_version_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
     delete stripped_op_list_;
     delete any_info_;
   }
 }
 
+void MetaGraphDef_MetaInfoDef::ArenaDtor(void* object) {
+  MetaGraphDef_MetaInfoDef* _this = reinterpret_cast< MetaGraphDef_MetaInfoDef* >(object);
+  (void)_this;
+}
+void MetaGraphDef_MetaInfoDef::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void MetaGraphDef_MetaInfoDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -405,24 +612,22 @@ const MetaGraphDef_MetaInfoDef& MetaGraphDef_MetaInfoDef::default_instance() {
 MetaGraphDef_MetaInfoDef* MetaGraphDef_MetaInfoDef::default_instance_ = NULL;
 
 MetaGraphDef_MetaInfoDef* MetaGraphDef_MetaInfoDef::New(::google::protobuf::Arena* arena) const {
-  MetaGraphDef_MetaInfoDef* n = new MetaGraphDef_MetaInfoDef;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<MetaGraphDef_MetaInfoDef>(arena);
 }
 
 void MetaGraphDef_MetaInfoDef::Clear() {
-  meta_graph_version_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// @@protoc_insertion_point(message_clear_start:tensorflow.MetaGraphDef.MetaInfoDef)
+  meta_graph_version_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (GetArenaNoVirtual() == NULL && stripped_op_list_ != NULL) delete stripped_op_list_;
   stripped_op_list_ = NULL;
   if (GetArenaNoVirtual() == NULL && any_info_ != NULL) delete any_info_;
   any_info_ = NULL;
+  tags_.Clear();
 }
 
 bool MetaGraphDef_MetaInfoDef::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MetaGraphDef.MetaInfoDef)
   for (;;) {
@@ -468,6 +673,25 @@ bool MetaGraphDef_MetaInfoDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_tags;
+        break;
+      }
+
+      // repeated string tags = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_tags:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_tags()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->tags(this->tags_size() - 1).data(),
+            this->tags(this->tags_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.MetaGraphDef.MetaInfoDef.tags"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_tags;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -518,6 +742,16 @@ void MetaGraphDef_MetaInfoDef::SerializeWithCachedSizes(
       3, *this->any_info_, output);
   }
 
+  // repeated string tags = 4;
+  for (int i = 0; i < this->tags_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->tags(i).data(), this->tags(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.MetaGraphDef.MetaInfoDef.tags");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->tags(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.MetaGraphDef.MetaInfoDef)
 }
 
@@ -549,11 +783,22 @@ void MetaGraphDef_MetaInfoDef::SerializeWithCachedSizes(
         3, *this->any_info_, target);
   }
 
+  // repeated string tags = 4;
+  for (int i = 0; i < this->tags_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->tags(i).data(), this->tags(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.MetaGraphDef.MetaInfoDef.tags");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(4, this->tags(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.MetaGraphDef.MetaInfoDef)
   return target;
 }
 
 int MetaGraphDef_MetaInfoDef::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.MetaGraphDef.MetaInfoDef)
   int total_size = 0;
 
   // optional string meta_graph_version = 1;
@@ -577,6 +822,13 @@ int MetaGraphDef_MetaInfoDef::ByteSize() const {
         *this->any_info_);
   }
 
+  // repeated string tags = 4;
+  total_size += 1 * this->tags_size();
+  for (int i = 0; i < this->tags_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->tags(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -584,22 +836,26 @@ int MetaGraphDef_MetaInfoDef::ByteSize() const {
 }
 
 void MetaGraphDef_MetaInfoDef::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MetaGraphDef.MetaInfoDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MetaGraphDef_MetaInfoDef* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MetaGraphDef_MetaInfoDef>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.MetaGraphDef.MetaInfoDef)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MetaGraphDef.MetaInfoDef)
     MergeFrom(*source);
   }
 }
 
 void MetaGraphDef_MetaInfoDef::MergeFrom(const MetaGraphDef_MetaInfoDef& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MetaGraphDef.MetaInfoDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  tags_.MergeFrom(from.tags_);
   if (from.meta_graph_version().size() > 0) {
-
-    meta_graph_version_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.meta_graph_version_);
+    set_meta_graph_version(from.meta_graph_version());
   }
   if (from.has_stripped_op_list()) {
     mutable_stripped_op_list()->::tensorflow::OpList::MergeFrom(from.stripped_op_list());
@@ -610,12 +866,14 @@ void MetaGraphDef_MetaInfoDef::MergeFrom(const MetaGraphDef_MetaInfoDef& from) {
 }
 
 void MetaGraphDef_MetaInfoDef::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.MetaGraphDef.MetaInfoDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MetaGraphDef_MetaInfoDef::CopyFrom(const MetaGraphDef_MetaInfoDef& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MetaGraphDef.MetaInfoDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -628,12 +886,25 @@ bool MetaGraphDef_MetaInfoDef::IsInitialized() const {
 
 void MetaGraphDef_MetaInfoDef::Swap(MetaGraphDef_MetaInfoDef* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    MetaGraphDef_MetaInfoDef temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void MetaGraphDef_MetaInfoDef::UnsafeArenaSwap(MetaGraphDef_MetaInfoDef* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void MetaGraphDef_MetaInfoDef::InternalSwap(MetaGraphDef_MetaInfoDef* other) {
   meta_graph_version_.Swap(&other->meta_graph_version_);
   std::swap(stripped_op_list_, other->stripped_op_list_);
   std::swap(any_info_, other->any_info_);
+  tags_.UnsafeArenaSwap(&other->tags_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -649,17 +920,172 @@ void MetaGraphDef_MetaInfoDef::InternalSwap(MetaGraphDef_MetaInfoDef* other) {
 
 // -------------------------------------------------------------------
 
+void MetaGraphDef::_slow_mutable_meta_info_def() {
+  meta_info_def_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::MetaGraphDef_MetaInfoDef >(
+      GetArenaNoVirtual());
+}
+::tensorflow::MetaGraphDef_MetaInfoDef* MetaGraphDef::_slow_release_meta_info_def() {
+  if (meta_info_def_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::MetaGraphDef_MetaInfoDef* temp = new ::tensorflow::MetaGraphDef_MetaInfoDef;
+    temp->MergeFrom(*meta_info_def_);
+    meta_info_def_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::MetaGraphDef_MetaInfoDef* MetaGraphDef::unsafe_arena_release_meta_info_def() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.meta_info_def)
+  
+  ::tensorflow::MetaGraphDef_MetaInfoDef* temp = meta_info_def_;
+  meta_info_def_ = NULL;
+  return temp;
+}
+void MetaGraphDef::_slow_set_allocated_meta_info_def(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::MetaGraphDef_MetaInfoDef** meta_info_def) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*meta_info_def) == NULL) {
+      message_arena->Own(*meta_info_def);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*meta_info_def)) {
+      ::tensorflow::MetaGraphDef_MetaInfoDef* new_meta_info_def = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::MetaGraphDef_MetaInfoDef >(
+            message_arena);
+      new_meta_info_def->CopyFrom(**meta_info_def);
+      *meta_info_def = new_meta_info_def;
+    }
+}
+void MetaGraphDef::unsafe_arena_set_allocated_meta_info_def(
+    ::tensorflow::MetaGraphDef_MetaInfoDef* meta_info_def) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete meta_info_def_;
+  }
+  meta_info_def_ = meta_info_def;
+  if (meta_info_def) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.meta_info_def)
+}
+void MetaGraphDef::_slow_mutable_graph_def() {
+  graph_def_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::GraphDef >(
+      GetArenaNoVirtual());
+}
+::tensorflow::GraphDef* MetaGraphDef::_slow_release_graph_def() {
+  if (graph_def_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::GraphDef* temp = new ::tensorflow::GraphDef;
+    temp->MergeFrom(*graph_def_);
+    graph_def_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::GraphDef* MetaGraphDef::unsafe_arena_release_graph_def() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.graph_def)
+  
+  ::tensorflow::GraphDef* temp = graph_def_;
+  graph_def_ = NULL;
+  return temp;
+}
+void MetaGraphDef::_slow_set_allocated_graph_def(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::GraphDef** graph_def) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*graph_def) == NULL) {
+      message_arena->Own(*graph_def);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*graph_def)) {
+      ::tensorflow::GraphDef* new_graph_def = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::GraphDef >(
+            message_arena);
+      new_graph_def->CopyFrom(**graph_def);
+      *graph_def = new_graph_def;
+    }
+}
+void MetaGraphDef::unsafe_arena_set_allocated_graph_def(
+    ::tensorflow::GraphDef* graph_def) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete graph_def_;
+  }
+  graph_def_ = graph_def;
+  if (graph_def) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.graph_def)
+}
+void MetaGraphDef::_slow_mutable_saver_def() {
+  saver_def_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::SaverDef >(
+      GetArenaNoVirtual());
+}
+::tensorflow::SaverDef* MetaGraphDef::_slow_release_saver_def() {
+  if (saver_def_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::SaverDef* temp = new ::tensorflow::SaverDef;
+    temp->MergeFrom(*saver_def_);
+    saver_def_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::SaverDef* MetaGraphDef::unsafe_arena_release_saver_def() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.saver_def)
+  
+  ::tensorflow::SaverDef* temp = saver_def_;
+  saver_def_ = NULL;
+  return temp;
+}
+void MetaGraphDef::_slow_set_allocated_saver_def(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::SaverDef** saver_def) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*saver_def) == NULL) {
+      message_arena->Own(*saver_def);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*saver_def)) {
+      ::tensorflow::SaverDef* new_saver_def = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::SaverDef >(
+            message_arena);
+      new_saver_def->CopyFrom(**saver_def);
+      *saver_def = new_saver_def;
+    }
+}
+void MetaGraphDef::unsafe_arena_set_allocated_saver_def(
+    ::tensorflow::SaverDef* saver_def) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete saver_def_;
+  }
+  saver_def_ = saver_def;
+  if (saver_def) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.saver_def)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int MetaGraphDef::kMetaInfoDefFieldNumber;
 const int MetaGraphDef::kGraphDefFieldNumber;
 const int MetaGraphDef::kSaverDefFieldNumber;
 const int MetaGraphDef::kCollectionDefFieldNumber;
+const int MetaGraphDef::kSignatureDefFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MetaGraphDef::MetaGraphDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.MetaGraphDef)
+}
+
+MetaGraphDef::MetaGraphDef(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  collection_def_(arena),
+  signature_def_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.MetaGraphDef)
 }
 
 void MetaGraphDef::InitAsDefaultInstance() {
@@ -687,6 +1113,10 @@ void MetaGraphDef::SharedCtor() {
       protobuf_AssignDescriptorsOnce);
   collection_def_.SetEntryDescriptor(
       &::tensorflow::MetaGraphDef_CollectionDefEntry_descriptor_);
+  signature_def_.SetAssignDescriptorCallback(
+      protobuf_AssignDescriptorsOnce);
+  signature_def_.SetEntryDescriptor(
+      &::tensorflow::MetaGraphDef_SignatureDefEntry_descriptor_);
 }
 
 MetaGraphDef::~MetaGraphDef() {
@@ -695,6 +1125,10 @@ MetaGraphDef::~MetaGraphDef() {
 }
 
 void MetaGraphDef::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete meta_info_def_;
     delete graph_def_;
@@ -702,6 +1136,12 @@ void MetaGraphDef::SharedDtor() {
   }
 }
 
+void MetaGraphDef::ArenaDtor(void* object) {
+  MetaGraphDef* _this = reinterpret_cast< MetaGraphDef* >(object);
+  (void)_this;
+}
+void MetaGraphDef::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void MetaGraphDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -720,14 +1160,11 @@ const MetaGraphDef& MetaGraphDef::default_instance() {
 MetaGraphDef* MetaGraphDef::default_instance_ = NULL;
 
 MetaGraphDef* MetaGraphDef::New(::google::protobuf::Arena* arena) const {
-  MetaGraphDef* n = new MetaGraphDef;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<MetaGraphDef>(arena);
 }
 
 void MetaGraphDef::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.MetaGraphDef)
   if (GetArenaNoVirtual() == NULL && meta_info_def_ != NULL) delete meta_info_def_;
   meta_info_def_ = NULL;
   if (GetArenaNoVirtual() == NULL && graph_def_ != NULL) delete graph_def_;
@@ -735,11 +1172,12 @@ void MetaGraphDef::Clear() {
   if (GetArenaNoVirtual() == NULL && saver_def_ != NULL) delete saver_def_;
   saver_def_ = NULL;
   collection_def_.Clear();
+  signature_def_.Clear();
 }
 
 bool MetaGraphDef::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MetaGraphDef)
   for (;;) {
@@ -799,10 +1237,34 @@ bool MetaGraphDef::MergePartialFromCodedStream(
             entry->key().data(), entry->key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "tensorflow.MetaGraphDef.CollectionDefEntry.key"));
+          if (entry->GetArena() != NULL) entry.release();
         } else {
           goto handle_unusual;
         }
         if (input->ExpectTag(34)) goto parse_loop_collection_def;
+        if (input->ExpectTag(42)) goto parse_loop_signature_def;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // map<string, .tensorflow.SignatureDef> signature_def = 5;
+      case 5: {
+        if (tag == 42) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_signature_def:
+          ::google::protobuf::scoped_ptr<MetaGraphDef_SignatureDefEntry> entry(signature_def_.NewEntry());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, entry.get()));
+          (*mutable_signature_def())[entry->key()].Swap(entry->mutable_value());
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->key().data(), entry->key().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.MetaGraphDef.SignatureDefEntry.key"));
+          if (entry->GetArena() != NULL) entry.release();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_loop_signature_def;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -856,6 +1318,9 @@ void MetaGraphDef::SerializeWithCachedSizes(
     for (::google::protobuf::Map< ::std::string, ::tensorflow::CollectionDef >::const_iterator
         it = this->collection_def().begin();
         it != this->collection_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
       entry.reset(collection_def_.NewEntryWrapper(it->first, it->second));
       ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
           4, *entry, output);
@@ -863,6 +1328,31 @@ void MetaGraphDef::SerializeWithCachedSizes(
         it->first.data(), it->first.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
         "tensorflow.MetaGraphDef.CollectionDefEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.SignatureDef> signature_def = 5;
+  {
+    ::google::protobuf::scoped_ptr<MetaGraphDef_SignatureDefEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::SignatureDef >::const_iterator
+        it = this->signature_def().begin();
+        it != this->signature_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(signature_def_.NewEntryWrapper(it->first, it->second));
+      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+          5, *entry, output);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.MetaGraphDef.SignatureDefEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
     }
   }
 
@@ -899,6 +1389,9 @@ void MetaGraphDef::SerializeWithCachedSizes(
     for (::google::protobuf::Map< ::std::string, ::tensorflow::CollectionDef >::const_iterator
         it = this->collection_def().begin();
         it != this->collection_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
       entry.reset(collection_def_.NewEntryWrapper(it->first, it->second));
       target = ::google::protobuf::internal::WireFormatLite::
           WriteMessageNoVirtualToArray(
@@ -908,6 +1401,32 @@ void MetaGraphDef::SerializeWithCachedSizes(
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
         "tensorflow.MetaGraphDef.CollectionDefEntry.key");
     }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.SignatureDef> signature_def = 5;
+  {
+    ::google::protobuf::scoped_ptr<MetaGraphDef_SignatureDefEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::SignatureDef >::const_iterator
+        it = this->signature_def().begin();
+        it != this->signature_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(signature_def_.NewEntryWrapper(it->first, it->second));
+      target = ::google::protobuf::internal::WireFormatLite::
+          WriteMessageNoVirtualToArray(
+              5, *entry, target);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.MetaGraphDef.SignatureDefEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.MetaGraphDef)
@@ -915,6 +1434,7 @@ void MetaGraphDef::SerializeWithCachedSizes(
 }
 
 int MetaGraphDef::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.MetaGraphDef)
   int total_size = 0;
 
   // optional .tensorflow.MetaGraphDef.MetaInfoDef meta_info_def = 1;
@@ -945,9 +1465,34 @@ int MetaGraphDef::ByteSize() const {
     for (::google::protobuf::Map< ::std::string, ::tensorflow::CollectionDef >::const_iterator
         it = this->collection_def().begin();
         it != this->collection_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
       entry.reset(collection_def_.NewEntryWrapper(it->first, it->second));
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.SignatureDef> signature_def = 5;
+  total_size += 1 * this->signature_def_size();
+  {
+    ::google::protobuf::scoped_ptr<MetaGraphDef_SignatureDefEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::SignatureDef >::const_iterator
+        it = this->signature_def().begin();
+        it != this->signature_def().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(signature_def_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
     }
   }
 
@@ -958,20 +1503,25 @@ int MetaGraphDef::ByteSize() const {
 }
 
 void MetaGraphDef::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MetaGraphDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MetaGraphDef* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MetaGraphDef>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.MetaGraphDef)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MetaGraphDef)
     MergeFrom(*source);
   }
 }
 
 void MetaGraphDef::MergeFrom(const MetaGraphDef& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MetaGraphDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   collection_def_.MergeFrom(from.collection_def_);
+  signature_def_.MergeFrom(from.signature_def_);
   if (from.has_meta_info_def()) {
     mutable_meta_info_def()->::tensorflow::MetaGraphDef_MetaInfoDef::MergeFrom(from.meta_info_def());
   }
@@ -984,12 +1534,14 @@ void MetaGraphDef::MergeFrom(const MetaGraphDef& from) {
 }
 
 void MetaGraphDef::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.MetaGraphDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MetaGraphDef::CopyFrom(const MetaGraphDef& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MetaGraphDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1002,6 +1554,18 @@ bool MetaGraphDef::IsInitialized() const {
 
 void MetaGraphDef::Swap(MetaGraphDef* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    MetaGraphDef temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void MetaGraphDef::UnsafeArenaSwap(MetaGraphDef* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void MetaGraphDef::InternalSwap(MetaGraphDef* other) {
@@ -1009,6 +1573,7 @@ void MetaGraphDef::InternalSwap(MetaGraphDef* other) {
   std::swap(graph_def_, other->graph_def_);
   std::swap(saver_def_, other->saver_def_);
   collection_def_.Swap(&other->collection_def_);
+  signature_def_.Swap(&other->signature_def_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1026,36 +1591,46 @@ void MetaGraphDef::InternalSwap(MetaGraphDef* other) {
 
 // optional string meta_graph_version = 1;
 void MetaGraphDef_MetaInfoDef::clear_meta_graph_version() {
-  meta_graph_version_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  meta_graph_version_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& MetaGraphDef_MetaInfoDef::meta_graph_version() const {
   // @@protoc_insertion_point(field_get:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
-  return meta_graph_version_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return meta_graph_version_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void MetaGraphDef_MetaInfoDef::set_meta_graph_version(const ::std::string& value) {
   
-  meta_graph_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  meta_graph_version_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
 }
  void MetaGraphDef_MetaInfoDef::set_meta_graph_version(const char* value) {
   
-  meta_graph_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  meta_graph_version_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
 }
- void MetaGraphDef_MetaInfoDef::set_meta_graph_version(const char* value, size_t size) {
+ void MetaGraphDef_MetaInfoDef::set_meta_graph_version(const char* value,
+    size_t size) {
   
-  meta_graph_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  meta_graph_version_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
 }
  ::std::string* MetaGraphDef_MetaInfoDef::mutable_meta_graph_version() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
-  return meta_graph_version_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return meta_graph_version_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* MetaGraphDef_MetaInfoDef::release_meta_graph_version() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
   
-  return meta_graph_version_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return meta_graph_version_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* MetaGraphDef_MetaInfoDef::unsafe_arena_release_meta_graph_version() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return meta_graph_version_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
  void MetaGraphDef_MetaInfoDef::set_allocated_meta_graph_version(::std::string* meta_graph_version) {
   if (meta_graph_version != NULL) {
@@ -1063,8 +1638,21 @@ void MetaGraphDef_MetaInfoDef::clear_meta_graph_version() {
   } else {
     
   }
-  meta_graph_version_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), meta_graph_version);
+  meta_graph_version_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), meta_graph_version,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
+}
+ void MetaGraphDef_MetaInfoDef::unsafe_arena_set_allocated_meta_graph_version(
+    ::std::string* meta_graph_version) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (meta_graph_version != NULL) {
+    
+  } else {
+    
+  }
+  meta_graph_version_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      meta_graph_version, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MetaGraphDef.MetaInfoDef.meta_graph_version)
 }
 
 // optional .tensorflow.OpList stripped_op_list = 2;
@@ -1082,19 +1670,30 @@ const ::tensorflow::OpList& MetaGraphDef_MetaInfoDef::stripped_op_list() const {
 ::tensorflow::OpList* MetaGraphDef_MetaInfoDef::mutable_stripped_op_list() {
   
   if (stripped_op_list_ == NULL) {
-    stripped_op_list_ = new ::tensorflow::OpList;
+    _slow_mutable_stripped_op_list();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.MetaInfoDef.stripped_op_list)
   return stripped_op_list_;
 }
 ::tensorflow::OpList* MetaGraphDef_MetaInfoDef::release_stripped_op_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.MetaInfoDef.stripped_op_list)
   
-  ::tensorflow::OpList* temp = stripped_op_list_;
-  stripped_op_list_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_stripped_op_list();
+  } else {
+    ::tensorflow::OpList* temp = stripped_op_list_;
+    stripped_op_list_ = NULL;
+    return temp;
+  }
 }
-void MetaGraphDef_MetaInfoDef::set_allocated_stripped_op_list(::tensorflow::OpList* stripped_op_list) {
-  delete stripped_op_list_;
+ void MetaGraphDef_MetaInfoDef::set_allocated_stripped_op_list(::tensorflow::OpList* stripped_op_list) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete stripped_op_list_;
+  }
+  if (stripped_op_list != NULL) {
+    _slow_set_allocated_stripped_op_list(message_arena, &stripped_op_list);
+  }
   stripped_op_list_ = stripped_op_list;
   if (stripped_op_list) {
     
@@ -1119,19 +1718,32 @@ const ::google::protobuf::Any& MetaGraphDef_MetaInfoDef::any_info() const {
 ::google::protobuf::Any* MetaGraphDef_MetaInfoDef::mutable_any_info() {
   
   if (any_info_ == NULL) {
-    any_info_ = new ::google::protobuf::Any;
+    _slow_mutable_any_info();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.MetaInfoDef.any_info)
   return any_info_;
 }
 ::google::protobuf::Any* MetaGraphDef_MetaInfoDef::release_any_info() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.MetaInfoDef.any_info)
   
-  ::google::protobuf::Any* temp = any_info_;
-  any_info_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_any_info();
+  } else {
+    ::google::protobuf::Any* temp = any_info_;
+    any_info_ = NULL;
+    return temp;
+  }
 }
-void MetaGraphDef_MetaInfoDef::set_allocated_any_info(::google::protobuf::Any* any_info) {
-  delete any_info_;
+ void MetaGraphDef_MetaInfoDef::set_allocated_any_info(::google::protobuf::Any* any_info) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete any_info_;
+  }
+  if (any_info != NULL) {
+    if (message_arena != NULL) {
+      message_arena->Own(any_info);
+    }
+  }
   any_info_ = any_info;
   if (any_info) {
     
@@ -1139,6 +1751,61 @@ void MetaGraphDef_MetaInfoDef::set_allocated_any_info(::google::protobuf::Any* a
     
   }
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MetaGraphDef.MetaInfoDef.any_info)
+}
+
+// repeated string tags = 4;
+int MetaGraphDef_MetaInfoDef::tags_size() const {
+  return tags_.size();
+}
+void MetaGraphDef_MetaInfoDef::clear_tags() {
+  tags_.Clear();
+}
+ const ::std::string& MetaGraphDef_MetaInfoDef::tags(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  return tags_.Get(index);
+}
+ ::std::string* MetaGraphDef_MetaInfoDef::mutable_tags(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  return tags_.Mutable(index);
+}
+ void MetaGraphDef_MetaInfoDef::set_tags(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  tags_.Mutable(index)->assign(value);
+}
+ void MetaGraphDef_MetaInfoDef::set_tags(int index, const char* value) {
+  tags_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+}
+ void MetaGraphDef_MetaInfoDef::set_tags(int index, const char* value, size_t size) {
+  tags_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+}
+ ::std::string* MetaGraphDef_MetaInfoDef::add_tags() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  return tags_.Add();
+}
+ void MetaGraphDef_MetaInfoDef::add_tags(const ::std::string& value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+}
+ void MetaGraphDef_MetaInfoDef::add_tags(const char* value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+}
+ void MetaGraphDef_MetaInfoDef::add_tags(const char* value, size_t size) {
+  tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+MetaGraphDef_MetaInfoDef::tags() const {
+  // @@protoc_insertion_point(field_list:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  return tags_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+MetaGraphDef_MetaInfoDef::mutable_tags() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.MetaGraphDef.MetaInfoDef.tags)
+  return &tags_;
 }
 
 // -------------------------------------------------------------------
@@ -1160,19 +1827,30 @@ const ::tensorflow::MetaGraphDef_MetaInfoDef& MetaGraphDef::meta_info_def() cons
 ::tensorflow::MetaGraphDef_MetaInfoDef* MetaGraphDef::mutable_meta_info_def() {
   
   if (meta_info_def_ == NULL) {
-    meta_info_def_ = new ::tensorflow::MetaGraphDef_MetaInfoDef;
+    _slow_mutable_meta_info_def();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.meta_info_def)
   return meta_info_def_;
 }
 ::tensorflow::MetaGraphDef_MetaInfoDef* MetaGraphDef::release_meta_info_def() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.meta_info_def)
   
-  ::tensorflow::MetaGraphDef_MetaInfoDef* temp = meta_info_def_;
-  meta_info_def_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_meta_info_def();
+  } else {
+    ::tensorflow::MetaGraphDef_MetaInfoDef* temp = meta_info_def_;
+    meta_info_def_ = NULL;
+    return temp;
+  }
 }
-void MetaGraphDef::set_allocated_meta_info_def(::tensorflow::MetaGraphDef_MetaInfoDef* meta_info_def) {
-  delete meta_info_def_;
+ void MetaGraphDef::set_allocated_meta_info_def(::tensorflow::MetaGraphDef_MetaInfoDef* meta_info_def) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete meta_info_def_;
+  }
+  if (meta_info_def != NULL) {
+    _slow_set_allocated_meta_info_def(message_arena, &meta_info_def);
+  }
   meta_info_def_ = meta_info_def;
   if (meta_info_def) {
     
@@ -1197,19 +1875,30 @@ const ::tensorflow::GraphDef& MetaGraphDef::graph_def() const {
 ::tensorflow::GraphDef* MetaGraphDef::mutable_graph_def() {
   
   if (graph_def_ == NULL) {
-    graph_def_ = new ::tensorflow::GraphDef;
+    _slow_mutable_graph_def();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.graph_def)
   return graph_def_;
 }
 ::tensorflow::GraphDef* MetaGraphDef::release_graph_def() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.graph_def)
   
-  ::tensorflow::GraphDef* temp = graph_def_;
-  graph_def_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_graph_def();
+  } else {
+    ::tensorflow::GraphDef* temp = graph_def_;
+    graph_def_ = NULL;
+    return temp;
+  }
 }
-void MetaGraphDef::set_allocated_graph_def(::tensorflow::GraphDef* graph_def) {
-  delete graph_def_;
+ void MetaGraphDef::set_allocated_graph_def(::tensorflow::GraphDef* graph_def) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete graph_def_;
+  }
+  if (graph_def != NULL) {
+    _slow_set_allocated_graph_def(message_arena, &graph_def);
+  }
   graph_def_ = graph_def;
   if (graph_def) {
     
@@ -1234,19 +1923,30 @@ const ::tensorflow::SaverDef& MetaGraphDef::saver_def() const {
 ::tensorflow::SaverDef* MetaGraphDef::mutable_saver_def() {
   
   if (saver_def_ == NULL) {
-    saver_def_ = new ::tensorflow::SaverDef;
+    _slow_mutable_saver_def();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.MetaGraphDef.saver_def)
   return saver_def_;
 }
 ::tensorflow::SaverDef* MetaGraphDef::release_saver_def() {
+  // @@protoc_insertion_point(field_release:tensorflow.MetaGraphDef.saver_def)
   
-  ::tensorflow::SaverDef* temp = saver_def_;
-  saver_def_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_saver_def();
+  } else {
+    ::tensorflow::SaverDef* temp = saver_def_;
+    saver_def_ = NULL;
+    return temp;
+  }
 }
-void MetaGraphDef::set_allocated_saver_def(::tensorflow::SaverDef* saver_def) {
-  delete saver_def_;
+ void MetaGraphDef::set_allocated_saver_def(::tensorflow::SaverDef* saver_def) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete saver_def_;
+  }
+  if (saver_def != NULL) {
+    _slow_set_allocated_saver_def(message_arena, &saver_def);
+  }
   saver_def_ = saver_def;
   if (saver_def) {
     
@@ -1274,6 +1974,24 @@ MetaGraphDef::mutable_collection_def() {
   return collection_def_.MutableMap();
 }
 
+// map<string, .tensorflow.SignatureDef> signature_def = 5;
+int MetaGraphDef::signature_def_size() const {
+  return signature_def_.size();
+}
+void MetaGraphDef::clear_signature_def() {
+  signature_def_.Clear();
+}
+ const ::google::protobuf::Map< ::std::string, ::tensorflow::SignatureDef >&
+MetaGraphDef::signature_def() const {
+  // @@protoc_insertion_point(field_map:tensorflow.MetaGraphDef.signature_def)
+  return signature_def_.GetMap();
+}
+ ::google::protobuf::Map< ::std::string, ::tensorflow::SignatureDef >*
+MetaGraphDef::mutable_signature_def() {
+  // @@protoc_insertion_point(field_mutable_map:tensorflow.MetaGraphDef.signature_def)
+  return signature_def_.MutableMap();
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1286,6 +2004,15 @@ CollectionDef_NodeList::CollectionDef_NodeList()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef.NodeList)
+}
+
+CollectionDef_NodeList::CollectionDef_NodeList(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef.NodeList)
 }
 
 void CollectionDef_NodeList::InitAsDefaultInstance() {
@@ -1312,10 +2039,20 @@ CollectionDef_NodeList::~CollectionDef_NodeList() {
 }
 
 void CollectionDef_NodeList::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void CollectionDef_NodeList::ArenaDtor(void* object) {
+  CollectionDef_NodeList* _this = reinterpret_cast< CollectionDef_NodeList* >(object);
+  (void)_this;
+}
+void CollectionDef_NodeList::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef_NodeList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1334,20 +2071,17 @@ const CollectionDef_NodeList& CollectionDef_NodeList::default_instance() {
 CollectionDef_NodeList* CollectionDef_NodeList::default_instance_ = NULL;
 
 CollectionDef_NodeList* CollectionDef_NodeList::New(::google::protobuf::Arena* arena) const {
-  CollectionDef_NodeList* n = new CollectionDef_NodeList;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef_NodeList>(arena);
 }
 
 void CollectionDef_NodeList::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef.NodeList)
   value_.Clear();
 }
 
 bool CollectionDef_NodeList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef.NodeList)
   for (;;) {
@@ -1429,6 +2163,7 @@ void CollectionDef_NodeList::SerializeWithCachedSizes(
 }
 
 int CollectionDef_NodeList::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef.NodeList)
   int total_size = 0;
 
   // repeated string value = 1;
@@ -1445,29 +2180,35 @@ int CollectionDef_NodeList::ByteSize() const {
 }
 
 void CollectionDef_NodeList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef.NodeList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef_NodeList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef_NodeList>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef.NodeList)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef.NodeList)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef_NodeList::MergeFrom(const CollectionDef_NodeList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef.NodeList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   value_.MergeFrom(from.value_);
 }
 
 void CollectionDef_NodeList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef.NodeList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef_NodeList::CopyFrom(const CollectionDef_NodeList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef.NodeList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1480,6 +2221,18 @@ bool CollectionDef_NodeList::IsInitialized() const {
 
 void CollectionDef_NodeList::Swap(CollectionDef_NodeList* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef_NodeList temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef_NodeList::UnsafeArenaSwap(CollectionDef_NodeList* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef_NodeList::InternalSwap(CollectionDef_NodeList* other) {
@@ -1509,6 +2262,15 @@ CollectionDef_BytesList::CollectionDef_BytesList()
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef.BytesList)
 }
 
+CollectionDef_BytesList::CollectionDef_BytesList(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef.BytesList)
+}
+
 void CollectionDef_BytesList::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -1533,10 +2295,20 @@ CollectionDef_BytesList::~CollectionDef_BytesList() {
 }
 
 void CollectionDef_BytesList::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void CollectionDef_BytesList::ArenaDtor(void* object) {
+  CollectionDef_BytesList* _this = reinterpret_cast< CollectionDef_BytesList* >(object);
+  (void)_this;
+}
+void CollectionDef_BytesList::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef_BytesList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1555,20 +2327,17 @@ const CollectionDef_BytesList& CollectionDef_BytesList::default_instance() {
 CollectionDef_BytesList* CollectionDef_BytesList::default_instance_ = NULL;
 
 CollectionDef_BytesList* CollectionDef_BytesList::New(::google::protobuf::Arena* arena) const {
-  CollectionDef_BytesList* n = new CollectionDef_BytesList;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef_BytesList>(arena);
 }
 
 void CollectionDef_BytesList::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef.BytesList)
   value_.Clear();
 }
 
 bool CollectionDef_BytesList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef.BytesList)
   for (;;) {
@@ -1637,6 +2406,7 @@ void CollectionDef_BytesList::SerializeWithCachedSizes(
 }
 
 int CollectionDef_BytesList::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef.BytesList)
   int total_size = 0;
 
   // repeated bytes value = 1;
@@ -1653,29 +2423,35 @@ int CollectionDef_BytesList::ByteSize() const {
 }
 
 void CollectionDef_BytesList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef.BytesList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef_BytesList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef_BytesList>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef.BytesList)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef.BytesList)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef_BytesList::MergeFrom(const CollectionDef_BytesList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef.BytesList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   value_.MergeFrom(from.value_);
 }
 
 void CollectionDef_BytesList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef.BytesList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef_BytesList::CopyFrom(const CollectionDef_BytesList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef.BytesList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1688,6 +2464,18 @@ bool CollectionDef_BytesList::IsInitialized() const {
 
 void CollectionDef_BytesList::Swap(CollectionDef_BytesList* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef_BytesList temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef_BytesList::UnsafeArenaSwap(CollectionDef_BytesList* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef_BytesList::InternalSwap(CollectionDef_BytesList* other) {
@@ -1717,6 +2505,15 @@ CollectionDef_Int64List::CollectionDef_Int64List()
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef.Int64List)
 }
 
+CollectionDef_Int64List::CollectionDef_Int64List(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef.Int64List)
+}
+
 void CollectionDef_Int64List::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -1740,10 +2537,20 @@ CollectionDef_Int64List::~CollectionDef_Int64List() {
 }
 
 void CollectionDef_Int64List::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void CollectionDef_Int64List::ArenaDtor(void* object) {
+  CollectionDef_Int64List* _this = reinterpret_cast< CollectionDef_Int64List* >(object);
+  (void)_this;
+}
+void CollectionDef_Int64List::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef_Int64List::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1762,20 +2569,17 @@ const CollectionDef_Int64List& CollectionDef_Int64List::default_instance() {
 CollectionDef_Int64List* CollectionDef_Int64List::default_instance_ = NULL;
 
 CollectionDef_Int64List* CollectionDef_Int64List::New(::google::protobuf::Arena* arena) const {
-  CollectionDef_Int64List* n = new CollectionDef_Int64List;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef_Int64List>(arena);
 }
 
 void CollectionDef_Int64List::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef.Int64List)
   value_.Clear();
 }
 
 bool CollectionDef_Int64List::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef.Int64List)
   for (;;) {
@@ -1859,6 +2663,7 @@ void CollectionDef_Int64List::SerializeWithCachedSizes(
 }
 
 int CollectionDef_Int64List::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef.Int64List)
   int total_size = 0;
 
   // repeated int64 value = 1 [packed = true];
@@ -1885,29 +2690,35 @@ int CollectionDef_Int64List::ByteSize() const {
 }
 
 void CollectionDef_Int64List::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef.Int64List)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef_Int64List* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef_Int64List>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef.Int64List)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef.Int64List)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef_Int64List::MergeFrom(const CollectionDef_Int64List& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef.Int64List)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   value_.MergeFrom(from.value_);
 }
 
 void CollectionDef_Int64List::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef.Int64List)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef_Int64List::CopyFrom(const CollectionDef_Int64List& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef.Int64List)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1920,6 +2731,18 @@ bool CollectionDef_Int64List::IsInitialized() const {
 
 void CollectionDef_Int64List::Swap(CollectionDef_Int64List* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef_Int64List temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef_Int64List::UnsafeArenaSwap(CollectionDef_Int64List* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef_Int64List::InternalSwap(CollectionDef_Int64List* other) {
@@ -1949,6 +2772,15 @@ CollectionDef_FloatList::CollectionDef_FloatList()
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef.FloatList)
 }
 
+CollectionDef_FloatList::CollectionDef_FloatList(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef.FloatList)
+}
+
 void CollectionDef_FloatList::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -1972,10 +2804,20 @@ CollectionDef_FloatList::~CollectionDef_FloatList() {
 }
 
 void CollectionDef_FloatList::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void CollectionDef_FloatList::ArenaDtor(void* object) {
+  CollectionDef_FloatList* _this = reinterpret_cast< CollectionDef_FloatList* >(object);
+  (void)_this;
+}
+void CollectionDef_FloatList::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef_FloatList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1994,20 +2836,17 @@ const CollectionDef_FloatList& CollectionDef_FloatList::default_instance() {
 CollectionDef_FloatList* CollectionDef_FloatList::default_instance_ = NULL;
 
 CollectionDef_FloatList* CollectionDef_FloatList::New(::google::protobuf::Arena* arena) const {
-  CollectionDef_FloatList* n = new CollectionDef_FloatList;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef_FloatList>(arena);
 }
 
 void CollectionDef_FloatList::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef.FloatList)
   value_.Clear();
 }
 
 bool CollectionDef_FloatList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef.FloatList)
   for (;;) {
@@ -2091,6 +2930,7 @@ void CollectionDef_FloatList::SerializeWithCachedSizes(
 }
 
 int CollectionDef_FloatList::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef.FloatList)
   int total_size = 0;
 
   // repeated float value = 1 [packed = true];
@@ -2114,29 +2954,35 @@ int CollectionDef_FloatList::ByteSize() const {
 }
 
 void CollectionDef_FloatList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef.FloatList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef_FloatList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef_FloatList>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef.FloatList)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef.FloatList)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef_FloatList::MergeFrom(const CollectionDef_FloatList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef.FloatList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   value_.MergeFrom(from.value_);
 }
 
 void CollectionDef_FloatList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef.FloatList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef_FloatList::CopyFrom(const CollectionDef_FloatList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef.FloatList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2149,6 +2995,18 @@ bool CollectionDef_FloatList::IsInitialized() const {
 
 void CollectionDef_FloatList::Swap(CollectionDef_FloatList* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef_FloatList temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef_FloatList::UnsafeArenaSwap(CollectionDef_FloatList* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef_FloatList::InternalSwap(CollectionDef_FloatList* other) {
@@ -2178,6 +3036,15 @@ CollectionDef_AnyList::CollectionDef_AnyList()
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef.AnyList)
 }
 
+CollectionDef_AnyList::CollectionDef_AnyList(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef.AnyList)
+}
+
 void CollectionDef_AnyList::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -2201,10 +3068,20 @@ CollectionDef_AnyList::~CollectionDef_AnyList() {
 }
 
 void CollectionDef_AnyList::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void CollectionDef_AnyList::ArenaDtor(void* object) {
+  CollectionDef_AnyList* _this = reinterpret_cast< CollectionDef_AnyList* >(object);
+  (void)_this;
+}
+void CollectionDef_AnyList::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef_AnyList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -2223,20 +3100,17 @@ const CollectionDef_AnyList& CollectionDef_AnyList::default_instance() {
 CollectionDef_AnyList* CollectionDef_AnyList::default_instance_ = NULL;
 
 CollectionDef_AnyList* CollectionDef_AnyList::New(::google::protobuf::Arena* arena) const {
-  CollectionDef_AnyList* n = new CollectionDef_AnyList;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef_AnyList>(arena);
 }
 
 void CollectionDef_AnyList::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef.AnyList)
   value_.Clear();
 }
 
 bool CollectionDef_AnyList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef.AnyList)
   for (;;) {
@@ -2308,6 +3182,7 @@ void CollectionDef_AnyList::SerializeWithCachedSizes(
 }
 
 int CollectionDef_AnyList::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef.AnyList)
   int total_size = 0;
 
   // repeated .google.protobuf.Any value = 1;
@@ -2325,29 +3200,35 @@ int CollectionDef_AnyList::ByteSize() const {
 }
 
 void CollectionDef_AnyList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef.AnyList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef_AnyList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef_AnyList>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef.AnyList)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef.AnyList)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef_AnyList::MergeFrom(const CollectionDef_AnyList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef.AnyList)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   value_.MergeFrom(from.value_);
 }
 
 void CollectionDef_AnyList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef.AnyList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef_AnyList::CopyFrom(const CollectionDef_AnyList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef.AnyList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2360,6 +3241,18 @@ bool CollectionDef_AnyList::IsInitialized() const {
 
 void CollectionDef_AnyList::Swap(CollectionDef_AnyList* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef_AnyList temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef_AnyList::UnsafeArenaSwap(CollectionDef_AnyList* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef_AnyList::InternalSwap(CollectionDef_AnyList* other) {
@@ -2393,6 +3286,14 @@ CollectionDef::CollectionDef()
   // @@protoc_insertion_point(constructor:tensorflow.CollectionDef)
 }
 
+CollectionDef::CollectionDef(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.CollectionDef)
+}
+
 void CollectionDef::InitAsDefaultInstance() {
   _is_default_instance_ = true;
   CollectionDef_default_oneof_instance_->node_list_ = const_cast< ::tensorflow::CollectionDef_NodeList*>(&::tensorflow::CollectionDef_NodeList::default_instance());
@@ -2422,6 +3323,10 @@ CollectionDef::~CollectionDef() {
 }
 
 void CollectionDef::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (has_kind()) {
     clear_kind();
   }
@@ -2429,6 +3334,12 @@ void CollectionDef::SharedDtor() {
   }
 }
 
+void CollectionDef::ArenaDtor(void* object) {
+  CollectionDef* _this = reinterpret_cast< CollectionDef* >(object);
+  (void)_this;
+}
+void CollectionDef::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void CollectionDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -2447,33 +3358,40 @@ const CollectionDef& CollectionDef::default_instance() {
 CollectionDef* CollectionDef::default_instance_ = NULL;
 
 CollectionDef* CollectionDef::New(::google::protobuf::Arena* arena) const {
-  CollectionDef* n = new CollectionDef;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<CollectionDef>(arena);
 }
 
 void CollectionDef::clear_kind() {
+// @@protoc_insertion_point(one_of_clear_start:tensorflow.CollectionDef)
   switch(kind_case()) {
     case kNodeList: {
-      delete kind_.node_list_;
+      if (GetArenaNoVirtual() == NULL) {
+        delete kind_.node_list_;
+      }
       break;
     }
     case kBytesList: {
-      delete kind_.bytes_list_;
+      if (GetArenaNoVirtual() == NULL) {
+        delete kind_.bytes_list_;
+      }
       break;
     }
     case kInt64List: {
-      delete kind_.int64_list_;
+      if (GetArenaNoVirtual() == NULL) {
+        delete kind_.int64_list_;
+      }
       break;
     }
     case kFloatList: {
-      delete kind_.float_list_;
+      if (GetArenaNoVirtual() == NULL) {
+        delete kind_.float_list_;
+      }
       break;
     }
     case kAnyList: {
-      delete kind_.any_list_;
+      if (GetArenaNoVirtual() == NULL) {
+        delete kind_.any_list_;
+      }
       break;
     }
     case KIND_NOT_SET: {
@@ -2485,12 +3403,13 @@ void CollectionDef::clear_kind() {
 
 
 void CollectionDef::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.CollectionDef)
   clear_kind();
 }
 
 bool CollectionDef::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CollectionDef)
   for (;;) {
@@ -2662,6 +3581,7 @@ void CollectionDef::SerializeWithCachedSizes(
 }
 
 int CollectionDef::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.CollectionDef)
   int total_size = 0;
 
   switch (kind_case()) {
@@ -2711,18 +3631,22 @@ int CollectionDef::ByteSize() const {
 }
 
 void CollectionDef::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CollectionDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CollectionDef* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CollectionDef>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.CollectionDef)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CollectionDef)
     MergeFrom(*source);
   }
 }
 
 void CollectionDef::MergeFrom(const CollectionDef& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CollectionDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   switch (from.kind_case()) {
     case kNodeList: {
@@ -2752,12 +3676,14 @@ void CollectionDef::MergeFrom(const CollectionDef& from) {
 }
 
 void CollectionDef::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.CollectionDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CollectionDef::CopyFrom(const CollectionDef& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CollectionDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2770,6 +3696,18 @@ bool CollectionDef::IsInitialized() const {
 
 void CollectionDef::Swap(CollectionDef* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    CollectionDef temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void CollectionDef::UnsafeArenaSwap(CollectionDef* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void CollectionDef::InternalSwap(CollectionDef* other) {
@@ -2819,6 +3757,7 @@ void CollectionDef_NodeList::clear_value() {
   // @@protoc_insertion_point(field_set_pointer:tensorflow.CollectionDef.NodeList.value)
 }
  ::std::string* CollectionDef_NodeList::add_value() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.CollectionDef.NodeList.value)
   return value_.Add();
 }
  void CollectionDef_NodeList::add_value(const ::std::string& value) {
@@ -2877,6 +3816,7 @@ void CollectionDef_BytesList::clear_value() {
   // @@protoc_insertion_point(field_set_pointer:tensorflow.CollectionDef.BytesList.value)
 }
  ::std::string* CollectionDef_BytesList::add_value() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.CollectionDef.BytesList.value)
   return value_.Add();
 }
  void CollectionDef_BytesList::add_value(const ::std::string& value) {
@@ -3017,7 +3957,9 @@ void CollectionDef::set_has_node_list() {
 }
 void CollectionDef::clear_node_list() {
   if (has_node_list()) {
-    delete kind_.node_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.node_list_;
+    }
     clear_has_kind();
   }
 }
@@ -3031,12 +3973,52 @@ void CollectionDef::clear_node_list() {
   if (!has_node_list()) {
     clear_kind();
     set_has_node_list();
-    kind_.node_list_ = new ::tensorflow::CollectionDef_NodeList;
+    kind_.node_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_NodeList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.CollectionDef.node_list)
   return kind_.node_list_;
 }
 ::tensorflow::CollectionDef_NodeList* CollectionDef::release_node_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.CollectionDef.node_list)
+  if (has_node_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::CollectionDef_NodeList* temp = new ::tensorflow::CollectionDef_NodeList;
+      temp->MergeFrom(*kind_.node_list_);
+      kind_.node_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::CollectionDef_NodeList* temp = kind_.node_list_;
+      kind_.node_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+void CollectionDef::set_allocated_node_list(::tensorflow::CollectionDef_NodeList* node_list) {
+  clear_kind();
+  if (node_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(node_list) == NULL) {
+      GetArenaNoVirtual()->Own(node_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(node_list)) {
+      ::tensorflow::CollectionDef_NodeList* new_node_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_NodeList >(
+          GetArenaNoVirtual());
+      new_node_list->CopyFrom(*node_list);
+      node_list = new_node_list;
+    }
+    set_has_node_list();
+    kind_.node_list_ = node_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.node_list)
+}
+ ::tensorflow::CollectionDef_NodeList* CollectionDef::unsafe_arena_release_node_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.CollectionDef.node_list)
   if (has_node_list()) {
     clear_has_kind();
     ::tensorflow::CollectionDef_NodeList* temp = kind_.node_list_;
@@ -3046,13 +4028,13 @@ void CollectionDef::clear_node_list() {
     return NULL;
   }
 }
-void CollectionDef::set_allocated_node_list(::tensorflow::CollectionDef_NodeList* node_list) {
+ void CollectionDef::unsafe_arena_set_allocated_node_list(::tensorflow::CollectionDef_NodeList* node_list) {
   clear_kind();
   if (node_list) {
     set_has_node_list();
     kind_.node_list_ = node_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.node_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CollectionDef.node_list)
 }
 
 // optional .tensorflow.CollectionDef.BytesList bytes_list = 2;
@@ -3064,7 +4046,9 @@ void CollectionDef::set_has_bytes_list() {
 }
 void CollectionDef::clear_bytes_list() {
   if (has_bytes_list()) {
-    delete kind_.bytes_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.bytes_list_;
+    }
     clear_has_kind();
   }
 }
@@ -3078,12 +4062,52 @@ void CollectionDef::clear_bytes_list() {
   if (!has_bytes_list()) {
     clear_kind();
     set_has_bytes_list();
-    kind_.bytes_list_ = new ::tensorflow::CollectionDef_BytesList;
+    kind_.bytes_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_BytesList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.CollectionDef.bytes_list)
   return kind_.bytes_list_;
 }
 ::tensorflow::CollectionDef_BytesList* CollectionDef::release_bytes_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.CollectionDef.bytes_list)
+  if (has_bytes_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::CollectionDef_BytesList* temp = new ::tensorflow::CollectionDef_BytesList;
+      temp->MergeFrom(*kind_.bytes_list_);
+      kind_.bytes_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::CollectionDef_BytesList* temp = kind_.bytes_list_;
+      kind_.bytes_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+void CollectionDef::set_allocated_bytes_list(::tensorflow::CollectionDef_BytesList* bytes_list) {
+  clear_kind();
+  if (bytes_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(bytes_list) == NULL) {
+      GetArenaNoVirtual()->Own(bytes_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(bytes_list)) {
+      ::tensorflow::CollectionDef_BytesList* new_bytes_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_BytesList >(
+          GetArenaNoVirtual());
+      new_bytes_list->CopyFrom(*bytes_list);
+      bytes_list = new_bytes_list;
+    }
+    set_has_bytes_list();
+    kind_.bytes_list_ = bytes_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.bytes_list)
+}
+ ::tensorflow::CollectionDef_BytesList* CollectionDef::unsafe_arena_release_bytes_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.CollectionDef.bytes_list)
   if (has_bytes_list()) {
     clear_has_kind();
     ::tensorflow::CollectionDef_BytesList* temp = kind_.bytes_list_;
@@ -3093,13 +4117,13 @@ void CollectionDef::clear_bytes_list() {
     return NULL;
   }
 }
-void CollectionDef::set_allocated_bytes_list(::tensorflow::CollectionDef_BytesList* bytes_list) {
+ void CollectionDef::unsafe_arena_set_allocated_bytes_list(::tensorflow::CollectionDef_BytesList* bytes_list) {
   clear_kind();
   if (bytes_list) {
     set_has_bytes_list();
     kind_.bytes_list_ = bytes_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.bytes_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CollectionDef.bytes_list)
 }
 
 // optional .tensorflow.CollectionDef.Int64List int64_list = 3;
@@ -3111,7 +4135,9 @@ void CollectionDef::set_has_int64_list() {
 }
 void CollectionDef::clear_int64_list() {
   if (has_int64_list()) {
-    delete kind_.int64_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.int64_list_;
+    }
     clear_has_kind();
   }
 }
@@ -3125,12 +4151,52 @@ void CollectionDef::clear_int64_list() {
   if (!has_int64_list()) {
     clear_kind();
     set_has_int64_list();
-    kind_.int64_list_ = new ::tensorflow::CollectionDef_Int64List;
+    kind_.int64_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_Int64List >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.CollectionDef.int64_list)
   return kind_.int64_list_;
 }
 ::tensorflow::CollectionDef_Int64List* CollectionDef::release_int64_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.CollectionDef.int64_list)
+  if (has_int64_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::CollectionDef_Int64List* temp = new ::tensorflow::CollectionDef_Int64List;
+      temp->MergeFrom(*kind_.int64_list_);
+      kind_.int64_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::CollectionDef_Int64List* temp = kind_.int64_list_;
+      kind_.int64_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+void CollectionDef::set_allocated_int64_list(::tensorflow::CollectionDef_Int64List* int64_list) {
+  clear_kind();
+  if (int64_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(int64_list) == NULL) {
+      GetArenaNoVirtual()->Own(int64_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(int64_list)) {
+      ::tensorflow::CollectionDef_Int64List* new_int64_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_Int64List >(
+          GetArenaNoVirtual());
+      new_int64_list->CopyFrom(*int64_list);
+      int64_list = new_int64_list;
+    }
+    set_has_int64_list();
+    kind_.int64_list_ = int64_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.int64_list)
+}
+ ::tensorflow::CollectionDef_Int64List* CollectionDef::unsafe_arena_release_int64_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.CollectionDef.int64_list)
   if (has_int64_list()) {
     clear_has_kind();
     ::tensorflow::CollectionDef_Int64List* temp = kind_.int64_list_;
@@ -3140,13 +4206,13 @@ void CollectionDef::clear_int64_list() {
     return NULL;
   }
 }
-void CollectionDef::set_allocated_int64_list(::tensorflow::CollectionDef_Int64List* int64_list) {
+ void CollectionDef::unsafe_arena_set_allocated_int64_list(::tensorflow::CollectionDef_Int64List* int64_list) {
   clear_kind();
   if (int64_list) {
     set_has_int64_list();
     kind_.int64_list_ = int64_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.int64_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CollectionDef.int64_list)
 }
 
 // optional .tensorflow.CollectionDef.FloatList float_list = 4;
@@ -3158,7 +4224,9 @@ void CollectionDef::set_has_float_list() {
 }
 void CollectionDef::clear_float_list() {
   if (has_float_list()) {
-    delete kind_.float_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.float_list_;
+    }
     clear_has_kind();
   }
 }
@@ -3172,12 +4240,52 @@ void CollectionDef::clear_float_list() {
   if (!has_float_list()) {
     clear_kind();
     set_has_float_list();
-    kind_.float_list_ = new ::tensorflow::CollectionDef_FloatList;
+    kind_.float_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_FloatList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.CollectionDef.float_list)
   return kind_.float_list_;
 }
 ::tensorflow::CollectionDef_FloatList* CollectionDef::release_float_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.CollectionDef.float_list)
+  if (has_float_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::CollectionDef_FloatList* temp = new ::tensorflow::CollectionDef_FloatList;
+      temp->MergeFrom(*kind_.float_list_);
+      kind_.float_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::CollectionDef_FloatList* temp = kind_.float_list_;
+      kind_.float_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+void CollectionDef::set_allocated_float_list(::tensorflow::CollectionDef_FloatList* float_list) {
+  clear_kind();
+  if (float_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(float_list) == NULL) {
+      GetArenaNoVirtual()->Own(float_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(float_list)) {
+      ::tensorflow::CollectionDef_FloatList* new_float_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_FloatList >(
+          GetArenaNoVirtual());
+      new_float_list->CopyFrom(*float_list);
+      float_list = new_float_list;
+    }
+    set_has_float_list();
+    kind_.float_list_ = float_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.float_list)
+}
+ ::tensorflow::CollectionDef_FloatList* CollectionDef::unsafe_arena_release_float_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.CollectionDef.float_list)
   if (has_float_list()) {
     clear_has_kind();
     ::tensorflow::CollectionDef_FloatList* temp = kind_.float_list_;
@@ -3187,13 +4295,13 @@ void CollectionDef::clear_float_list() {
     return NULL;
   }
 }
-void CollectionDef::set_allocated_float_list(::tensorflow::CollectionDef_FloatList* float_list) {
+ void CollectionDef::unsafe_arena_set_allocated_float_list(::tensorflow::CollectionDef_FloatList* float_list) {
   clear_kind();
   if (float_list) {
     set_has_float_list();
     kind_.float_list_ = float_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.float_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CollectionDef.float_list)
 }
 
 // optional .tensorflow.CollectionDef.AnyList any_list = 5;
@@ -3205,7 +4313,9 @@ void CollectionDef::set_has_any_list() {
 }
 void CollectionDef::clear_any_list() {
   if (has_any_list()) {
-    delete kind_.any_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.any_list_;
+    }
     clear_has_kind();
   }
 }
@@ -3219,12 +4329,52 @@ void CollectionDef::clear_any_list() {
   if (!has_any_list()) {
     clear_kind();
     set_has_any_list();
-    kind_.any_list_ = new ::tensorflow::CollectionDef_AnyList;
+    kind_.any_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_AnyList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.CollectionDef.any_list)
   return kind_.any_list_;
 }
 ::tensorflow::CollectionDef_AnyList* CollectionDef::release_any_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.CollectionDef.any_list)
+  if (has_any_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::CollectionDef_AnyList* temp = new ::tensorflow::CollectionDef_AnyList;
+      temp->MergeFrom(*kind_.any_list_);
+      kind_.any_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::CollectionDef_AnyList* temp = kind_.any_list_;
+      kind_.any_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+void CollectionDef::set_allocated_any_list(::tensorflow::CollectionDef_AnyList* any_list) {
+  clear_kind();
+  if (any_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(any_list) == NULL) {
+      GetArenaNoVirtual()->Own(any_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(any_list)) {
+      ::tensorflow::CollectionDef_AnyList* new_any_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::CollectionDef_AnyList >(
+          GetArenaNoVirtual());
+      new_any_list->CopyFrom(*any_list);
+      any_list = new_any_list;
+    }
+    set_has_any_list();
+    kind_.any_list_ = any_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.any_list)
+}
+ ::tensorflow::CollectionDef_AnyList* CollectionDef::unsafe_arena_release_any_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.CollectionDef.any_list)
   if (has_any_list()) {
     clear_has_kind();
     ::tensorflow::CollectionDef_AnyList* temp = kind_.any_list_;
@@ -3234,13 +4384,13 @@ void CollectionDef::clear_any_list() {
     return NULL;
   }
 }
-void CollectionDef::set_allocated_any_list(::tensorflow::CollectionDef_AnyList* any_list) {
+ void CollectionDef::unsafe_arena_set_allocated_any_list(::tensorflow::CollectionDef_AnyList* any_list) {
   clear_kind();
   if (any_list) {
     set_has_any_list();
     kind_.any_list_ = any_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.CollectionDef.any_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CollectionDef.any_list)
 }
 
 bool CollectionDef::has_kind() const {
@@ -3252,6 +4402,1083 @@ void CollectionDef::clear_has_kind() {
 CollectionDef::KindCase CollectionDef::kind_case() const {
   return CollectionDef::KindCase(_oneof_case_[0]);
 }
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+void TensorInfo::_slow_mutable_tensor_shape() {
+  tensor_shape_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+      GetArenaNoVirtual());
+}
+::tensorflow::TensorShapeProto* TensorInfo::_slow_release_tensor_shape() {
+  if (tensor_shape_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::TensorShapeProto* temp = new ::tensorflow::TensorShapeProto;
+    temp->MergeFrom(*tensor_shape_);
+    tensor_shape_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::TensorShapeProto* TensorInfo::unsafe_arena_release_tensor_shape() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorInfo.tensor_shape)
+  
+  ::tensorflow::TensorShapeProto* temp = tensor_shape_;
+  tensor_shape_ = NULL;
+  return temp;
+}
+void TensorInfo::_slow_set_allocated_tensor_shape(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::TensorShapeProto** tensor_shape) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*tensor_shape) == NULL) {
+      message_arena->Own(*tensor_shape);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*tensor_shape)) {
+      ::tensorflow::TensorShapeProto* new_tensor_shape = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+            message_arena);
+      new_tensor_shape->CopyFrom(**tensor_shape);
+      *tensor_shape = new_tensor_shape;
+    }
+}
+void TensorInfo::unsafe_arena_set_allocated_tensor_shape(
+    ::tensorflow::TensorShapeProto* tensor_shape) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete tensor_shape_;
+  }
+  tensor_shape_ = tensor_shape;
+  if (tensor_shape) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorInfo.tensor_shape)
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TensorInfo::kNameFieldNumber;
+const int TensorInfo::kDtypeFieldNumber;
+const int TensorInfo::kTensorShapeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+TensorInfo::TensorInfo()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:tensorflow.TensorInfo)
+}
+
+TensorInfo::TensorInfo(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.TensorInfo)
+}
+
+void TensorInfo::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  tensor_shape_ = const_cast< ::tensorflow::TensorShapeProto*>(&::tensorflow::TensorShapeProto::default_instance());
+}
+
+TensorInfo::TensorInfo(const TensorInfo& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:tensorflow.TensorInfo)
+}
+
+void TensorInfo::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  dtype_ = 0;
+  tensor_shape_ = NULL;
+}
+
+TensorInfo::~TensorInfo() {
+  // @@protoc_insertion_point(destructor:tensorflow.TensorInfo)
+  SharedDtor();
+}
+
+void TensorInfo::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  if (this != default_instance_) {
+    delete tensor_shape_;
+  }
+}
+
+void TensorInfo::ArenaDtor(void* object) {
+  TensorInfo* _this = reinterpret_cast< TensorInfo* >(object);
+  (void)_this;
+}
+void TensorInfo::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void TensorInfo::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* TensorInfo::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return TensorInfo_descriptor_;
+}
+
+const TensorInfo& TensorInfo::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto();
+  return *default_instance_;
+}
+
+TensorInfo* TensorInfo::default_instance_ = NULL;
+
+TensorInfo* TensorInfo::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<TensorInfo>(arena);
+}
+
+void TensorInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.TensorInfo)
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  dtype_ = 0;
+  if (GetArenaNoVirtual() == NULL && tensor_shape_ != NULL) delete tensor_shape_;
+  tensor_shape_ = NULL;
+}
+
+bool TensorInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:tensorflow.TensorInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string name = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.TensorInfo.name"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_dtype;
+        break;
+      }
+
+      // optional .tensorflow.DataType dtype = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_dtype:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_dtype(static_cast< ::tensorflow::DataType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_tensor_shape;
+        break;
+      }
+
+      // optional .tensorflow.TensorShapeProto tensor_shape = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_tensor_shape:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_tensor_shape()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:tensorflow.TensorInfo)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:tensorflow.TensorInfo)
+  return false;
+#undef DO_
+}
+
+void TensorInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:tensorflow.TensorInfo)
+  // optional string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.TensorInfo.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->name(), output);
+  }
+
+  // optional .tensorflow.DataType dtype = 2;
+  if (this->dtype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->dtype(), output);
+  }
+
+  // optional .tensorflow.TensorShapeProto tensor_shape = 3;
+  if (this->has_tensor_shape()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->tensor_shape_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:tensorflow.TensorInfo)
+}
+
+::google::protobuf::uint8* TensorInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorInfo)
+  // optional string name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.TensorInfo.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  // optional .tensorflow.DataType dtype = 2;
+  if (this->dtype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->dtype(), target);
+  }
+
+  // optional .tensorflow.TensorShapeProto tensor_shape = 3;
+  if (this->has_tensor_shape()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->tensor_shape_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.TensorInfo)
+  return target;
+}
+
+int TensorInfo::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorInfo)
+  int total_size = 0;
+
+  // optional string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // optional .tensorflow.DataType dtype = 2;
+  if (this->dtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->dtype());
+  }
+
+  // optional .tensorflow.TensorShapeProto tensor_shape = 3;
+  if (this->has_tensor_shape()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->tensor_shape_);
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void TensorInfo::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorInfo)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const TensorInfo* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const TensorInfo>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.TensorInfo)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorInfo)
+    MergeFrom(*source);
+  }
+}
+
+void TensorInfo::MergeFrom(const TensorInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorInfo)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.name().size() > 0) {
+    set_name(from.name());
+  }
+  if (from.dtype() != 0) {
+    set_dtype(from.dtype());
+  }
+  if (from.has_tensor_shape()) {
+    mutable_tensor_shape()->::tensorflow::TensorShapeProto::MergeFrom(from.tensor_shape());
+  }
+}
+
+void TensorInfo::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.TensorInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void TensorInfo::CopyFrom(const TensorInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TensorInfo::IsInitialized() const {
+
+  return true;
+}
+
+void TensorInfo::Swap(TensorInfo* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    TensorInfo temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void TensorInfo::UnsafeArenaSwap(TensorInfo* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void TensorInfo::InternalSwap(TensorInfo* other) {
+  name_.Swap(&other->name_);
+  std::swap(dtype_, other->dtype_);
+  std::swap(tensor_shape_, other->tensor_shape_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata TensorInfo::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = TensorInfo_descriptor_;
+  metadata.reflection = TensorInfo_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// TensorInfo
+
+// optional string name = 1;
+void TensorInfo::clear_name() {
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ const ::std::string& TensorInfo::name() const {
+  // @@protoc_insertion_point(field_get:tensorflow.TensorInfo.name)
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void TensorInfo::set_name(const ::std::string& value) {
+  
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.TensorInfo.name)
+}
+ void TensorInfo::set_name(const char* value) {
+  
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.TensorInfo.name)
+}
+ void TensorInfo::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.TensorInfo.name)
+}
+ ::std::string* TensorInfo::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.TensorInfo.name)
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* TensorInfo::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorInfo.name)
+  
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* TensorInfo::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorInfo.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+ void TensorInfo::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.TensorInfo.name)
+}
+ void TensorInfo::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorInfo.name)
+}
+
+// optional .tensorflow.DataType dtype = 2;
+void TensorInfo::clear_dtype() {
+  dtype_ = 0;
+}
+ ::tensorflow::DataType TensorInfo::dtype() const {
+  // @@protoc_insertion_point(field_get:tensorflow.TensorInfo.dtype)
+  return static_cast< ::tensorflow::DataType >(dtype_);
+}
+ void TensorInfo::set_dtype(::tensorflow::DataType value) {
+  
+  dtype_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.TensorInfo.dtype)
+}
+
+// optional .tensorflow.TensorShapeProto tensor_shape = 3;
+bool TensorInfo::has_tensor_shape() const {
+  return !_is_default_instance_ && tensor_shape_ != NULL;
+}
+void TensorInfo::clear_tensor_shape() {
+  if (GetArenaNoVirtual() == NULL && tensor_shape_ != NULL) delete tensor_shape_;
+  tensor_shape_ = NULL;
+}
+const ::tensorflow::TensorShapeProto& TensorInfo::tensor_shape() const {
+  // @@protoc_insertion_point(field_get:tensorflow.TensorInfo.tensor_shape)
+  return tensor_shape_ != NULL ? *tensor_shape_ : *default_instance_->tensor_shape_;
+}
+::tensorflow::TensorShapeProto* TensorInfo::mutable_tensor_shape() {
+  
+  if (tensor_shape_ == NULL) {
+    _slow_mutable_tensor_shape();
+  }
+  // @@protoc_insertion_point(field_mutable:tensorflow.TensorInfo.tensor_shape)
+  return tensor_shape_;
+}
+::tensorflow::TensorShapeProto* TensorInfo::release_tensor_shape() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorInfo.tensor_shape)
+  
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_tensor_shape();
+  } else {
+    ::tensorflow::TensorShapeProto* temp = tensor_shape_;
+    tensor_shape_ = NULL;
+    return temp;
+  }
+}
+ void TensorInfo::set_allocated_tensor_shape(::tensorflow::TensorShapeProto* tensor_shape) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete tensor_shape_;
+  }
+  if (tensor_shape != NULL) {
+    _slow_set_allocated_tensor_shape(message_arena, &tensor_shape);
+  }
+  tensor_shape_ = tensor_shape;
+  if (tensor_shape) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.TensorInfo.tensor_shape)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SignatureDef::kInputsFieldNumber;
+const int SignatureDef::kOutputsFieldNumber;
+const int SignatureDef::kMethodNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+SignatureDef::SignatureDef()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:tensorflow.SignatureDef)
+}
+
+SignatureDef::SignatureDef(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  inputs_(arena),
+  outputs_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SignatureDef)
+}
+
+void SignatureDef::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+SignatureDef::SignatureDef(const SignatureDef& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:tensorflow.SignatureDef)
+}
+
+void SignatureDef::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  inputs_.SetAssignDescriptorCallback(
+      protobuf_AssignDescriptorsOnce);
+  inputs_.SetEntryDescriptor(
+      &::tensorflow::SignatureDef_InputsEntry_descriptor_);
+  outputs_.SetAssignDescriptorCallback(
+      protobuf_AssignDescriptorsOnce);
+  outputs_.SetEntryDescriptor(
+      &::tensorflow::SignatureDef_OutputsEntry_descriptor_);
+  method_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+SignatureDef::~SignatureDef() {
+  // @@protoc_insertion_point(destructor:tensorflow.SignatureDef)
+  SharedDtor();
+}
+
+void SignatureDef::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  method_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  if (this != default_instance_) {
+  }
+}
+
+void SignatureDef::ArenaDtor(void* object) {
+  SignatureDef* _this = reinterpret_cast< SignatureDef* >(object);
+  (void)_this;
+}
+void SignatureDef::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void SignatureDef::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SignatureDef::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SignatureDef_descriptor_;
+}
+
+const SignatureDef& SignatureDef::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fmeta_5fgraph_2eproto();
+  return *default_instance_;
+}
+
+SignatureDef* SignatureDef::default_instance_ = NULL;
+
+SignatureDef* SignatureDef::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<SignatureDef>(arena);
+}
+
+void SignatureDef::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.SignatureDef)
+  method_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  inputs_.Clear();
+  outputs_.Clear();
+}
+
+bool SignatureDef::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:tensorflow.SignatureDef)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // map<string, .tensorflow.TensorInfo> inputs = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_inputs:
+          ::google::protobuf::scoped_ptr<SignatureDef_InputsEntry> entry(inputs_.NewEntry());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, entry.get()));
+          (*mutable_inputs())[entry->key()].Swap(entry->mutable_value());
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->key().data(), entry->key().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.SignatureDef.InputsEntry.key"));
+          if (entry->GetArena() != NULL) entry.release();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_inputs;
+        if (input->ExpectTag(18)) goto parse_loop_outputs;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // map<string, .tensorflow.TensorInfo> outputs = 2;
+      case 2: {
+        if (tag == 18) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_outputs:
+          ::google::protobuf::scoped_ptr<SignatureDef_OutputsEntry> entry(outputs_.NewEntry());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, entry.get()));
+          (*mutable_outputs())[entry->key()].Swap(entry->mutable_value());
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->key().data(), entry->key().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.SignatureDef.OutputsEntry.key"));
+          if (entry->GetArena() != NULL) entry.release();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_loop_outputs;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(26)) goto parse_method_name;
+        break;
+      }
+
+      // optional string method_name = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_method_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_method_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->method_name().data(), this->method_name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.SignatureDef.method_name"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:tensorflow.SignatureDef)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:tensorflow.SignatureDef)
+  return false;
+#undef DO_
+}
+
+void SignatureDef::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:tensorflow.SignatureDef)
+  // map<string, .tensorflow.TensorInfo> inputs = 1;
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_InputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->inputs().begin();
+        it != this->inputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(inputs_.NewEntryWrapper(it->first, it->second));
+      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+          1, *entry, output);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.SignatureDef.InputsEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.TensorInfo> outputs = 2;
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_OutputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->outputs().begin();
+        it != this->outputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(outputs_.NewEntryWrapper(it->first, it->second));
+      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+          2, *entry, output);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.SignatureDef.OutputsEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // optional string method_name = 3;
+  if (this->method_name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->method_name().data(), this->method_name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.SignatureDef.method_name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->method_name(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:tensorflow.SignatureDef)
+}
+
+::google::protobuf::uint8* SignatureDef::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.SignatureDef)
+  // map<string, .tensorflow.TensorInfo> inputs = 1;
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_InputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->inputs().begin();
+        it != this->inputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(inputs_.NewEntryWrapper(it->first, it->second));
+      target = ::google::protobuf::internal::WireFormatLite::
+          WriteMessageNoVirtualToArray(
+              1, *entry, target);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.SignatureDef.InputsEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.TensorInfo> outputs = 2;
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_OutputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->outputs().begin();
+        it != this->outputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(outputs_.NewEntryWrapper(it->first, it->second));
+      target = ::google::protobuf::internal::WireFormatLite::
+          WriteMessageNoVirtualToArray(
+              2, *entry, target);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "tensorflow.SignatureDef.OutputsEntry.key");
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // optional string method_name = 3;
+  if (this->method_name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->method_name().data(), this->method_name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.SignatureDef.method_name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->method_name(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.SignatureDef)
+  return target;
+}
+
+int SignatureDef::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SignatureDef)
+  int total_size = 0;
+
+  // optional string method_name = 3;
+  if (this->method_name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->method_name());
+  }
+
+  // map<string, .tensorflow.TensorInfo> inputs = 1;
+  total_size += 1 * this->inputs_size();
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_InputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->inputs().begin();
+        it != this->inputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(inputs_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  // map<string, .tensorflow.TensorInfo> outputs = 2;
+  total_size += 1 * this->outputs_size();
+  {
+    ::google::protobuf::scoped_ptr<SignatureDef_OutputsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >::const_iterator
+        it = this->outputs().begin();
+        it != this->outputs().end(); ++it) {
+      if (entry.get() != NULL && entry->GetArena() != NULL) {
+        entry.release();
+      }
+      entry.reset(outputs_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+    if (entry.get() != NULL && entry->GetArena() != NULL) {
+      entry.release();
+    }
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SignatureDef::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SignatureDef)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const SignatureDef* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const SignatureDef>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SignatureDef)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SignatureDef)
+    MergeFrom(*source);
+  }
+}
+
+void SignatureDef::MergeFrom(const SignatureDef& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SignatureDef)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  inputs_.MergeFrom(from.inputs_);
+  outputs_.MergeFrom(from.outputs_);
+  if (from.method_name().size() > 0) {
+    set_method_name(from.method_name());
+  }
+}
+
+void SignatureDef::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SignatureDef)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SignatureDef::CopyFrom(const SignatureDef& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SignatureDef)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SignatureDef::IsInitialized() const {
+
+  return true;
+}
+
+void SignatureDef::Swap(SignatureDef* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SignatureDef temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SignatureDef::UnsafeArenaSwap(SignatureDef* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void SignatureDef::InternalSwap(SignatureDef* other) {
+  inputs_.Swap(&other->inputs_);
+  outputs_.Swap(&other->outputs_);
+  method_name_.Swap(&other->method_name_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata SignatureDef::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SignatureDef_descriptor_;
+  metadata.reflection = SignatureDef_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// SignatureDef
+
+// map<string, .tensorflow.TensorInfo> inputs = 1;
+int SignatureDef::inputs_size() const {
+  return inputs_.size();
+}
+void SignatureDef::clear_inputs() {
+  inputs_.Clear();
+}
+ const ::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >&
+SignatureDef::inputs() const {
+  // @@protoc_insertion_point(field_map:tensorflow.SignatureDef.inputs)
+  return inputs_.GetMap();
+}
+ ::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >*
+SignatureDef::mutable_inputs() {
+  // @@protoc_insertion_point(field_mutable_map:tensorflow.SignatureDef.inputs)
+  return inputs_.MutableMap();
+}
+
+// map<string, .tensorflow.TensorInfo> outputs = 2;
+int SignatureDef::outputs_size() const {
+  return outputs_.size();
+}
+void SignatureDef::clear_outputs() {
+  outputs_.Clear();
+}
+ const ::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >&
+SignatureDef::outputs() const {
+  // @@protoc_insertion_point(field_map:tensorflow.SignatureDef.outputs)
+  return outputs_.GetMap();
+}
+ ::google::protobuf::Map< ::std::string, ::tensorflow::TensorInfo >*
+SignatureDef::mutable_outputs() {
+  // @@protoc_insertion_point(field_mutable_map:tensorflow.SignatureDef.outputs)
+  return outputs_.MutableMap();
+}
+
+// optional string method_name = 3;
+void SignatureDef::clear_method_name() {
+  method_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ const ::std::string& SignatureDef::method_name() const {
+  // @@protoc_insertion_point(field_get:tensorflow.SignatureDef.method_name)
+  return method_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void SignatureDef::set_method_name(const ::std::string& value) {
+  
+  method_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.SignatureDef.method_name)
+}
+ void SignatureDef::set_method_name(const char* value) {
+  
+  method_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.SignatureDef.method_name)
+}
+ void SignatureDef::set_method_name(const char* value,
+    size_t size) {
+  
+  method_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.SignatureDef.method_name)
+}
+ ::std::string* SignatureDef::mutable_method_name() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.SignatureDef.method_name)
+  return method_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* SignatureDef::release_method_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.SignatureDef.method_name)
+  
+  return method_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* SignatureDef::unsafe_arena_release_method_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SignatureDef.method_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return method_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+ void SignatureDef::set_allocated_method_name(::std::string* method_name) {
+  if (method_name != NULL) {
+    
+  } else {
+    
+  }
+  method_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), method_name,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.SignatureDef.method_name)
+}
+ void SignatureDef::unsafe_arena_set_allocated_method_name(
+    ::std::string* method_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (method_name != NULL) {
+    
+  } else {
+    
+  }
+  method_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      method_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SignatureDef.method_name)
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

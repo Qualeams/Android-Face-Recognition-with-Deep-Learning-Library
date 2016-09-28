@@ -27,9 +27,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SequenceExample_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SequenceExample_reflection_ = NULL;
-const ::google::protobuf::Descriptor* InferenceExample_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  InferenceExample_reflection_ = NULL;
 
 }  // namespace
 
@@ -71,22 +68,6 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_2eproto() {
       sizeof(SequenceExample),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SequenceExample, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SequenceExample, _is_default_instance_));
-  InferenceExample_descriptor_ = file->message_type(2);
-  static const int InferenceExample_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InferenceExample, context_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InferenceExample, features_),
-  };
-  InferenceExample_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      InferenceExample_descriptor_,
-      InferenceExample::default_instance_,
-      InferenceExample_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(InferenceExample),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InferenceExample, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InferenceExample, _is_default_instance_));
 }
 
 namespace {
@@ -103,8 +84,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Example_descriptor_, &Example::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       SequenceExample_descriptor_, &SequenceExample::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      InferenceExample_descriptor_, &InferenceExample::default_instance());
 }
 
 }  // namespace
@@ -114,8 +93,6 @@ void protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_2eproto() {
   delete Example_reflection_;
   delete SequenceExample::default_instance_;
   delete SequenceExample_reflection_;
-  delete InferenceExample::default_instance_;
-  delete InferenceExample_reflection_;
 }
 
 void protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_2eproto() {
@@ -132,19 +109,14 @@ void protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_2eproto() {
     "\024.tensorflow.Features\"i\n\017SequenceExample"
     "\022%\n\007context\030\001 \001(\0132\024.tensorflow.Features\022"
     "/\n\rfeature_lists\030\002 \001(\0132\030.tensorflow.Feat"
-    "ureLists\"a\n\020InferenceExample\022%\n\007context\030"
-    "\001 \001(\0132\024.tensorflow.Features\022&\n\010features\030"
-    "\002 \003(\0132\024.tensorflow.FeaturesB,\n\026org.tenso"
-    "rflow.exampleB\rExampleProtosP\001\240\001\001b\006proto"
-    "3", 401);
+    "ureListsB,\n\026org.tensorflow.exampleB\rExam"
+    "pleProtosP\001\370\001\001b\006proto3", 302);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/example/example.proto", &protobuf_RegisterTypes);
   Example::default_instance_ = new Example();
   SequenceExample::default_instance_ = new SequenceExample();
-  InferenceExample::default_instance_ = new InferenceExample();
   Example::default_instance_->InitAsDefaultInstance();
   SequenceExample::default_instance_->InitAsDefaultInstance();
-  InferenceExample::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_2eproto);
 }
 
@@ -167,6 +139,54 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+void Example::_slow_mutable_features() {
+  features_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::Features >(
+      GetArenaNoVirtual());
+}
+::tensorflow::Features* Example::_slow_release_features() {
+  if (features_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::Features* temp = new ::tensorflow::Features;
+    temp->MergeFrom(*features_);
+    features_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::Features* Example::unsafe_arena_release_features() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Example.features)
+  
+  ::tensorflow::Features* temp = features_;
+  features_ = NULL;
+  return temp;
+}
+void Example::_slow_set_allocated_features(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::Features** features) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*features) == NULL) {
+      message_arena->Own(*features);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*features)) {
+      ::tensorflow::Features* new_features = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::Features >(
+            message_arena);
+      new_features->CopyFrom(**features);
+      *features = new_features;
+    }
+}
+void Example::unsafe_arena_set_allocated_features(
+    ::tensorflow::Features* features) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete features_;
+  }
+  features_ = features;
+  if (features) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Example.features)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Example::kFeaturesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -175,6 +195,14 @@ Example::Example()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.Example)
+}
+
+Example::Example(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.Example)
 }
 
 void Example::InitAsDefaultInstance() {
@@ -202,11 +230,21 @@ Example::~Example() {
 }
 
 void Example::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete features_;
   }
 }
 
+void Example::ArenaDtor(void* object) {
+  Example* _this = reinterpret_cast< Example* >(object);
+  (void)_this;
+}
+void Example::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void Example::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -225,21 +263,18 @@ const Example& Example::default_instance() {
 Example* Example::default_instance_ = NULL;
 
 Example* Example::New(::google::protobuf::Arena* arena) const {
-  Example* n = new Example;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<Example>(arena);
 }
 
 void Example::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.Example)
   if (GetArenaNoVirtual() == NULL && features_ != NULL) delete features_;
   features_ = NULL;
 }
 
 bool Example::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.Example)
   for (;;) {
@@ -307,6 +342,7 @@ void Example::SerializeWithCachedSizes(
 }
 
 int Example::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.Example)
   int total_size = 0;
 
   // optional .tensorflow.Features features = 1;
@@ -323,18 +359,22 @@ int Example::ByteSize() const {
 }
 
 void Example::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Example)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Example* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Example>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.Example)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Example)
     MergeFrom(*source);
   }
 }
 
 void Example::MergeFrom(const Example& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Example)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_features()) {
     mutable_features()->::tensorflow::Features::MergeFrom(from.features());
@@ -342,12 +382,14 @@ void Example::MergeFrom(const Example& from) {
 }
 
 void Example::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.Example)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Example::CopyFrom(const Example& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Example)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -360,6 +402,18 @@ bool Example::IsInitialized() const {
 
 void Example::Swap(Example* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    Example temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void Example::UnsafeArenaSwap(Example* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void Example::InternalSwap(Example* other) {
@@ -394,19 +448,30 @@ const ::tensorflow::Features& Example::features() const {
 ::tensorflow::Features* Example::mutable_features() {
   
   if (features_ == NULL) {
-    features_ = new ::tensorflow::Features;
+    _slow_mutable_features();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.Example.features)
   return features_;
 }
 ::tensorflow::Features* Example::release_features() {
+  // @@protoc_insertion_point(field_release:tensorflow.Example.features)
   
-  ::tensorflow::Features* temp = features_;
-  features_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_features();
+  } else {
+    ::tensorflow::Features* temp = features_;
+    features_ = NULL;
+    return temp;
+  }
 }
-void Example::set_allocated_features(::tensorflow::Features* features) {
-  delete features_;
+ void Example::set_allocated_features(::tensorflow::Features* features) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete features_;
+  }
+  if (features != NULL) {
+    _slow_set_allocated_features(message_arena, &features);
+  }
   features_ = features;
   if (features) {
     
@@ -420,6 +485,102 @@ void Example::set_allocated_features(::tensorflow::Features* features) {
 
 // ===================================================================
 
+void SequenceExample::_slow_mutable_context() {
+  context_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::Features >(
+      GetArenaNoVirtual());
+}
+::tensorflow::Features* SequenceExample::_slow_release_context() {
+  if (context_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::Features* temp = new ::tensorflow::Features;
+    temp->MergeFrom(*context_);
+    context_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::Features* SequenceExample::unsafe_arena_release_context() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SequenceExample.context)
+  
+  ::tensorflow::Features* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+void SequenceExample::_slow_set_allocated_context(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::Features** context) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*context) == NULL) {
+      message_arena->Own(*context);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*context)) {
+      ::tensorflow::Features* new_context = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::Features >(
+            message_arena);
+      new_context->CopyFrom(**context);
+      *context = new_context;
+    }
+}
+void SequenceExample::unsafe_arena_set_allocated_context(
+    ::tensorflow::Features* context) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete context_;
+  }
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SequenceExample.context)
+}
+void SequenceExample::_slow_mutable_feature_lists() {
+  feature_lists_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::FeatureLists >(
+      GetArenaNoVirtual());
+}
+::tensorflow::FeatureLists* SequenceExample::_slow_release_feature_lists() {
+  if (feature_lists_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::FeatureLists* temp = new ::tensorflow::FeatureLists;
+    temp->MergeFrom(*feature_lists_);
+    feature_lists_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::FeatureLists* SequenceExample::unsafe_arena_release_feature_lists() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SequenceExample.feature_lists)
+  
+  ::tensorflow::FeatureLists* temp = feature_lists_;
+  feature_lists_ = NULL;
+  return temp;
+}
+void SequenceExample::_slow_set_allocated_feature_lists(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::FeatureLists** feature_lists) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*feature_lists) == NULL) {
+      message_arena->Own(*feature_lists);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*feature_lists)) {
+      ::tensorflow::FeatureLists* new_feature_lists = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::FeatureLists >(
+            message_arena);
+      new_feature_lists->CopyFrom(**feature_lists);
+      *feature_lists = new_feature_lists;
+    }
+}
+void SequenceExample::unsafe_arena_set_allocated_feature_lists(
+    ::tensorflow::FeatureLists* feature_lists) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete feature_lists_;
+  }
+  feature_lists_ = feature_lists;
+  if (feature_lists) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SequenceExample.feature_lists)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SequenceExample::kContextFieldNumber;
 const int SequenceExample::kFeatureListsFieldNumber;
@@ -429,6 +590,14 @@ SequenceExample::SequenceExample()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SequenceExample)
+}
+
+SequenceExample::SequenceExample(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SequenceExample)
 }
 
 void SequenceExample::InitAsDefaultInstance() {
@@ -458,12 +627,22 @@ SequenceExample::~SequenceExample() {
 }
 
 void SequenceExample::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete context_;
     delete feature_lists_;
   }
 }
 
+void SequenceExample::ArenaDtor(void* object) {
+  SequenceExample* _this = reinterpret_cast< SequenceExample* >(object);
+  (void)_this;
+}
+void SequenceExample::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void SequenceExample::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -482,14 +661,11 @@ const SequenceExample& SequenceExample::default_instance() {
 SequenceExample* SequenceExample::default_instance_ = NULL;
 
 SequenceExample* SequenceExample::New(::google::protobuf::Arena* arena) const {
-  SequenceExample* n = new SequenceExample;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<SequenceExample>(arena);
 }
 
 void SequenceExample::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.SequenceExample)
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
   if (GetArenaNoVirtual() == NULL && feature_lists_ != NULL) delete feature_lists_;
@@ -498,7 +674,7 @@ void SequenceExample::Clear() {
 
 bool SequenceExample::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.SequenceExample)
   for (;;) {
@@ -592,6 +768,7 @@ void SequenceExample::SerializeWithCachedSizes(
 }
 
 int SequenceExample::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SequenceExample)
   int total_size = 0;
 
   // optional .tensorflow.Features context = 1;
@@ -615,18 +792,22 @@ int SequenceExample::ByteSize() const {
 }
 
 void SequenceExample::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SequenceExample)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SequenceExample* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SequenceExample>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SequenceExample)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SequenceExample)
     MergeFrom(*source);
   }
 }
 
 void SequenceExample::MergeFrom(const SequenceExample& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SequenceExample)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_context()) {
     mutable_context()->::tensorflow::Features::MergeFrom(from.context());
@@ -637,12 +818,14 @@ void SequenceExample::MergeFrom(const SequenceExample& from) {
 }
 
 void SequenceExample::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SequenceExample)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SequenceExample::CopyFrom(const SequenceExample& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SequenceExample)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -655,6 +838,18 @@ bool SequenceExample::IsInitialized() const {
 
 void SequenceExample::Swap(SequenceExample* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SequenceExample temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SequenceExample::UnsafeArenaSwap(SequenceExample* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void SequenceExample::InternalSwap(SequenceExample* other) {
@@ -690,19 +885,30 @@ const ::tensorflow::Features& SequenceExample::context() const {
 ::tensorflow::Features* SequenceExample::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::tensorflow::Features;
+    _slow_mutable_context();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SequenceExample.context)
   return context_;
 }
 ::tensorflow::Features* SequenceExample::release_context() {
+  // @@protoc_insertion_point(field_release:tensorflow.SequenceExample.context)
   
-  ::tensorflow::Features* temp = context_;
-  context_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_context();
+  } else {
+    ::tensorflow::Features* temp = context_;
+    context_ = NULL;
+    return temp;
+  }
 }
-void SequenceExample::set_allocated_context(::tensorflow::Features* context) {
-  delete context_;
+ void SequenceExample::set_allocated_context(::tensorflow::Features* context) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete context_;
+  }
+  if (context != NULL) {
+    _slow_set_allocated_context(message_arena, &context);
+  }
   context_ = context;
   if (context) {
     
@@ -727,19 +933,30 @@ const ::tensorflow::FeatureLists& SequenceExample::feature_lists() const {
 ::tensorflow::FeatureLists* SequenceExample::mutable_feature_lists() {
   
   if (feature_lists_ == NULL) {
-    feature_lists_ = new ::tensorflow::FeatureLists;
+    _slow_mutable_feature_lists();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SequenceExample.feature_lists)
   return feature_lists_;
 }
 ::tensorflow::FeatureLists* SequenceExample::release_feature_lists() {
+  // @@protoc_insertion_point(field_release:tensorflow.SequenceExample.feature_lists)
   
-  ::tensorflow::FeatureLists* temp = feature_lists_;
-  feature_lists_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_feature_lists();
+  } else {
+    ::tensorflow::FeatureLists* temp = feature_lists_;
+    feature_lists_ = NULL;
+    return temp;
+  }
 }
-void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLists* feature_lists) {
-  delete feature_lists_;
+ void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLists* feature_lists) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete feature_lists_;
+  }
+  if (feature_lists != NULL) {
+    _slow_set_allocated_feature_lists(message_arena, &feature_lists);
+  }
   feature_lists_ = feature_lists;
   if (feature_lists) {
     
@@ -747,331 +964,6 @@ void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLists* fe
     
   }
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SequenceExample.feature_lists)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int InferenceExample::kContextFieldNumber;
-const int InferenceExample::kFeaturesFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-InferenceExample::InferenceExample()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:tensorflow.InferenceExample)
-}
-
-void InferenceExample::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  context_ = const_cast< ::tensorflow::Features*>(&::tensorflow::Features::default_instance());
-}
-
-InferenceExample::InferenceExample(const InferenceExample& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:tensorflow.InferenceExample)
-}
-
-void InferenceExample::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
-  context_ = NULL;
-}
-
-InferenceExample::~InferenceExample() {
-  // @@protoc_insertion_point(destructor:tensorflow.InferenceExample)
-  SharedDtor();
-}
-
-void InferenceExample::SharedDtor() {
-  if (this != default_instance_) {
-    delete context_;
-  }
-}
-
-void InferenceExample::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* InferenceExample::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return InferenceExample_descriptor_;
-}
-
-const InferenceExample& InferenceExample::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_2eproto();
-  return *default_instance_;
-}
-
-InferenceExample* InferenceExample::default_instance_ = NULL;
-
-InferenceExample* InferenceExample::New(::google::protobuf::Arena* arena) const {
-  InferenceExample* n = new InferenceExample;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void InferenceExample::Clear() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-  features_.Clear();
-}
-
-bool InferenceExample::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:tensorflow.InferenceExample)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .tensorflow.Features context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_context()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_features;
-        break;
-      }
-
-      // repeated .tensorflow.Features features = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_features:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_features:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_features()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_features;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:tensorflow.InferenceExample)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:tensorflow.InferenceExample)
-  return false;
-#undef DO_
-}
-
-void InferenceExample::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:tensorflow.InferenceExample)
-  // optional .tensorflow.Features context = 1;
-  if (this->has_context()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->context_, output);
-  }
-
-  // repeated .tensorflow.Features features = 2;
-  for (unsigned int i = 0, n = this->features_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->features(i), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:tensorflow.InferenceExample)
-}
-
-::google::protobuf::uint8* InferenceExample::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.InferenceExample)
-  // optional .tensorflow.Features context = 1;
-  if (this->has_context()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->context_, target);
-  }
-
-  // repeated .tensorflow.Features features = 2;
-  for (unsigned int i = 0, n = this->features_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->features(i), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.InferenceExample)
-  return target;
-}
-
-int InferenceExample::ByteSize() const {
-  int total_size = 0;
-
-  // optional .tensorflow.Features context = 1;
-  if (this->has_context()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->context_);
-  }
-
-  // repeated .tensorflow.Features features = 2;
-  total_size += 1 * this->features_size();
-  for (int i = 0; i < this->features_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->features(i));
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void InferenceExample::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const InferenceExample* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const InferenceExample>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void InferenceExample::MergeFrom(const InferenceExample& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  features_.MergeFrom(from.features_);
-  if (from.has_context()) {
-    mutable_context()->::tensorflow::Features::MergeFrom(from.context());
-  }
-}
-
-void InferenceExample::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void InferenceExample::CopyFrom(const InferenceExample& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool InferenceExample::IsInitialized() const {
-
-  return true;
-}
-
-void InferenceExample::Swap(InferenceExample* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void InferenceExample::InternalSwap(InferenceExample* other) {
-  std::swap(context_, other->context_);
-  features_.UnsafeArenaSwap(&other->features_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata InferenceExample::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = InferenceExample_descriptor_;
-  metadata.reflection = InferenceExample_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// InferenceExample
-
-// optional .tensorflow.Features context = 1;
-bool InferenceExample::has_context() const {
-  return !_is_default_instance_ && context_ != NULL;
-}
-void InferenceExample::clear_context() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-}
-const ::tensorflow::Features& InferenceExample::context() const {
-  // @@protoc_insertion_point(field_get:tensorflow.InferenceExample.context)
-  return context_ != NULL ? *context_ : *default_instance_->context_;
-}
-::tensorflow::Features* InferenceExample::mutable_context() {
-  
-  if (context_ == NULL) {
-    context_ = new ::tensorflow::Features;
-  }
-  // @@protoc_insertion_point(field_mutable:tensorflow.InferenceExample.context)
-  return context_;
-}
-::tensorflow::Features* InferenceExample::release_context() {
-  
-  ::tensorflow::Features* temp = context_;
-  context_ = NULL;
-  return temp;
-}
-void InferenceExample::set_allocated_context(::tensorflow::Features* context) {
-  delete context_;
-  context_ = context;
-  if (context) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.InferenceExample.context)
-}
-
-// repeated .tensorflow.Features features = 2;
-int InferenceExample::features_size() const {
-  return features_.size();
-}
-void InferenceExample::clear_features() {
-  features_.Clear();
-}
-const ::tensorflow::Features& InferenceExample::features(int index) const {
-  // @@protoc_insertion_point(field_get:tensorflow.InferenceExample.features)
-  return features_.Get(index);
-}
-::tensorflow::Features* InferenceExample::mutable_features(int index) {
-  // @@protoc_insertion_point(field_mutable:tensorflow.InferenceExample.features)
-  return features_.Mutable(index);
-}
-::tensorflow::Features* InferenceExample::add_features() {
-  // @@protoc_insertion_point(field_add:tensorflow.InferenceExample.features)
-  return features_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::tensorflow::Features >*
-InferenceExample::mutable_features() {
-  // @@protoc_insertion_point(field_mutable_list:tensorflow.InferenceExample.features)
-  return &features_;
-}
-const ::google::protobuf::RepeatedPtrField< ::tensorflow::Features >&
-InferenceExample::features() const {
-  // @@protoc_insertion_point(field_list:tensorflow.InferenceExample.features)
-  return features_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

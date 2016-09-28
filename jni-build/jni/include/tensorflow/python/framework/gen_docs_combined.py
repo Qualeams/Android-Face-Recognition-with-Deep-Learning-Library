@@ -52,6 +52,7 @@ def get_module_to_name():
       tf.nn.rnn_cell: "tf.nn.rnn_cell",
       tf.train: "tf.train",
       tf.python_io: "tf.python_io",
+      tf.summary: "tf.summary",
       tf.test: "tf.test",
       tf.contrib.bayesflow.stochastic_graph: (
           "tf.contrib.bayesflow.stochastic_graph"),
@@ -59,9 +60,13 @@ def get_module_to_name():
       tf.contrib.distributions: "tf.contrib.distributions",
       tf.contrib.ffmpeg: "tf.contrib.ffmpeg",
       tf.contrib.framework: "tf.contrib.framework",
+      tf.contrib.graph_editor: "tf.contrib.graph_editor",
       tf.contrib.layers: "tf.contrib.layers",
       tf.contrib.learn: "tf.contrib.learn",
+      tf.contrib.learn.monitors: (
+          "tf.contrib.learn.monitors"),
       tf.contrib.losses: "tf.contrib.losses",
+      tf.contrib.rnn: "tf.contrib.rnn",
       tf.contrib.metrics: "tf.contrib.metrics",
       tf.contrib.util: "tf.contrib.util",
   }
@@ -115,7 +120,7 @@ def all_libraries(module_to_name, members, documented):
       library("tensor_array_ops", "TensorArray Operations", prefix=PREFIX_TEXT),
       library("session_ops", "Tensor Handle Operations", prefix=PREFIX_TEXT),
       library("image", "Images", tf.image, exclude_symbols=["ResizeMethod"],
-               prefix=PREFIX_TEXT),
+              prefix=PREFIX_TEXT),
       library("sparse_ops",
               "Sparse Tensors",
               exclude_symbols=["serialize_sparse", "serialize_many_sparse",
@@ -154,6 +159,7 @@ def all_libraries(module_to_name, members, documented):
       library("script_ops",
               "Wraps python functions",
               prefix=PREFIX_TEXT),
+      library("summary", "Summary Operations", tf.summary),
       library("test", "Testing", tf.test),
       library("contrib.bayesflow.stochastic_graph",
               "BayesFlow Stochastic Graph (contrib)",
@@ -162,14 +168,19 @@ def all_libraries(module_to_name, members, documented):
               tf.contrib.distributions),
       library("contrib.ffmpeg", "FFmpeg (contrib)", ffmpeg),
       library("contrib.framework", "Framework (contrib)", tf.contrib.framework),
+      library("contrib.graph_editor", "Graph Editor (contrib)",
+              tf.contrib.graph_editor),
       library("contrib.layers", "Layers (contrib)", tf.contrib.layers),
       library("contrib.learn", "Learn (contrib)", tf.contrib.learn),
+      library("contrib.learn.monitors", "Monitors (contrib)",
+              tf.contrib.learn.monitors),
       library("contrib.losses", "Losses (contrib)", tf.contrib.losses),
+      library("contrib.rnn", "RNN (contrib)", tf.contrib.rnn),
       library("contrib.metrics", "Metrics (contrib)", tf.contrib.metrics),
       library("contrib.util", "Utilities (contrib)", tf.contrib.util),
       library("contrib.copy_graph", "Copying Graph Elements (contrib)",
               tf.contrib.copy_graph),
-    ]
+  ]
 
 _hidden_symbols = ["Event", "LogMessage", "Summary", "SessionLog", "xrange",
                    "HistogramProto", "ConfigProto", "NodeDef", "GraphDef",
@@ -180,6 +191,12 @@ _hidden_symbols = ["Event", "LogMessage", "Summary", "SessionLog", "xrange",
                    "SaverDef", "VariableDef", "TestCase", "GrpcServer",
                    "ClusterDef", "JobDef", "ServerDef"]
 
+# TODO(skleinfeld, deannarubin) Address shortname
+# conflict between tf.contrib.learn.NanLossDuringTrainingError and
+# tf.contrib.learn.monitors.NanLossDuringTrainingError, arising due
+# to imports in learn/python/learn/__init__.py
+EXCLUDE = frozenset(["tf.contrib.learn.monitors.NanLossDuringTrainingError"])
+
 
 def main(unused_argv):
   if not FLAGS.out_dir:
@@ -189,7 +206,7 @@ def main(unused_argv):
   # Document libraries
   documented = set()
   module_to_name = get_module_to_name()
-  members = docs.collect_members(module_to_name)
+  members = docs.collect_members(module_to_name, exclude=EXCLUDE)
   libraries = all_libraries(module_to_name, members, documented)
 
   # Define catch_all library before calling write_libraries to avoid complaining

@@ -32,12 +32,12 @@ class NestTest(tf.test.TestCase):
   def testFlattenAndPack(self):
     structure = ((3, 4), 5, (6, 7, (9, 10), 8))
     flat = ["a", "b", "c", "d", "e", "f", "g", "h"]
-    self.assertEqual(nest.flatten(structure), (3, 4, 5, 6, 7, 9, 10, 8))
+    self.assertEqual(nest.flatten(structure), [3, 4, 5, 6, 7, 9, 10, 8])
     self.assertEqual(nest.pack_sequence_as(structure, flat),
                      (("a", "b"), "c", ("d", "e", ("f", "g"), "h")))
     point = collections.namedtuple("Point", ["x", "y"])
     structure = (point(x=4, y=2), ((point(x=1, y=0),),))
-    flat = (4, 2, 1, 0)
+    flat = [4, 2, 1, 0]
     self.assertEqual(nest.flatten(structure), flat)
     restructured_from_flat = nest.pack_sequence_as(structure, flat)
     self.assertEqual(restructured_from_flat, structure)
@@ -46,11 +46,15 @@ class NestTest(tf.test.TestCase):
     self.assertEqual(restructured_from_flat[1][0][0].x, 1)
     self.assertEqual(restructured_from_flat[1][0][0].y, 0)
 
-    with self.assertRaises(TypeError):
-      nest.flatten(5)
+    self.assertEqual([5], nest.flatten(5))
+    self.assertEqual([np.array([5])], nest.flatten(np.array([5])))
 
-    with self.assertRaisesRegexp(TypeError, "structure"):
-      nest.pack_sequence_as("bad_sequence", [4, 5])
+    self.assertEqual("a", nest.pack_sequence_as(5, ["a"]))
+    self.assertEqual(
+        np.array([5]), nest.pack_sequence_as("scalar", [np.array([5])]))
+
+    with self.assertRaisesRegexp(ValueError, "Structure is a scalar"):
+      nest.pack_sequence_as("scalar", [4, 5])
 
     with self.assertRaisesRegexp(TypeError, "flat_sequence"):
       nest.pack_sequence_as([4, 5], "bad_sequence")

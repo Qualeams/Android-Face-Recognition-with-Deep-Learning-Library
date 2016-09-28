@@ -1,4 +1,4 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
+# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,9 +27,14 @@
 @@value_type
 @@get_current_value_type
 
+## Stochastic Computation Surrogate Loss Functions
+
+@@score_function
+@@get_score_function_with_baseline
+
 ## Stochastic Computation Graph Helper Functions
 
-@@surrogate_losses
+@@surrogate_loss
 """
 
 from __future__ import absolute_import
@@ -43,10 +48,10 @@ import threading
 
 import six
 
-from tensorflow.contrib import distributions
 from tensorflow.python.framework import ops
 from tensorflow.python.framework import tensor_shape
 from tensorflow.python.ops import array_ops
+from tensorflow.python.ops import math_ops
 from tensorflow.python.platform import tf_logging as logging
 
 STOCHASTIC_TENSOR_COLLECTION = "_stochastic_tensor_collection_"
@@ -56,9 +61,7 @@ STOCHASTIC_TENSOR_COLLECTION = "_stochastic_tensor_collection_"
 class StochasticTensor(object):
   """Base Class for Tensor-like objects that emit stochastic values."""
 
-  def __init__(self, **kwargs):
-    self._inputs = kwargs
-
+  def __init__(self):
     # Add self to this graph's Stochsatic Tensor collection for
     # purposes of later performing correct surrogate loss calculation.
     ops.add_to_collection(STOCHASTIC_TENSOR_COLLECTION, self)
@@ -84,11 +87,11 @@ class StochasticTensor(object):
     pass
 
   @abc.abstractmethod
-  def surrogate_loss(self, sample_losses):
-    """Returns the surrogate loss given the list of sample_losses.
+  def loss(self, sample_losses):
+    """Returns the term to add to the surrogate loss.
 
-    This method is called by `surrogate_losses`.  The input `sample_losses`
-    presumably have already had `stop_gradient` applied to them.  This is
+    This method is called by `surrogate_loss`.  The input `sample_losses`
+    should have already had `stop_gradient` applied to them.  This is
     because the surrogate_loss usually provides a monte carlo sample term
     of the form `differentiable_surrogate * sum(sample_losses)` where
     `sample_losses` is considered constant with respect to the input
@@ -99,8 +102,7 @@ class StochasticTensor(object):
         `StochasticTensor`.
 
     Returns:
-      Either either `None` or a `Tensor` whose gradient is the
-       score function.
+      Either `None` or a `Tensor`.
     """
     raise NotImplementedError("surrogate_loss not implemented")
 
@@ -294,31 +296,90 @@ def value_type(dist_value_type):
     stack[-1].popped_above(dist_value_type)
 
 
+class NoValueTypeSetError(ValueError):
+  pass
+
+
 def get_current_value_type():
   thread_id = threading.current_thread().ident
   if not _STOCHASTIC_VALUE_STACK[thread_id]:
-    raise ValueError(
+    raise NoValueTypeSetError(
         "No value type currently set for this thread (%s).  Did you forget to "
         "wrap 'with stochastic_graph.value_type(...)'?" % thread_id)
   return _STOCHASTIC_VALUE_STACK[thread_id][-1]
 
 
-class DistributionTensor(StochasticTensor):
-  """The DistributionTensor is a StochasticTensor backed by a distribution.
-  """
+def get_score_function_with_baseline(baseline):
 
-  def __init__(self, dist_cls, name=None, dist_value_type=None, **dist_args):
+  def score_function_with_baseline(dist_tensor, value, losses):
+    advantage = math_ops.add_n(losses) - baseline
+    return dist_tensor.distribution.log_prob(value) * advantage
+
+  return score_function_with_baseline
+
+
+def score_function(dist_tensor, value, losses):
+  return dist_tensor.distribution.log_prob(value) * math_ops.add_n(losses)
+
+
+class DistributionTensor(StochasticTensor):
+  """DistributionTensor is a StochasticTensor backed by a distribution."""
+
+  def __init__(self,
+               dist_cls,
+               name=None,
+               dist_value_type=None,
+               loss_fn=score_function,
+               **dist_args):
+    """Construct a `DistributionTensor`.
+
+    `DistributionTensor` will instantiate a distribution from `dist_cls` and
+    `dist_args` and its `value` method will return the same value each time
+    it is called. What `value` is returned is controlled by the
+    `dist_value_type` (defaults to `SampleAndReshapeValue`).
+
+    Some distributions' sample functions are not differentiable (e.g. a sample
+    from a discrete distribution like a Bernoulli) and so to differentiate
+    wrt parameters upstream of the sample requires a gradient estimator like
+    the score function estimator. This is accomplished by passing a
+    differentiable `loss_fn` to the `DistributionTensor`, which
+    defaults to a function whose derivative is the score function estimator.
+    Calling `stochastic_graph.surrogate_loss(final_losses)` will call
+    `loss()` on every `DistributionTensor` upstream of final losses.
+
+    `loss()` will return None for `DistributionTensor`s backed by
+    reparameterized distributions; it will also return None if the value type is
+    `MeanValueType` or if `loss_fn=None`.
+
+    Args:
+      dist_cls: a class deriving from `BaseDistribution`.
+      name: a name for this `DistributionTensor` and its ops.
+      dist_value_type: a `_StochasticValueType`, which will determine what the
+          `value` of this `DistributionTensor` will be. If not provided, the
+          value type set with the `value_type` context manager will be used.
+      loss_fn: callable that takes `(dt, dt.value(), influenced_losses)`, where
+          `dt` is this `DistributionTensor`, and returns a `Tensor` loss.
+      **dist_args: keyword arguments to be passed through to `dist_cls` on
+          construction.
+    """
     self._dist_cls = dist_cls
     self._dist_args = dist_args
-    if dist_value_type is not None:
+    if dist_value_type is None:
+      try:
+        self._value_type = get_current_value_type()
+      except NoValueTypeSetError:
+        self._value_type = SampleAndReshapeValue()
+    else:
       # We want to enforce a value type here, but use the value_type()
       # context manager to enforce some error checking.
       with value_type(dist_value_type):
         self._value_type = get_current_value_type()
-    else:
-      self._value_type = get_current_value_type()
 
     self._value_type.declare_inputs(self, dist_args)
+
+    if loss_fn is not None and not callable(loss_fn):
+      raise TypeError("loss_fn must be callable")
+    self._loss_fn = loss_fn
 
     with ops.op_scope(dist_args.values(), name, "DistributionTensor") as scope:
       self._name = scope
@@ -330,6 +391,10 @@ class DistributionTensor(StochasticTensor):
   @property
   def input_dict(self):
     return self._dist_args
+
+  @property
+  def value_type(self):
+    return self._value_type
 
   @property
   def distribution(self):
@@ -344,12 +409,12 @@ class DistributionTensor(StochasticTensor):
     if isinstance(self._value_type, MeanValue):
       value_tensor = self._dist.mean()
     elif isinstance(self._value_type, SampleValue):
-      value_tensor = self._dist.sample(self._value_type.n)
+      value_tensor = self._dist.sample_n(self._value_type.n)
     elif isinstance(self._value_type, SampleAndReshapeValue):
       if self._value_type.n == 1:
-        value_tensor = array_ops.squeeze(self._dist.sample(1), [0])
+        value_tensor = self._dist.sample()
       else:
-        samples = self._dist.sample(self._value_type.n)
+        samples = self._dist.sample_n(self._value_type.n)
         samples_shape = array_ops.shape(samples)
         samples_static_shape = samples.get_shape()
         new_batch_size = samples_shape[0] * samples_shape[1]
@@ -368,16 +433,13 @@ class DistributionTensor(StochasticTensor):
       raise TypeError(
           "Unrecognized Distribution Value Type: %s", self._value_type)
 
-    stop_gradient = self._value_type.stop_gradient
-
-    if stop_gradient:
+    if self._value_type.stop_gradient:
       # stop_gradient is being enforced by the value type
       return array_ops.stop_gradient(value_tensor)
 
     if isinstance(self._value_type, MeanValue):
       return value_tensor  # Using pathwise-derivative for this one.
-    if (isinstance(self._dist, distributions.ContinuousDistribution)
-        and self._dist.is_reparameterized):
+    if self._dist.is_continuous and self._dist.is_reparameterized:
       return value_tensor  # Using pathwise-derivative for this one.
     else:
       # Will have to perform some variant of score function
@@ -406,32 +468,38 @@ class DistributionTensor(StochasticTensor):
   def value(self, name="value"):
     return self._value
 
-  def surrogate_loss(self, losses, name=None):
-    # Return a loss term based on losses and the distribution.  Return
-    # None if pathwise derivatives are supported
-    if (isinstance(self._dist, distributions.ContinuousDistribution)
-        and self._dist.is_reparameterized):
-      # Can perform pathwise-derivative on this one; no surrogate loss needed.
+  def loss(self, final_losses, name="Loss"):
+    # Return a loss based on final_losses and the distribution. Returns
+    # None if pathwise derivatives are supported, if the loss_fn
+    # was explicitly set to None, or if the value type is MeanValue.
+    if self._loss_fn is None:
       return None
 
-    with ops.op_scope(losses, name, "DistributionSurrogateLoss"):
-      if isinstance(self._value_type, SampleAndReshapeValue):
-        # TODO(ebrevdo): use add_n instead of sum(losses) if shapes all match?
-        return self._dist.log_likelihood(self._value) * sum(losses)
-      elif isinstance(self._value_type, SampleValue):
-        return self._dist.log_likelihood(self._value) * sum(losses)
-      elif isinstance(self._value_type, MeanValue):
-        return None  # MeanValue generally provides its own gradient
-      else:
-        raise TypeError(
-            "Unrecognized Distribution Value Type: %s", self._value_type)
+    if (self._dist.is_continuous and self._dist.is_reparameterized and
+        not self._value_type.stop_gradient):
+      # Can perform pathwise-derivative on this one; no additional loss needed.
+      return None
+
+    with ops.op_scope(final_losses, self.name):
+      with ops.name_scope(name):
+        if (self._value_type.stop_gradient or
+            isinstance(self._value_type, SampleAndReshapeValue) or
+            isinstance(self._value_type, SampleValue)):
+          return self._loss_fn(self, self._value, final_losses)
+        elif isinstance(self._value_type, MeanValue):
+          return None  # MeanValue generally provides its own gradient
+        else:
+          raise TypeError("Unrecognized Distribution Value Type: %s",
+                          self._value_type)
 
 
-def _stochastic_dependencies_map(fixed_losses):
+def _stochastic_dependencies_map(fixed_losses, stochastic_tensors=None):
   """Map stochastic tensors to the fixed losses that depend on them.
 
   Args:
-    fixed_losses: a list of Tensors.
+    fixed_losses: a list of `Tensor`s.
+    stochastic_tensors: a list of `StochasticTensor`s to map to fixed losses.
+      If `None`, all `StochasticTensor`s in the graph will be used.
 
   Returns:
     A dict `dependencies` that maps `StochasticTensor` objects to subsets of
@@ -440,7 +508,7 @@ def _stochastic_dependencies_map(fixed_losses):
     If `loss in dependencies[st]`, for some `loss` in `fixed_losses` then there
     is a direct path from `st.value()` to `loss` in the graph.
   """
-  stoch_value_collection = ops.get_collection(
+  stoch_value_collection = stochastic_tensors or ops.get_collection(
       STOCHASTIC_TENSOR_COLLECTION)
 
   if not stoch_value_collection:
@@ -464,8 +532,37 @@ def _stochastic_dependencies_map(fixed_losses):
   return stoch_dependencies_map
 
 
-def surrogate_losses(sample_losses, name=None):
-  with ops.op_scope(sample_losses, name, "SampleLosses"):
+def surrogate_loss(sample_losses,
+                   stochastic_tensors=None,
+                   name="SurrogateLoss"):
+  """Surrogate loss for stochastic graphs.
+
+  This function will call `loss_fn` on each `StochasticTensor`
+  upstream of `sample_losses`, passing the losses that it influenced.
+
+  Note that currently `surrogate_loss` does not work with `StochasticTensor`s
+  instantiated in `while_loop`s or other control structures.
+
+  Args:
+    sample_losses: a list or tuple of final losses. Each loss should be per
+      example in the batch (and possibly per sample); that is, it should have
+      dimensionality of 1 or greater. All losses should have the same shape.
+    stochastic_tensors: a list of `StochasticTensor`s to add loss terms for.
+      If None, defaults to all `StochasticTensor`s in the graph upstream of
+      the `Tensor`s in `sample_losses`.
+    name: the name with which to prepend created ops.
+
+  Returns:
+    `Tensor` loss, which is the sum of `sample_losses` and the
+    `loss_fn`s returned by the `StochasticTensor`s.
+
+  Raises:
+    TypeError: if `sample_losses` is not a list or tuple, or if its elements
+      are not `Tensor`s.
+    ValueError: if any loss in `sample_losses` does not have dimensionality 1
+      or greater.
+  """
+  with ops.op_scope(sample_losses, name):
     fixed_losses = []
     if not isinstance(sample_losses, (list, tuple)):
       raise TypeError("sample_losses must be a list or tuple")
@@ -473,25 +570,25 @@ def surrogate_losses(sample_losses, name=None):
       if not isinstance(loss, ops.Tensor):
         raise TypeError("loss is not a Tensor: %s" % loss)
       ndims = loss.get_shape().ndims
-      if not (ndims is not None and ndims <= 1):
-        raise ValueError(
-            "loss must be a scalar or batch-length vector loss: %s" % loss)
+      if not (ndims is not None and ndims >= 1):
+        raise ValueError("loss must have dimensionality 1 or greater: %s" %
+                         loss)
       fixed_losses.append(array_ops.stop_gradient(loss))
 
-    stoch_dependencies_map = _stochastic_dependencies_map(fixed_losses)
+    stoch_dependencies_map = _stochastic_dependencies_map(
+        fixed_losses, stochastic_tensors=stochastic_tensors)
     if not stoch_dependencies_map:
       logging.warn(
           "No collection of Stochastic Tensors found for current graph.")
-      return []
-
-    surrogate_loss_losses = []
+      return math_ops.add_n(sample_losses)
 
     # Iterate through all of the stochastic dependencies, adding
     # surrogate terms where necessary.
+    sample_losses = [ops.convert_to_tensor(loss) for loss in sample_losses]
+    loss_terms = sample_losses
     for (stoch_node, dependent_losses) in stoch_dependencies_map.items():
-      surrogate_loss = stoch_node.surrogate_loss(list(dependent_losses))
-      if surrogate_loss is not None:
-        with ops.name_scope("SurrogateLoss_%s" % stoch_node.name):
-          surrogate_loss_losses.append(array_ops.identity(surrogate_loss))
+      loss_term = stoch_node.loss(list(dependent_losses))
+      if loss_term is not None:
+        loss_terms.append(loss_term)
 
-    return surrogate_loss_losses
+    return math_ops.add_n(loss_terms)

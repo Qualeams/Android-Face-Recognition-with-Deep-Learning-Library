@@ -67,32 +67,29 @@ dist.pmf(counts)  # Shape [2]
 ```
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.__init__(n, alpha, allow_arbitrary_counts=False, allow_nan=False, strict=True, name='DirichletMultinomial')` {#DirichletMultinomial.__init__}
+#### `tf.contrib.distributions.DirichletMultinomial.__init__(n, alpha, validate_args=True, allow_nan_stats=False, name='DirichletMultinomial')` {#DirichletMultinomial.__init__}
 
 Initialize a batch of DirichletMultinomial distributions.
 
 ##### Args:
 
 
-*  <b>`n`</b>: Non-negative `float` or `double` tensor with shape
-    broadcastable to `[N1,..., Nm]` with `m >= 0`.  Defines this as a batch
-    of `N1 x ... x Nm` different Dirichlet multinomial distributions. Its
-    components should be equal to integral values.
-*  <b>`alpha`</b>: Positive `float` or `double` tensor with shape broadcastable to
-    `[N1,..., Nm, k]` `m >= 0`.  Defines this as a batch of `N1 x ... x Nm`
-     different `k` class Dirichlet multinomial distributions.
-*  <b>`allow_arbitrary_counts`</b>: Boolean. This represents whether the pmf/cdf
-    allows for the `counts` tensor to be non-integral values.
-    The pmf/cdf are functions that can be evaluated at non-integral values,
-    but are only a distribution over non-negative integers.  If `strict` is
-    `False`, this assertion is turned off.
-*  <b>`allow_nan`</b>: Boolean, default False.  If False, raise an exception if
-    a statistic (e.g. mean/mode/etc...) is undefined for any batch member.
-    If True, batch members with valid parameters leading to undefined
-    statistics will return NaN for this statistic.
-*  <b>`strict`</b>: Whether to assert valid values for parameters `alpha` and `n`, and
-    `x` in `pmf` and `log_pmf`.  If False, correct behavior is not
-    guaranteed.
+*  <b>`n`</b>: Non-negative floating point tensor, whose dtype is the same as
+    `alpha`. The shape is broadcastable to `[N1,..., Nm]` with `m >= 0`.
+    Defines this as a batch of `N1 x ... x Nm` different Dirichlet
+    multinomial distributions. Its components should be equal to integer
+    values.
+*  <b>`alpha`</b>: Positive floating point tensor, whose dtype is the same as
+    `n` with shape broadcastable to `[N1,..., Nm, k]` `m >= 0`.  Defines
+    this as a batch of `N1 x ... x Nm` different `k` class Dirichlet
+    multinomial distributions.
+*  <b>`validate_args`</b>: Whether to assert valid values for parameters `alpha` and
+    `n`, and `x` in `prob` and `log_prob`.  If `False`, correct behavior is
+    not guaranteed.
+*  <b>`allow_nan_stats`</b>: Boolean, default `False`.  If `False`, raise an
+    exception if a statistic (e.g. mean/mode/etc...) is undefined for any
+    batch member.  If `True`, batch members with valid parameters leading to
+    undefined statistics will return NaN for this statistic.
 *  <b>`name`</b>: The name to prefix Ops created by this distribution class.
 
 
@@ -110,7 +107,7 @@ dist = DirichletMultinomial([3., 4], [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.allow_nan` {#DirichletMultinomial.allow_nan}
+#### `tf.contrib.distributions.DirichletMultinomial.allow_nan_stats` {#DirichletMultinomial.allow_nan_stats}
 
 Boolean describing behavior when a stat is undefined for batch member.
 
@@ -206,6 +203,20 @@ Same meaning as `event_shape`. May be only partially defined.
 
 - - -
 
+#### `tf.contrib.distributions.DirichletMultinomial.is_continuous` {#DirichletMultinomial.is_continuous}
+
+
+
+
+- - -
+
+#### `tf.contrib.distributions.DirichletMultinomial.is_reparameterized` {#DirichletMultinomial.is_reparameterized}
+
+
+
+
+- - -
+
 #### `tf.contrib.distributions.DirichletMultinomial.log_cdf(x, name='log_cdf')` {#DirichletMultinomial.log_cdf}
 
 
@@ -213,14 +224,21 @@ Same meaning as `event_shape`. May be only partially defined.
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.log_likelihood(value, name='log_likelihood')` {#DirichletMultinomial.log_likelihood}
+#### `tf.contrib.distributions.DirichletMultinomial.log_pdf(value, name='log_pdf')` {#DirichletMultinomial.log_pdf}
 
-Log likelihood of this distribution (same as log_pmf).
+Log of the probability density function.
 
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.log_pmf(counts, name='log_pmf')` {#DirichletMultinomial.log_pmf}
+#### `tf.contrib.distributions.DirichletMultinomial.log_pmf(value, name='log_pmf')` {#DirichletMultinomial.log_pmf}
+
+Log of the probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.DirichletMultinomial.log_prob(counts, name='log_prob')` {#DirichletMultinomial.log_prob}
 
 `Log(P[counts])`, computed for every batch member.
 
@@ -233,13 +251,12 @@ probability includes a combinatorial coefficient.
 ##### Args:
 
 
-*  <b>`counts`</b>: Non-negative `float` or `double` tensor whose shape can
-    be broadcast with `self.alpha`.  For fixed leading dimensions, the last
+*  <b>`counts`</b>: Non-negative tensor with dtype `dtype` and whose shape can be
+    broadcast with `self.alpha`.  For fixed leading dimensions, the last
     dimension represents counts for the corresponding Dirichlet Multinomial
     distribution in `self.alpha`. `counts` is only legal if it sums up to
-    `n` and its components are equal to integral values. The second
-    condition is relaxed if `allow_arbitrary_counts` is set.
-*  <b>`name`</b>: Name to give this Op, defaults to "log_pmf".
+    `n` and its components are equal to integer values.
+*  <b>`name`</b>: Name to give this Op, defaults to "log_prob".
 
 ##### Returns:
 
@@ -276,7 +293,21 @@ Name to prepend to all ops.
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.pmf(counts, name='pmf')` {#DirichletMultinomial.pmf}
+#### `tf.contrib.distributions.DirichletMultinomial.pdf(value, name='pdf')` {#DirichletMultinomial.pdf}
+
+The probability density function.
+
+
+- - -
+
+#### `tf.contrib.distributions.DirichletMultinomial.pmf(value, name='pmf')` {#DirichletMultinomial.pmf}
+
+The probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.DirichletMultinomial.prob(counts, name='prob')` {#DirichletMultinomial.prob}
 
 `P[counts]`, computed for every batch member.
 
@@ -289,13 +320,12 @@ probability includes a combinatorial coefficient.
 ##### Args:
 
 
-*  <b>`counts`</b>: Non-negative `float`, `double` tensor whose shape can
-    be broadcast with `self.alpha`.  For fixed leading dimensions, the last
+*  <b>`counts`</b>: Non-negative tensor with dtype `dtype` and whose shape can be
+    broadcast with `self.alpha`.  For fixed leading dimensions, the last
     dimension represents counts for the corresponding Dirichlet Multinomial
     distribution in `self.alpha`. `counts` is only legal if it sums up to
-    `n` and its components are equal to integral values. The second
-    condition is relaxed if `allow_arbitrary_counts` is set.
-*  <b>`name`</b>: Name to give this Op, defaults to "pmf".
+    `n` and its components are equal to integer values.
+*  <b>`name`</b>: Name to give this Op, defaults to "prob".
 
 ##### Returns:
 
@@ -304,7 +334,31 @@ probability includes a combinatorial coefficient.
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.sample(n, seed=None, name='sample')` {#DirichletMultinomial.sample}
+#### `tf.contrib.distributions.DirichletMultinomial.sample(sample_shape=(), seed=None, name='sample')` {#DirichletMultinomial.sample}
+
+Generate samples of the specified shape for each batched distribution.
+
+Note that a call to `sample()` without arguments will generate a single
+sample per batched distribution.
+
+##### Args:
+
+
+*  <b>`sample_shape`</b>: `int32` `Tensor` or tuple or list. Shape of the generated
+    samples.
+*  <b>`seed`</b>: Python integer seed for RNG
+*  <b>`name`</b>: name to give to the op.
+
+##### Returns:
+
+
+*  <b>`samples`</b>: a `Tensor` of dtype `self.dtype` and shape
+      `sample_shape + self.batch_shape + self.event_shape`.
+
+
+- - -
+
+#### `tf.contrib.distributions.DirichletMultinomial.sample_n(n, seed=None, name='sample_n')` {#DirichletMultinomial.sample_n}
 
 Generate `n` samples.
 
@@ -331,15 +385,40 @@ Standard deviation of the distribution.
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.strict` {#DirichletMultinomial.strict}
+#### `tf.contrib.distributions.DirichletMultinomial.validate_args` {#DirichletMultinomial.validate_args}
 
 Boolean describing behavior on invalid input.
 
 
 - - -
 
-#### `tf.contrib.distributions.DirichletMultinomial.variance(name='variance')` {#DirichletMultinomial.variance}
+#### `tf.contrib.distributions.DirichletMultinomial.variance(name='mean')` {#DirichletMultinomial.variance}
 
-Variance of the distribution.
+Class variances for every batch member.
+
+The variance for each batch member is defined as the following:
+
+```
+Var(X_j) = n * alpha_j / alpha_0 * (1 - alpha_j / alpha_0) *
+  (n + alpha_0) / (1 + alpha_0)
+```
+
+where `alpha_0 = sum_j alpha_j`.
+
+The covariance between elements in a batch is defined as:
+
+```
+Cov(X_i, X_j) = -n * alpha_i * alpha_j / alpha_0 ** 2 *
+  (n + alpha_0) / (1 + alpha_0)
+```
+
+##### Args:
+
+
+*  <b>`name`</b>: The name for this op.
+
+##### Returns:
+
+  A `Tensor` representing the variances for each batch member.
 
 

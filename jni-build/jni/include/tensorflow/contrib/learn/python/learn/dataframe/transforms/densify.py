@@ -1,4 +1,3 @@
-# pylint: disable=g-bad-file-header
 # Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,12 +47,13 @@ class Densify(transform.Transform):
   def _output_names(self):
     return "output",
 
-  def _apply_transform(self, input_tensors):
+  def _apply_transform(self, input_tensors, **kwargs):
     """Applies the transformation to the `transform_input`.
 
     Args:
-        input_tensors: a list of Tensors representing the input to
+      input_tensors: a list of Tensors representing the input to
         the Transform.
+      **kwargs: Additional keyword arguments, unused here.
 
     Returns:
         A namedtuple of Tensors representing the transformed output.

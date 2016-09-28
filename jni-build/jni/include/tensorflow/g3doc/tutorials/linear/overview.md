@@ -11,7 +11,7 @@ tools. It explains:
    deep learning to get the advantages of both.
 
 Read this overview to decide whether the tf.learn linear model tools might be
-useful to you. Then do the [Linear Models tutorial](wide/) to
+useful to you. Then do the [Linear Models tutorial](../wide/) to
 give it a try. This overview uses code samples from the tutorial, but the
 tutorial walks through the code in greater detail.
 
@@ -174,11 +174,11 @@ that value.
 indicating how to represent and transform the data. But they do not provide
 the data itself. You provide the data through an input function.
 
-The input function must return a dictionary of tensors. Each key corresponds
-to the name of a `FeatureColumn`. Each key's value is a tensor containing the
+The input function must return a dictionary of tensors. Each key corresponds to
+the name of a `FeatureColumn`. Each key's value is a tensor containing the
 values of that feature for all data instances. See `input_fn` in the [linear
-models tutorial code](
-https://www.tensorflow.org/code/tensorflow/examples/learn/wide_n_deep_tutorial.py?l=160)
+models tutorial code]
+(https://www.tensorflow.org/code/tensorflow/examples/learn/wide_n_deep_tutorial.py)
 for an example of an input function.
 
 The input function is passed to the `fit()` and `evaluate()` calls that
@@ -234,4 +234,4 @@ e = tf.contrib.learn.DNNLinearCombinedClassifier(
     dnn_feature_columns=deep_columns,
     dnn_hidden_units=[100, 50])
 ```
-For more information, see the [Wide and Deep Learning tutorial](../wide_n_deep/).
+For more information, see the [Wide and Deep Learning tutorial](../wide_and_deep/).

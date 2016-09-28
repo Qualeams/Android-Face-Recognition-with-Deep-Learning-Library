@@ -14,7 +14,7 @@ Classes and helper functions for Stochastic Computation Graphs.
 Base Class for Tensor-like objects that emit stochastic values.
 - - -
 
-#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.__init__(**kwargs)` {#StochasticTensor.__init__}
+#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.__init__()` {#StochasticTensor.__init__}
 
 
 
@@ -42,19 +42,12 @@ Base Class for Tensor-like objects that emit stochastic values.
 
 - - -
 
-#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.name` {#StochasticTensor.name}
+#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.loss(sample_losses)` {#StochasticTensor.loss}
 
+Returns the term to add to the surrogate loss.
 
-
-
-- - -
-
-#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.surrogate_loss(sample_losses)` {#StochasticTensor.surrogate_loss}
-
-Returns the surrogate loss given the list of sample_losses.
-
-This method is called by `surrogate_losses`.  The input `sample_losses`
-presumably have already had `stop_gradient` applied to them.  This is
+This method is called by `surrogate_loss`.  The input `sample_losses`
+should have already had `stop_gradient` applied to them.  This is
 because the surrogate_loss usually provides a monte carlo sample term
 of the form `differentiable_surrogate * sum(sample_losses)` where
 `sample_losses` is considered constant with respect to the input
@@ -68,8 +61,14 @@ for purposes of the gradient.
 
 ##### Returns:
 
-  Either either `None` or a `Tensor` whose gradient is the
-   score function.
+  Either `None` or a `Tensor`.
+
+
+- - -
+
+#### `tf.contrib.bayesflow.stochastic_graph.StochasticTensor.name` {#StochasticTensor.name}
+
+
 
 
 - - -
@@ -84,12 +83,43 @@ for purposes of the gradient.
 
 ### `class tf.contrib.bayesflow.stochastic_graph.DistributionTensor` {#DistributionTensor}
 
-The DistributionTensor is a StochasticTensor backed by a distribution.
+DistributionTensor is a StochasticTensor backed by a distribution.
 - - -
 
-#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.__init__(dist_cls, name=None, dist_value_type=None, **dist_args)` {#DistributionTensor.__init__}
+#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.__init__(dist_cls, name=None, dist_value_type=None, loss_fn=score_function, **dist_args)` {#DistributionTensor.__init__}
+
+Construct a `DistributionTensor`.
+
+`DistributionTensor` will instantiate a distribution from `dist_cls` and
+`dist_args` and its `value` method will return the same value each time
+it is called. What `value` is returned is controlled by the
+`dist_value_type` (defaults to `SampleAndReshapeValue`).
+
+Some distributions' sample functions are not differentiable (e.g. a sample
+from a discrete distribution like a Bernoulli) and so to differentiate
+wrt parameters upstream of the sample requires a gradient estimator like
+the score function estimator. This is accomplished by passing a
+differentiable `loss_fn` to the `DistributionTensor`, which
+defaults to a function whose derivative is the score function estimator.
+Calling `stochastic_graph.surrogate_loss(final_losses)` will call
+`loss()` on every `DistributionTensor` upstream of final losses.
+
+`loss()` will return None for `DistributionTensor`s backed by
+reparameterized distributions; it will also return None if the value type is
+`MeanValueType` or if `loss_fn=None`.
+
+##### Args:
 
 
+*  <b>`dist_cls`</b>: a class deriving from `BaseDistribution`.
+*  <b>`name`</b>: a name for this `DistributionTensor` and its ops.
+*  <b>`dist_value_type`</b>: a `_StochasticValueType`, which will determine what the
+      `value` of this `DistributionTensor` will be. If not provided, the
+      value type set with the `value_type` context manager will be used.
+*  <b>`loss_fn`</b>: callable that takes `(dt, dt.value(), influenced_losses)`, where
+      `dt` is this `DistributionTensor`, and returns a `Tensor` loss.
+*  <b>`**dist_args`</b>: keyword arguments to be passed through to `dist_cls` on
+      construction.
 
 
 - - -
@@ -136,6 +166,13 @@ The DistributionTensor is a StochasticTensor backed by a distribution.
 
 - - -
 
+#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.loss(final_losses, name='Loss')` {#DistributionTensor.loss}
+
+
+
+
+- - -
+
 #### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.mean(name='mean')` {#DistributionTensor.mean}
 
 
@@ -150,14 +187,14 @@ The DistributionTensor is a StochasticTensor backed by a distribution.
 
 - - -
 
-#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.surrogate_loss(losses, name=None)` {#DistributionTensor.surrogate_loss}
+#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.value(name='value')` {#DistributionTensor.value}
 
 
 
 
 - - -
 
-#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.value(name='value')` {#DistributionTensor.value}
+#### `tf.contrib.bayesflow.stochastic_graph.DistributionTensor.value_type` {#DistributionTensor.value_type}
 
 
 
@@ -404,12 +441,67 @@ in a `stop_gradients` call to disable any possible backpropagation.
 
 
 
+## Stochastic Computation Surrogate Loss Functions
+
+- - -
+
+### `tf.contrib.bayesflow.stochastic_graph.score_function(dist_tensor, value, losses)` {#score_function}
+
+
+
+
+- - -
+
+### `tf.contrib.bayesflow.stochastic_graph.get_score_function_with_baseline(baseline)` {#get_score_function_with_baseline}
+
+
+
+
+
 ## Stochastic Computation Graph Helper Functions
 
 - - -
 
-### `tf.contrib.bayesflow.stochastic_graph.surrogate_losses(sample_losses, name=None)` {#surrogate_losses}
+### `tf.contrib.bayesflow.stochastic_graph.surrogate_loss(sample_losses, stochastic_tensors=None, name='SurrogateLoss')` {#surrogate_loss}
 
+Surrogate loss for stochastic graphs.
+
+This function will call `loss_fn` on each `StochasticTensor`
+upstream of `sample_losses`, passing the losses that it influenced.
+
+Note that currently `surrogate_loss` does not work with `StochasticTensor`s
+instantiated in `while_loop`s or other control structures.
+
+##### Args:
+
+
+*  <b>`sample_losses`</b>: a list or tuple of final losses. Each loss should be per
+    example in the batch (and possibly per sample); that is, it should have
+    dimensionality of 1 or greater. All losses should have the same shape.
+*  <b>`stochastic_tensors`</b>: a list of `StochasticTensor`s to add loss terms for.
+    If None, defaults to all `StochasticTensor`s in the graph upstream of
+    the `Tensor`s in `sample_losses`.
+*  <b>`name`</b>: the name with which to prepend created ops.
+
+##### Returns:
+
+  `Tensor` loss, which is the sum of `sample_losses` and the
+  `loss_fn`s returned by the `StochasticTensor`s.
+
+##### Raises:
+
+
+*  <b>`TypeError`</b>: if `sample_losses` is not a list or tuple, or if its elements
+    are not `Tensor`s.
+*  <b>`ValueError`</b>: if any loss in `sample_losses` does not have dimensionality 1
+    or greater.
+
+
+
+## Other Functions and Classes
+- - -
+
+### `class tf.contrib.bayesflow.stochastic_graph.NoValueTypeSetError` {#NoValueTypeSetError}
 
 
 

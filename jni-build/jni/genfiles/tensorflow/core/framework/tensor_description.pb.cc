@@ -93,8 +93,9 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fdescription_2epro
     "(\0162\024.tensorflow.DataType\022+\n\005shape\030\002 \001(\0132"
     "\034.tensorflow.TensorShapeProto\022A\n\026allocat"
     "ion_description\030\004 \001(\0132!.tensorflow.Alloc"
-    "ationDescriptionB5\n\030org.tensorflow.frame"
-    "workB\027TensorDescriptionProtosP\001b\006proto3", 439);
+    "ationDescriptionB8\n\030org.tensorflow.frame"
+    "workB\027TensorDescriptionProtosP\001\370\001\001b\006prot"
+    "o3", 442);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/tensor_description.proto", &protobuf_RegisterTypes);
   TensorDescription::default_instance_ = new TensorDescription();
@@ -121,6 +122,102 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+void TensorDescription::_slow_mutable_shape() {
+  shape_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+      GetArenaNoVirtual());
+}
+::tensorflow::TensorShapeProto* TensorDescription::_slow_release_shape() {
+  if (shape_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::TensorShapeProto* temp = new ::tensorflow::TensorShapeProto;
+    temp->MergeFrom(*shape_);
+    shape_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::TensorShapeProto* TensorDescription::unsafe_arena_release_shape() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorDescription.shape)
+  
+  ::tensorflow::TensorShapeProto* temp = shape_;
+  shape_ = NULL;
+  return temp;
+}
+void TensorDescription::_slow_set_allocated_shape(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::TensorShapeProto** shape) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*shape) == NULL) {
+      message_arena->Own(*shape);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*shape)) {
+      ::tensorflow::TensorShapeProto* new_shape = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+            message_arena);
+      new_shape->CopyFrom(**shape);
+      *shape = new_shape;
+    }
+}
+void TensorDescription::unsafe_arena_set_allocated_shape(
+    ::tensorflow::TensorShapeProto* shape) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete shape_;
+  }
+  shape_ = shape;
+  if (shape) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorDescription.shape)
+}
+void TensorDescription::_slow_mutable_allocation_description() {
+  allocation_description_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::AllocationDescription >(
+      GetArenaNoVirtual());
+}
+::tensorflow::AllocationDescription* TensorDescription::_slow_release_allocation_description() {
+  if (allocation_description_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::AllocationDescription* temp = new ::tensorflow::AllocationDescription;
+    temp->MergeFrom(*allocation_description_);
+    allocation_description_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::AllocationDescription* TensorDescription::unsafe_arena_release_allocation_description() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorDescription.allocation_description)
+  
+  ::tensorflow::AllocationDescription* temp = allocation_description_;
+  allocation_description_ = NULL;
+  return temp;
+}
+void TensorDescription::_slow_set_allocated_allocation_description(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::AllocationDescription** allocation_description) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*allocation_description) == NULL) {
+      message_arena->Own(*allocation_description);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*allocation_description)) {
+      ::tensorflow::AllocationDescription* new_allocation_description = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::AllocationDescription >(
+            message_arena);
+      new_allocation_description->CopyFrom(**allocation_description);
+      *allocation_description = new_allocation_description;
+    }
+}
+void TensorDescription::unsafe_arena_set_allocated_allocation_description(
+    ::tensorflow::AllocationDescription* allocation_description) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete allocation_description_;
+  }
+  allocation_description_ = allocation_description;
+  if (allocation_description) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorDescription.allocation_description)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int TensorDescription::kDtypeFieldNumber;
 const int TensorDescription::kShapeFieldNumber;
@@ -131,6 +228,14 @@ TensorDescription::TensorDescription()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TensorDescription)
+}
+
+TensorDescription::TensorDescription(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.TensorDescription)
 }
 
 void TensorDescription::InitAsDefaultInstance() {
@@ -161,12 +266,22 @@ TensorDescription::~TensorDescription() {
 }
 
 void TensorDescription::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete shape_;
     delete allocation_description_;
   }
 }
 
+void TensorDescription::ArenaDtor(void* object) {
+  TensorDescription* _this = reinterpret_cast< TensorDescription* >(object);
+  (void)_this;
+}
+void TensorDescription::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void TensorDescription::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -185,14 +300,11 @@ const TensorDescription& TensorDescription::default_instance() {
 TensorDescription* TensorDescription::default_instance_ = NULL;
 
 TensorDescription* TensorDescription::New(::google::protobuf::Arena* arena) const {
-  TensorDescription* n = new TensorDescription;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<TensorDescription>(arena);
 }
 
 void TensorDescription::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.TensorDescription)
   dtype_ = 0;
   if (GetArenaNoVirtual() == NULL && shape_ != NULL) delete shape_;
   shape_ = NULL;
@@ -202,7 +314,7 @@ void TensorDescription::Clear() {
 
 bool TensorDescription::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.TensorDescription)
   for (;;) {
@@ -324,6 +436,7 @@ void TensorDescription::SerializeWithCachedSizes(
 }
 
 int TensorDescription::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorDescription)
   int total_size = 0;
 
   // optional .tensorflow.DataType dtype = 1;
@@ -353,18 +466,22 @@ int TensorDescription::ByteSize() const {
 }
 
 void TensorDescription::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorDescription)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const TensorDescription* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const TensorDescription>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.TensorDescription)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorDescription)
     MergeFrom(*source);
   }
 }
 
 void TensorDescription::MergeFrom(const TensorDescription& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorDescription)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.dtype() != 0) {
     set_dtype(from.dtype());
@@ -378,12 +495,14 @@ void TensorDescription::MergeFrom(const TensorDescription& from) {
 }
 
 void TensorDescription::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.TensorDescription)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void TensorDescription::CopyFrom(const TensorDescription& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorDescription)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -396,6 +515,18 @@ bool TensorDescription::IsInitialized() const {
 
 void TensorDescription::Swap(TensorDescription* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    TensorDescription temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void TensorDescription::UnsafeArenaSwap(TensorDescription* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void TensorDescription::InternalSwap(TensorDescription* other) {
@@ -446,19 +577,30 @@ const ::tensorflow::TensorShapeProto& TensorDescription::shape() const {
 ::tensorflow::TensorShapeProto* TensorDescription::mutable_shape() {
   
   if (shape_ == NULL) {
-    shape_ = new ::tensorflow::TensorShapeProto;
+    _slow_mutable_shape();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorDescription.shape)
   return shape_;
 }
 ::tensorflow::TensorShapeProto* TensorDescription::release_shape() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorDescription.shape)
   
-  ::tensorflow::TensorShapeProto* temp = shape_;
-  shape_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_shape();
+  } else {
+    ::tensorflow::TensorShapeProto* temp = shape_;
+    shape_ = NULL;
+    return temp;
+  }
 }
-void TensorDescription::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
-  delete shape_;
+ void TensorDescription::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete shape_;
+  }
+  if (shape != NULL) {
+    _slow_set_allocated_shape(message_arena, &shape);
+  }
   shape_ = shape;
   if (shape) {
     
@@ -483,19 +625,30 @@ const ::tensorflow::AllocationDescription& TensorDescription::allocation_descrip
 ::tensorflow::AllocationDescription* TensorDescription::mutable_allocation_description() {
   
   if (allocation_description_ == NULL) {
-    allocation_description_ = new ::tensorflow::AllocationDescription;
+    _slow_mutable_allocation_description();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorDescription.allocation_description)
   return allocation_description_;
 }
 ::tensorflow::AllocationDescription* TensorDescription::release_allocation_description() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorDescription.allocation_description)
   
-  ::tensorflow::AllocationDescription* temp = allocation_description_;
-  allocation_description_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_allocation_description();
+  } else {
+    ::tensorflow::AllocationDescription* temp = allocation_description_;
+    allocation_description_ = NULL;
+    return temp;
+  }
 }
-void TensorDescription::set_allocated_allocation_description(::tensorflow::AllocationDescription* allocation_description) {
-  delete allocation_description_;
+ void TensorDescription::set_allocated_allocation_description(::tensorflow::AllocationDescription* allocation_description) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete allocation_description_;
+  }
+  if (allocation_description != NULL) {
+    _slow_set_allocated_allocation_description(message_arena, &allocation_description);
+  }
   allocation_description_ = allocation_description;
   if (allocation_description) {
     

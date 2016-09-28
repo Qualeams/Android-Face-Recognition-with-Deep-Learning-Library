@@ -27,7 +27,7 @@ filegroup(
     ]),
 )
 
-load("//tensorflow:tensorflow.bzl", "tf_cc_tests")
+load("//tensorflow:tensorflow.bzl", "tf_cuda_cc_tests")
 
 # For platform specific build config
 load(
@@ -51,9 +51,14 @@ cc_library(
 
 cc_library(
     name = "worker_interface",
-    hdrs = ["worker_interface.h"],
+    srcs = ["tensor_coding.cc"],
+    hdrs = [
+        "tensor_coding.h",
+        "worker_interface.h",
+    ],
     deps = [
         ":call_options",
+        "//tensorflow/core:framework",
         "//tensorflow/core:lib",
         "//tensorflow/core:worker_proto_cc",
     ],
@@ -79,6 +84,22 @@ cc_test(
     ],
 )
 
+cc_test(
+    name = "tensor_coding_test",
+    size = "small",
+    srcs = ["tensor_coding_test.cc"],
+    linkstatic = 1,
+    deps = [
+        ":worker_interface",
+        "//tensorflow/core:framework",
+        "//tensorflow/core:lib",
+        "//tensorflow/core:tensor_testutil",
+        "//tensorflow/core:test",
+        "//tensorflow/core:test_main",
+        "//tensorflow/core:worker_proto_cc",
+    ],
+)
+
 cc_library(
     name = "worker_cache",
     hdrs = ["worker_cache.h"],
@@ -90,7 +111,6 @@ cc_library(
     srcs = ["remote_device.cc"],
     hdrs = ["remote_device.h"],
     deps = [
-        ":process_util",
         ":worker_cache",
         ":worker_interface",
         "//tensorflow/core:core_cpu_internal",
@@ -116,11 +136,11 @@ cc_library(
         ":call_options",
         ":master_env",
         ":master_session_interface",
-        ":process_util",
         ":remote_device",
         ":worker_cache",
         ":worker_interface",
         "//tensorflow/core:core_cpu",
+        "//tensorflow/core:core_cpu_internal",
         "//tensorflow/core:framework",
         "//tensorflow/core:lib",
         "//tensorflow/core:master_proto_cc",
@@ -135,8 +155,6 @@ cc_library(
     deps = [
         ":master_env",
         ":master_session_interface",
-        ":process_util",
-        ":simple_graph_execution_state",
         ":worker_cache",
         ":worker_interface",
         "//tensorflow/core:core_cpu",
@@ -146,30 +164,6 @@ cc_library(
         "//tensorflow/core:lib_internal",
         "//tensorflow/core:master_proto_cc",
         "//tensorflow/core:protos_all_cc",
-    ],
-)
-
-cc_library(
-    name = "build_graph_options",
-    srcs = ["build_graph_options.cc"],
-    hdrs = ["build_graph_options.h"],
-    deps = [
-        "//tensorflow/core:lib",
-    ],
-)
-
-cc_library(
-    name = "simple_graph_execution_state",
-    srcs = ["simple_graph_execution_state.cc"],
-    hdrs = ["simple_graph_execution_state.h"],
-    deps = [
-        ":build_graph_options",
-        ":process_util",
-        "//tensorflow/core:core_cpu_internal",
-        "//tensorflow/core:framework",
-        "//tensorflow/core:lib",
-        "//tensorflow/core:protos_all_cc",
-        "//tensorflow/core:worker_proto_cc",
     ],
 )
 
@@ -194,7 +188,6 @@ cc_library(
     srcs = ["base_rendezvous_mgr.cc"],
     hdrs = ["base_rendezvous_mgr.h"],
     deps = [
-        ":process_util",
         ":rendezvous_mgr_interface",
         ":worker_cache",
         ":worker_env",
@@ -216,7 +209,6 @@ cc_library(
     srcs = ["graph_mgr.cc"],
     hdrs = ["graph_mgr.h"],
     deps = [
-        ":process_util",
         ":rendezvous_mgr_interface",
         ":worker_env",
         "//tensorflow/core:core_cpu_internal",
@@ -229,24 +221,13 @@ cc_library(
 )
 
 cc_library(
-    name = "process_util",
-    srcs = ["process_util.cc"],
-    hdrs = ["process_util.h"],
-    deps = [
-        "//tensorflow/core:core_cpu",
-        "//tensorflow/core:lib",
-        "//tensorflow/core:lib_internal",
-    ],
-)
-
-cc_library(
     name = "worker_cache_partial",
     srcs = ["worker_cache_partial.cc"],
     hdrs = ["worker_cache_partial.h"],
     deps = [
-        ":process_util",
         ":worker_cache",
         ":worker_interface",
+        "//tensorflow/core:core_cpu_internal",
         "//tensorflow/core:framework",
         "//tensorflow/core:lib",
         "//tensorflow/core:worker_proto_cc",
@@ -278,7 +259,7 @@ cc_library(
 
 # TODO(mrry): Move executor_test.cc to ../common_runtime when once it no longer depends
 # on grpc_testlib.
-tf_cc_tests(
+tf_cuda_cc_tests(
     size = "medium",
     linkstatic = tf_kernel_tests_linkstatic(),
     tags = tf_cuda_tests_tags(),
@@ -287,9 +268,7 @@ tf_cc_tests(
         #"master_test.cc",  # TODO(b/27683709): Re-enable when not flaky.
     ],
     deps = [
-        "@grpc//:grpc++_unsecure",
         ":master",
-        ":process_util",
         ":remote_device",
         ":worker_interface",
         "//tensorflow/core:core_cpu",
@@ -299,7 +278,6 @@ tf_cc_tests(
         "//tensorflow/core:lib",
         "//tensorflow/core:lib_internal",
         "//tensorflow/core:master_proto_cc",
-        "//tensorflow/core:master_service_proto_cc",
         "//tensorflow/core:protos_all_cc",
         "//tensorflow/core:test",
         "//tensorflow/core:test_main",
@@ -313,20 +291,19 @@ tf_cc_tests(
         "//tensorflow/core/kernels:dense_update_ops",
         "//tensorflow/core/kernels:identity_op",
         "//tensorflow/core/kernels:variable_ops",
+        "@grpc//:grpc++_unsecure",
     ],
 )
 
-tf_cc_tests(
+tf_cuda_cc_tests(
     size = "small",
     linkstatic = tf_kernel_tests_linkstatic(),
-    tags = tf_cuda_tests_tags(),
+    tags = tf_cuda_tests_tags() + ["manual"],
     tests = [
         "remote_device_test.cc",
     ],
     deps = [
-        "@grpc//:grpc++_unsecure",
         ":master",
-        ":process_util",
         ":remote_device",
         ":worker_interface",
         "//tensorflow/core:core_cpu",
@@ -336,7 +313,6 @@ tf_cc_tests(
         "//tensorflow/core:lib",
         "//tensorflow/core:lib_internal",
         "//tensorflow/core:master_proto_cc",
-        "//tensorflow/core:master_service_proto_cc",
         "//tensorflow/core:protos_all_cc",
         "//tensorflow/core:test",
         "//tensorflow/core:test_main",
@@ -345,5 +321,6 @@ tf_cc_tests(
         "//tensorflow/core/distributed_runtime/rpc:grpc_testlib",
         "//tensorflow/core/distributed_runtime/rpc:grpc_util",
         "//tensorflow/core/distributed_runtime/rpc:grpc_worker_cache",
+        "@grpc//:grpc++_unsecure",
     ],
 )

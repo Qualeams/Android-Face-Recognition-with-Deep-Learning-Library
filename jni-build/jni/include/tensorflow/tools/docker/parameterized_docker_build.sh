@@ -179,6 +179,11 @@ if [[ "${DO_PIP_BUILD}" == "1" ]]; then
   export TF_BUILD_IS_OPT="OPT"
   export TF_BUILD_IS_PIP="PIP"
 
+  if [[ "${TF_DOCKER_BUILD_TYPE}" == "gpu" ]]; then
+    export TF_BUILD_APPEND_CI_DOCKER_EXTRA_PARAMS=\
+"${TF_BUILD_APPEND_CI_DOCKER_EXTRA_PARAMS} -e TF_CUDA_COMPUTE_CAPABILITIES=3.0,3.5,5.2"
+  fi
+
   pushd "${SCRIPT_DIR}/../../../"
   rm -rf pip_test/whl &&
   tensorflow/tools/ci_build/ci_parameterized_build.sh
@@ -190,14 +195,15 @@ if [[ "${DO_PIP_BUILD}" == "1" ]]; then
     die "FAIL: Failed to build pip file locally"
   fi
 
-  PIP_WHL=$(ls pip_test/whl/*.whl)
+  PIP_WHL=$(ls pip_test/whl/*.whl | head -1)
   if [[ -z "${PIP_WHL}" ]]; then
     die "ERROR: Cannot locate the locally-built pip whl file"
   fi
   echo "Locally-built PIP whl file is at: ${PIP_WHL}"
 
   # Copy the pip file to tmp directory
-  cp "${PIP_WHL}" "${TMP_DIR}/"
+  cp "${PIP_WHL}" "${TMP_DIR}/" || \
+      die "ERROR: Failed to copy wheel file: ${PIP_WHL}"
 
   # Use string replacement to put the correct file name into the Dockerfile
   PIP_WHL=$(basename "${PIP_WHL}")
@@ -317,7 +323,21 @@ fi
 
 # Apply the final image name and tag
 FINAL_IMG="${FINAL_IMAGE_NAME}:${FINAL_TAG}"
-docker tag -f "${IMG}" "${FINAL_IMG}" || \
+
+DOCKER_VER=$(docker version | grep Version | head -1 | awk '{print $NF}')
+if [[ -z "${DOCKER_VER}" ]]; then
+  die "ERROR: Failed to determine docker version"
+fi
+DOCKER_MAJOR_VER=$(echo "${DOCKER_VER}" | cut -d. -f 1)
+DOCKER_MINOR_VER=$(echo "${DOCKER_VER}" | cut -d. -f 2)
+
+FORCE_TAG=""
+if [[ "${DOCKER_MAJOR_VER}" -le 1 ]] && \
+   [[ "${DOCKER_MINOR_VER}" -le 9 ]]; then
+  FORCE_TAG="--force"
+fi
+
+docker tag ${FORCE_TAG} "${IMG}" "${FINAL_IMG}" || \
     die "Failed to tag intermediate docker image ${IMG} as ${FINAL_IMG}"
 
 echo ""

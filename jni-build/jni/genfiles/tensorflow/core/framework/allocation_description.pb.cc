@@ -89,9 +89,9 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2
     "ionDescription\022\027\n\017requested_bytes\030\001 \001(\003\022"
     "\027\n\017allocated_bytes\030\002 \001(\003\022\026\n\016allocator_na"
     "me\030\003 \001(\t\022\025\n\rallocation_id\030\004 \001(\003\022\034\n\024has_s"
-    "ingle_reference\030\005 \001(\010\022\013\n\003ptr\030\006 \001(\004B9\n\030or"
+    "ingle_reference\030\005 \001(\010\022\013\n\003ptr\030\006 \001(\004B<\n\030or"
     "g.tensorflow.frameworkB\033AllocationDescri"
-    "ptionProtosP\001b\006proto3", 301);
+    "ptionProtosP\001\370\001\001b\006proto3", 304);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/allocation_description.proto", &protobuf_RegisterTypes);
   AllocationDescription::default_instance_ = new AllocationDescription();
@@ -133,6 +133,14 @@ AllocationDescription::AllocationDescription()
   // @@protoc_insertion_point(constructor:tensorflow.AllocationDescription)
 }
 
+AllocationDescription::AllocationDescription(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.AllocationDescription)
+}
+
 void AllocationDescription::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -163,11 +171,21 @@ AllocationDescription::~AllocationDescription() {
 }
 
 void AllocationDescription::SharedDtor() {
-  allocator_name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  allocator_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
   }
 }
 
+void AllocationDescription::ArenaDtor(void* object) {
+  AllocationDescription* _this = reinterpret_cast< AllocationDescription* >(object);
+  (void)_this;
+}
+void AllocationDescription::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void AllocationDescription::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -186,16 +204,21 @@ const AllocationDescription& AllocationDescription::default_instance() {
 AllocationDescription* AllocationDescription::default_instance_ = NULL;
 
 AllocationDescription* AllocationDescription::New(::google::protobuf::Arena* arena) const {
-  AllocationDescription* n = new AllocationDescription;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<AllocationDescription>(arena);
 }
 
 void AllocationDescription::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.AllocationDescription)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(AllocationDescription, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<AllocationDescription*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -204,7 +227,7 @@ void AllocationDescription::Clear() {
 
   ZR_(requested_bytes_, allocated_bytes_);
   ZR_(allocation_id_, has_single_reference_);
-  allocator_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -213,7 +236,7 @@ void AllocationDescription::Clear() {
 
 bool AllocationDescription::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.AllocationDescription)
   for (;;) {
@@ -418,6 +441,7 @@ void AllocationDescription::SerializeWithCachedSizes(
 }
 
 int AllocationDescription::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.AllocationDescription)
   int total_size = 0;
 
   // optional int64 requested_bytes = 1;
@@ -467,18 +491,22 @@ int AllocationDescription::ByteSize() const {
 }
 
 void AllocationDescription::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.AllocationDescription)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const AllocationDescription* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const AllocationDescription>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.AllocationDescription)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.AllocationDescription)
     MergeFrom(*source);
   }
 }
 
 void AllocationDescription::MergeFrom(const AllocationDescription& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.AllocationDescription)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.requested_bytes() != 0) {
     set_requested_bytes(from.requested_bytes());
@@ -487,8 +515,7 @@ void AllocationDescription::MergeFrom(const AllocationDescription& from) {
     set_allocated_bytes(from.allocated_bytes());
   }
   if (from.allocator_name().size() > 0) {
-
-    allocator_name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.allocator_name_);
+    set_allocator_name(from.allocator_name());
   }
   if (from.allocation_id() != 0) {
     set_allocation_id(from.allocation_id());
@@ -502,12 +529,14 @@ void AllocationDescription::MergeFrom(const AllocationDescription& from) {
 }
 
 void AllocationDescription::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.AllocationDescription)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void AllocationDescription::CopyFrom(const AllocationDescription& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.AllocationDescription)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -520,6 +549,18 @@ bool AllocationDescription::IsInitialized() const {
 
 void AllocationDescription::Swap(AllocationDescription* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    AllocationDescription temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void AllocationDescription::UnsafeArenaSwap(AllocationDescription* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void AllocationDescription::InternalSwap(AllocationDescription* other) {
@@ -574,36 +615,46 @@ void AllocationDescription::clear_allocated_bytes() {
 
 // optional string allocator_name = 3;
 void AllocationDescription::clear_allocator_name() {
-  allocator_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& AllocationDescription::allocator_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.AllocationDescription.allocator_name)
-  return allocator_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void AllocationDescription::set_allocator_name(const ::std::string& value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.allocator_name)
 }
  void AllocationDescription::set_allocator_name(const char* value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.AllocationDescription.allocator_name)
 }
- void AllocationDescription::set_allocator_name(const char* value, size_t size) {
+ void AllocationDescription::set_allocator_name(const char* value,
+    size_t size) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.AllocationDescription.allocator_name)
 }
  ::std::string* AllocationDescription::mutable_allocator_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.AllocationDescription.allocator_name)
-  return allocator_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* AllocationDescription::release_allocator_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.AllocationDescription.allocator_name)
   
-  return allocator_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* AllocationDescription::unsafe_arena_release_allocator_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.AllocationDescription.allocator_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return allocator_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
  void AllocationDescription::set_allocated_allocator_name(::std::string* allocator_name) {
   if (allocator_name != NULL) {
@@ -611,8 +662,21 @@ void AllocationDescription::clear_allocator_name() {
   } else {
     
   }
-  allocator_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name);
+  allocator_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.AllocationDescription.allocator_name)
+}
+ void AllocationDescription::unsafe_arena_set_allocated_allocator_name(
+    ::std::string* allocator_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (allocator_name != NULL) {
+    
+  } else {
+    
+  }
+  allocator_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      allocator_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AllocationDescription.allocator_name)
 }
 
 // optional int64 allocation_id = 4;

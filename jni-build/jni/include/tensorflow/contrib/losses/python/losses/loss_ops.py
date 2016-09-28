@@ -25,6 +25,7 @@ from tensorflow.python.framework import ops
 from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import nn
+from tensorflow.python.ops import nn_ops
 
 
 __all__ = ["absolute_difference",
@@ -33,6 +34,7 @@ __all__ = ["absolute_difference",
            "get_losses",
            "get_regularization_losses",
            "get_total_loss",
+           "hinge_loss",
            "log_loss",
            "sigmoid_cross_entropy",
            "softmax_cross_entropy",
@@ -120,6 +122,7 @@ def _compute_weighted_loss(losses, weight):
     ValueError: If the weight shape is not compatible with the losses shape or
       if the number of dimensions (rank) of either losses or weight is missing.
   """
+  input_dtype = losses.dtype
   losses = math_ops.to_float(losses)
   weight = math_ops.to_float(ops.convert_to_tensor(weight))
 
@@ -131,6 +134,8 @@ def _compute_weighted_loss(losses, weight):
   total_loss = _scale_losses(losses, weight)
   num_present = _num_present(losses, weight)
   mean_loss = _safe_mean(total_loss, num_present)
+  # convert the result back to the input type
+  mean_loss = math_ops.cast(mean_loss, input_dtype)
   add_loss(mean_loss)
   return mean_loss
 
@@ -282,6 +287,15 @@ def sigmoid_cross_entropy(logits, multi_class_labels, weight=1.0,
                           label_smoothing=0, scope=None):
   """Creates a cross-entropy loss using tf.nn.sigmoid_cross_entropy_with_logits.
 
+  `weight` acts as a coefficient for the loss. If a scalar is provided,
+  then the loss is simply scaled by the given value. If `weight` is a
+  tensor of size [`batch_size`], then the loss weights apply to each
+  corresponding sample.
+
+  If `label_smoothing` is nonzero, smooth the labels towards 1/2:
+      new_multiclass_labels = multiclass_labels * (1 - label_smoothing)
+                              + 0.5 * label_smoothing
+
   Args:
     logits: [batch_size, num_classes] logits outputs of the network .
     multi_class_labels: [batch_size, num_classes] target labels in (0, 1).
@@ -292,19 +306,38 @@ def sigmoid_cross_entropy(logits, multi_class_labels, weight=1.0,
 
   Returns:
     A scalar `Tensor` representing the loss value.
+
+  Raises:
+    ValueError: If the shape of `predictions` doesn't match that of `targets` or
+      if the shape of `weight` is invalid or if `weight` is None.
   """
   with ops.op_scope([logits, multi_class_labels],
                     scope, "sigmoid_cross_entropy_loss"):
-    return _cross_entropy(logits, multi_class_labels, weight,
-                          label_smoothing,
-                          activation_fn=nn.sigmoid_cross_entropy_with_logits)
+    logits.get_shape().assert_is_compatible_with(multi_class_labels.get_shape())
+
+    multi_class_labels = math_ops.cast(multi_class_labels, logits.dtype)
+
+    if label_smoothing > 0:
+      multi_class_labels = (multi_class_labels * (1 - label_smoothing) +
+                            0.5 * label_smoothing)
+
+    losses = nn.sigmoid_cross_entropy_with_logits(logits, multi_class_labels,
+                                                  name="xentropy")
+    return _compute_weighted_loss(losses, weight)
 
 
 def softmax_cross_entropy(logits, onehot_labels, weight=1.0,
                           label_smoothing=0, scope=None):
   """Creates a cross-entropy loss using tf.nn.softmax_cross_entropy_with_logits.
 
-  It can scale the loss by weight factor, and smooth the labels.
+  `weight` acts as a coefficient for the loss. If a scalar is provided,
+  then the loss is simply scaled by the given value. If `weight` is a
+  tensor of size [`batch_size`], then the loss weights apply to each
+  corresponding sample.
+
+  If `label_smoothing` is nonzero, smooth the labels towards 1/num_classes:
+      new_onehot_labels = onehot_labels * (1 - label_smoothing)
+                          + label_smoothing / num_classes
 
   Args:
     logits: [batch_size, num_classes] logits outputs of the network .
@@ -316,54 +349,27 @@ def softmax_cross_entropy(logits, onehot_labels, weight=1.0,
 
   Returns:
     A scalar `Tensor` representing the loss value.
-  """
-  with ops.op_scope([logits, onehot_labels],
-                    scope, "softmax_cross_entropy_loss"):
-    return _cross_entropy(logits, onehot_labels, weight,
-                          label_smoothing,
-                          activation_fn=nn.softmax_cross_entropy_with_logits)
-
-
-def _cross_entropy(logits, onehot_labels, weight, label_smoothing,
-                   activation_fn):
-  """Adds a CrossEntropyLoss to the losses collection.
-
-  `weight` acts as a coefficient for the loss. If a scalar is provided,
-  then the loss is simply scaled by the given value. If `weight` is a
-  tensor of size [`batch_size`], then the loss weights apply to each
-  corresponding sample.
-
-  Args:
-    logits: [batch_size, num_classes] logits outputs of the network .
-    onehot_labels: [batch_size, num_classes] target one_hot_encoded labels.
-    weight: Coefficients for the loss. If the activation is SIGMOID, then the
-      weight shape must be one of [1], [batch_size] or logits.shape().
-      Otherwise, the weight shape must be either [1] or [batch_size].
-    label_smoothing: If greater than 0 then smooth the labels.
-    activation_fn: The activation function to use. The method must take three
-      arguments, the logits, the labels, and an operation name.
-
-  Returns:
-    A scalar `Tensor` representing the loss value.
 
   Raises:
     ValueError: If the shape of `predictions` doesn't match that of `targets` or
       if the shape of `weight` is invalid or if `weight` is None.
   """
-  logits.get_shape().assert_is_compatible_with(onehot_labels.get_shape())
-  if weight is None:
-    raise ValueError("`weight` cannot be None")
+  with ops.op_scope([logits, onehot_labels],
+                    scope, "softmax_cross_entropy_loss"):
+    logits.get_shape().assert_is_compatible_with(onehot_labels.get_shape())
 
-  onehot_labels = math_ops.cast(onehot_labels, logits.dtype)
+    onehot_labels = math_ops.cast(onehot_labels, logits.dtype)
 
-  if label_smoothing > 0:
-    num_classes = onehot_labels.get_shape()[1].value
-    smooth_positives = 1.0 - label_smoothing
-    smooth_negatives = label_smoothing / num_classes
-    onehot_labels = onehot_labels * smooth_positives + smooth_negatives
+    if label_smoothing > 0:
+      num_classes = math_ops.cast(
+          array_ops.shape(onehot_labels)[1], logits.dtype)
+      smooth_positives = 1.0 - label_smoothing
+      smooth_negatives = label_smoothing / num_classes
+      onehot_labels = onehot_labels * smooth_positives + smooth_negatives
 
-  losses = activation_fn(logits, onehot_labels, name="xentropy")
-  return _compute_weighted_loss(losses, weight)
+    losses = nn.softmax_cross_entropy_with_logits(logits, onehot_labels,
+                                                  name="xentropy")
+    return _compute_weighted_loss(losses, weight)
 
 
 def log_loss(predictions, targets, weight=1.0, epsilon=1e-7, scope=None):
@@ -404,6 +410,31 @@ def log_loss(predictions, targets, weight=1.0, epsilon=1e-7, scope=None):
         math_ops.log(predictions + epsilon)) - math_ops.mul(
             (1 - targets), math_ops.log(1 - predictions + epsilon))
     return _compute_weighted_loss(losses, weight)
+
+
+def hinge_loss(logits, target, scope=None):
+  """Method that returns the loss tensor for hinge loss.
+
+  Args:
+    logits: The logits, a float tensor.
+    target: The ground truth output tensor. Its shape should match the shape of
+      logits. The values of the tensor are expected to be 0.0 or 1.0.
+    scope: The scope for the operations performed in computing the loss.
+
+  Returns:
+    A `Tensor` of same shape as logits and target representing the loss values
+      across the batch.
+
+  Raises:
+    ValueError: If the shapes of `logits` and `target` don't match.
+  """
+  with ops.op_scope([logits, target], scope, "hinge_loss") as scope:
+    logits.get_shape().assert_is_compatible_with(target.get_shape())
+    # We first need to convert binary labels to -1/1 labels (as floats).
+    target = math_ops.to_float(target)
+    all_ones = array_ops.ones_like(target)
+    labels = math_ops.sub(2 * target, all_ones)
+    return nn_ops.relu(math_ops.sub(all_ones, math_ops.mul(labels, logits)))
 
 
 def sum_of_squares(predictions, targets, weight=1.0, scope=None):
@@ -556,4 +587,3 @@ def cosine_distance(predictions, targets, dim, weight=1.0, scope=None):
     radial_diffs = math_ops.mul(predictions, targets)
     losses = 1 - math_ops.reduce_sum(radial_diffs, reduction_indices=[dim,])
     return _compute_weighted_loss(losses, weight)
-

@@ -34,7 +34,7 @@ from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import random_ops
 
 
-class Normal(distribution.ContinuousDistribution):
+class Normal(distribution.Distribution):
   """The scalar Normal distribution with mean and stddev parameters mu, sigma.
 
   #### Mathematical details
@@ -80,29 +80,39 @@ class Normal(distribution.ContinuousDistribution):
 
   """
 
-  def __init__(self, mu, sigma, strict=True, name="Normal"):
+  def __init__(self,
+               mu,
+               sigma,
+               validate_args=True,
+               allow_nan_stats=False,
+               name="Normal"):
     """Construct Normal distributions with mean and stddev `mu` and `sigma`.
 
     The parameters `mu` and `sigma` must be shaped in a way that supports
     broadcasting (e.g. `mu + sigma` is a valid operation).
 
     Args:
-      mu: `float` or `double` tensor, the means of the distribution(s).
-      sigma: `float` or `double` tensor, the stddevs of the distribution(s).
+      mu: Floating point tensor, the means of the distribution(s).
+      sigma: Floating point tensor, the stddevs of the distribution(s).
         sigma must contain only positive values.
-      strict: Whether to assert that `sigma > 0`. If `strict` is False,
-        correct output is not guaranteed when input is invalid.
+      validate_args: Whether to assert that `sigma > 0`. If `validate_args` is
+        `False`, correct output is not guaranteed when input is invalid.
+      allow_nan_stats:  Boolean, default `False`.  If `False`, raise an
+        exception if a statistic (e.g. mean/mode/etc...) is undefined for any
+        batch member.  If `True`, batch members with valid parameters leading to
+        undefined statistics will return NaN for this statistic.
       name: The name to give Ops created by the initializer.
 
     Raises:
       TypeError: if mu and sigma are different dtypes.
     """
-    self._strict = strict
+    self._allow_nan_stats = allow_nan_stats
+    self._validate_args = validate_args
     with ops.op_scope([mu, sigma], name):
       mu = ops.convert_to_tensor(mu)
       sigma = ops.convert_to_tensor(sigma)
-      with ops.control_dependencies(
-          [check_ops.assert_positive(sigma)] if strict else []):
+      with ops.control_dependencies([check_ops.assert_positive(sigma)] if
+                                    validate_args else []):
         self._name = name
         self._mu = array_ops.identity(mu, name="mu")
         self._sigma = array_ops.identity(sigma, name="sigma")
@@ -112,9 +122,14 @@ class Normal(distribution.ContinuousDistribution):
     contrib_tensor_util.assert_same_float_dtype((mu, sigma))
 
   @property
-  def strict(self):
+  def allow_nan_stats(self):
+    """Boolean describing behavior when a stat is undefined for batch member."""
+    return self._allow_nan_stats
+
+  @property
+  def validate_args(self):
     """Boolean describing behavior on invalid input."""
-    return self._strict
+    return self._validate_args
 
   @property
   def name(self):
@@ -205,15 +220,15 @@ class Normal(distribution.ContinuousDistribution):
       with ops.op_scope([], name):
         return math_ops.square(self.std())
 
-  def log_pdf(self, x, name="log_pdf"):
-    """Log pdf of observations in `x` under these Normal distribution(s).
+  def log_prob(self, x, name="log_prob"):
+    """Log prob of observations in `x` under these Normal distribution(s).
 
     Args:
       x: tensor of dtype `dtype`, must be broadcastable with `mu` and `sigma`.
       name: The name to give this op.
 
     Returns:
-      log_pdf: tensor of dtype `dtype`, the log-PDFs of `x`.
+      log_prob: tensor of dtype `dtype`, the log-PDFs of `x`.
     """
     with ops.name_scope(self.name):
       with ops.op_scope([self._mu, self._sigma, x], name):
@@ -261,7 +276,7 @@ class Normal(distribution.ContinuousDistribution):
       with ops.op_scope([self._mu, self._sigma, x], name):
         return math_ops.log(self.cdf(x))
 
-  def pdf(self, x, name="pdf"):
+  def prob(self, x, name="prob"):
     """The PDF of observations in `x` under these Normal distribution(s).
 
     Args:
@@ -269,9 +284,9 @@ class Normal(distribution.ContinuousDistribution):
       name: The name to give this op.
 
     Returns:
-      pdf: tensor of dtype `dtype`, the pdf values of `x`.
+      prob: tensor of dtype `dtype`, the prob values of `x`.
     """
-    return super(Normal, self).pdf(x, name=name)
+    return super(Normal, self).prob(x, name=name)
 
   def entropy(self, name="entropy"):
     """The entropy of Normal distribution(s).
@@ -290,7 +305,7 @@ class Normal(distribution.ContinuousDistribution):
         sigma = self._sigma * array_ops.ones_like(self._mu)
         return 0.5 * math_ops.log(two_pi_e1 * math_ops.square(sigma))
 
-  def sample(self, n, seed=None, name="sample"):
+  def sample_n(self, n, seed=None, name="sample_n"):
     """Sample `n` observations from the Normal Distributions.
 
     Args:
@@ -306,8 +321,7 @@ class Normal(distribution.ContinuousDistribution):
       with ops.op_scope([self._mu, self._sigma, n], name):
         broadcast_shape = (self._mu + self._sigma).get_shape()
         n = ops.convert_to_tensor(n)
-        shape = array_ops.concat(
-            0, [array_ops.pack([n]), array_ops.shape(self.mean())])
+        shape = array_ops.concat(0, ([n], array_ops.shape(self.mean())))
         sampled = random_ops.random_normal(
             shape=shape, mean=0, stddev=1, dtype=self._mu.dtype, seed=seed)
 
@@ -327,6 +341,10 @@ class Normal(distribution.ContinuousDistribution):
 
   def _zeros(self):
     return array_ops.zeros_like(self._mu + self._sigma)
+
+  @property
+  def is_continuous(self):
+    return True
 
 
 @kullback_leibler.RegisterKL(Normal, Normal)

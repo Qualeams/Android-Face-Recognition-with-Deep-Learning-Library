@@ -38,29 +38,29 @@ HOST_OBJDIR := $(MAKEFILE_DIR)/gen/host_obj/
 HOST_BINDIR := $(MAKEFILE_DIR)/gen/host_bin/
 HOST_GENDIR := $(MAKEFILE_DIR)/gen/host_obj/
 
-# Find the current Eigen version name from the Bazel build file
-EIGEN_HASH := $(shell cat eigen.BUILD | grep archive_dir | head -1 | cut -f3 -d- | cut -f1 -d\")
+# Find the current Eigen version from the Bazel configuration
+EIGEN_VERSION := $(shell grep eigen_version tensorflow/workspace.bzl | head -1 | sed -e 's/.*eigen_version.*=.*"\(.*\)"/\1/')
 
 # Settings for the host compiler.
 HOST_CXX := $(CC_PREFIX) gcc
 HOST_CXXFLAGS := --std=c++11
-HOST_LDOPTS := \
--L/usr/local/lib
-
+HOST_LDOPTS := 
 ifeq ($(HAS_GEN_HOST_PROTOC),true)
 	HOST_LDOPTS += -L$(MAKEFILE_DIR)/gen/protobuf-host/lib
 endif
+HOST_LDOPTS += -L/usr/local/lib
 
 HOST_INCLUDES := \
--I/usr/local/include \
 -I. \
 -I$(MAKEFILE_DIR)/downloads/ \
--I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_HASH) \
+-I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_VERSION) \
 -I$(HOST_GENDIR)
-
 ifeq ($(HAS_GEN_HOST_PROTOC),true)
 	HOST_INCLUDES += -I$(MAKEFILE_DIR)/gen/protobuf-host/include
 endif
+# This is at the end so any globally-installed frameworks like protobuf don't
+# override local versions in the source tree.
+HOST_INCLUDES += -I/usr/local/include
 
 HOST_LIBS := \
 -lstdc++ \
@@ -112,6 +112,8 @@ LIBDIR := $(GENDIR)lib/
 BINDIR := $(GENDIR)bin/
 PBTGENDIR := $(GENDIR)proto_text/
 PROTOGENDIR := $(GENDIR)proto/
+DEPDIR := $(GENDIR)dep/
+$(shell mkdir -p $(DEPDIR) >/dev/null)
 
 # Settings for the target compiler.
 CXX := $(CC_PREFIX) gcc
@@ -119,22 +121,20 @@ OPTFLAGS := -O0
 CXXFLAGS := --std=c++11 -DIS_SLIM_BUILD $(OPTFLAGS)
 LDFLAGS := \
 -L/usr/local/lib
-
-ifeq ($(HAS_GEN_HOST_PROTOC),true)
-	HOST_LDOPTS += -L$(MAKEFILE_DIR)/gen/protobuf-host/lib
-endif
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
 
 INCLUDES := \
--I/usr/local/include \
 -I. \
 -I$(MAKEFILE_DIR)/downloads/ \
--I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_HASH) \
+-I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_VERSION) \
 -I$(PROTOGENDIR) \
 -I$(PBTGENDIR)
-
 ifeq ($(HAS_GEN_HOST_PROTOC),true)
 	INCLUDES += -I$(MAKEFILE_DIR)/gen/protobuf-host/include
 endif
+# This is at the end so any globally-installed frameworks like protobuf don't
+# override local versions in the source tree.
+INCLUDES += -I/usr/local/include
 
 LIBS := \
 -lstdc++ \
@@ -211,7 +211,7 @@ ifeq ($(TARGET),ANDROID)
 -I$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include \
 -I. \
 -I$(MAKEFILE_DIR)/downloads/ \
--I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_HASH) \
+-I$(MAKEFILE_DIR)/downloads/eigen-eigen-$(EIGEN_VERSION) \
 -I$(MAKEFILE_DIR)/gen/protobuf/include \
 -I$(PROTOGENDIR) \
 -I$(PBTGENDIR)
@@ -352,6 +352,10 @@ ifeq ($(TARGET),IOS)
 		-L$(GENDIR)protobuf_ios/lib \
 		-lz
 	endif
+	OBJDIR := $(OBJDIR)ios_$(IOS_ARCH)/
+	LIBDIR := $(LIBDIR)ios_$(IOS_ARCH)/
+	BINDIR := $(BINDIR)ios_$(IOS_ARCH)/
+	DEPDIR := $(DEPDIR)ios_$(IOS_ARCH)/
 endif
 
 # This library is the main target for this makefile. It will contain a minimal
@@ -364,7 +368,50 @@ BENCHMARK_NAME := $(BINDIR)benchmark
 
 # What sources we want to compile, derived from the main Bazel build using the
 # gen_file_lists.sh script.
-TF_CC_SRCS := $(shell cat $(MAKEFILE_DIR)/tf_cc_files.txt)
+
+CORE_CC_ALL_SRCS := \
+$(wildcard tensorflow/core/*.cc) \
+$(wildcard tensorflow/core/common_runtime/*.cc) \
+$(wildcard tensorflow/core/debug/*.cc) \
+$(wildcard tensorflow/core/framework/*.cc) \
+$(wildcard tensorflow/core/graph/*.cc) \
+$(wildcard tensorflow/core/lib/*/*.cc) \
+$(wildcard tensorflow/core/platform/*.cc) \
+$(wildcard tensorflow/core/platform/*/*.cc) \
+$(wildcard tensorflow/core/util/*.cc) \
+$(wildcard tensorflow/core/util/*/*.cc)
+CORE_CC_EXCLUDE_SRCS := \
+$(wildcard tensorflow/core/*/*test.cc) \
+$(wildcard tensorflow/core/*/*testutil*) \
+$(wildcard tensorflow/core/*/*testlib*) \
+$(wildcard tensorflow/core/*/*main.cc) \
+$(wildcard tensorflow/core/*/*/*test.cc) \
+$(wildcard tensorflow/core/*/*/*testutil*) \
+$(wildcard tensorflow/core/*/*/*testlib*) \
+$(wildcard tensorflow/core/*/*/*main.cc) \
+$(wildcard tensorflow/core/graph/dot.*) \
+$(wildcard tensorflow/core/lib/gif/*) \
+$(wildcard tensorflow/core/lib/jpeg/*) \
+$(wildcard tensorflow/core/lib/png/*) \
+$(wildcard tensorflow/core/util/events_writer.*) \
+$(wildcard tensorflow/core/util/reporter.*) \
+$(wildcard tensorflow/core/platform/default/stream_executor.*) \
+$(wildcard tensorflow/core/platform/default/test_benchmark.*) \
+$(wildcard tensorflow/core/platform/cuda.h) \
+$(wildcard tensorflow/core/platform/cloud/*) \
+$(wildcard tensorflow/core/platform/google/*) \
+$(wildcard tensorflow/core/platform/jpeg.*) \
+$(wildcard tensorflow/core/platform/png.*) \
+$(wildcard tensorflow/core/platform/stream_executor.*) \
+$(wildcard tensorflow/core/user_ops/*.cu.cc) \
+$(wildcard tensorflow/core/common_runtime/gpu/*) \
+$(wildcard tensorflow/core/common_runtime/gpu_device_factory.*)
+# Filter out all the excluded files.
+TF_CC_SRCS := $(filter-out $(CORE_CC_EXCLUDE_SRCS), $(CORE_CC_ALL_SRCS))
+# Add in any extra files that don't fit the patterns easily
+TF_CC_SRCS += tensorflow/core/common_runtime/gpu/gpu_tracer.cc
+# Also include the op and kernel definitions.
+TF_CC_SRCS += $(shell cat $(MAKEFILE_DIR)/tf_op_files.txt)
 PBT_CC_SRCS := $(shell cat $(MAKEFILE_DIR)/tf_pb_text_files.txt)
 PROTO_SRCS := $(shell cat $(MAKEFILE_DIR)/tf_proto_files.txt)
 BENCHMARK_SRCS := \
@@ -400,9 +447,11 @@ $(BENCHMARK_NAME): $(BENCHMARK_OBJS) $(LIB_PATH)
 	$(LIBFLAGS) $(LIB_PATH) $(LDFLAGS) $(LIBS)
 
 # Matches on the normal hand-written TensorFlow C++ source files.
-$(OBJDIR)%.o: %.cc 
+$(OBJDIR)%.o: %.cc | $(PBT_GEN_FILES)
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	@mkdir -p $(dir $(DEPDIR)$*)
+	$(CXX) $(CXXFLAGS) $(DEPFLAGS) $(INCLUDES) -c $< -o $@
+	@mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
 
 # Compiles C++ source files that have been generated by protoc.
 $(OBJDIR)%.pb.o: $(PROTOGENDIR)%.pb.cc
@@ -469,3 +518,8 @@ clean:
 cleantarget:
 	rm -rf $(OBJDIR)
 	rm -rf $(BINDIR)
+
+$(DEPDIR)/%.d: ;
+.PRECIOUS: $(DEPDIR)/%.d
+
+-include $(patsubst %,$(DEPDIR)/%.d,$(basename $(TF_CC_SRCS)))

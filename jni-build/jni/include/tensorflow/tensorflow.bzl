@@ -32,7 +32,7 @@ load(
     "tf_cuda_tests_tags",
 )
 load(
-    "//third_party/gpus/cuda:build_defs.bzl",
+    "@local_config_cuda//cuda:build_defs.bzl",
     "if_cuda",
 )
 
@@ -114,6 +114,13 @@ def tf_copts():
                   "//tensorflow:darwin": [],
                   "//conditions:default": ["-pthread"]}))
 
+def tf_opts_nortti_if_android():
+  return if_android([
+      "-fno-rtti",
+      "-DGOOGLE_PROTOBUF_NO_RTTI",
+      "-DGOOGLE_PROTOBUF_NO_STATIC_INITIALIZER",
+  ])
+
 # Given a list of "op_lib_names" (a list of files in the ops directory
 # without their .cc extensions), generate a library for that file.
 def tf_gen_op_libs(op_lib_names):
@@ -128,7 +135,8 @@ def tf_gen_op_libs(op_lib_names):
                       alwayslink=1,
                       linkstatic=1,)
 
-def tf_gen_op_wrapper_cc(name, out_ops_file, pkg=""):
+def tf_gen_op_wrapper_cc(name, out_ops_file, pkg="",
+                         op_gen="//tensorflow/cc:cc_op_gen_main"):
   # Construct an op generator binary for these ops.
   tool = out_ops_file + "_gen_cc"
   native.cc_binary(
@@ -136,8 +144,7 @@ def tf_gen_op_wrapper_cc(name, out_ops_file, pkg=""):
       copts = tf_copts(),
       linkopts = ["-lm"],
       linkstatic = 1,   # Faster to link this one-time-use binary dynamically
-      deps = (["//tensorflow/cc:cc_op_gen_main",
-               pkg + ":" + name + "_op_lib"])
+      deps = ([op_gen, pkg + ":" + name + "_op_lib"])
   )
 
   # Run the op generator.
@@ -174,18 +181,29 @@ def tf_gen_op_wrappers_cc(name,
                           op_lib_names=[],
                           other_srcs=[],
                           other_hdrs=[],
-                          pkg=""):
+                          pkg="",
+                          deps=[
+                              "//tensorflow/cc:ops",
+                              "//tensorflow/cc:scope",
+                              "//tensorflow/cc:const_op",
+                          ],
+                          op_gen="//tensorflow/cc:cc_op_gen_main"):
   subsrcs = other_srcs
   subhdrs = other_hdrs
   for n in op_lib_names:
-    tf_gen_op_wrapper_cc(n, "ops/" + n, pkg=pkg)
+    tf_gen_op_wrapper_cc(n, "ops/" + n, pkg=pkg, op_gen=op_gen)
     subsrcs += ["ops/" + n + ".cc"]
     subhdrs += ["ops/" + n + ".h"]
 
   native.cc_library(name=name,
                     srcs=subsrcs,
                     hdrs=subhdrs,
-                    deps=["//tensorflow/core:core_cpu"],
+                    deps=deps + [
+                        "//tensorflow/core:core_cpu",
+                        "//tensorflow/core:framework",
+                        "//tensorflow/core:lib",
+                        "//tensorflow/core:protos_all_cc",
+                    ],
                     copts=tf_copts(),
                     alwayslink=1,)
 
@@ -277,9 +295,9 @@ def tf_cc_tests(tests, deps, linkstatic=0, tags=[], size="medium", args=None,
     tf_cc_test(t, deps, linkstatic, tags=tags, size=size, args=args,
                linkopts=linkopts)
 
-def tf_cc_tests_gpu(tests, deps, linkstatic=0, tags=[], size="medium", args=None):
+def tf_cc_tests_gpu(tests, deps, linkstatic=0, tags=[], size="medium",
+                    args=None):
   tf_cc_tests(tests, deps, linkstatic, tags=tags, size=size, args=args)
-
 
 
 def tf_cuda_cc_tests(tests, deps, tags=[], size="medium", linkstatic=0,
@@ -298,29 +316,29 @@ def _cuda_copts():
     common_cuda_opts = ["-x", "cuda", "-DGOOGLE_CUDA=1"]
     return select({
         "//conditions:default": [],
-        "//third_party/gpus/cuda:using_nvcc": (
+        "@local_config_cuda//cuda:using_nvcc": (
             common_cuda_opts +
             [
                 "-nvcc_options=relaxed-constexpr",
                 "-nvcc_options=ftz=true",
             ]
         ),
-        "//third_party/gpus/cuda:using_gcudacc": (
+        "@local_config_cuda//cuda:using_gcudacc": (
             common_cuda_opts +
             ["--gcudacc_flag=-ftz=true"]
         ),
-        "//third_party/gpus/cuda:using_clang": (
+        "@local_config_cuda//cuda:using_clang": (
             common_cuda_opts +
             [
                 "-fcuda-flush-denormals-to-zero",
-                "--cuda-path=third_party/gpus/cuda",
+                "--cuda-path=external/local_config_cuda/cuda",
                 "--cuda-gpu-arch=sm_35",
             ]
         ),
     }) + select({
         # Pass -O3 when building CUDA code with clang; some important
         # optimizations are not enabled at O2.
-        "//third_party/gpus/cuda:using_clang_opt": ["-O3"],
+        "@local_config_cuda//cuda:using_clang_opt": ["-O3"],
         "//conditions:default": [],
     })
 
@@ -391,7 +409,8 @@ def tf_kernel_library(name, prefix=None, srcs=None, gpu_srcs=None, hdrs=None,
     * srcs = ["cwise_op_abs.cc", ..., "cwise_op_tanh.cc"],
     * hdrs = ["cwise_ops.h", "cwise_ops_common.h"],
     * gpu_srcs = ["cwise_op_gpu_abs.cu.cc", ..., "cwise_op_gpu_tanh.cu.cc",
-                  "cwise_ops.h", "cwise_ops_common.h", "cwise_ops_gpu_common.cu.h"]
+                  "cwise_ops.h", "cwise_ops_common.h",
+                  "cwise_ops_gpu_common.cu.h"]
     * "cwise_ops_test.cc" is excluded
   """
   if not srcs:
@@ -595,7 +614,7 @@ check_deps = rule(
 def tf_custom_op_library(name, srcs=[], gpu_srcs=[], deps=[]):
   cuda_deps = [
       "//tensorflow/core:stream_executor_headers_lib",
-      "//third_party/gpus/cuda:cudart_static",
+      "@local_config_cuda//cuda:cudart_static",
   ]
   deps = deps + tf_custom_op_library_additional_deps()
   if gpu_srcs:
@@ -616,6 +635,7 @@ def tf_custom_op_library(name, srcs=[], gpu_srcs=[], deps=[]):
                    srcs=srcs,
                    deps=deps + if_cuda(cuda_deps),
                    data=[name + "_check_deps"],
+                   copts=tf_copts(),
                    linkshared=1,
                    linkopts = select({
                        "//conditions:default": [
@@ -644,7 +664,7 @@ def tf_py_wrap_cc(name, srcs, swig_includes=[], deps=[], copts=[], **kwargs):
               module_name=module_name,
               py_module_name=name)
   extra_linkopts = select({
-      "//third_party/gpus/cuda:darwin": [
+      "@local_config_cuda//cuda:darwin": [
           "-Wl,-exported_symbols_list",
           "//tensorflow:tf_exported_symbols.lds"
       ],
@@ -653,7 +673,7 @@ def tf_py_wrap_cc(name, srcs, swig_includes=[], deps=[], copts=[], **kwargs):
           "//tensorflow:tf_version_script.lds"
       ]})
   extra_deps += select({
-      "//third_party/gpus/cuda:darwin": [
+      "@local_config_cuda//cuda:darwin": [
         "//tensorflow:tf_exported_symbols.lds"
       ],
       "//conditions:default": [
@@ -727,13 +747,14 @@ def py_tests(name,
                data=data,
                additional_deps=additional_deps)
 
-def cuda_py_tests(name, srcs, size="medium", additional_deps=[], data=[], shard_count=1, tags=[], prefix=""):
+def cuda_py_tests(name, srcs, size="medium", additional_deps=[], data=[],
+                  shard_count=1, tags=[], prefix=""):
   test_tags = tags + tf_cuda_tests_tags()
   py_tests(name=name, size=size, srcs=srcs, additional_deps=additional_deps,
            data=data, tags=test_tags, shard_count=shard_count,prefix=prefix)
 
-# Creates a genrule named <name> for running tools/proto_text's generator to make
-# the proto_text functions, for the protos passed in <srcs>.
+# Creates a genrule named <name> for running tools/proto_text's generator to
+# make the proto_text functions, for the protos passed in <srcs>.
 #
 # Return a struct with fields (hdrs, srcs) containing the names of the
 # generated files.

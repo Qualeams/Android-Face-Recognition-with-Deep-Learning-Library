@@ -31,6 +31,8 @@ from six import reraise
 from tensorflow.contrib.framework.python.ops import ops as contrib_ops
 from tensorflow.contrib.framework.python.ops import variables as contrib_variables
 from tensorflow.contrib.learn.python.learn import monitors as monitors_lib
+from tensorflow.contrib.learn.python.learn import summary_writer_cache
+from tensorflow.contrib.learn.python.learn import supervised_session
 from tensorflow.contrib.learn.python.learn.utils import checkpoints
 from tensorflow.core.framework import summary_pb2
 from tensorflow.python.client import session as tf_session
@@ -46,7 +48,6 @@ from tensorflow.python.training import coordinator
 from tensorflow.python.training import queue_runner
 from tensorflow.python.training import saver as tf_saver
 from tensorflow.python.training import session_manager as session_manager_lib
-from tensorflow.python.training import summary_io
 from tensorflow.python.training import supervisor as tf_supervisor
 
 # Singleton for SummaryWriter per logdir folder.
@@ -58,9 +59,7 @@ _summary_writer_lock = threading.Lock()
 
 def clear_summary_writers():
   """Clear cached summary writers. Currently only used for unit tests."""
-  _summary_writer_lock.acquire()
-  _SUMMARY_WRITERS.clear()
-  _summary_writer_lock.release()
+  return summary_writer_cache.SummaryWriterCache.clear()
 
 
 def get_summary_writer(logdir):
@@ -73,12 +72,7 @@ def get_summary_writer(logdir):
     Existing `SummaryWriter` object or new one if never wrote to given
     directory.
   """
-  _summary_writer_lock.acquire()
-  if logdir not in _SUMMARY_WRITERS:
-    _SUMMARY_WRITERS[logdir] = summary_io.SummaryWriter(
-        logdir, graph=ops.get_default_graph())
-  _summary_writer_lock.release()
-  return _SUMMARY_WRITERS[logdir]
+  return summary_writer_cache.SummaryWriterCache.get(logdir)
 
 
 class NanLossDuringTrainingError(RuntimeError):
@@ -125,7 +119,170 @@ def _run_with_monitors(session, step, tensors, feed_dict, monitors):
   return outputs, should_stop
 
 
-# TODO(wicke): switch to forced named kwargs
+def _supervised_train(graph,
+                      output_dir,
+                      train_op,
+                      loss_op,
+                      global_step_tensor=None,
+                      init_op=None,
+                      init_feed_dict=None,
+                      init_fn=None,
+                      log_every_steps=10,
+                      supervisor_is_chief=True,
+                      supervisor_master='',
+                      supervisor_save_model_secs=600,
+                      keep_checkpoint_max=5,
+                      supervisor_save_summaries_steps=100,
+                      feed_fn=None,
+                      steps=None,
+                      fail_on_nan_loss=True,
+                      monitors=None,
+                      max_steps=None):
+  """Train a model via supervised_session.
+
+  Given `graph`, a directory to write outputs to (`output_dir`), and some ops,
+  run a training loop. The given `train_op` performs one step of training on the
+  model. The `loss_op` represents the objective function of the training. It is
+  expected to increment the `global_step_tensor`, a scalar integer tensor
+  counting training steps. This function uses `Supervisor` to initialize the
+  graph (from a checkpoint if one is available in `output_dir`), write summaries
+  defined in the graph, and write regular checkpoints as defined by
+  `supervisor_save_model_secs`.
+
+  Training continues until `global_step_tensor` evaluates to `max_steps`, or, if
+  `fail_on_nan_loss`, until `loss_op` evaluates to `NaN`. In that case the
+  program is terminated with exit code 1.
+
+  Args:
+    graph: A graph to train. It is expected that this graph is not in use
+      elsewhere.
+    output_dir: A directory to write outputs to.
+    train_op: An op that performs one training step when run.
+    loss_op: A scalar loss tensor.
+    global_step_tensor: A tensor representing the global step. If none is given,
+      one is extracted from the graph using the same logic as in `Supervisor`.
+    init_op: An op that initializes the graph. If `None`, use `Supervisor`'s
+      default.
+    init_feed_dict: A dictionary that maps `Tensor` objects to feed values.
+      This feed dictionary will be used when `init_op` is evaluated.
+    init_fn: Optional callable passed to Supervisor to initialize the model.
+    log_every_steps: Output logs regularly. The logs contain timing data and the
+      current loss.
+    supervisor_is_chief: Whether the current process is the chief supervisor in
+      charge of restoring the model and running standard services.
+    supervisor_master: The master string to use when preparing the session.
+    supervisor_save_model_secs: Save model every
+      `supervisor_save_model_secs` seconds when training.
+    keep_checkpoint_max: The maximum number of recent checkpoint files to
+      keep. As new files are created, older files are deleted. If None or 0,
+      all checkpoint files are kept. This is simply passed as the max_to_keep
+      arg to tf.Saver constructor.
+    supervisor_save_summaries_steps: Save summaries every
+      `supervisor_save_summaries_steps` seconds when training.
+    feed_fn: A function that is called every iteration to produce a `feed_dict`
+      passed to `session.run` calls. Optional.
+    steps: Trains for this many steps (e.g. current global step + `steps`).
+    fail_on_nan_loss: If true, raise `NanLossDuringTrainingError` if `loss_op`
+      evaluates to `NaN`. If false, continue training as if nothing happened.
+    monitors: List of `BaseMonitor` subclass instances. Used for callbacks
+      inside the training loop.
+    max_steps: Number of total steps for which to train model. If `None`,
+      train forever. Two calls fit(steps=100) means 200 training iterations.
+      On the other hand two calls of fit(max_steps=100) means, second call
+      will not do any iteration since first call did all 100 steps.
+
+  Returns:
+    The final loss value.
+
+  Raises:
+    ValueError: If `output_dir`, `train_op`, `loss_op`, or `global_step_tensor`
+      is not provided. See `tf.contrib.framework.get_global_step` for how we
+      look up the latter if not provided explicitly.
+    NanLossDuringTrainingError: If `fail_on_nan_loss` is `True`, and loss ever
+      evaluates to `NaN`.
+    ValueError: If both `steps` and `max_steps` are not `None`.
+  """
+  if (steps is not None) and (max_steps is not None):
+    raise ValueError('Can not provide both steps and max_steps.')
+  if not output_dir:
+    raise ValueError('Output directory should be non-empty %s.' % output_dir)
+  if train_op is None:
+    raise ValueError('Missing train_op.')
+  if loss_op is None:
+    raise ValueError('Missing loss_op.')
+  if monitors is None:
+    monitors = []
+  if not isinstance(monitors, list):
+    raise ValueError('Monitors should be a list.')
+  with graph.as_default():
+    global_step_tensor = contrib_variables.assert_or_get_global_step(
+        graph, global_step_tensor)
+  if global_step_tensor is None:
+    raise ValueError('No "global_step" was provided or found in the graph.')
+
+  if max_steps is not None:
+    try:
+      start_step = checkpoints.load_variable(output_dir,
+                                             global_step_tensor.name)
+      if max_steps <= start_step:
+        logging.info('Skipping training since max_steps has already saved.')
+        return None
+    except:  # pylint: disable=bare-except
+      pass
+
+  with graph.as_default():
+    # See question about adding the summary writer to the scaffold.
+    if supervisor_is_chief:
+      summary_writer = summary_writer_cache.SummaryWriterCache.get(output_dir)
+      monitors.extend([
+          monitors_lib.StepCounter(summary_writer=summary_writer),
+          monitors_lib.NanLoss(loss_op,
+                               fail_on_nan_loss=fail_on_nan_loss),
+          monitors_lib.PrintTensor({'loss': loss_op.name},
+                                   every_n=log_every_steps),
+      ])
+
+    # Finalize graph and add savers
+    # TODO(ispir): remove keep_checkpoint_max from Scaffold interface
+    scaffold = supervised_session.Scaffold(
+        global_step_tensor=global_step_tensor,
+        init_op=init_op,
+        init_feed_dict=init_feed_dict,
+        init_fn=init_fn,
+        keep_checkpoint_max=keep_checkpoint_max)
+    if supervisor_is_chief:
+      monitors.append(
+          monitors_lib.SummarySaver(
+              summary_op=None,
+              save_steps=supervisor_save_summaries_steps,
+              summary_writer=summary_writer,
+              scaffold=scaffold))
+      if supervisor_save_model_secs > 0:
+        monitors.append(
+            monitors_lib.CheckpointSaver(
+                output_dir,
+                save_secs=supervisor_save_model_secs,
+                scaffold=scaffold))
+
+    if steps is not None or max_steps is not None:
+      monitors.append(monitors_lib.StopAtStep(steps, max_steps))
+    if not supervisor_is_chief:
+      # Prune list of monitor to the ones runnable on all workers.
+      monitors = [monitor for monitor in monitors if monitor.run_on_all_workers]
+
+    with supervised_session.SupervisedSession(supervisor_master,
+                                              is_chief=supervisor_is_chief,
+                                              checkpoint_dir=output_dir,
+                                              monitors=monitors,
+                                              scaffold=scaffold) as super_sess:
+      loss = None
+      while not super_sess.should_stop():
+        _, loss = super_sess.run([train_op, loss_op], feed_fn() if feed_fn else
+                                 None)
+      return loss
+
+
+# TODO(ispir): Deprecate train in favor of supervised_train
 def train(graph,
           output_dir,
           train_op,
@@ -209,6 +366,52 @@ def train(graph,
       evaluates to `NaN`.
     ValueError: If both `steps` and `max_steps` are not `None`.
   """
+  while True:
+    try:
+      return _train_internal(graph,
+                             output_dir,
+                             train_op,
+                             loss_op,
+                             global_step_tensor,
+                             init_op,
+                             init_feed_dict,
+                             init_fn,
+                             log_every_steps,
+                             supervisor_is_chief,
+                             supervisor_master,
+                             supervisor_save_model_secs,
+                             keep_checkpoint_max,
+                             supervisor_save_summaries_steps,
+                             feed_fn,
+                             steps,
+                             fail_on_nan_loss,
+                             monitors,
+                             max_steps)
+    except errors.AbortedError:
+      # Happens when PS restarts, keep training.
+      logging.warning('Training got Aborted error. Keep training.')
+
+
+def _train_internal(graph,
+                    output_dir,
+                    train_op,
+                    loss_op,
+                    global_step_tensor,
+                    init_op,
+                    init_feed_dict,
+                    init_fn,
+                    log_every_steps,
+                    supervisor_is_chief,
+                    supervisor_master,
+                    supervisor_save_model_secs,
+                    keep_checkpoint_max,
+                    supervisor_save_summaries_steps,
+                    feed_fn,
+                    steps,
+                    fail_on_nan_loss,
+                    monitors,
+                    max_steps):
+  """See train."""
   if (steps is not None) and (max_steps is not None):
     raise ValueError('Can not provide both steps and max_steps.')
   if not output_dir:
@@ -234,16 +437,19 @@ def train(graph,
     summary_writer = (get_summary_writer(output_dir)
                       if supervisor_is_chief else None)
 
-    # TODO(ipolosukhin): Replace all functionality of Supervisor with Monitors.
-    if not supervisor_is_chief:
-      # monitors should run only on the chief.
-      monitors = []
-    elif not monitors:
+    # Add default chief monitors if none were provided.
+    if not monitors:
       monitors = monitors_lib.get_default_monitors(
           loss_op=loss_op,
           summary_op=logging_ops.get_summary_op(),
           save_summary_steps=supervisor_save_summaries_steps,
-          summary_writer=summary_writer)
+          summary_writer=summary_writer) if supervisor_is_chief else []
+
+    # TODO(ipolosukhin): Replace all functionality of Supervisor
+    # with Chief-Exclusive Monitors.
+    if not supervisor_is_chief:
+      # Prune list of monitor to the ones runnable on all workers.
+      monitors = [monitor for monitor in monitors if monitor.run_on_all_workers]
 
     if max_steps is None:
       max_steps = (start_step + steps) if steps else None
@@ -284,13 +490,8 @@ def train(graph,
         start_time = time.time()
         feed_dict = feed_fn() if feed_fn is not None else None
 
-        try:
-          outputs, should_stop = _run_with_monitors(
-              session, last_step + 1, [train_op, loss_op], feed_dict, monitors)
-        except errors.AbortedError as e:
-          # Happens when PS restarts, keep training.
-          logging.warning('Training got Aborted error. Keep training.')
-          continue
+        outputs, should_stop = _run_with_monitors(
+            session, last_step + 1, [train_op, loss_op], feed_dict, monitors)
 
         loss_value = outputs[loss_op.name]
         if np.isnan(loss_value):
@@ -321,6 +522,8 @@ def train(graph,
     except errors.OutOfRangeError as e:
       logging.warn('Got exception during tf.learn training loop possibly '
                    'due to exhausted input queue %s.', e)
+    except StopIteration:
+      logging.info('Exhausted input iterarator.')
     except BaseException as e:  # pylint: disable=broad-except
       # Hold on to any other exceptions while we try recording a final
       # checkpoint and summary.
@@ -367,20 +570,14 @@ def train(graph,
 
 def _get_first_op_from_collection(collection_name):
   elements = ops.get_collection(collection_name)
-  if elements is not None:
-    if elements:
-      return elements[0]
+  if elements:
+    return elements[0]
   return None
 
 
 def _get_saver():
   """Lazy init and return saver."""
   saver = _get_first_op_from_collection(ops.GraphKeys.SAVERS)
-  if saver is not None:
-    if saver:
-      saver = saver[0]
-    else:
-      saver = None
   if saver is None and variables.all_variables():
     saver = tf_saver.Saver()
     ops.add_to_collection(ops.GraphKeys.SAVERS, saver)
@@ -601,7 +798,7 @@ def run_n(output_dict, feed_dict=None, restore_checkpoint_path=None, n=1):
 
 
 # TODO(ptucker): Add save_checkpoint_path.
-def run_feeds(output_dict, feed_dicts, restore_checkpoint_path=None):
+def run_feeds_iter(output_dict, feed_dicts, restore_checkpoint_path=None):
   """Run `output_dict` tensors with each input in `feed_dicts`.
 
   If `restore_checkpoint_path` is supplied, restore from checkpoint. Otherwise,
@@ -614,9 +811,9 @@ def run_feeds(output_dict, feed_dicts, restore_checkpoint_path=None):
     restore_checkpoint_path: A string containing the path to a checkpoint to
       restore.
 
-  Returns:
-    A list of dicts of values read from `output_dict` tensors, one item in the
-    list for each item in `feed_dicts`. Keys are the same as `output_dict`,
+  Yields:
+    A sequence of dicts of values read from `output_dict` tensors, one item
+    yielded for each item in `feed_dicts`. Keys are the same as `output_dict`,
     values are the results read from the corresponding `Tensor` in
     `output_dict`.
 
@@ -642,11 +839,17 @@ def run_feeds(output_dict, feed_dicts, restore_checkpoint_path=None):
       threads = None
       try:
         threads = queue_runner.start_queue_runners(session, coord=coord)
-        return [session.run(output_dict, f) for f in feed_dicts]
+        for f in feed_dicts:
+          yield session.run(output_dict, f)
       finally:
         coord.request_stop()
         if threads:
           coord.join(threads, stop_grace_period_secs=120)
+
+
+def run_feeds(*args, **kwargs):
+  """See run_feeds_iter(). Returns a `list` instead of an iterator."""
+  return list(run_feeds_iter(*args, **kwargs))
 
 
 def infer(restore_checkpoint_path, output_dict, feed_dict=None):

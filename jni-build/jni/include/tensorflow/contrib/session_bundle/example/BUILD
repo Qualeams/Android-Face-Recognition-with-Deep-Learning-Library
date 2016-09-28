@@ -1,4 +1,4 @@
-# Description: Tensorflow Serving session_bundle example.
+# Description: TensorFlow Serving session_bundle example.
 
 package(
     default_visibility = ["//tensorflow/contrib/session_bundle:__subpackages__"],

@@ -141,7 +141,8 @@ __all__ = ['evaluation', 'evaluation_loop', 'wait_for_new_checkpoint']
 
 def wait_for_new_checkpoint(checkpoint_dir,
                             last_checkpoint,
-                            seconds_to_sleep=1):
+                            seconds_to_sleep=1,
+                            timeout=None):
   """Waits until a new checkpoint file is found.
 
   Args:
@@ -149,13 +150,18 @@ def wait_for_new_checkpoint(checkpoint_dir,
     last_checkpoint: The last checkpoint path used.
     seconds_to_sleep: The number of seconds to sleep for before looking for a
       new checkpoint.
+    timeout: The maximum amount of time to wait. If left as `None`, then the
+      process will wait indefinitely.
 
   Returns:
-    a new checkpoint path.
+    a new checkpoint path, or None if the timeout was reached.
   """
+  stop_time = time.time() + timeout if timeout is not None else None
   while True:
     checkpoint_path = tf_saver.latest_checkpoint(checkpoint_dir)
-    if checkpoint_path == last_checkpoint:
+    if checkpoint_path is None or checkpoint_path == last_checkpoint:
+      if stop_time is not None and time.time() + seconds_to_sleep > stop_time:
+        return None
       time.sleep(seconds_to_sleep)
     else:
       return checkpoint_path
@@ -181,7 +187,7 @@ def evaluation(sess,
   written out using a summary writer.
 
   Args:
-    sess: The current Tensorflow `Session`.
+    sess: The current TensorFlow `Session`.
     num_evals: The number of times to execute `eval_op`.
     init_op: An operation run at the beginning of evaluation.
     init_op_feed_dict: A feed dictionary to use when executing `init_op`.
@@ -247,7 +253,8 @@ def evaluation_loop(master,
                     summary_op_feed_dict=None,
                     variables_to_restore=None,
                     eval_interval_secs=60,
-                    max_number_of_evaluations=None):
+                    max_number_of_evaluations=None,
+                    session_config=None):
   """Runs TF-Slim's Evaluation Loop.
 
   Args:
@@ -270,6 +277,8 @@ def evaluation_loop(master,
     eval_interval_secs: The minimum number of seconds between evaluations.
     max_number_of_evaluations: the max number of iterations of the evaluation.
       If the value is left as 'None', the evaluation continues indefinitely.
+    session_config: An instance of `tf.ConfigProto` that will be used to
+      configure the `Session`. If left as `None`, the default will be used.
   """
   if summary_op == _USE_DEFAULT:
     summary_op = logging_ops.merge_all_summaries()
@@ -301,7 +310,8 @@ def evaluation_loop(master,
     logging.info('Starting evaluation at ' + time.strftime('%Y-%m-%d-%H:%M:%S',
                                                            time.gmtime()))
 
-    with sv.managed_session(master, start_standard_services=False) as sess:
+    with sv.managed_session(
+        master, start_standard_services=False, config=session_config) as sess:
       sv.saver.restore(sess, last_checkpoint)
       sv.start_queue_runners(sess)
       evaluation(sess,

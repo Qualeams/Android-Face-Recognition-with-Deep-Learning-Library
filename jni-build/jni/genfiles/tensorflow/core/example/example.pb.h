@@ -38,7 +38,6 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_2eproto();
 void protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_2eproto();
 
 class Example;
-class InferenceExample;
 class SequenceExample;
 
 // ===================================================================
@@ -55,9 +54,14 @@ class Example : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const Example& default_instance();
 
+  void UnsafeArenaSwap(Example* other);
   void Swap(Example* other);
 
   // implements Message ----------------------------------------------
@@ -84,6 +88,11 @@ class Example : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(Example* other);
+  protected:
+  explicit Example(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -103,15 +112,27 @@ class Example : public ::google::protobuf::Message {
   bool has_features() const;
   void clear_features();
   static const int kFeaturesFieldNumber = 1;
+  private:
+  void _slow_mutable_features();
+  void _slow_set_allocated_features(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::Features** features);
+  ::tensorflow::Features* _slow_release_features();
+  public:
   const ::tensorflow::Features& features() const;
   ::tensorflow::Features* mutable_features();
   ::tensorflow::Features* release_features();
   void set_allocated_features(::tensorflow::Features* features);
+  ::tensorflow::Features* unsafe_arena_release_features();
+  void unsafe_arena_set_allocated_features(
+      ::tensorflow::Features* features);
 
   // @@protoc_insertion_point(class_scope:tensorflow.Example)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::Features* features_;
   mutable int _cached_size_;
@@ -136,9 +157,14 @@ class SequenceExample : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const SequenceExample& default_instance();
 
+  void UnsafeArenaSwap(SequenceExample* other);
   void Swap(SequenceExample* other);
 
   // implements Message ----------------------------------------------
@@ -165,6 +191,11 @@ class SequenceExample : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(SequenceExample* other);
+  protected:
+  explicit SequenceExample(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -184,24 +215,45 @@ class SequenceExample : public ::google::protobuf::Message {
   bool has_context() const;
   void clear_context();
   static const int kContextFieldNumber = 1;
+  private:
+  void _slow_mutable_context();
+  void _slow_set_allocated_context(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::Features** context);
+  ::tensorflow::Features* _slow_release_context();
+  public:
   const ::tensorflow::Features& context() const;
   ::tensorflow::Features* mutable_context();
   ::tensorflow::Features* release_context();
   void set_allocated_context(::tensorflow::Features* context);
+  ::tensorflow::Features* unsafe_arena_release_context();
+  void unsafe_arena_set_allocated_context(
+      ::tensorflow::Features* context);
 
   // optional .tensorflow.FeatureLists feature_lists = 2;
   bool has_feature_lists() const;
   void clear_feature_lists();
   static const int kFeatureListsFieldNumber = 2;
+  private:
+  void _slow_mutable_feature_lists();
+  void _slow_set_allocated_feature_lists(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::FeatureLists** feature_lists);
+  ::tensorflow::FeatureLists* _slow_release_feature_lists();
+  public:
   const ::tensorflow::FeatureLists& feature_lists() const;
   ::tensorflow::FeatureLists* mutable_feature_lists();
   ::tensorflow::FeatureLists* release_feature_lists();
   void set_allocated_feature_lists(::tensorflow::FeatureLists* feature_lists);
+  ::tensorflow::FeatureLists* unsafe_arena_release_feature_lists();
+  void unsafe_arena_set_allocated_feature_lists(
+      ::tensorflow::FeatureLists* feature_lists);
 
   // @@protoc_insertion_point(class_scope:tensorflow.SequenceExample)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::Features* context_;
   ::tensorflow::FeatureLists* feature_lists_;
@@ -212,100 +264,6 @@ class SequenceExample : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static SequenceExample* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class InferenceExample : public ::google::protobuf::Message {
- public:
-  InferenceExample();
-  virtual ~InferenceExample();
-
-  InferenceExample(const InferenceExample& from);
-
-  inline InferenceExample& operator=(const InferenceExample& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const InferenceExample& default_instance();
-
-  void Swap(InferenceExample* other);
-
-  // implements Message ----------------------------------------------
-
-  inline InferenceExample* New() const { return New(NULL); }
-
-  InferenceExample* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const InferenceExample& from);
-  void MergeFrom(const InferenceExample& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(InferenceExample* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional .tensorflow.Features context = 1;
-  bool has_context() const;
-  void clear_context();
-  static const int kContextFieldNumber = 1;
-  const ::tensorflow::Features& context() const;
-  ::tensorflow::Features* mutable_context();
-  ::tensorflow::Features* release_context();
-  void set_allocated_context(::tensorflow::Features* context);
-
-  // repeated .tensorflow.Features features = 2;
-  int features_size() const;
-  void clear_features();
-  static const int kFeaturesFieldNumber = 2;
-  const ::tensorflow::Features& features(int index) const;
-  ::tensorflow::Features* mutable_features(int index);
-  ::tensorflow::Features* add_features();
-  ::google::protobuf::RepeatedPtrField< ::tensorflow::Features >*
-      mutable_features();
-  const ::google::protobuf::RepeatedPtrField< ::tensorflow::Features >&
-      features() const;
-
-  // @@protoc_insertion_point(class_scope:tensorflow.InferenceExample)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::tensorflow::Features* context_;
-  ::google::protobuf::RepeatedPtrField< ::tensorflow::Features > features_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_2eproto();
-  friend void protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_2eproto();
-  friend void protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_2eproto();
-
-  void InitAsDefaultInstance();
-  static InferenceExample* default_instance_;
 };
 // ===================================================================
 
@@ -330,19 +288,30 @@ inline const ::tensorflow::Features& Example::features() const {
 inline ::tensorflow::Features* Example::mutable_features() {
   
   if (features_ == NULL) {
-    features_ = new ::tensorflow::Features;
+    _slow_mutable_features();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.Example.features)
   return features_;
 }
 inline ::tensorflow::Features* Example::release_features() {
+  // @@protoc_insertion_point(field_release:tensorflow.Example.features)
   
-  ::tensorflow::Features* temp = features_;
-  features_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_features();
+  } else {
+    ::tensorflow::Features* temp = features_;
+    features_ = NULL;
+    return temp;
+  }
 }
-inline void Example::set_allocated_features(::tensorflow::Features* features) {
-  delete features_;
+inline  void Example::set_allocated_features(::tensorflow::Features* features) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete features_;
+  }
+  if (features != NULL) {
+    _slow_set_allocated_features(message_arena, &features);
+  }
   features_ = features;
   if (features) {
     
@@ -371,19 +340,30 @@ inline const ::tensorflow::Features& SequenceExample::context() const {
 inline ::tensorflow::Features* SequenceExample::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::tensorflow::Features;
+    _slow_mutable_context();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SequenceExample.context)
   return context_;
 }
 inline ::tensorflow::Features* SequenceExample::release_context() {
+  // @@protoc_insertion_point(field_release:tensorflow.SequenceExample.context)
   
-  ::tensorflow::Features* temp = context_;
-  context_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_context();
+  } else {
+    ::tensorflow::Features* temp = context_;
+    context_ = NULL;
+    return temp;
+  }
 }
-inline void SequenceExample::set_allocated_context(::tensorflow::Features* context) {
-  delete context_;
+inline  void SequenceExample::set_allocated_context(::tensorflow::Features* context) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete context_;
+  }
+  if (context != NULL) {
+    _slow_set_allocated_context(message_arena, &context);
+  }
   context_ = context;
   if (context) {
     
@@ -408,19 +388,30 @@ inline const ::tensorflow::FeatureLists& SequenceExample::feature_lists() const 
 inline ::tensorflow::FeatureLists* SequenceExample::mutable_feature_lists() {
   
   if (feature_lists_ == NULL) {
-    feature_lists_ = new ::tensorflow::FeatureLists;
+    _slow_mutable_feature_lists();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SequenceExample.feature_lists)
   return feature_lists_;
 }
 inline ::tensorflow::FeatureLists* SequenceExample::release_feature_lists() {
+  // @@protoc_insertion_point(field_release:tensorflow.SequenceExample.feature_lists)
   
-  ::tensorflow::FeatureLists* temp = feature_lists_;
-  feature_lists_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_feature_lists();
+  } else {
+    ::tensorflow::FeatureLists* temp = feature_lists_;
+    feature_lists_ = NULL;
+    return temp;
+  }
 }
-inline void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLists* feature_lists) {
-  delete feature_lists_;
+inline  void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLists* feature_lists) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete feature_lists_;
+  }
+  if (feature_lists != NULL) {
+    _slow_set_allocated_feature_lists(message_arena, &feature_lists);
+  }
   feature_lists_ = feature_lists;
   if (feature_lists) {
     
@@ -430,80 +421,7 @@ inline void SequenceExample::set_allocated_feature_lists(::tensorflow::FeatureLi
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SequenceExample.feature_lists)
 }
 
-// -------------------------------------------------------------------
-
-// InferenceExample
-
-// optional .tensorflow.Features context = 1;
-inline bool InferenceExample::has_context() const {
-  return !_is_default_instance_ && context_ != NULL;
-}
-inline void InferenceExample::clear_context() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-}
-inline const ::tensorflow::Features& InferenceExample::context() const {
-  // @@protoc_insertion_point(field_get:tensorflow.InferenceExample.context)
-  return context_ != NULL ? *context_ : *default_instance_->context_;
-}
-inline ::tensorflow::Features* InferenceExample::mutable_context() {
-  
-  if (context_ == NULL) {
-    context_ = new ::tensorflow::Features;
-  }
-  // @@protoc_insertion_point(field_mutable:tensorflow.InferenceExample.context)
-  return context_;
-}
-inline ::tensorflow::Features* InferenceExample::release_context() {
-  
-  ::tensorflow::Features* temp = context_;
-  context_ = NULL;
-  return temp;
-}
-inline void InferenceExample::set_allocated_context(::tensorflow::Features* context) {
-  delete context_;
-  context_ = context;
-  if (context) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.InferenceExample.context)
-}
-
-// repeated .tensorflow.Features features = 2;
-inline int InferenceExample::features_size() const {
-  return features_.size();
-}
-inline void InferenceExample::clear_features() {
-  features_.Clear();
-}
-inline const ::tensorflow::Features& InferenceExample::features(int index) const {
-  // @@protoc_insertion_point(field_get:tensorflow.InferenceExample.features)
-  return features_.Get(index);
-}
-inline ::tensorflow::Features* InferenceExample::mutable_features(int index) {
-  // @@protoc_insertion_point(field_mutable:tensorflow.InferenceExample.features)
-  return features_.Mutable(index);
-}
-inline ::tensorflow::Features* InferenceExample::add_features() {
-  // @@protoc_insertion_point(field_add:tensorflow.InferenceExample.features)
-  return features_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::tensorflow::Features >*
-InferenceExample::mutable_features() {
-  // @@protoc_insertion_point(field_mutable_list:tensorflow.InferenceExample.features)
-  return &features_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::tensorflow::Features >&
-InferenceExample::features() const {
-  // @@protoc_insertion_point(field_list:tensorflow.InferenceExample.features)
-  return features_;
-}
-
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 

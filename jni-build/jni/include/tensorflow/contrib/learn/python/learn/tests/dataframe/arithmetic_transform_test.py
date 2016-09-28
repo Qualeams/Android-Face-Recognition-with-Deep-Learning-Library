@@ -20,16 +20,24 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy as np
-import pandas as pd
 import tensorflow as tf
 
 from tensorflow.contrib.learn.python.learn.dataframe import tensorflow_dataframe as df
+
+# pylint: disable=g-import-not-at-top
+try:
+  import pandas as pd
+  HAS_PANDAS = True
+except ImportError:
+  HAS_PANDAS = False
 
 
 class SumTestCase(tf.test.TestCase):
   """Test class for `Sum` transform."""
 
   def testSum(self):
+    if not HAS_PANDAS:
+      return
     num_rows = 100
 
     pandas_df = pd.DataFrame({"a": np.arange(num_rows),
@@ -43,6 +51,27 @@ class SumTestCase(tf.test.TestCase):
     expected_sum = pandas_df["a"] + pandas_df["b"]
     actual_sum = frame.run_once()["a+b"]
     np.testing.assert_array_equal(expected_sum, actual_sum)
+
+
+class DifferenceTestCase(tf.test.TestCase):
+  """Test class for `Difference` transform."""
+
+  def testDifference(self):
+    if not HAS_PANDAS:
+      return
+    num_rows = 100
+
+    pandas_df = pd.DataFrame({"a": np.arange(num_rows),
+                              "b": np.arange(num_rows, 2 * num_rows)})
+
+    frame = df.TensorFlowDataFrame.from_pandas(
+        pandas_df, shuffle=False, batch_size=num_rows)
+
+    frame["a-b"] = frame["a"] - frame["b"]
+
+    expected_diff = pandas_df["a"] - pandas_df["b"]
+    actual_diff = frame.run_once()["a-b"]
+    np.testing.assert_array_equal(expected_diff, actual_diff)
 
 
 if __name__ == "__main__":

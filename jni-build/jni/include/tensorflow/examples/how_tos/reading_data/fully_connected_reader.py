@@ -29,8 +29,6 @@ from __future__ import print_function
 
 import os.path
 import time
-
-import numpy
 import tensorflow as tf
 
 from tensorflow.examples.tutorials.mnist import mnist
@@ -146,7 +144,8 @@ def run_training():
     train_op = mnist.training(loss, FLAGS.learning_rate)
 
     # The op for initializing the variables.
-    init_op = tf.initialize_all_variables()
+    init_op = tf.group(tf.initialize_all_variables(),
+                       tf.initialize_local_variables())
 
     # Create a session for running operations in the Graph.
     sess = tf.Session()

@@ -2,14 +2,9 @@ Categorical distribution.
 
 The categorical distribution is parameterized by the log-probabilities
 of a set of classes.
-
-Note, the following methods of the base class aren't implemented:
-  * mean
-  * cdf
-  * log_cdf
 - - -
 
-#### `tf.contrib.distributions.Categorical.__init__(logits, dtype=tf.int32, strict=True, name='Categorical')` {#Categorical.__init__}
+#### `tf.contrib.distributions.Categorical.__init__(logits, dtype=tf.int32, validate_args=True, allow_nan_stats=False, name='Categorical')` {#Categorical.__init__}
 
 Initialize Categorical distributions using class log-probabilities.
 
@@ -21,8 +16,19 @@ Initialize Categorical distributions using class log-probabilities.
       index into a batch of independent distributions and the last dimension
       indexes into the classes.
 *  <b>`dtype`</b>: The type of the event samples (default: int32).
-*  <b>`strict`</b>: Unused in this distribution.
+*  <b>`validate_args`</b>: Unused in this distribution.
+*  <b>`allow_nan_stats`</b>: Boolean, default `False`.  If `False`, raise an
+    exception if a statistic (e.g. mean/mode/etc...) is undefined for any
+    batch member.  If `True`, batch members with valid parameters leading to
+    undefined statistics will return NaN for this statistic.
 *  <b>`name`</b>: A name for this distribution (optional).
+
+
+- - -
+
+#### `tf.contrib.distributions.Categorical.allow_nan_stats` {#Categorical.allow_nan_stats}
+
+Boolean describing behavior when a stat is undefined for batch member.
 
 
 - - -
@@ -76,6 +82,13 @@ Cumulative distribution function.
 
 - - -
 
+#### `tf.contrib.distributions.Categorical.is_continuous` {#Categorical.is_continuous}
+
+
+
+
+- - -
+
 #### `tf.contrib.distributions.Categorical.is_reparameterized` {#Categorical.is_reparameterized}
 
 
@@ -90,21 +103,29 @@ Log CDF.
 
 - - -
 
-#### `tf.contrib.distributions.Categorical.log_likelihood(value, name='log_likelihood')` {#Categorical.log_likelihood}
+#### `tf.contrib.distributions.Categorical.log_pdf(value, name='log_pdf')` {#Categorical.log_pdf}
 
-Log likelihood of this distribution (same as log_pmf).
+Log of the probability density function.
 
 
 - - -
 
-#### `tf.contrib.distributions.Categorical.log_pmf(k, name='log_pmf')` {#Categorical.log_pmf}
+#### `tf.contrib.distributions.Categorical.log_pmf(value, name='log_pmf')` {#Categorical.log_pmf}
+
+Log of the probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Categorical.log_prob(k, name='log_prob')` {#Categorical.log_prob}
 
 Log-probability of class `k`.
 
 ##### Args:
 
 
-*  <b>`k`</b>: `int32` or `int64` Tensor with shape = `self.batch_shape()`.
+*  <b>`k`</b>: `int32` or `int64` Tensor. Must be broadcastable with a `batch_shape`
+    `Tensor`.
 *  <b>`name`</b>: A name for this operation (optional).
 
 ##### Returns:
@@ -149,14 +170,28 @@ Mean of the distribution.
 
 - - -
 
-#### `tf.contrib.distributions.Categorical.pmf(k, name='pmf')` {#Categorical.pmf}
+#### `tf.contrib.distributions.Categorical.pdf(value, name='pdf')` {#Categorical.pdf}
+
+The probability density function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Categorical.pmf(value, name='pmf')` {#Categorical.pmf}
+
+The probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Categorical.prob(k, name='prob')` {#Categorical.prob}
 
 Probability of class `k`.
 
 ##### Args:
 
 
-*  <b>`k`</b>: `int32` or `int64` Tensor with shape = `self.batch_shape()`.
+*  <b>`k`</b>: `int32` or `int64` Tensor. Must be broadcastable with logits.
 *  <b>`name`</b>: A name for this operation (optional).
 
 ##### Returns:
@@ -166,7 +201,31 @@ Probability of class `k`.
 
 - - -
 
-#### `tf.contrib.distributions.Categorical.sample(n, seed=None, name='sample')` {#Categorical.sample}
+#### `tf.contrib.distributions.Categorical.sample(sample_shape=(), seed=None, name='sample')` {#Categorical.sample}
+
+Generate samples of the specified shape for each batched distribution.
+
+Note that a call to `sample()` without arguments will generate a single
+sample per batched distribution.
+
+##### Args:
+
+
+*  <b>`sample_shape`</b>: `int32` `Tensor` or tuple or list. Shape of the generated
+    samples.
+*  <b>`seed`</b>: Python integer seed for RNG
+*  <b>`name`</b>: name to give to the op.
+
+##### Returns:
+
+
+*  <b>`samples`</b>: a `Tensor` of dtype `self.dtype` and shape
+      `sample_shape + self.batch_shape + self.event_shape`.
+
+
+- - -
+
+#### `tf.contrib.distributions.Categorical.sample_n(n, seed=None, name='sample_n')` {#Categorical.sample_n}
 
 Sample `n` observations from the Categorical distribution.
 
@@ -191,7 +250,7 @@ Standard deviation of the distribution.
 
 - - -
 
-#### `tf.contrib.distributions.Categorical.strict` {#Categorical.strict}
+#### `tf.contrib.distributions.Categorical.validate_args` {#Categorical.validate_args}
 
 Boolean describing behavior on invalid input.
 

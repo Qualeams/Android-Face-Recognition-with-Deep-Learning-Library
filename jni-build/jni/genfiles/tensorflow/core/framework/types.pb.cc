@@ -77,8 +77,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
     "F\020q\022\023\n\017DT_BFLOAT16_REF\020r\022\021\n\rDT_QINT16_RE"
     "F\020s\022\022\n\016DT_QUINT16_REF\020t\022\021\n\rDT_UINT16_REF"
     "\020u\022\025\n\021DT_COMPLEX128_REF\020v\022\017\n\013DT_HALF_REF"
-    "\020wB)\n\030org.tensorflow.frameworkB\013TypesPro"
-    "tosP\001b\006proto3", 773);
+    "\020wB,\n\030org.tensorflow.frameworkB\013TypesPro"
+    "tosP\001\370\001\001b\006proto3", 776);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/types.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftypes_2eproto);

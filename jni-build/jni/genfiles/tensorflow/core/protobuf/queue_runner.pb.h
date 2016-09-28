@@ -52,9 +52,14 @@ class QueueRunnerDef : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const QueueRunnerDef& default_instance();
 
+  void UnsafeArenaSwap(QueueRunnerDef* other);
   void Swap(QueueRunnerDef* other);
 
   // implements Message ----------------------------------------------
@@ -81,6 +86,11 @@ class QueueRunnerDef : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(QueueRunnerDef* other);
+  protected:
+  explicit QueueRunnerDef(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -106,6 +116,9 @@ class QueueRunnerDef : public ::google::protobuf::Message {
   ::std::string* mutable_queue_name();
   ::std::string* release_queue_name();
   void set_allocated_queue_name(::std::string* queue_name);
+  ::std::string* unsafe_arena_release_queue_name();
+  void unsafe_arena_set_allocated_queue_name(
+      ::std::string* queue_name);
 
   // repeated string enqueue_op_name = 2;
   int enqueue_op_name_size() const;
@@ -133,6 +146,9 @@ class QueueRunnerDef : public ::google::protobuf::Message {
   ::std::string* mutable_close_op_name();
   ::std::string* release_close_op_name();
   void set_allocated_close_op_name(::std::string* close_op_name);
+  ::std::string* unsafe_arena_release_close_op_name();
+  void unsafe_arena_set_allocated_close_op_name(
+      ::std::string* close_op_name);
 
   // optional string cancel_op_name = 4;
   void clear_cancel_op_name();
@@ -144,11 +160,17 @@ class QueueRunnerDef : public ::google::protobuf::Message {
   ::std::string* mutable_cancel_op_name();
   ::std::string* release_cancel_op_name();
   void set_allocated_cancel_op_name(::std::string* cancel_op_name);
+  ::std::string* unsafe_arena_release_cancel_op_name();
+  void unsafe_arena_set_allocated_cancel_op_name(
+      ::std::string* cancel_op_name);
 
   // @@protoc_insertion_point(class_scope:tensorflow.QueueRunnerDef)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr queue_name_;
   ::google::protobuf::RepeatedPtrField< ::std::string> enqueue_op_name_;
@@ -172,36 +194,46 @@ class QueueRunnerDef : public ::google::protobuf::Message {
 
 // optional string queue_name = 1;
 inline void QueueRunnerDef::clear_queue_name() {
-  queue_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  queue_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& QueueRunnerDef::queue_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.QueueRunnerDef.queue_name)
-  return queue_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return queue_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void QueueRunnerDef::set_queue_name(const ::std::string& value) {
   
-  queue_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  queue_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.QueueRunnerDef.queue_name)
 }
 inline void QueueRunnerDef::set_queue_name(const char* value) {
   
-  queue_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  queue_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.QueueRunnerDef.queue_name)
 }
-inline void QueueRunnerDef::set_queue_name(const char* value, size_t size) {
+inline void QueueRunnerDef::set_queue_name(const char* value,
+    size_t size) {
   
-  queue_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  queue_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.QueueRunnerDef.queue_name)
 }
 inline ::std::string* QueueRunnerDef::mutable_queue_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.QueueRunnerDef.queue_name)
-  return queue_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return queue_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* QueueRunnerDef::release_queue_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.QueueRunnerDef.queue_name)
   
-  return queue_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return queue_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* QueueRunnerDef::unsafe_arena_release_queue_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.QueueRunnerDef.queue_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return queue_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void QueueRunnerDef::set_allocated_queue_name(::std::string* queue_name) {
   if (queue_name != NULL) {
@@ -209,8 +241,21 @@ inline void QueueRunnerDef::set_allocated_queue_name(::std::string* queue_name) 
   } else {
     
   }
-  queue_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), queue_name);
+  queue_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), queue_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.QueueRunnerDef.queue_name)
+}
+inline void QueueRunnerDef::unsafe_arena_set_allocated_queue_name(
+    ::std::string* queue_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (queue_name != NULL) {
+    
+  } else {
+    
+  }
+  queue_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      queue_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.QueueRunnerDef.queue_name)
 }
 
 // repeated string enqueue_op_name = 2;
@@ -242,6 +287,7 @@ inline void QueueRunnerDef::set_enqueue_op_name(int index, const char* value, si
   // @@protoc_insertion_point(field_set_pointer:tensorflow.QueueRunnerDef.enqueue_op_name)
 }
 inline ::std::string* QueueRunnerDef::add_enqueue_op_name() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.QueueRunnerDef.enqueue_op_name)
   return enqueue_op_name_.Add();
 }
 inline void QueueRunnerDef::add_enqueue_op_name(const ::std::string& value) {
@@ -269,36 +315,46 @@ QueueRunnerDef::mutable_enqueue_op_name() {
 
 // optional string close_op_name = 3;
 inline void QueueRunnerDef::clear_close_op_name() {
-  close_op_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  close_op_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& QueueRunnerDef::close_op_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.QueueRunnerDef.close_op_name)
-  return close_op_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return close_op_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void QueueRunnerDef::set_close_op_name(const ::std::string& value) {
   
-  close_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  close_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.QueueRunnerDef.close_op_name)
 }
 inline void QueueRunnerDef::set_close_op_name(const char* value) {
   
-  close_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  close_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.QueueRunnerDef.close_op_name)
 }
-inline void QueueRunnerDef::set_close_op_name(const char* value, size_t size) {
+inline void QueueRunnerDef::set_close_op_name(const char* value,
+    size_t size) {
   
-  close_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  close_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.QueueRunnerDef.close_op_name)
 }
 inline ::std::string* QueueRunnerDef::mutable_close_op_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.QueueRunnerDef.close_op_name)
-  return close_op_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return close_op_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* QueueRunnerDef::release_close_op_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.QueueRunnerDef.close_op_name)
   
-  return close_op_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return close_op_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* QueueRunnerDef::unsafe_arena_release_close_op_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.QueueRunnerDef.close_op_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return close_op_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void QueueRunnerDef::set_allocated_close_op_name(::std::string* close_op_name) {
   if (close_op_name != NULL) {
@@ -306,42 +362,65 @@ inline void QueueRunnerDef::set_allocated_close_op_name(::std::string* close_op_
   } else {
     
   }
-  close_op_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), close_op_name);
+  close_op_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), close_op_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.QueueRunnerDef.close_op_name)
+}
+inline void QueueRunnerDef::unsafe_arena_set_allocated_close_op_name(
+    ::std::string* close_op_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (close_op_name != NULL) {
+    
+  } else {
+    
+  }
+  close_op_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      close_op_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.QueueRunnerDef.close_op_name)
 }
 
 // optional string cancel_op_name = 4;
 inline void QueueRunnerDef::clear_cancel_op_name() {
-  cancel_op_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  cancel_op_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& QueueRunnerDef::cancel_op_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.QueueRunnerDef.cancel_op_name)
-  return cancel_op_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return cancel_op_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void QueueRunnerDef::set_cancel_op_name(const ::std::string& value) {
   
-  cancel_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  cancel_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.QueueRunnerDef.cancel_op_name)
 }
 inline void QueueRunnerDef::set_cancel_op_name(const char* value) {
   
-  cancel_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  cancel_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.QueueRunnerDef.cancel_op_name)
 }
-inline void QueueRunnerDef::set_cancel_op_name(const char* value, size_t size) {
+inline void QueueRunnerDef::set_cancel_op_name(const char* value,
+    size_t size) {
   
-  cancel_op_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  cancel_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.QueueRunnerDef.cancel_op_name)
 }
 inline ::std::string* QueueRunnerDef::mutable_cancel_op_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.QueueRunnerDef.cancel_op_name)
-  return cancel_op_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return cancel_op_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* QueueRunnerDef::release_cancel_op_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.QueueRunnerDef.cancel_op_name)
   
-  return cancel_op_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return cancel_op_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* QueueRunnerDef::unsafe_arena_release_cancel_op_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.QueueRunnerDef.cancel_op_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return cancel_op_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void QueueRunnerDef::set_allocated_cancel_op_name(::std::string* cancel_op_name) {
   if (cancel_op_name != NULL) {
@@ -349,8 +428,21 @@ inline void QueueRunnerDef::set_allocated_cancel_op_name(::std::string* cancel_o
   } else {
     
   }
-  cancel_op_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cancel_op_name);
+  cancel_op_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cancel_op_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.QueueRunnerDef.cancel_op_name)
+}
+inline void QueueRunnerDef::unsafe_arena_set_allocated_cancel_op_name(
+    ::std::string* cancel_op_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (cancel_op_name != NULL) {
+    
+  } else {
+    
+  }
+  cancel_op_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      cancel_op_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.QueueRunnerDef.cancel_op_name)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

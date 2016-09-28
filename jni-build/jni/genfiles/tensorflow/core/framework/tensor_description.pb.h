@@ -55,9 +55,14 @@ class TensorDescription : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const TensorDescription& default_instance();
 
+  void UnsafeArenaSwap(TensorDescription* other);
   void Swap(TensorDescription* other);
 
   // implements Message ----------------------------------------------
@@ -84,6 +89,11 @@ class TensorDescription : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(TensorDescription* other);
+  protected:
+  explicit TensorDescription(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -109,24 +119,45 @@ class TensorDescription : public ::google::protobuf::Message {
   bool has_shape() const;
   void clear_shape();
   static const int kShapeFieldNumber = 2;
+  private:
+  void _slow_mutable_shape();
+  void _slow_set_allocated_shape(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::TensorShapeProto** shape);
+  ::tensorflow::TensorShapeProto* _slow_release_shape();
+  public:
   const ::tensorflow::TensorShapeProto& shape() const;
   ::tensorflow::TensorShapeProto* mutable_shape();
   ::tensorflow::TensorShapeProto* release_shape();
   void set_allocated_shape(::tensorflow::TensorShapeProto* shape);
+  ::tensorflow::TensorShapeProto* unsafe_arena_release_shape();
+  void unsafe_arena_set_allocated_shape(
+      ::tensorflow::TensorShapeProto* shape);
 
   // optional .tensorflow.AllocationDescription allocation_description = 4;
   bool has_allocation_description() const;
   void clear_allocation_description();
   static const int kAllocationDescriptionFieldNumber = 4;
+  private:
+  void _slow_mutable_allocation_description();
+  void _slow_set_allocated_allocation_description(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::AllocationDescription** allocation_description);
+  ::tensorflow::AllocationDescription* _slow_release_allocation_description();
+  public:
   const ::tensorflow::AllocationDescription& allocation_description() const;
   ::tensorflow::AllocationDescription* mutable_allocation_description();
   ::tensorflow::AllocationDescription* release_allocation_description();
   void set_allocated_allocation_description(::tensorflow::AllocationDescription* allocation_description);
+  ::tensorflow::AllocationDescription* unsafe_arena_release_allocation_description();
+  void unsafe_arena_set_allocated_allocation_description(
+      ::tensorflow::AllocationDescription* allocation_description);
 
   // @@protoc_insertion_point(class_scope:tensorflow.TensorDescription)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::TensorShapeProto* shape_;
   ::tensorflow::AllocationDescription* allocation_description_;
@@ -176,19 +207,30 @@ inline const ::tensorflow::TensorShapeProto& TensorDescription::shape() const {
 inline ::tensorflow::TensorShapeProto* TensorDescription::mutable_shape() {
   
   if (shape_ == NULL) {
-    shape_ = new ::tensorflow::TensorShapeProto;
+    _slow_mutable_shape();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorDescription.shape)
   return shape_;
 }
 inline ::tensorflow::TensorShapeProto* TensorDescription::release_shape() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorDescription.shape)
   
-  ::tensorflow::TensorShapeProto* temp = shape_;
-  shape_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_shape();
+  } else {
+    ::tensorflow::TensorShapeProto* temp = shape_;
+    shape_ = NULL;
+    return temp;
+  }
 }
-inline void TensorDescription::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
-  delete shape_;
+inline  void TensorDescription::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete shape_;
+  }
+  if (shape != NULL) {
+    _slow_set_allocated_shape(message_arena, &shape);
+  }
   shape_ = shape;
   if (shape) {
     
@@ -213,19 +255,30 @@ inline const ::tensorflow::AllocationDescription& TensorDescription::allocation_
 inline ::tensorflow::AllocationDescription* TensorDescription::mutable_allocation_description() {
   
   if (allocation_description_ == NULL) {
-    allocation_description_ = new ::tensorflow::AllocationDescription;
+    _slow_mutable_allocation_description();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorDescription.allocation_description)
   return allocation_description_;
 }
 inline ::tensorflow::AllocationDescription* TensorDescription::release_allocation_description() {
+  // @@protoc_insertion_point(field_release:tensorflow.TensorDescription.allocation_description)
   
-  ::tensorflow::AllocationDescription* temp = allocation_description_;
-  allocation_description_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_allocation_description();
+  } else {
+    ::tensorflow::AllocationDescription* temp = allocation_description_;
+    allocation_description_ = NULL;
+    return temp;
+  }
 }
-inline void TensorDescription::set_allocated_allocation_description(::tensorflow::AllocationDescription* allocation_description) {
-  delete allocation_description_;
+inline  void TensorDescription::set_allocated_allocation_description(::tensorflow::AllocationDescription* allocation_description) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete allocation_description_;
+  }
+  if (allocation_description != NULL) {
+    _slow_set_allocated_allocation_description(message_arena, &allocation_description);
+  }
   allocation_description_ = allocation_description;
   if (allocation_description) {
     

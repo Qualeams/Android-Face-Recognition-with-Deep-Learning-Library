@@ -49,7 +49,7 @@ def train():
 
   # Create a multilayer model.
 
-  # Input placehoolders
+  # Input placeholders
   with tf.name_scope('input'):
     x = tf.placeholder(tf.float32, [None, 784], name='x-input')
     y_ = tf.placeholder(tf.float32, [None, 10], name='y-input')
@@ -75,7 +75,7 @@ def train():
       mean = tf.reduce_mean(var)
       tf.scalar_summary('mean/' + name, mean)
       with tf.name_scope('stddev'):
-        stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
+        stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
       tf.scalar_summary('sttdev/' + name, stddev)
       tf.scalar_summary('max/' + name, tf.reduce_max(var))
       tf.scalar_summary('min/' + name, tf.reduce_min(var))
@@ -170,8 +170,8 @@ def train():
       else:  # Record a summary
         summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
         train_writer.add_summary(summary, i)
-    train_writer.close()
-    test_writer.close()
+  train_writer.close()
+  test_writer.close()
 
 
 def main(_):

@@ -112,182 +112,195 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/genfiles/tensorflow/core/framework/tensor_shape.pb.h \
  jni/include/tensorflow/core/framework/tensor.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/Tensor \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/Tensor \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/Core \
- jni/include/third_party/eigen3/Eigen/Core \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/Core \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/DisableStupidWarnings.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Macros.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/Tensor \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/Core \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/DisableStupidWarnings.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Macros.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/complex \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/MKL_support.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/MKL_support.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cerrno \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cstdlib \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cassert \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cstring \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/climits \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Constants.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Meta.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ForwardDeclarations.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/StaticAssert.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/XprHelper.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Memory.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NumTraits.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MathFunctions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SpecialFunctions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GenericPacketMath.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/PacketMath.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/MathFunctions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/Complex.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/CUDA/Half.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/Default/Settings.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/BinaryFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/UnaryFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/NullaryFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/StlFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/AssignmentFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseCoeffsBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/BlockMethods.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MatrixBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/CommonCwiseUnaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/CommonCwiseBinaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/MatrixCwiseUnaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/MatrixCwiseBinaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/EigenBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Product.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CoreEvaluators.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/AssignEvaluator.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Assign.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ArrayBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/ArrayCwiseUnaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/ArrayCwiseBinaryOps.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/BlasUtil.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseStorage.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NestByValue.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ReturnByValue.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NoAlias.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/PlainObjectBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Matrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Array.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseBinaryOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseUnaryOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseNullaryOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseUnaryView.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SelfCwiseBinaryOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Dot.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/StableNorm.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Stride.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MapBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Map.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Ref.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Block.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/VectorBlock.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Transpose.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DiagonalMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Diagonal.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DiagonalProduct.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Redux.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Visitor.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Fuzzy.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/IO.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Swap.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CommaInitializer.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GeneralProduct.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Solve.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Inverse.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SolverBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/PermutationMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Transpositions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/TriangularMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SelfAdjointView.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralBlockPanelKernel.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/Parallelizer.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ProductEvaluators.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixVector.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SolveTriangular.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointMatrixVector.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointProduct.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointRank2Update.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularMatrixVector.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularMatrixMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularSolverMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularSolverVector.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/BandMatrix.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CoreIterators.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ConditionEstimator.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/BooleanRedux.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Select.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/VectorwiseOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Random.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Replicate.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Reverse.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ArrayWrapper.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GlobalFunctions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ReenableStupidWarnings.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/DisableStupidWarnings.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/EmulateArray.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/MaxSizeVector.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/CXX11Workarounds.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/CXX11Meta.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ReenableStupidWarnings.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMacros.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorForwardDeclarations.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMeta.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceThreadPool.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceCuda.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDimensionList.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorInitializer.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorTraits.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorUInt128.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorBase.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorEvaluator.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReductionCuda.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorArgMax.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConcatenation.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionMapper.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionBlocking.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContraction.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionThreadPool.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionCuda.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFFT.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorPatch.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorVolumePatch.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorInflation.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorLayoutSwap.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMorphing.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorPadding.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReverse.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorShuffling.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorStriding.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorCustomOp.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorEvalTo.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorForcedEval.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorGenerator.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorAssign.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorExecutor.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorStorage.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/Tensor.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFixedSize.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMap.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorRef.h \
- jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIO.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Constants.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Meta.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ForwardDeclarations.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/StaticAssert.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/XprHelper.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Memory.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NumTraits.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/TypeCasting.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/Default/Settings.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/TernaryFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/BinaryFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/UnaryFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/NullaryFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/StlFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/AssignmentFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseCoeffsBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/BlockMethods.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MatrixBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/CommonCwiseUnaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/CommonCwiseBinaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/MatrixCwiseUnaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/MatrixCwiseBinaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/EigenBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Product.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CoreEvaluators.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/AssignEvaluator.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Assign.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ArrayBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/ArrayCwiseUnaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/ArrayCwiseBinaryOps.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/BlasUtil.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseStorage.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NestByValue.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ReturnByValue.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NoAlias.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/PlainObjectBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Matrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Array.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseTernaryOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseBinaryOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseUnaryOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseNullaryOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseUnaryView.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SelfCwiseBinaryOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Dot.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/StableNorm.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Stride.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MapBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Map.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Ref.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Block.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/VectorBlock.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Transpose.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DiagonalMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Diagonal.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DiagonalProduct.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Redux.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Visitor.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Fuzzy.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/IO.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Swap.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CommaInitializer.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GeneralProduct.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Solve.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Inverse.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SolverBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/PermutationMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Transpositions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/TriangularMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SelfAdjointView.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralBlockPanelKernel.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/Parallelizer.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ProductEvaluators.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixVector.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SolveTriangular.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointMatrixVector.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointMatrixMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointProduct.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointRank2Update.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularMatrixVector.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularMatrixMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularSolverMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularSolverVector.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/BandMatrix.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CoreIterators.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ConditionEstimator.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/BooleanRedux.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Select.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/VectorwiseOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Random.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Replicate.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Reverse.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ArrayWrapper.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GlobalFunctions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ReenableStupidWarnings.h \
+ jni/include/external/eigen_archive/Eigen/src/Core/util/DisableStupidWarnings.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../SpecialFunctions \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/Core \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/DisableStupidWarnings.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsImpl.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsPacketMath.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsHalf.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsArrayAPI.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ReenableStupidWarnings.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/CXX11Meta.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/EmulateArray.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/CXX11Workarounds.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/MaxSizeVector.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMacros.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorForwardDeclarations.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMeta.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorCostModel.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceThreadPool.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceCuda.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDimensionList.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorInitializer.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorTraits.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorUInt128.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorGlobalFunctions.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBase.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorEvaluator.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReductionCuda.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorArgMax.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConcatenation.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionMapper.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionBlocking.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContraction.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionThreadPool.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionCuda.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFFT.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorPatch.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorVolumePatch.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorInflation.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorLayoutSwap.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMorphing.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorPadding.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReverse.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorShuffling.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorStriding.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorCustomOp.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorEvalTo.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorForcedEval.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorGenerator.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorAssign.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorScan.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorExecutor.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorStorage.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/Tensor.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFixedSize.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMap.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorRef.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIO.h \
+ jni/include/external/eigen_archive/Eigen/src/Core/util/ReenableStupidWarnings.h \
  jni/include/tensorflow/core/framework/allocator.h \
  jni/include/tensorflow/core/framework/numeric_types.h \
  jni/include/tensorflow/core/platform/types.h \
@@ -296,6 +309,7 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/framework/type_traits.h \
  jni/include/tensorflow/core/framework/types.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/FixedPoint \
+ jni/include/external/eigen_archive/Eigen/Core \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/FixedPointTypes.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatMatProductNEON.h \
@@ -327,6 +341,7 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/env.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map \
  jni/include/tensorflow/core/platform/file_system.h \
+ jni/include/tensorflow/core/platform/file_statistics.h \
  jni/include/tensorflow/core/platform/protobuf.h \
  jni/include/tensorflow/core/platform/default/protobuf.h \
  jni/include/google/protobuf/src/google/protobuf/compiler/importer.h \
@@ -336,12 +351,18 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/google/protobuf/src/google/protobuf/io/tokenizer.h \
  jni/include/google/protobuf/src/google/protobuf/io/coded_stream.h \
  jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream.h \
+ jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h \
+ jni/include/google/protobuf/src/google/protobuf/stubs/stl_util.h \
+ jni/include/google/protobuf/src/google/protobuf/map.h \
+ jni/include/google/protobuf/src/google/protobuf/stubs/hash.h \
+ jni/include/google/protobuf/src/google/protobuf/map_type_handler.h \
+ jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h \
+ jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h \
  jni/include/google/protobuf/src/google/protobuf/text_format.h \
  jni/include/google/protobuf/src/google/protobuf/util/json_util.h \
  jni/include/google/protobuf/src/google/protobuf/util/type_resolver.h \
  jni/include/google/protobuf/src/google/protobuf/stubs/status.h \
  jni/include/google/protobuf/src/google/protobuf/stubs/stringpiece.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/hash.h \
  jni/include/google/protobuf/src/google/protobuf/stubs/bytestream.h \
  jni/include/google/protobuf/src/google/protobuf/util/type_resolver_util.h \
  jni/include/tensorflow/core/platform/mutex.h \
@@ -352,10 +373,6 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/default/thread_annotations.h \
  jni/include/tensorflow/core/public/session.h \
  jni/genfiles/tensorflow/core/framework/graph.pb.h \
- jni/include/google/protobuf/src/google/protobuf/map.h \
- jni/include/google/protobuf/src/google/protobuf/map_type_handler.h \
- jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h \
- jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h \
  jni/include/google/protobuf/src/google/protobuf/map_field_inl.h \
  jni/include/google/protobuf/src/google/protobuf/map_field.h \
  jni/include/google/protobuf/src/google/protobuf/generated_message_reflection.h \
@@ -368,10 +385,9 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/genfiles/tensorflow/core/framework/op_def.pb.h \
  jni/genfiles/tensorflow/core/framework/versions.pb.h \
  jni/genfiles/tensorflow/core/protobuf/config.pb.h \
+ jni/genfiles/tensorflow/core/framework/cost_graph.pb.h \
  jni/include/tensorflow/core/public/session_options.h \
- jni/include/tensorflow/core/util/stat_summarizer.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/list \
- jni/jni_utils.h
+ jni/include/tensorflow/core/util/stat_summarizer.h jni/jni_utils.h
 
 jni/tensorflow_jni.h:
 
@@ -599,21 +615,17 @@ jni/include/tensorflow/core/framework/tensor.h:
 
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/Tensor:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/Tensor:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/Tensor:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/Core:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/Core:
 
-jni/include/third_party/eigen3/Eigen/Core:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/DisableStupidWarnings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/Core:
-
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/DisableStupidWarnings.h:
-
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Macros.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Macros.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/complex:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/MKL_support.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/MKL_support.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cerrno:
 
@@ -627,329 +639,359 @@ jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Constants.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Constants.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Meta.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Meta.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ForwardDeclarations.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ForwardDeclarations.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/StaticAssert.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/StaticAssert.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/XprHelper.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/XprHelper.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/Memory.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/Memory.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NumTraits.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NumTraits.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MathFunctions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SpecialFunctions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GenericPacketMath.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/PacketMath.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/MathFunctions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/NEON/Complex.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/CUDA/Half.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/PacketMathHalf.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/arch/Default/Settings.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/TypeCasting.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/BinaryFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/Default/Settings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/UnaryFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/TernaryFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/NullaryFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/BinaryFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/StlFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/UnaryFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/functors/AssignmentFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/NullaryFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseCoeffsBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/StlFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/functors/AssignmentFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/BlockMethods.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseCoeffsBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MatrixBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/CommonCwiseUnaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/BlockMethods.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/CommonCwiseBinaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MatrixBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/MatrixCwiseUnaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/CommonCwiseUnaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/MatrixCwiseBinaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/CommonCwiseBinaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/EigenBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/MatrixCwiseUnaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Product.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/MatrixCwiseBinaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CoreEvaluators.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/EigenBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/AssignEvaluator.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Product.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Assign.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CoreEvaluators.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ArrayBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/AssignEvaluator.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/ArrayCwiseUnaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Assign.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/../plugins/ArrayCwiseBinaryOps.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ArrayBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/BlasUtil.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/ArrayCwiseUnaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DenseStorage.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/../plugins/ArrayCwiseBinaryOps.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NestByValue.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/BlasUtil.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ReturnByValue.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DenseStorage.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/NoAlias.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NestByValue.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/PlainObjectBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ReturnByValue.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Matrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NoAlias.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Array.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/PlainObjectBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseBinaryOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Matrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseUnaryOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Array.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseNullaryOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseTernaryOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CwiseUnaryView.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseBinaryOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SelfCwiseBinaryOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseUnaryOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Dot.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseNullaryOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/StableNorm.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CwiseUnaryView.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Stride.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SelfCwiseBinaryOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/MapBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Dot.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Map.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/StableNorm.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Ref.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Stride.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Block.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MapBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/VectorBlock.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Map.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Transpose.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Ref.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DiagonalMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Block.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Diagonal.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/VectorBlock.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/DiagonalProduct.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Transpose.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Redux.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DiagonalMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Visitor.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Diagonal.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Fuzzy.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/DiagonalProduct.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/IO.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Redux.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Swap.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Visitor.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CommaInitializer.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Fuzzy.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GeneralProduct.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/IO.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Solve.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Swap.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Inverse.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CommaInitializer.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SolverBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GeneralProduct.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/PermutationMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Solve.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Transpositions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Inverse.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/TriangularMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SolverBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SelfAdjointView.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/PermutationMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralBlockPanelKernel.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Transpositions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/Parallelizer.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/TriangularMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ProductEvaluators.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SelfAdjointView.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixVector.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralBlockPanelKernel.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/Parallelizer.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/SolveTriangular.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ProductEvaluators.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixVector.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointMatrixVector.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointMatrixMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/SolveTriangular.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointProduct.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/SelfadjointRank2Update.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointMatrixVector.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularMatrixVector.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointMatrixMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularMatrixMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointProduct.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularSolverMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/SelfadjointRank2Update.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/products/TriangularSolverVector.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularMatrixVector.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/BandMatrix.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularMatrixMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/CoreIterators.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularSolverMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ConditionEstimator.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/products/TriangularSolverVector.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/BooleanRedux.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/BandMatrix.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Select.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/CoreIterators.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/VectorwiseOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ConditionEstimator.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Random.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/BooleanRedux.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Replicate.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Select.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/Reverse.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/VectorwiseOp.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/ArrayWrapper.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Random.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/GlobalFunctions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Replicate.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ReenableStupidWarnings.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/Reverse.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/DisableStupidWarnings.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/ArrayWrapper.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/EmulateArray.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GlobalFunctions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/MaxSizeVector.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ReenableStupidWarnings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/CXX11Workarounds.h:
+jni/include/external/eigen_archive/Eigen/src/Core/util/DisableStupidWarnings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Core/util/CXX11Meta.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../SpecialFunctions:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/Eigen/src/Core/util/ReenableStupidWarnings.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/Core:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMacros.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/DisableStupidWarnings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorForwardDeclarations.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsImpl.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMeta.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsPacketMath.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsHalf.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceThreadPool.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceCuda.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../src/SpecialFunctions/SpecialFunctionsArrayAPI.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/util/ReenableStupidWarnings.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDimensionList.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/CXX11Meta.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/EmulateArray.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorInitializer.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/CXX11Workarounds.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorTraits.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/util/MaxSizeVector.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMacros.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorUInt128.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorForwardDeclarations.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMeta.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorBase.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFunctors.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorEvaluator.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorCostModel.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceDefault.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceThreadPool.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReductionCuda.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDeviceCuda.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorArgMax.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIndexList.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConcatenation.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDimensionList.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionMapper.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDimensions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionBlocking.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorInitializer.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContraction.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorTraits.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionThreadPool.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorUInt128.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorContractionCuda.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorGlobalFunctions.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBase.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFFT.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorEvaluator.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorPatch.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorExpr.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReduction.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorVolumePatch.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReductionCuda.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorArgMax.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConcatenation.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorInflation.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionMapper.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorLayoutSwap.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionBlocking.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMorphing.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContraction.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorPadding.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionThreadPool.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorReverse.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorContractionCuda.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorShuffling.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorStriding.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorCustomOp.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFFT.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorEvalTo.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorPatch.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorForcedEval.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorImagePatch.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorGenerator.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorVolumePatch.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorAssign.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorBroadcasting.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorExecutor.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorChipping.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorInflation.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorStorage.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorLayoutSwap.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/Tensor.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMorphing.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorFixedSize.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorPadding.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorMap.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorReverse.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorRef.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorShuffling.h:
 
-jni/include/external/eigen_archive/eigen-eigen-4c94692de3e5/unsupported/Eigen/CXX11/src/Tensor/TensorIO.h:
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorStriding.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorCustomOp.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorEvalTo.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorForcedEval.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorGenerator.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorAssign.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorScan.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorExecutor.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorDevice.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorStorage.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/Tensor.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorFixedSize.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorMap.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorRef.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/src/Tensor/TensorIO.h:
+
+jni/include/external/eigen_archive/Eigen/src/Core/util/ReenableStupidWarnings.h:
 
 jni/include/tensorflow/core/framework/allocator.h:
 
@@ -966,6 +1008,8 @@ jni/include/tensorflow/core/framework/type_traits.h:
 jni/include/tensorflow/core/framework/types.h:
 
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/FixedPoint:
+
+jni/include/external/eigen_archive/Eigen/Core:
 
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/FixedPointTypes.h:
 
@@ -1029,6 +1073,8 @@ jni/include/tensorflow/core/platform/env.h:
 
 jni/include/tensorflow/core/platform/file_system.h:
 
+jni/include/tensorflow/core/platform/file_statistics.h:
+
 jni/include/tensorflow/core/platform/protobuf.h:
 
 jni/include/tensorflow/core/platform/default/protobuf.h:
@@ -1047,6 +1093,20 @@ jni/include/google/protobuf/src/google/protobuf/io/coded_stream.h:
 
 jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream.h:
 
+jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h:
+
+jni/include/google/protobuf/src/google/protobuf/stubs/stl_util.h:
+
+jni/include/google/protobuf/src/google/protobuf/map.h:
+
+jni/include/google/protobuf/src/google/protobuf/stubs/hash.h:
+
+jni/include/google/protobuf/src/google/protobuf/map_type_handler.h:
+
+jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h:
+
+jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h:
+
 jni/include/google/protobuf/src/google/protobuf/text_format.h:
 
 jni/include/google/protobuf/src/google/protobuf/util/json_util.h:
@@ -1056,8 +1116,6 @@ jni/include/google/protobuf/src/google/protobuf/util/type_resolver.h:
 jni/include/google/protobuf/src/google/protobuf/stubs/status.h:
 
 jni/include/google/protobuf/src/google/protobuf/stubs/stringpiece.h:
-
-jni/include/google/protobuf/src/google/protobuf/stubs/hash.h:
 
 jni/include/google/protobuf/src/google/protobuf/stubs/bytestream.h:
 
@@ -1078,14 +1136,6 @@ jni/include/tensorflow/core/platform/default/thread_annotations.h:
 jni/include/tensorflow/core/public/session.h:
 
 jni/genfiles/tensorflow/core/framework/graph.pb.h:
-
-jni/include/google/protobuf/src/google/protobuf/map.h:
-
-jni/include/google/protobuf/src/google/protobuf/map_type_handler.h:
-
-jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h:
-
-jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h:
 
 jni/include/google/protobuf/src/google/protobuf/map_field_inl.h:
 
@@ -1111,10 +1161,10 @@ jni/genfiles/tensorflow/core/framework/versions.pb.h:
 
 jni/genfiles/tensorflow/core/protobuf/config.pb.h:
 
+jni/genfiles/tensorflow/core/framework/cost_graph.pb.h:
+
 jni/include/tensorflow/core/public/session_options.h:
 
 jni/include/tensorflow/core/util/stat_summarizer.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/list:
 
 jni/jni_utils.h:

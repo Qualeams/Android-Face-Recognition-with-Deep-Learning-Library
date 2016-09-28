@@ -33,7 +33,8 @@ sequences and large batches.
 
 *  <b>`cond`</b>: A callable that represents the termination condition of the loop.
 *  <b>`body`</b>: A callable that represents the loop body.
-*  <b>`loop_vars`</b>: A (possibly nested) tuple or list of variable input tensors.
+*  <b>`loop_vars`</b>: A (possibly nested) tuple or list of numpy array, `Tensor`,
+    and `TensorArray` objects.
 *  <b>`parallel_iterations`</b>: The number of iterations allowed to run in parallel.
 *  <b>`back_prop`</b>: Whether backprop is enabled for this while loop.
 *  <b>`swap_memory`</b>: Whether GPU-CPU memory swap is enabled for this loop.
@@ -41,13 +42,15 @@ sequences and large batches.
 
 ##### Returns:
 
-  The output tensors for the loop variables after the loop.
+  The output tensors for the loop variables after the loop. When the length
+  of `loop_vars` is 1 this is a Tensor, TensorArry or IndexedSlice and when
+  the length of `loop_vars` is greater than 1 it returns a list.
 
 ##### Raises:
 
 
 *  <b>`TypeError`</b>: if `cond` or `body` is not callable.
-*  <b>`ValueError`</b>: if `loop_var` is empty.
+*  <b>`ValueError`</b>: if `loop_vars` is empty.
 
 
 *  <b>`Example`</b>: 

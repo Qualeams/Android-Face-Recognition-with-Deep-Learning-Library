@@ -13,7 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
-"""## Arithmetic Operators
+"""Note: Elementwise binary operations in TensorFlow follow [numpy-style
+broadcasting](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html).
+
+## Arithmetic Operators
 
 TensorFlow provides several operations that you can use to add basic arithmetic
 operators to your graph.
@@ -73,11 +76,13 @@ functions on matrices to your graph.
 @@batch_matrix_diag
 @@batch_matrix_diag_part
 @@batch_matrix_band_part
+@@batch_matrix_set_diag
 
 @@diag
 @@diag_part
 @@trace
 @@transpose
+@@batch_matrix_transpose
 
 @@matmul
 @@batch_matmul
@@ -93,9 +98,6 @@ functions on matrices to your graph.
 @@cholesky_solve
 @@batch_cholesky_solve
 
-@@self_adjoint_eig
-@@batch_self_adjoint_eig
-
 @@matrix_solve
 @@batch_matrix_solve
 
@@ -104,6 +106,14 @@ functions on matrices to your graph.
 
 @@matrix_solve_ls
 @@batch_matrix_solve_ls
+
+@@self_adjoint_eig
+@@batch_self_adjoint_eig
+@@self_adjoint_eigvals
+@@batch_self_adjoint_eigvals
+
+@@svd
+@@batch_svd
 
 ## Complex Number Functions
 
@@ -142,6 +152,14 @@ common math computations that reduce various dimensions of a tensor.
 @@reduce_any
 
 @@accumulate_n
+
+## Scan
+
+TensorFlow provides several operations that you can use to perform scans
+(running totals) across one axis of a tensor.
+
+@@cumsum
+@@cumprod
 
 ## Segmentation
 
@@ -348,6 +366,25 @@ def sqrt(x, name=None):
       return gen_math_ops.sqrt(x, name=name)
 
 
+def erf(x, name=None):
+  """Computes the Gauss error function of `x` element-wise.
+
+  Args:
+    x: A `Tensor` of `SparseTensor`. Must be one of the following types: `half`,
+      `float32`, `float64`.
+    name: A name for the operation (optional).
+
+  Returns:
+    A `Tensor` or `SparseTensor`, respectively. Has the same type as `x`.
+  """
+  with ops.op_scope([x], name, "Erf") as name:
+    if isinstance(x, ops.SparseTensor):
+      x_erf = gen_math_ops.erf(x.values, name=name)
+      return ops.SparseTensor(indices=x.indices, values=x_erf, shape=x.shape)
+    else:
+      return gen_math_ops.erf(x, name=name)
+
+
 def complex_abs(x, name=None):
   r"""Computes the complex absolute value of a tensor.
 
@@ -390,7 +427,8 @@ def scalar_mul(scalar, x):
   Raises:
     ValueError: if scalar is not a 0-D `scalar`.
   """
-  scalar = ops.convert_to_tensor(scalar, dtype=x.dtype, name="scalar")
+  scalar = ops.convert_to_tensor(scalar, dtype=x.dtype.base_dtype,
+                                 name="scalar")
   shape = scalar.get_shape()
   if shape.ndims == 0:
     if isinstance(x, ops.IndexedSlices):
@@ -1548,17 +1586,110 @@ def tanh(x, name=None):
   """Computes hyperbolic tangent of `x` element-wise.
 
   Args:
-    x: A Tensor with type `float32`, `float64`, `int32`, `complex64`, `int64`,
-      or `qint32`.
+    x: A Tensor or SparseTensor with type `float`, `double`, `int32`,
+      `complex64`, `int64`, or `qint32`.
     name: A name for the operation (optional).
 
   Returns:
-    A Tensor with the same type as `x` if `x.dtype != qint32` otherwise
-      the return type is `quint8`.
+    A Tensor or SparseTensor respectively with the same type as `x` if
+    `x.dtype != qint32` otherwise the return type is `quint8`.
   """
   with ops.op_scope([x], name, "Tanh") as name:
+    if isinstance(x, ops.SparseTensor):
+      x_tanh = gen_math_ops._tanh(x.values, name=name)
+      return ops.SparseTensor(indices=x.indices, values=x_tanh, shape=x.shape)
+    else:
+      return gen_math_ops._tanh(x, name=name)
+
+
+def cumsum(x, axis=0, exclusive=False, reverse=False, name=None):
+  """Compute the cumulative sum of the tensor `x` along `axis`.
+
+  By default, this op performs an inclusive cumsum, which means that the first
+  element of the input is identical to the first element of the output:
+  ```prettyprint
+  tf.cumsum([a, b, c]) ==> [a, a + b, a + b + c]
+  ```
+
+  By setting the `exclusive` kwarg to `True`, an exclusive cumsum is performed
+  instead:
+  ```prettyprint
+  tf.cumsum([a, b, c], exclusive=True) ==> [0, a, a + b]
+  ```
+
+  By setting the `reverse` kwarg to `True`, the cumsum is performed in the
+  opposite direction:
+  ```prettyprint
+  tf.cumsum([a, b, c], reverse=True) ==> [a + b + c, b + c, c]
+  ```
+  This is more efficient than using separate `tf.reverse` ops.
+
+  The `reverse` and `exclusive` kwargs can also be combined:
+  ```prettyprint
+  tf.cumsum([a, b, c], exclusive=True, reverse=True) ==> [b + c, c, 0]
+  ```
+
+  Args:
+    x: A `Tensor`. Must be one of the following types: `float32`, `float64`,
+       `int64`, `int32`, `uint8`, `uint16`, `int16`, `int8`, `complex64`,
+       `complex128`, `qint8`, `quint8`, `qint32`, `half`.
+       axis: A `Tensor` of type `int32` (default: 0).
+       reverse: A `bool` (default: False).
+       name: A name for the operation (optional).
+
+  Returns:
+    A `Tensor`. Has the same type as `x`.
+  """
+  with ops.op_scope([x], name, "Cumsum") as name:
     x = ops.convert_to_tensor(x, name="x")
-    return gen_math_ops._tanh(x, name=name)
+    return gen_math_ops.cumsum(
+        x, axis, exclusive=exclusive, reverse=reverse, name=name)
+
+
+def cumprod(x, axis=0, exclusive=False, reverse=False, name=None):
+  """Compute the cumulative product of the tensor `x` along `axis`.
+
+  By default, this op performs an inclusive cumprod, which means that the
+  first
+  element of the input is identical to the first element of the output:
+  ```prettyprint
+  tf.cumprod([a, b, c]) ==> [a, a * b, a * b * c]
+  ```
+
+  By setting the `exclusive` kwarg to `True`, an exclusive cumprod is
+  performed
+  instead:
+  ```prettyprint
+  tf.cumprod([a, b, c], exclusive=True) ==> [0, a, a * b]
+  ```
+
+  By setting the `reverse` kwarg to `True`, the cumprod is performed in the
+  opposite direction:
+  ```prettyprint
+  tf.cumprod([a, b, c], reverse=True) ==> [a * b * c, b * c, c]
+  ```
+  This is more efficient than using separate `tf.reverse` ops.
+
+  The `reverse` and `exclusive` kwargs can also be combined:
+  ```prettyprint
+  tf.cumprod([a, b, c], exclusive=True, reverse=True) ==> [b * c, c, 0]
+  ```
+
+  Args:
+    x: A `Tensor`. Must be one of the following types: `float32`, `float64`,
+       `int64`, `int32`, `uint8`, `uint16`, `int16`, `int8`, `complex64`,
+       `complex128`, `qint8`, `quint8`, `qint32`, `half`.
+    axis: A `Tensor` of type `int32` (default: 0).
+    reverse: A `bool` (default: False).
+    name: A name for the operation (optional).
+
+  Returns:
+    A `Tensor`. Has the same type as `x`.
+  """
+  with ops.op_scope([x], name, "Cumprod") as name:
+    x = ops.convert_to_tensor(x, name="x")
+    return gen_math_ops.cumprod(
+        x, axis, exclusive=exclusive, reverse=reverse, name=name)
 
 
 ops.RegisterShape("Abs")(common_shapes.unchanged_shape)
@@ -1606,6 +1737,10 @@ ops.RegisterShape("BatchFFT2D")(common_shapes.unchanged_shape)
 ops.RegisterShape("BatchIFFT2D")(common_shapes.unchanged_shape)
 ops.RegisterShape("BatchFFT3D")(common_shapes.unchanged_shape)
 ops.RegisterShape("BatchIFFT3D")(common_shapes.unchanged_shape)
+ops.RegisterShape("TanhGrad")(common_shapes.unchanged_shape)
+ops.RegisterShape("SigmoidGrad")(common_shapes.unchanged_shape)
+ops.RegisterShape("Cumsum")(common_shapes.unchanged_shape)
+ops.RegisterShape("Cumprod")(common_shapes.unchanged_shape)
 
 
 @ops.RegisterShape("Add")

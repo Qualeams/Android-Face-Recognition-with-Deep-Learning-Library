@@ -53,6 +53,10 @@ class TensorSliceProto_Extent : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const TensorSliceProto_Extent& default_instance();
 
@@ -61,6 +65,7 @@ class TensorSliceProto_Extent : public ::google::protobuf::Message {
     HAS_LENGTH_NOT_SET = 0,
   };
 
+  void UnsafeArenaSwap(TensorSliceProto_Extent* other);
   void Swap(TensorSliceProto_Extent* other);
 
   // implements Message ----------------------------------------------
@@ -87,6 +92,11 @@ class TensorSliceProto_Extent : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(TensorSliceProto_Extent* other);
+  protected:
+  explicit TensorSliceProto_Extent(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -127,6 +137,9 @@ class TensorSliceProto_Extent : public ::google::protobuf::Message {
   inline void clear_has_has_length();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::int64 start_;
   union HasLengthUnion {
@@ -157,9 +170,14 @@ class TensorSliceProto : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const TensorSliceProto& default_instance();
 
+  void UnsafeArenaSwap(TensorSliceProto* other);
   void Swap(TensorSliceProto* other);
 
   // implements Message ----------------------------------------------
@@ -186,6 +204,11 @@ class TensorSliceProto : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(TensorSliceProto* other);
+  protected:
+  explicit TensorSliceProto(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -219,6 +242,9 @@ class TensorSliceProto : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::TensorSliceProto_Extent > extent_;
   mutable int _cached_size_;

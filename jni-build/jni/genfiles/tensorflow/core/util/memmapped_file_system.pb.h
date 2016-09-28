@@ -53,9 +53,14 @@ class MemmappedFileSystemDirectoryElement : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const MemmappedFileSystemDirectoryElement& default_instance();
 
+  void UnsafeArenaSwap(MemmappedFileSystemDirectoryElement* other);
   void Swap(MemmappedFileSystemDirectoryElement* other);
 
   // implements Message ----------------------------------------------
@@ -82,6 +87,11 @@ class MemmappedFileSystemDirectoryElement : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(MemmappedFileSystemDirectoryElement* other);
+  protected:
+  explicit MemmappedFileSystemDirectoryElement(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -113,11 +123,17 @@ class MemmappedFileSystemDirectoryElement : public ::google::protobuf::Message {
   ::std::string* mutable_name();
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
+  ::std::string* unsafe_arena_release_name();
+  void unsafe_arena_set_allocated_name(
+      ::std::string* name);
 
   // @@protoc_insertion_point(class_scope:tensorflow.MemmappedFileSystemDirectoryElement)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::uint64 offset_;
   ::google::protobuf::internal::ArenaStringPtr name_;
@@ -143,9 +159,14 @@ class MemmappedFileSystemDirectory : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const MemmappedFileSystemDirectory& default_instance();
 
+  void UnsafeArenaSwap(MemmappedFileSystemDirectory* other);
   void Swap(MemmappedFileSystemDirectory* other);
 
   // implements Message ----------------------------------------------
@@ -172,6 +193,11 @@ class MemmappedFileSystemDirectory : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(MemmappedFileSystemDirectory* other);
+  protected:
+  explicit MemmappedFileSystemDirectory(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -203,6 +229,9 @@ class MemmappedFileSystemDirectory : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::MemmappedFileSystemDirectoryElement > element_;
   mutable int _cached_size_;
@@ -237,36 +266,46 @@ inline void MemmappedFileSystemDirectoryElement::set_offset(::google::protobuf::
 
 // optional string name = 2;
 inline void MemmappedFileSystemDirectoryElement::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& MemmappedFileSystemDirectoryElement::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.MemmappedFileSystemDirectoryElement.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void MemmappedFileSystemDirectoryElement::set_name(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
 inline void MemmappedFileSystemDirectoryElement::set_name(const char* value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
-inline void MemmappedFileSystemDirectoryElement::set_name(const char* value, size_t size) {
+inline void MemmappedFileSystemDirectoryElement::set_name(const char* value,
+    size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
 inline ::std::string* MemmappedFileSystemDirectoryElement::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.MemmappedFileSystemDirectoryElement.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* MemmappedFileSystemDirectoryElement::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.MemmappedFileSystemDirectoryElement.name)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* MemmappedFileSystemDirectoryElement::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MemmappedFileSystemDirectoryElement.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void MemmappedFileSystemDirectoryElement::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -274,8 +313,21 @@ inline void MemmappedFileSystemDirectoryElement::set_allocated_name(::std::strin
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MemmappedFileSystemDirectoryElement.name)
+}
+inline void MemmappedFileSystemDirectoryElement::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
 
 // -------------------------------------------------------------------

@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc. All Rights Reserved.
+/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ limitations under the License.
 
 #include "tensorflow/core/common_runtime/device_factory.h"
 #include "tensorflow/core/common_runtime/device_mgr.h"
+#include "tensorflow/core/common_runtime/process_util.h"
 #include "tensorflow/core/distributed_runtime/graph_mgr.h"
 #include "tensorflow/core/distributed_runtime/master_env.h"
 #include "tensorflow/core/distributed_runtime/master_session.h"
-#include "tensorflow/core/distributed_runtime/process_util.h"
 #include "tensorflow/core/distributed_runtime/rpc/async_service_interface.h"
 #include "tensorflow/core/distributed_runtime/rpc/grpc_channel.h"
 #include "tensorflow/core/distributed_runtime/rpc/grpc_master_service.h"
@@ -182,8 +182,8 @@ Status GrpcServer::Init() {
 
   // Finish setting up worker environment.
   worker_env_.graph_mgr = new GraphMgr(&worker_env_);
-  worker_env_.rendezvous_mgr = new RpcRendezvousMgr(&worker_env_);
   worker_env_.compute_pool = ComputePool(sess_opts);
+  worker_env_.rendezvous_mgr = new RpcRendezvousMgr(&worker_env_);
 
   return Status::OK();
 }

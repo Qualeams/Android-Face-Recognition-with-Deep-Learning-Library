@@ -39,9 +39,9 @@ gulp.task('test', ['tslint', 'compile'], getTask('test'));
 
 gulp.task('watch', [], function() {
   // Avoid watching generated .d.ts in the build (aka output) directory.
-  return gulp.watch('components/tf-*/**/*.ts',
-          {ignoreInitial: true},
-          ['compile', 'tslint.permissive']);
+  return gulp.watch(
+      ['components/tf-*/**/*.ts', 'components/vz-*/**/*.ts'],
+      {ignoreInitial: true}, ['compile', 'tslint.permissive']);
 });
 
 
@@ -71,3 +71,10 @@ gulp.task('regenerate', ['first-compile', 'tslint.permissive'], getTask('vulcani
 
 // TODO(danmane): consider making bower install part of default task
 gulp.task('default', ['watch', 'server']);
+
+// Clean all compiled JS files.
+var cleanCompiledTypeScript = require('gulp-clean-compiled-typescript');
+gulp.task('clean', function () {
+  return gulp.src('./components/**/*.ts')
+      .pipe(cleanCompiledTypeScript());
+});

@@ -52,9 +52,14 @@ class AllocationDescription : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const AllocationDescription& default_instance();
 
+  void UnsafeArenaSwap(AllocationDescription* other);
   void Swap(AllocationDescription* other);
 
   // implements Message ----------------------------------------------
@@ -81,6 +86,11 @@ class AllocationDescription : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(AllocationDescription* other);
+  protected:
+  explicit AllocationDescription(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -118,6 +128,9 @@ class AllocationDescription : public ::google::protobuf::Message {
   ::std::string* mutable_allocator_name();
   ::std::string* release_allocator_name();
   void set_allocated_allocator_name(::std::string* allocator_name);
+  ::std::string* unsafe_arena_release_allocator_name();
+  void unsafe_arena_set_allocated_allocator_name(
+      ::std::string* allocator_name);
 
   // optional int64 allocation_id = 4;
   void clear_allocation_id();
@@ -141,6 +154,9 @@ class AllocationDescription : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::int64 requested_bytes_;
   ::google::protobuf::int64 allocated_bytes_;
@@ -194,36 +210,46 @@ inline void AllocationDescription::set_allocated_bytes(::google::protobuf::int64
 
 // optional string allocator_name = 3;
 inline void AllocationDescription::clear_allocator_name() {
-  allocator_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& AllocationDescription::allocator_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.AllocationDescription.allocator_name)
-  return allocator_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void AllocationDescription::set_allocator_name(const ::std::string& value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.allocator_name)
 }
 inline void AllocationDescription::set_allocator_name(const char* value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.AllocationDescription.allocator_name)
 }
-inline void AllocationDescription::set_allocator_name(const char* value, size_t size) {
+inline void AllocationDescription::set_allocator_name(const char* value,
+    size_t size) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.AllocationDescription.allocator_name)
 }
 inline ::std::string* AllocationDescription::mutable_allocator_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.AllocationDescription.allocator_name)
-  return allocator_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* AllocationDescription::release_allocator_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.AllocationDescription.allocator_name)
   
-  return allocator_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* AllocationDescription::unsafe_arena_release_allocator_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.AllocationDescription.allocator_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return allocator_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void AllocationDescription::set_allocated_allocator_name(::std::string* allocator_name) {
   if (allocator_name != NULL) {
@@ -231,8 +257,21 @@ inline void AllocationDescription::set_allocated_allocator_name(::std::string* a
   } else {
     
   }
-  allocator_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name);
+  allocator_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.AllocationDescription.allocator_name)
+}
+inline void AllocationDescription::unsafe_arena_set_allocated_allocator_name(
+    ::std::string* allocator_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (allocator_name != NULL) {
+    
+  } else {
+    
+  }
+  allocator_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      allocator_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AllocationDescription.allocator_name)
 }
 
 // optional int64 allocation_id = 4;

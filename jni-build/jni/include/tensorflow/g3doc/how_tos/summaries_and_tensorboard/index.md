@@ -8,7 +8,7 @@ your TensorFlow graph, plot quantitative metrics about the execution of your
 graph, and show additional data like images that pass through it. When
 TensorBoard is fully configured, it looks like this:
 
-[![MNIST TensorBoard](../../images/mnist_tensorboard.png "MNIST TensorBoard")](http://tensorflow.org/tensorboard)
+[![MNIST TensorBoard](../../images/mnist_tensorboard.png "MNIST TensorBoard")](http://tensorflow.org/tensorboard)  
 [*Click try a TensorBoard with data from this tutorial!*](http://tensorflow.org/tensorboard)
 
 This tutorial is intended to get you started with simple TensorBoard usage.
@@ -86,7 +86,7 @@ def variable_summaries(var, name):
     mean = tf.reduce_mean(var)
     tf.scalar_summary('mean/' + name, mean)
     with tf.name_scope('stddev'):
-      stddev = tf.sqrt(tf.reduce_sum(tf.square(var - mean)))
+      stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
     tf.scalar_summary('sttdev/' + name, stddev)
     tf.scalar_summary('max/' + name, tf.reduce_max(var))
     tf.scalar_summary('min/' + name, tf.reduce_min(var))
@@ -201,4 +201,4 @@ For in depth information on how to use the *graph* tab to visualize your graph,
 see [TensorBoard: Graph Visualization](../../how_tos/graph_viz/index.md).
 
 For more usage information on TensorBoard in general, see the [TensorBoard
-Readme](../../../tensorboard/README.md).
+README](https://www.tensorflow.org/code/tensorflow/tensorboard/README.md).

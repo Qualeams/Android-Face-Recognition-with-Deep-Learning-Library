@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ class PadOp : public OpKernel {
       OP_REQUIRES(context, before_d >= 0 && after_d >= 0,
                   errors::InvalidArgument("Paddings must be non-negative: ",
                                           before_d, " ", after_d));
-      const int size_d =
+      const int64 size_d =
           (allow_legacy_scalars() && d == in0.dims()) ? 1 : in0.dim_size(d);
       output_shape.AddDim(before_d + size_d + after_d);
     }

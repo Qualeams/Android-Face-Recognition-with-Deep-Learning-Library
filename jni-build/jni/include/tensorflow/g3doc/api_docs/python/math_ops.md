@@ -7,6 +7,9 @@ Note: Functions taking `Tensor` arguments can also take anything accepted by
 
 [TOC]
 
+Note: Elementwise binary operations in TensorFlow follow [numpy-style
+broadcasting](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html).
+
 ## Arithmetic Operators
 
 TensorFlow provides several operations that you can use to add basic arithmetic
@@ -18,7 +21,8 @@ operators to your graph.
 
 Returns x + y element-wise.
 
-*NOTE*: Add supports broadcasting. AddN does not.
+*NOTE*: `Add` supports broadcasting. `AddN` does not. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -38,6 +42,9 @@ Returns x + y element-wise.
 
 Returns x - y element-wise.
 
+*NOTE*: `Sub` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -56,6 +63,9 @@ Returns x - y element-wise.
 
 Returns x * y element-wise.
 
+*NOTE*: `Mul` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -73,6 +83,9 @@ Returns x * y element-wise.
 ### `tf.div(x, y, name=None)` {#div}
 
 Returns x / y element-wise.
+
+*NOTE*: `Div` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -160,6 +173,9 @@ as well.
 ### `tf.mod(x, y, name=None)` {#mod}
 
 Returns element-wise remainder of division.
+
+*NOTE*: `Mod` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -501,7 +517,10 @@ Returns element-wise largest integer not greater than x.
 
 ### `tf.maximum(x, y, name=None)` {#maximum}
 
-Returns the max of x and y (i.e. x > y ? x : y) element-wise, broadcasts.
+Returns the max of x and y (i.e. x > y ? x : y) element-wise.
+
+*NOTE*: `Maximum` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -519,7 +538,10 @@ Returns the max of x and y (i.e. x > y ? x : y) element-wise, broadcasts.
 
 ### `tf.minimum(x, y, name=None)` {#minimum}
 
-Returns the min of x and y (i.e. x < y ? x : y) element-wise, broadcasts.
+Returns the min of x and y (i.e. x < y ? x : y) element-wise.
+
+*NOTE*: `Minimum` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -714,12 +736,13 @@ Computes the Gauss error function of `x` element-wise.
 ##### Args:
 
 
-*  <b>`x`</b>: A `Tensor`. Must be one of the following types: `half`, `float32`, `float64`.
+*  <b>`x`</b>: A `Tensor` of `SparseTensor`. Must be one of the following types: `half`,
+    `float32`, `float64`.
 *  <b>`name`</b>: A name for the operation (optional).
 
 ##### Returns:
 
-  A `Tensor`. Has the same type as `x`.
+  A `Tensor` or `SparseTensor`, respectively. Has the same type as `x`.
 
 
 - - -
@@ -744,6 +767,9 @@ Computes the complementary error function of `x` element-wise.
 ### `tf.squared_difference(x, y, name=None)` {#squared_difference}
 
 Returns (x - y)(x - y) element-wise.
+
+*NOTE*: `SquaredDifference` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -1033,6 +1059,40 @@ Useful special cases:
   Rank `k` tensor of the same shape as input. The extracted banded tensor.
 
 
+- - -
+
+### `tf.batch_matrix_set_diag(input, diagonal, name=None)` {#batch_matrix_set_diag}
+
+Returns a batched matrix tensor with new batched diagonal values.
+
+Given `input` and `diagonal`, this operation returns a tensor with the
+same shape and values as `input`, except for the diagonals of the innermost
+matrices.  These will be overwritten by the values in `diagonal`.
+The batched matrices must be square.
+
+The output is computed as follows:
+
+Assume `input` has `k+1` dimensions `[I, J, K, ..., N, N]` and `diagonal` has
+`k` dimensions `[I, J, K, ..., N]`.  Then the output is a
+tensor of rank `k+1` with dimensions [I, J, K, ..., N, N]` where:
+
+  * `output[i, j, k, ..., m, n] = diagonal[i, j, k, ..., n]` for `m == n`.
+  * `output[i, j, k, ..., m, n] = input[i, j, k, ..., m, n]` for `m != n`.
+
+##### Args:
+
+
+*  <b>`input`</b>: A `Tensor`. Rank `k+1`, where `k >= 1`.
+*  <b>`diagonal`</b>: A `Tensor`. Must have the same type as `input`.
+    Rank `k`, where `k >= 1`.
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor`. Has the same type as `input`.
+  Rank `k+1`, with `output.shape = input.shape`.
+
+
 
 - - -
 
@@ -1191,6 +1251,43 @@ tf.transpose(x, perm=[0, 2, 1]) ==> [[[1  4]
   A transposed `Tensor`.
 
 
+- - -
+
+### `tf.batch_matrix_transpose(a, name='batch_matrix_transpose')` {#batch_matrix_transpose}
+
+Transposes last two dimensions of batch matrix `a`.
+
+For example:
+
+```python
+# Matrix with no batch dimension.
+# 'x' is [[1 2 3]
+#         [4 5 6]]
+tf.batch_matrixtranspose(x) ==> [[1 4]
+                                 [2 5]
+                                 [3 6]]
+
+# Matrix with two batch dimensions.
+# x.shape is [1, 2, 3, 4]
+# tf.batch_matrix_transpose(x) is shape [1, 2, 4, 3]
+```
+
+##### Args:
+
+
+*  <b>`a`</b>: A `Tensor` with `rank >= 2`.
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A transposed batch matrix `Tensor`.
+
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If `a` is determined statically to have `rank < 2`.
+
+
 
 - - -
 
@@ -1290,7 +1387,7 @@ It is computed as:
 
 ### `tf.matrix_determinant(input, name=None)` {#matrix_determinant}
 
-Calculates the determinant of a square matrix.
+Computes the determinant of a square matrix.
 
 ##### Args:
 
@@ -1309,10 +1406,10 @@ Calculates the determinant of a square matrix.
 
 ### `tf.batch_matrix_determinant(input, name=None)` {#batch_matrix_determinant}
 
-Calculates the determinants for a batch of square matrices.
+Computes the determinants for a batch of square matrices.
 
 The input is a tensor of shape `[..., M, M]` whose inner-most 2 dimensions
-form square matrices. The output is a 1-D tensor containing the determinants
+form square matrices. The output is a tensor containing the determinants
 for all input submatrices `[..., :, :]`.
 
 ##### Args:
@@ -1332,7 +1429,7 @@ for all input submatrices `[..., :, :]`.
 
 ### `tf.matrix_inverse(input, adjoint=None, name=None)` {#matrix_inverse}
 
-Calculates the inverse of a square invertible matrix or its adjoint (conjugate
+Computes the inverse of a square invertible matrix or its adjoint (conjugate
 
 transpose).
 
@@ -1362,7 +1459,7 @@ garbage result.
 
 ### `tf.batch_matrix_inverse(input, adjoint=None, name=None)` {#batch_matrix_inverse}
 
-Calculates the inverse of square invertible matrices or their adjoints
+Computes the inverse of square invertible matrices or their adjoints
 
 (conjugate transposes).
 
@@ -1394,7 +1491,7 @@ garbage result.
 
 ### `tf.cholesky(input, name=None)` {#cholesky}
 
-Calculates the Cholesky decomposition of a square matrix.
+Computes the Cholesky decomposition of a square matrix.
 
 The input has to be symmetric and positive definite. Only the lower-triangular
 part of the input will be used for this operation. The upper-triangular part
@@ -1419,7 +1516,7 @@ input, `L`, so that `input = L L^*`.
 
 ### `tf.batch_cholesky(input, name=None)` {#batch_cholesky}
 
-Calculates the Cholesky decomposition of a batch of square matrices.
+Computes the Cholesky decomposition of a batch of square matrices.
 
 The input is a tensor of shape `[..., M, M]` whose inner-most 2 dimensions
 form square matrices, with the same constraints as the single matrix Cholesky
@@ -1512,56 +1609,6 @@ X[3, :, 2]  # Solution to the linear system A[3, :, :] x = RHS[3, :, 2]
 ##### Returns:
 
   Solution to `A x = rhs`, shape `[..., M, K]`.
-
-
-
-- - -
-
-### `tf.self_adjoint_eig(input, name=None)` {#self_adjoint_eig}
-
-Calculates the Eigen Decomposition of a square Self-Adjoint matrix.
-
-Only the lower-triangular part of the input will be used in this case. The
-upper-triangular part will not be read.
-
-The result is a M+1 x M matrix whose first row is the eigenvalues, and
-subsequent rows are eigenvectors.
-
-##### Args:
-
-
-*  <b>`input`</b>: A `Tensor`. Must be one of the following types: `float64`, `float32`.
-    Shape is `[M, M]`.
-*  <b>`name`</b>: A name for the operation (optional).
-
-##### Returns:
-
-  A `Tensor`. Has the same type as `input`. Shape is `[M+1, M]`.
-
-
-- - -
-
-### `tf.batch_self_adjoint_eig(input, name=None)` {#batch_self_adjoint_eig}
-
-Calculates the Eigen Decomposition of a batch of square self-adjoint matrices.
-
-The input is a tensor of shape `[..., M, M]` whose inner-most 2 dimensions
-form square matrices, with the same constraints as the single matrix
-SelfAdjointEig.
-
-The result is a '[..., M+1, M] matrix with [..., 0,:] containing the
-eigenvalues, and subsequent [...,1:, :] containing the eigenvectors.
-
-##### Args:
-
-
-*  <b>`input`</b>: A `Tensor`. Must be one of the following types: `float64`, `float32`.
-    Shape is `[..., M, M]`.
-*  <b>`name`</b>: A name for the operation (optional).
-
-##### Returns:
-
-  A `Tensor`. Has the same type as `input`. Shape is `[..., M+1, M]`.
 
 
 
@@ -1808,6 +1855,179 @@ typically 6-7 times slower than the fast path. If `fast` is `False` then
     `M`-by-`K` matrices that solve the equations
     `matrix[..., :, :] * output[..., :, :] = rhs[..., :, :]` in the least
     squares sense.
+
+
+
+- - -
+
+### `tf.self_adjoint_eig(matrix, name=None)` {#self_adjoint_eig}
+
+Computes the eigen decomposition of a self-adjoint matrix.
+
+Computes the eigenvalues and eigenvectors of an N-by-N matrix `matrix` such
+that `matrix * v[:,i] = e(i) * v[:,i]`, for i=0...N-1.
+
+##### Args:
+
+
+*  <b>`matrix`</b>: `Tensor` of shape `[N, N]`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`e`</b>: Eigenvalues. Shape is `[N]`.
+*  <b>`v`</b>: Eigenvectors. Shape is `[N, N]`. The columns contain the eigenvectors of
+    `matrix`.
+
+
+- - -
+
+### `tf.batch_self_adjoint_eig(tensor, name=None)` {#batch_self_adjoint_eig}
+
+Computes the eigen decomposition of a batch of self-adjoint matrices.
+
+Computes the eigenvalues and eigenvectors of the innermost N-by-N matrices
+in `tensor` such that
+`tensor[...,:,:] * v[..., :,i] = e(..., i) * v[...,:,i]`, for i=0...N-1.
+
+##### Args:
+
+
+*  <b>`tensor`</b>: `Tensor` of shape `[..., N, N]`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`e`</b>: Eigenvalues. Shape is `[..., N]`.
+*  <b>`v`</b>: Eigenvectors. Shape is `[..., N, N]`. The columns of the inner most
+  matrices
+    contain eigenvectors of the corresponding matrices in `tensor`
+
+
+- - -
+
+### `tf.self_adjoint_eigvals(matrix, name=None)` {#self_adjoint_eigvals}
+
+Computes the eigenvalues a self-adjoint  matrix.
+
+##### Args:
+
+
+*  <b>`matrix`</b>: `Tensor` of shape `[N, N]`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`e`</b>: Eigenvalues of `matrix`. Shape is `[N]`.
+
+
+- - -
+
+### `tf.batch_self_adjoint_eigvals(tensor, name=None)` {#batch_self_adjoint_eigvals}
+
+Computes the eigenvalues of a batch of self-adjoint matrices.
+
+##### Args:
+
+
+*  <b>`tensor`</b>: `Tensor` of shape `[..., N, N]`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`e`</b>: Eigenvalues. Shape is `[..., N]`. The vector `e[..., :]` contains the `N`
+    eigenvalues of `tensor[..., :, :]`.
+
+
+
+- - -
+
+### `tf.svd(matrix, compute_uv=True, full_matrices=False, name=None)` {#svd}
+
+Computes the singular value decomposition of a matrix.
+
+Computes the SVD of `matrix` such that `matrix = u * diag(s) *
+transpose(v)`
+
+```prettyprint
+# a is a matrix.
+# s is a vector of singular values.
+# u is the matrix of left singular vectors.
+# v is a matrix of right singular vectors.
+s, u, v = svd(a)
+s = svd(a, compute_uv=False)
+```
+
+##### Args:
+
+
+*  <b>`matrix`</b>: `Tensor` of shape `[M, N]`. Let `P` be the minimum of `M` and `N`.
+*  <b>`compute_uv`</b>: If `True` then left and right singular vectors will be
+    computed and returned in `u` and `v`, respectively. Otherwise, only the
+    singular values will be computed, which can be significantly faster.
+*  <b>`full_matrices`</b>: If true, compute full-sized `u` and `v`. If false
+    (the default), compute only the leading `P` singular vectors.
+    Ignored if `compute_uv` is `False`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`s`</b>: Singular values. Shape is `[P]`.
+*  <b>`u`</b>: Right singular vectors. If `full_matrices` is `False` (default) then
+    shape is `[M, P]`; if `full_matrices` is `True` then shape is
+    `[M, M]`. Not returned if `compute_uv` is `False`.
+*  <b>`v`</b>: Left singular vectors. If `full_matrices` is `False` (default) then
+    shape is `[N, P]`. If `full_matrices` is `True` then shape is
+    `[N, N]`. Not returned if `compute_uv` is `False`.
+
+
+- - -
+
+### `tf.batch_svd(tensor, compute_uv=True, full_matrices=False, name=None)` {#batch_svd}
+
+Computes the singular value decompositions of a batch of matrices.
+
+Computes the SVD of each inner matrix in `tensor` such that
+`tensor[..., :, :] = u[..., :, :] * diag(s[..., :, :]) * transpose(v[..., :,
+:])`
+
+```prettyprint
+# a is a tensor.
+# s is a tensor of singular values.
+# u is a tensor of left singular vectors.
+# v is a tensor of right singular vectors.
+s, u, v = batch_svd(a)
+s = batch_svd(a, compute_uv=False)
+```
+
+##### Args:
+
+
+*  <b>`matrix`</b>: `Tensor` of shape `[..., M, N]`. Let `P` be the minimum of `M` and
+    `N`.
+*  <b>`compute_uv`</b>: If `True` then left and right singular vectors will be
+    computed and returned in `u` and `v`, respectively. Otherwise, only the
+    singular values will be computed, which can be significantly faster.
+*  <b>`full_matrices`</b>: If true, compute full-sized `u` and `v`. If false
+    (the default), compute only the leading `P` singular vectors.
+    Ignored if `compute_uv` is `False`.
+*  <b>`name`</b>: string, optional name of the operation.
+
+##### Returns:
+
+
+*  <b>`s`</b>: Singular values. Shape is `[..., P]`.
+*  <b>`u`</b>: Right singular vectors. If `full_matrices` is `False` (default) then
+    shape is `[..., M, P]`; if `full_matrices` is `True` then shape is
+    `[..., M, M]`. Not returned if `compute_uv` is `False`.
+*  <b>`v`</b>: Left singular vectors. If `full_matrices` is `False` (default) then
+    shape is `[..., N, P]`. If `full_matrices` is `True` then shape is
+    `[..., N, N]`. Not returned if `compute_uv` is `False`.
 
 
 
@@ -2489,6 +2709,104 @@ tf.accumulate_n([a, b, a], shape=[2, 2], tensor_dtype=tf.int32)
 
 
 
+## Scan
+
+TensorFlow provides several operations that you can use to perform scans
+(running totals) across one axis of a tensor.
+
+- - -
+
+### `tf.cumsum(x, axis=0, exclusive=False, reverse=False, name=None)` {#cumsum}
+
+Compute the cumulative sum of the tensor `x` along `axis`.
+
+By default, this op performs an inclusive cumsum, which means that the first
+element of the input is identical to the first element of the output:
+```prettyprint
+tf.cumsum([a, b, c]) ==> [a, a + b, a + b + c]
+```
+
+By setting the `exclusive` kwarg to `True`, an exclusive cumsum is performed
+instead:
+```prettyprint
+tf.cumsum([a, b, c], exclusive=True) ==> [0, a, a + b]
+```
+
+By setting the `reverse` kwarg to `True`, the cumsum is performed in the
+opposite direction:
+```prettyprint
+tf.cumsum([a, b, c], reverse=True) ==> [a + b + c, b + c, c]
+```
+This is more efficient than using separate `tf.reverse` ops.
+
+The `reverse` and `exclusive` kwargs can also be combined:
+```prettyprint
+tf.cumsum([a, b, c], exclusive=True, reverse=True) ==> [b + c, c, 0]
+```
+
+##### Args:
+
+
+*  <b>`x`</b>: A `Tensor`. Must be one of the following types: `float32`, `float64`,
+     `int64`, `int32`, `uint8`, `uint16`, `int16`, `int8`, `complex64`,
+     `complex128`, `qint8`, `quint8`, `qint32`, `half`.
+*  <b>`axis`</b>: A `Tensor` of type `int32` (default: 0).
+*  <b>`reverse`</b>: A `bool` (default: False).
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor`. Has the same type as `x`.
+
+
+- - -
+
+### `tf.cumprod(x, axis=0, exclusive=False, reverse=False, name=None)` {#cumprod}
+
+Compute the cumulative product of the tensor `x` along `axis`.
+
+By default, this op performs an inclusive cumprod, which means that the
+first
+element of the input is identical to the first element of the output:
+```prettyprint
+tf.cumprod([a, b, c]) ==> [a, a * b, a * b * c]
+```
+
+By setting the `exclusive` kwarg to `True`, an exclusive cumprod is
+performed
+instead:
+```prettyprint
+tf.cumprod([a, b, c], exclusive=True) ==> [0, a, a * b]
+```
+
+By setting the `reverse` kwarg to `True`, the cumprod is performed in the
+opposite direction:
+```prettyprint
+tf.cumprod([a, b, c], reverse=True) ==> [a * b * c, b * c, c]
+```
+This is more efficient than using separate `tf.reverse` ops.
+
+The `reverse` and `exclusive` kwargs can also be combined:
+```prettyprint
+tf.cumprod([a, b, c], exclusive=True, reverse=True) ==> [b * c, c, 0]
+```
+
+##### Args:
+
+
+*  <b>`x`</b>: A `Tensor`. Must be one of the following types: `float32`, `float64`,
+     `int64`, `int32`, `uint8`, `uint16`, `int16`, `int8`, `complex64`,
+     `complex128`, `qint8`, `quint8`, `qint32`, `half`.
+*  <b>`axis`</b>: A `Tensor` of type `int32` (default: 0).
+*  <b>`reverse`</b>: A `bool` (default: False).
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor`. Has the same type as `x`.
+
+
+
 ## Segmentation
 
 TensorFlow provides several operations that you can use to perform common
@@ -2691,10 +3009,10 @@ Segmentation](../../api_docs/python/math_ops.md#segmentation) for an explanation
 of segments.
 
 Computes a tensor such that
-\\(output_i = \sum_j data_j\\) where sum is over `j` such
-that `segment_ids[j] == i`. Unlike `SegmentSum`, `segment_ids`
+`(output[i] = sum_{j...} data[j...]` where the sum is over tuples `j...` such
+that `segment_ids[j...] == i`.  Unlike `SegmentSum`, `segment_ids`
 need not be sorted and need not cover all values in the full
-  range of valid values.
+range of valid values.
 
 If the sum is empty for a given segment ID `i`, `output[i] = 0`.
 
@@ -2709,16 +3027,16 @@ If the sum is empty for a given segment ID `i`, `output[i] = 0`.
 
 *  <b>`data`</b>: A `Tensor`. Must be one of the following types: `float32`, `float64`, `int64`, `int32`, `uint8`, `uint16`, `int16`, `int8`, `complex64`, `complex128`, `qint8`, `quint8`, `qint32`, `half`.
 *  <b>`segment_ids`</b>: A `Tensor`. Must be one of the following types: `int32`, `int64`.
-    A 1-D tensor whose rank is equal to the rank of `data`'s
-    first dimension.
+    A tensor whose shape is a prefix of `data.shape`.
 *  <b>`num_segments`</b>: A `Tensor` of type `int32`.
 *  <b>`name`</b>: A name for the operation (optional).
 
 ##### Returns:
 
   A `Tensor`. Has the same type as `data`.
-  Has same shape as data, except for dimension 0 which
-  has size `num_segments`.
+  Has same shape as data, except for the first `segment_ids.rank`
+  dimensions, which are replaced with a single dimension which has size
+  `num_segments`.
 
 
 

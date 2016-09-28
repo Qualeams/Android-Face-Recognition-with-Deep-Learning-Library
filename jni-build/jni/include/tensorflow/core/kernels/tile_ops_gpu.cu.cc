@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ typedef Eigen::GpuDevice GPUDevice;
 
 DEFINE_TYPE(float)
 DEFINE_TYPE(double)
+DEFINE_TYPE(Eigen::half)
 DEFINE_TYPE(int64)
 DEFINE_TYPE(int32)
 DEFINE_TYPE(int16)

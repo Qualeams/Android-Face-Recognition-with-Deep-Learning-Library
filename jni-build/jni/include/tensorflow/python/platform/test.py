@@ -72,6 +72,11 @@ from tensorflow.python.ops.gradient_checker import compute_gradient_error
 from tensorflow.python.ops.gradient_checker import compute_gradient
 # pylint: enable=unused-import
 
+import sys
+if sys.version_info.major == 2:
+  import mock                # pylint: disable=g-import-not-at-top,unused-import
+else:
+  from unittest import mock  # pylint: disable=g-import-not-at-top
 
 # Import Benchmark class
 Benchmark = googletest.Benchmark  # pylint: disable=invalid-name
@@ -93,6 +98,19 @@ def get_temp_dir():
   return googletest.GetTempDir()
 
 
+def test_src_dir_path(relative_path):
+  """Creates an absolute test srcdir path given a relative path.
+
+  Args:
+    relative_path: a path relative to tensorflow root.
+      e.g. "core/platform".
+
+  Returns:
+    An absolute path to the linked in runfiles.
+  """
+  return googletest.test_src_dir_path(relative_path)
+
+
 def is_built_with_cuda():
   """Returns whether TensorFlow was built with CUDA (GPU) support."""
   return test_util.IsGoogleCudaEnabled()
@@ -100,7 +118,7 @@ def is_built_with_cuda():
 
 def is_gpu_available():
   """Returns whether TensorFlow can access a GPU."""
-  return any(x.device_type() == 'GPU' for x in device_lib.list_local_devices())
+  return any(x.device_type == 'GPU' for x in device_lib.list_local_devices())
 
 
 __all__ = make_all(__name__)

@@ -176,8 +176,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2futil_2fsaved_5ftensor_5fslice_2eproto(
     "w.TensorProto\"i\n\021SavedTensorSlices\022.\n\004me"
     "ta\030\001 \001(\0132 .tensorflow.SavedTensorSliceMe"
     "ta\022$\n\004data\030\002 \001(\0132\026.tensorflow.SavedSlice"
-    "B/\n\023org.tensorflow.utilB\026SavedTensorSlic"
-    "eProtosP\001b\006proto3", 817);
+    "B2\n\023org.tensorflow.utilB\026SavedTensorSlic"
+    "eProtosP\001\370\001\001b\006proto3", 820);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/util/saved_tensor_slice.proto", &protobuf_RegisterTypes);
   SavedSliceMeta::default_instance_ = new SavedSliceMeta();
@@ -210,6 +210,54 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+void SavedSliceMeta::_slow_mutable_shape() {
+  shape_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+      GetArenaNoVirtual());
+}
+::tensorflow::TensorShapeProto* SavedSliceMeta::_slow_release_shape() {
+  if (shape_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::TensorShapeProto* temp = new ::tensorflow::TensorShapeProto;
+    temp->MergeFrom(*shape_);
+    shape_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::TensorShapeProto* SavedSliceMeta::unsafe_arena_release_shape() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedSliceMeta.shape)
+  
+  ::tensorflow::TensorShapeProto* temp = shape_;
+  shape_ = NULL;
+  return temp;
+}
+void SavedSliceMeta::_slow_set_allocated_shape(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::TensorShapeProto** shape) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*shape) == NULL) {
+      message_arena->Own(*shape);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*shape)) {
+      ::tensorflow::TensorShapeProto* new_shape = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorShapeProto >(
+            message_arena);
+      new_shape->CopyFrom(**shape);
+      *shape = new_shape;
+    }
+}
+void SavedSliceMeta::unsafe_arena_set_allocated_shape(
+    ::tensorflow::TensorShapeProto* shape) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete shape_;
+  }
+  shape_ = shape;
+  if (shape) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedSliceMeta.shape)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SavedSliceMeta::kNameFieldNumber;
 const int SavedSliceMeta::kShapeFieldNumber;
@@ -221,6 +269,15 @@ SavedSliceMeta::SavedSliceMeta()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SavedSliceMeta)
+}
+
+SavedSliceMeta::SavedSliceMeta(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  slice_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SavedSliceMeta)
 }
 
 void SavedSliceMeta::InitAsDefaultInstance() {
@@ -251,12 +308,22 @@ SavedSliceMeta::~SavedSliceMeta() {
 }
 
 void SavedSliceMeta::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
     delete shape_;
   }
 }
 
+void SavedSliceMeta::ArenaDtor(void* object) {
+  SavedSliceMeta* _this = reinterpret_cast< SavedSliceMeta* >(object);
+  (void)_this;
+}
+void SavedSliceMeta::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void SavedSliceMeta::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -275,15 +342,12 @@ const SavedSliceMeta& SavedSliceMeta::default_instance() {
 SavedSliceMeta* SavedSliceMeta::default_instance_ = NULL;
 
 SavedSliceMeta* SavedSliceMeta::New(::google::protobuf::Arena* arena) const {
-  SavedSliceMeta* n = new SavedSliceMeta;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<SavedSliceMeta>(arena);
 }
 
 void SavedSliceMeta::Clear() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// @@protoc_insertion_point(message_clear_start:tensorflow.SavedSliceMeta)
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (GetArenaNoVirtual() == NULL && shape_ != NULL) delete shape_;
   shape_ = NULL;
   type_ = 0;
@@ -292,7 +356,7 @@ void SavedSliceMeta::Clear() {
 
 bool SavedSliceMeta::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.SavedSliceMeta)
   for (;;) {
@@ -456,6 +520,7 @@ void SavedSliceMeta::SerializeWithCachedSizes(
 }
 
 int SavedSliceMeta::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SavedSliceMeta)
   int total_size = 0;
 
   // optional string name = 1;
@@ -493,23 +558,26 @@ int SavedSliceMeta::ByteSize() const {
 }
 
 void SavedSliceMeta::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SavedSliceMeta)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SavedSliceMeta* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SavedSliceMeta>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SavedSliceMeta)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SavedSliceMeta)
     MergeFrom(*source);
   }
 }
 
 void SavedSliceMeta::MergeFrom(const SavedSliceMeta& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SavedSliceMeta)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   slice_.MergeFrom(from.slice_);
   if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    set_name(from.name());
   }
   if (from.has_shape()) {
     mutable_shape()->::tensorflow::TensorShapeProto::MergeFrom(from.shape());
@@ -520,12 +588,14 @@ void SavedSliceMeta::MergeFrom(const SavedSliceMeta& from) {
 }
 
 void SavedSliceMeta::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SavedSliceMeta)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SavedSliceMeta::CopyFrom(const SavedSliceMeta& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SavedSliceMeta)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -538,6 +608,18 @@ bool SavedSliceMeta::IsInitialized() const {
 
 void SavedSliceMeta::Swap(SavedSliceMeta* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SavedSliceMeta temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SavedSliceMeta::UnsafeArenaSwap(SavedSliceMeta* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void SavedSliceMeta::InternalSwap(SavedSliceMeta* other) {
@@ -562,36 +644,46 @@ void SavedSliceMeta::InternalSwap(SavedSliceMeta* other) {
 
 // optional string name = 1;
 void SavedSliceMeta::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& SavedSliceMeta::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SavedSliceMeta.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void SavedSliceMeta::set_name(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SavedSliceMeta.name)
 }
  void SavedSliceMeta::set_name(const char* value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SavedSliceMeta.name)
 }
- void SavedSliceMeta::set_name(const char* value, size_t size) {
+ void SavedSliceMeta::set_name(const char* value,
+    size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SavedSliceMeta.name)
 }
  ::std::string* SavedSliceMeta::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedSliceMeta.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* SavedSliceMeta::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedSliceMeta.name)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* SavedSliceMeta::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedSliceMeta.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
  void SavedSliceMeta::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -599,8 +691,21 @@ void SavedSliceMeta::clear_name() {
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SavedSliceMeta.name)
+}
+ void SavedSliceMeta::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedSliceMeta.name)
 }
 
 // optional .tensorflow.TensorShapeProto shape = 2;
@@ -618,19 +723,30 @@ const ::tensorflow::TensorShapeProto& SavedSliceMeta::shape() const {
 ::tensorflow::TensorShapeProto* SavedSliceMeta::mutable_shape() {
   
   if (shape_ == NULL) {
-    shape_ = new ::tensorflow::TensorShapeProto;
+    _slow_mutable_shape();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedSliceMeta.shape)
   return shape_;
 }
 ::tensorflow::TensorShapeProto* SavedSliceMeta::release_shape() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedSliceMeta.shape)
   
-  ::tensorflow::TensorShapeProto* temp = shape_;
-  shape_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_shape();
+  } else {
+    ::tensorflow::TensorShapeProto* temp = shape_;
+    shape_ = NULL;
+    return temp;
+  }
 }
-void SavedSliceMeta::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
-  delete shape_;
+ void SavedSliceMeta::set_allocated_shape(::tensorflow::TensorShapeProto* shape) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete shape_;
+  }
+  if (shape != NULL) {
+    _slow_set_allocated_shape(message_arena, &shape);
+  }
   shape_ = shape;
   if (shape) {
     
@@ -688,6 +804,54 @@ SavedSliceMeta::slice() const {
 
 // ===================================================================
 
+void SavedTensorSliceMeta::_slow_mutable_versions() {
+  versions_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::VersionDef >(
+      GetArenaNoVirtual());
+}
+::tensorflow::VersionDef* SavedTensorSliceMeta::_slow_release_versions() {
+  if (versions_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::VersionDef* temp = new ::tensorflow::VersionDef;
+    temp->MergeFrom(*versions_);
+    versions_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::VersionDef* SavedTensorSliceMeta::unsafe_arena_release_versions() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedTensorSliceMeta.versions)
+  
+  ::tensorflow::VersionDef* temp = versions_;
+  versions_ = NULL;
+  return temp;
+}
+void SavedTensorSliceMeta::_slow_set_allocated_versions(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::VersionDef** versions) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*versions) == NULL) {
+      message_arena->Own(*versions);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*versions)) {
+      ::tensorflow::VersionDef* new_versions = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::VersionDef >(
+            message_arena);
+      new_versions->CopyFrom(**versions);
+      *versions = new_versions;
+    }
+}
+void SavedTensorSliceMeta::unsafe_arena_set_allocated_versions(
+    ::tensorflow::VersionDef* versions) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete versions_;
+  }
+  versions_ = versions;
+  if (versions) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedTensorSliceMeta.versions)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SavedTensorSliceMeta::kTensorFieldNumber;
 const int SavedTensorSliceMeta::kVersionsFieldNumber;
@@ -697,6 +861,15 @@ SavedTensorSliceMeta::SavedTensorSliceMeta()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SavedTensorSliceMeta)
+}
+
+SavedTensorSliceMeta::SavedTensorSliceMeta(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  tensor_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SavedTensorSliceMeta)
 }
 
 void SavedTensorSliceMeta::InitAsDefaultInstance() {
@@ -724,11 +897,21 @@ SavedTensorSliceMeta::~SavedTensorSliceMeta() {
 }
 
 void SavedTensorSliceMeta::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete versions_;
   }
 }
 
+void SavedTensorSliceMeta::ArenaDtor(void* object) {
+  SavedTensorSliceMeta* _this = reinterpret_cast< SavedTensorSliceMeta* >(object);
+  (void)_this;
+}
+void SavedTensorSliceMeta::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void SavedTensorSliceMeta::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -747,14 +930,11 @@ const SavedTensorSliceMeta& SavedTensorSliceMeta::default_instance() {
 SavedTensorSliceMeta* SavedTensorSliceMeta::default_instance_ = NULL;
 
 SavedTensorSliceMeta* SavedTensorSliceMeta::New(::google::protobuf::Arena* arena) const {
-  SavedTensorSliceMeta* n = new SavedTensorSliceMeta;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<SavedTensorSliceMeta>(arena);
 }
 
 void SavedTensorSliceMeta::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.SavedTensorSliceMeta)
   if (GetArenaNoVirtual() == NULL && versions_ != NULL) delete versions_;
   versions_ = NULL;
   tensor_.Clear();
@@ -762,7 +942,7 @@ void SavedTensorSliceMeta::Clear() {
 
 bool SavedTensorSliceMeta::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.SavedTensorSliceMeta)
   for (;;) {
@@ -860,6 +1040,7 @@ void SavedTensorSliceMeta::SerializeWithCachedSizes(
 }
 
 int SavedTensorSliceMeta::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SavedTensorSliceMeta)
   int total_size = 0;
 
   // optional .tensorflow.VersionDef versions = 2;
@@ -884,18 +1065,22 @@ int SavedTensorSliceMeta::ByteSize() const {
 }
 
 void SavedTensorSliceMeta::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SavedTensorSliceMeta)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SavedTensorSliceMeta* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SavedTensorSliceMeta>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SavedTensorSliceMeta)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SavedTensorSliceMeta)
     MergeFrom(*source);
   }
 }
 
 void SavedTensorSliceMeta::MergeFrom(const SavedTensorSliceMeta& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SavedTensorSliceMeta)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   tensor_.MergeFrom(from.tensor_);
   if (from.has_versions()) {
@@ -904,12 +1089,14 @@ void SavedTensorSliceMeta::MergeFrom(const SavedTensorSliceMeta& from) {
 }
 
 void SavedTensorSliceMeta::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SavedTensorSliceMeta)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SavedTensorSliceMeta::CopyFrom(const SavedTensorSliceMeta& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SavedTensorSliceMeta)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -922,6 +1109,18 @@ bool SavedTensorSliceMeta::IsInitialized() const {
 
 void SavedTensorSliceMeta::Swap(SavedTensorSliceMeta* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SavedTensorSliceMeta temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SavedTensorSliceMeta::UnsafeArenaSwap(SavedTensorSliceMeta* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void SavedTensorSliceMeta::InternalSwap(SavedTensorSliceMeta* other) {
@@ -987,19 +1186,30 @@ const ::tensorflow::VersionDef& SavedTensorSliceMeta::versions() const {
 ::tensorflow::VersionDef* SavedTensorSliceMeta::mutable_versions() {
   
   if (versions_ == NULL) {
-    versions_ = new ::tensorflow::VersionDef;
+    _slow_mutable_versions();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedTensorSliceMeta.versions)
   return versions_;
 }
 ::tensorflow::VersionDef* SavedTensorSliceMeta::release_versions() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedTensorSliceMeta.versions)
   
-  ::tensorflow::VersionDef* temp = versions_;
-  versions_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_versions();
+  } else {
+    ::tensorflow::VersionDef* temp = versions_;
+    versions_ = NULL;
+    return temp;
+  }
 }
-void SavedTensorSliceMeta::set_allocated_versions(::tensorflow::VersionDef* versions) {
-  delete versions_;
+ void SavedTensorSliceMeta::set_allocated_versions(::tensorflow::VersionDef* versions) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete versions_;
+  }
+  if (versions != NULL) {
+    _slow_set_allocated_versions(message_arena, &versions);
+  }
   versions_ = versions;
   if (versions) {
     
@@ -1013,6 +1223,102 @@ void SavedTensorSliceMeta::set_allocated_versions(::tensorflow::VersionDef* vers
 
 // ===================================================================
 
+void SavedSlice::_slow_mutable_slice() {
+  slice_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorSliceProto >(
+      GetArenaNoVirtual());
+}
+::tensorflow::TensorSliceProto* SavedSlice::_slow_release_slice() {
+  if (slice_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::TensorSliceProto* temp = new ::tensorflow::TensorSliceProto;
+    temp->MergeFrom(*slice_);
+    slice_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::TensorSliceProto* SavedSlice::unsafe_arena_release_slice() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedSlice.slice)
+  
+  ::tensorflow::TensorSliceProto* temp = slice_;
+  slice_ = NULL;
+  return temp;
+}
+void SavedSlice::_slow_set_allocated_slice(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::TensorSliceProto** slice) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*slice) == NULL) {
+      message_arena->Own(*slice);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*slice)) {
+      ::tensorflow::TensorSliceProto* new_slice = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorSliceProto >(
+            message_arena);
+      new_slice->CopyFrom(**slice);
+      *slice = new_slice;
+    }
+}
+void SavedSlice::unsafe_arena_set_allocated_slice(
+    ::tensorflow::TensorSliceProto* slice) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete slice_;
+  }
+  slice_ = slice;
+  if (slice) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedSlice.slice)
+}
+void SavedSlice::_slow_mutable_data() {
+  data_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorProto >(
+      GetArenaNoVirtual());
+}
+::tensorflow::TensorProto* SavedSlice::_slow_release_data() {
+  if (data_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::TensorProto* temp = new ::tensorflow::TensorProto;
+    temp->MergeFrom(*data_);
+    data_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::TensorProto* SavedSlice::unsafe_arena_release_data() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedSlice.data)
+  
+  ::tensorflow::TensorProto* temp = data_;
+  data_ = NULL;
+  return temp;
+}
+void SavedSlice::_slow_set_allocated_data(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::TensorProto** data) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*data) == NULL) {
+      message_arena->Own(*data);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*data)) {
+      ::tensorflow::TensorProto* new_data = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::TensorProto >(
+            message_arena);
+      new_data->CopyFrom(**data);
+      *data = new_data;
+    }
+}
+void SavedSlice::unsafe_arena_set_allocated_data(
+    ::tensorflow::TensorProto* data) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete data_;
+  }
+  data_ = data;
+  if (data) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedSlice.data)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SavedSlice::kNameFieldNumber;
 const int SavedSlice::kSliceFieldNumber;
@@ -1023,6 +1329,14 @@ SavedSlice::SavedSlice()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SavedSlice)
+}
+
+SavedSlice::SavedSlice(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SavedSlice)
 }
 
 void SavedSlice::InitAsDefaultInstance() {
@@ -1054,13 +1368,23 @@ SavedSlice::~SavedSlice() {
 }
 
 void SavedSlice::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
     delete slice_;
     delete data_;
   }
 }
 
+void SavedSlice::ArenaDtor(void* object) {
+  SavedSlice* _this = reinterpret_cast< SavedSlice* >(object);
+  (void)_this;
+}
+void SavedSlice::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void SavedSlice::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1079,15 +1403,12 @@ const SavedSlice& SavedSlice::default_instance() {
 SavedSlice* SavedSlice::default_instance_ = NULL;
 
 SavedSlice* SavedSlice::New(::google::protobuf::Arena* arena) const {
-  SavedSlice* n = new SavedSlice;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<SavedSlice>(arena);
 }
 
 void SavedSlice::Clear() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// @@protoc_insertion_point(message_clear_start:tensorflow.SavedSlice)
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (GetArenaNoVirtual() == NULL && slice_ != NULL) delete slice_;
   slice_ = NULL;
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
@@ -1096,7 +1417,7 @@ void SavedSlice::Clear() {
 
 bool SavedSlice::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.SavedSlice)
   for (;;) {
@@ -1228,6 +1549,7 @@ void SavedSlice::SerializeWithCachedSizes(
 }
 
 int SavedSlice::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SavedSlice)
   int total_size = 0;
 
   // optional string name = 1;
@@ -1258,22 +1580,25 @@ int SavedSlice::ByteSize() const {
 }
 
 void SavedSlice::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SavedSlice)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SavedSlice* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SavedSlice>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SavedSlice)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SavedSlice)
     MergeFrom(*source);
   }
 }
 
 void SavedSlice::MergeFrom(const SavedSlice& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SavedSlice)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    set_name(from.name());
   }
   if (from.has_slice()) {
     mutable_slice()->::tensorflow::TensorSliceProto::MergeFrom(from.slice());
@@ -1284,12 +1609,14 @@ void SavedSlice::MergeFrom(const SavedSlice& from) {
 }
 
 void SavedSlice::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SavedSlice)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SavedSlice::CopyFrom(const SavedSlice& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SavedSlice)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1302,6 +1629,18 @@ bool SavedSlice::IsInitialized() const {
 
 void SavedSlice::Swap(SavedSlice* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SavedSlice temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SavedSlice::UnsafeArenaSwap(SavedSlice* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void SavedSlice::InternalSwap(SavedSlice* other) {
@@ -1325,36 +1664,46 @@ void SavedSlice::InternalSwap(SavedSlice* other) {
 
 // optional string name = 1;
 void SavedSlice::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& SavedSlice::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SavedSlice.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void SavedSlice::set_name(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SavedSlice.name)
 }
  void SavedSlice::set_name(const char* value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SavedSlice.name)
 }
- void SavedSlice::set_name(const char* value, size_t size) {
+ void SavedSlice::set_name(const char* value,
+    size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SavedSlice.name)
 }
  ::std::string* SavedSlice::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedSlice.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* SavedSlice::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedSlice.name)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* SavedSlice::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedSlice.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
  void SavedSlice::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -1362,8 +1711,21 @@ void SavedSlice::clear_name() {
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SavedSlice.name)
+}
+ void SavedSlice::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedSlice.name)
 }
 
 // optional .tensorflow.TensorSliceProto slice = 2;
@@ -1381,19 +1743,30 @@ const ::tensorflow::TensorSliceProto& SavedSlice::slice() const {
 ::tensorflow::TensorSliceProto* SavedSlice::mutable_slice() {
   
   if (slice_ == NULL) {
-    slice_ = new ::tensorflow::TensorSliceProto;
+    _slow_mutable_slice();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedSlice.slice)
   return slice_;
 }
 ::tensorflow::TensorSliceProto* SavedSlice::release_slice() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedSlice.slice)
   
-  ::tensorflow::TensorSliceProto* temp = slice_;
-  slice_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_slice();
+  } else {
+    ::tensorflow::TensorSliceProto* temp = slice_;
+    slice_ = NULL;
+    return temp;
+  }
 }
-void SavedSlice::set_allocated_slice(::tensorflow::TensorSliceProto* slice) {
-  delete slice_;
+ void SavedSlice::set_allocated_slice(::tensorflow::TensorSliceProto* slice) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete slice_;
+  }
+  if (slice != NULL) {
+    _slow_set_allocated_slice(message_arena, &slice);
+  }
   slice_ = slice;
   if (slice) {
     
@@ -1418,19 +1791,30 @@ const ::tensorflow::TensorProto& SavedSlice::data() const {
 ::tensorflow::TensorProto* SavedSlice::mutable_data() {
   
   if (data_ == NULL) {
-    data_ = new ::tensorflow::TensorProto;
+    _slow_mutable_data();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedSlice.data)
   return data_;
 }
 ::tensorflow::TensorProto* SavedSlice::release_data() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedSlice.data)
   
-  ::tensorflow::TensorProto* temp = data_;
-  data_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_data();
+  } else {
+    ::tensorflow::TensorProto* temp = data_;
+    data_ = NULL;
+    return temp;
+  }
 }
-void SavedSlice::set_allocated_data(::tensorflow::TensorProto* data) {
-  delete data_;
+ void SavedSlice::set_allocated_data(::tensorflow::TensorProto* data) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete data_;
+  }
+  if (data != NULL) {
+    _slow_set_allocated_data(message_arena, &data);
+  }
   data_ = data;
   if (data) {
     
@@ -1444,6 +1828,102 @@ void SavedSlice::set_allocated_data(::tensorflow::TensorProto* data) {
 
 // ===================================================================
 
+void SavedTensorSlices::_slow_mutable_meta() {
+  meta_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::SavedTensorSliceMeta >(
+      GetArenaNoVirtual());
+}
+::tensorflow::SavedTensorSliceMeta* SavedTensorSlices::_slow_release_meta() {
+  if (meta_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::SavedTensorSliceMeta* temp = new ::tensorflow::SavedTensorSliceMeta;
+    temp->MergeFrom(*meta_);
+    meta_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::SavedTensorSliceMeta* SavedTensorSlices::unsafe_arena_release_meta() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedTensorSlices.meta)
+  
+  ::tensorflow::SavedTensorSliceMeta* temp = meta_;
+  meta_ = NULL;
+  return temp;
+}
+void SavedTensorSlices::_slow_set_allocated_meta(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::SavedTensorSliceMeta** meta) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*meta) == NULL) {
+      message_arena->Own(*meta);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*meta)) {
+      ::tensorflow::SavedTensorSliceMeta* new_meta = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::SavedTensorSliceMeta >(
+            message_arena);
+      new_meta->CopyFrom(**meta);
+      *meta = new_meta;
+    }
+}
+void SavedTensorSlices::unsafe_arena_set_allocated_meta(
+    ::tensorflow::SavedTensorSliceMeta* meta) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete meta_;
+  }
+  meta_ = meta;
+  if (meta) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedTensorSlices.meta)
+}
+void SavedTensorSlices::_slow_mutable_data() {
+  data_ = ::google::protobuf::Arena::CreateMessage< ::tensorflow::SavedSlice >(
+      GetArenaNoVirtual());
+}
+::tensorflow::SavedSlice* SavedTensorSlices::_slow_release_data() {
+  if (data_ == NULL) {
+    return NULL;
+  } else {
+    ::tensorflow::SavedSlice* temp = new ::tensorflow::SavedSlice;
+    temp->MergeFrom(*data_);
+    data_ = NULL;
+    return temp;
+  }
+}
+::tensorflow::SavedSlice* SavedTensorSlices::unsafe_arena_release_data() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SavedTensorSlices.data)
+  
+  ::tensorflow::SavedSlice* temp = data_;
+  data_ = NULL;
+  return temp;
+}
+void SavedTensorSlices::_slow_set_allocated_data(
+    ::google::protobuf::Arena* message_arena, ::tensorflow::SavedSlice** data) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*data) == NULL) {
+      message_arena->Own(*data);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*data)) {
+      ::tensorflow::SavedSlice* new_data = 
+            ::google::protobuf::Arena::CreateMessage< ::tensorflow::SavedSlice >(
+            message_arena);
+      new_data->CopyFrom(**data);
+      *data = new_data;
+    }
+}
+void SavedTensorSlices::unsafe_arena_set_allocated_data(
+    ::tensorflow::SavedSlice* data) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete data_;
+  }
+  data_ = data;
+  if (data) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SavedTensorSlices.data)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SavedTensorSlices::kMetaFieldNumber;
 const int SavedTensorSlices::kDataFieldNumber;
@@ -1453,6 +1933,14 @@ SavedTensorSlices::SavedTensorSlices()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SavedTensorSlices)
+}
+
+SavedTensorSlices::SavedTensorSlices(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SavedTensorSlices)
 }
 
 void SavedTensorSlices::InitAsDefaultInstance() {
@@ -1482,12 +1970,22 @@ SavedTensorSlices::~SavedTensorSlices() {
 }
 
 void SavedTensorSlices::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
     delete meta_;
     delete data_;
   }
 }
 
+void SavedTensorSlices::ArenaDtor(void* object) {
+  SavedTensorSlices* _this = reinterpret_cast< SavedTensorSlices* >(object);
+  (void)_this;
+}
+void SavedTensorSlices::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void SavedTensorSlices::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -1506,14 +2004,11 @@ const SavedTensorSlices& SavedTensorSlices::default_instance() {
 SavedTensorSlices* SavedTensorSlices::default_instance_ = NULL;
 
 SavedTensorSlices* SavedTensorSlices::New(::google::protobuf::Arena* arena) const {
-  SavedTensorSlices* n = new SavedTensorSlices;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<SavedTensorSlices>(arena);
 }
 
 void SavedTensorSlices::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.SavedTensorSlices)
   if (GetArenaNoVirtual() == NULL && meta_ != NULL) delete meta_;
   meta_ = NULL;
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
@@ -1522,7 +2017,7 @@ void SavedTensorSlices::Clear() {
 
 bool SavedTensorSlices::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.SavedTensorSlices)
   for (;;) {
@@ -1616,6 +2111,7 @@ void SavedTensorSlices::SerializeWithCachedSizes(
 }
 
 int SavedTensorSlices::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SavedTensorSlices)
   int total_size = 0;
 
   // optional .tensorflow.SavedTensorSliceMeta meta = 1;
@@ -1639,18 +2135,22 @@ int SavedTensorSlices::ByteSize() const {
 }
 
 void SavedTensorSlices::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SavedTensorSlices)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SavedTensorSlices* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SavedTensorSlices>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SavedTensorSlices)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SavedTensorSlices)
     MergeFrom(*source);
   }
 }
 
 void SavedTensorSlices::MergeFrom(const SavedTensorSlices& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SavedTensorSlices)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_meta()) {
     mutable_meta()->::tensorflow::SavedTensorSliceMeta::MergeFrom(from.meta());
@@ -1661,12 +2161,14 @@ void SavedTensorSlices::MergeFrom(const SavedTensorSlices& from) {
 }
 
 void SavedTensorSlices::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SavedTensorSlices)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SavedTensorSlices::CopyFrom(const SavedTensorSlices& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SavedTensorSlices)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1679,6 +2181,18 @@ bool SavedTensorSlices::IsInitialized() const {
 
 void SavedTensorSlices::Swap(SavedTensorSlices* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SavedTensorSlices temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void SavedTensorSlices::UnsafeArenaSwap(SavedTensorSlices* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void SavedTensorSlices::InternalSwap(SavedTensorSlices* other) {
@@ -1714,19 +2228,30 @@ const ::tensorflow::SavedTensorSliceMeta& SavedTensorSlices::meta() const {
 ::tensorflow::SavedTensorSliceMeta* SavedTensorSlices::mutable_meta() {
   
   if (meta_ == NULL) {
-    meta_ = new ::tensorflow::SavedTensorSliceMeta;
+    _slow_mutable_meta();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedTensorSlices.meta)
   return meta_;
 }
 ::tensorflow::SavedTensorSliceMeta* SavedTensorSlices::release_meta() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedTensorSlices.meta)
   
-  ::tensorflow::SavedTensorSliceMeta* temp = meta_;
-  meta_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_meta();
+  } else {
+    ::tensorflow::SavedTensorSliceMeta* temp = meta_;
+    meta_ = NULL;
+    return temp;
+  }
 }
-void SavedTensorSlices::set_allocated_meta(::tensorflow::SavedTensorSliceMeta* meta) {
-  delete meta_;
+ void SavedTensorSlices::set_allocated_meta(::tensorflow::SavedTensorSliceMeta* meta) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete meta_;
+  }
+  if (meta != NULL) {
+    _slow_set_allocated_meta(message_arena, &meta);
+  }
   meta_ = meta;
   if (meta) {
     
@@ -1751,19 +2276,30 @@ const ::tensorflow::SavedSlice& SavedTensorSlices::data() const {
 ::tensorflow::SavedSlice* SavedTensorSlices::mutable_data() {
   
   if (data_ == NULL) {
-    data_ = new ::tensorflow::SavedSlice;
+    _slow_mutable_data();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.SavedTensorSlices.data)
   return data_;
 }
 ::tensorflow::SavedSlice* SavedTensorSlices::release_data() {
+  // @@protoc_insertion_point(field_release:tensorflow.SavedTensorSlices.data)
   
-  ::tensorflow::SavedSlice* temp = data_;
-  data_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_data();
+  } else {
+    ::tensorflow::SavedSlice* temp = data_;
+    data_ = NULL;
+    return temp;
+  }
 }
-void SavedTensorSlices::set_allocated_data(::tensorflow::SavedSlice* data) {
-  delete data_;
+ void SavedTensorSlices::set_allocated_data(::tensorflow::SavedSlice* data) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete data_;
+  }
+  if (data != NULL) {
+    _slow_set_allocated_data(message_arena, &data);
+  }
   data_ = data;
   if (data) {
     

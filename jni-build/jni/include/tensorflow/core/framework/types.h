@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -190,6 +190,9 @@ MATCH_TYPE_AND_ENUM(Eigen::half, DT_HALF);
 bool DataTypeCanUseMemcpy(DataType dt);
 
 bool DataTypeIsQuantized(DataType dt);
+
+// Is the dtype nonquantized integral?
+bool DataTypeIsInteger(DataType dt);
 
 // Returns a 0 on failure
 int DataTypeSize(DataType dt);

@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc. All Rights Reserved.
+/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ limitations under the License.
 #include <vector>
 
 #include "tensorflow/core/common_runtime/device_set.h"
+#include "tensorflow/core/common_runtime/process_util.h"
+#include "tensorflow/core/common_runtime/simple_graph_execution_state.h"
 #include "tensorflow/core/distributed_runtime/master_env.h"
 #include "tensorflow/core/distributed_runtime/master_session_interface.h"
-#include "tensorflow/core/distributed_runtime/process_util.h"
-#include "tensorflow/core/distributed_runtime/simple_graph_execution_state.h"
 #include "tensorflow/core/distributed_runtime/worker_cache.h"
 #include "tensorflow/core/distributed_runtime/worker_interface.h"
 #include "tensorflow/core/framework/function.pb.h"
@@ -162,6 +162,9 @@ class MasterSession : public MasterSessionInterface {
   // nodes) are unique across all sub-graphs within this session.
   int64 next_node_id_ GUARDED_BY(mu_) = 0;
 
+  // Used to cancel running steps on Close().
+  CancellationManager* cancellation_manager_;
+
   // Private dtor. The client must call Close().
   virtual ~MasterSession();
 
@@ -184,9 +187,10 @@ class MasterSession : public MasterSessionInterface {
 class MasterSession::ReffedClientGraph : public core::RefCounted {
  public:
   ReffedClientGraph(const string& handle, const BuildGraphOptions& bopts,
-                    ClientGraph* cg, const GraphOptions& graph_opts)
+                    std::unique_ptr<SimpleClientGraph> cg,
+                    const GraphOptions& graph_opts)
       : session_handle_(handle),
-        client_graph_(cg),
+        client_graph_(std::move(cg)),
         bopts_(bopts),
         graph_opts_(graph_opts) {
     VLOG(1) << "Created ReffedClientGraph for node with "
@@ -201,11 +205,10 @@ class MasterSession::ReffedClientGraph : public core::RefCounted {
   }
 
   ~ReffedClientGraph() override {
-    delete client_graph_;
     DeregisterPartitions();
   }
 
-  const ClientGraph* client_graph() { return client_graph_; }
+  const SimpleClientGraph* client_graph() { return client_graph_.get(); }
 
   // Local execution methods.
 
@@ -219,7 +222,8 @@ class MasterSession::ReffedClientGraph : public core::RefCounted {
                        int64 execution_count,
                        SimpleGraphExecutionState* execution_state,
                        PerStepState* pss, CallOptions* opts,
-                       const RunStepRequest& req, RunStepResponse* resp);
+                       const RunStepRequest& req, RunStepResponse* resp,
+                       CancellationManager* cm);
 
   // Calls workers to cleanup states for the step "step_id".  Waits
   // till all cleanup rpcs complete.
@@ -229,7 +233,7 @@ class MasterSession::ReffedClientGraph : public core::RefCounted {
 
  private:
   const string session_handle_;
-  ClientGraph* const client_graph_ = nullptr;
+  const std::unique_ptr<SimpleClientGraph> client_graph_;
   std::unordered_set<const Node*> nodes_needing_input_mapping_;
   BuildGraphOptions bopts_;
   const GraphOptions graph_opts_;
@@ -260,7 +264,7 @@ class MasterSession::ReffedClientGraph : public core::RefCounted {
 
   // partitions_ is immutable after RegisterPartitions() call
   // finishes.  RunPartitions() can access partitions_ safely without
-  // acquring locks.
+  // acquiring locks.
   std::vector<Part> partitions_;
 
   mutable mutex mu_;
@@ -504,7 +508,8 @@ class RunManyGraphs {
 Status MasterSession::ReffedClientGraph::RunPartitions(
     const MasterEnv* env, int64 step_id, int64 execution_count,
     SimpleGraphExecutionState* execution_state, PerStepState* pss,
-    CallOptions* call_opts, const RunStepRequest& req, RunStepResponse* resp) {
+    CallOptions* call_opts, const RunStepRequest& req, RunStepResponse* resp,
+    CancellationManager* cm) {
   VLOG(2) << "RunPartitions step_id " << step_id << " execution_count "
           << execution_count;
   // Builds an index for feeds provided by the client.
@@ -560,8 +565,19 @@ Status MasterSession::ReffedClientGraph::RunPartitions(
 
   // Waits for the RunGraph calls.
   call_opts->SetCancelCallback([&calls]() { calls.StartCancel(); });
+  auto token = cm->get_cancellation_token();
+  bool success =
+      cm->RegisterCallback(token, [&calls]() { calls.StartCancel(); });
+  if (!success) {
+    calls.StartCancel();
+  }
   calls.Wait();
   call_opts->ClearCancelCallback();
+  if (success) {
+    cm->DeregisterCallback(token);
+  } else {
+    return errors::Cancelled("Step was cancelled");
+  }
 
   // Collects fetches.
   Status status = calls.status();
@@ -696,7 +712,8 @@ MasterSession::MasterSession(const SessionOptions& opt, const MasterEnv* env,
       env_(env),
       handle_(strings::FpToString(random::New64())),
       graph_version_(0),
-      runs_(5) {
+      runs_(5),
+      cancellation_manager_(new CancellationManager) {
   UpdateLastAccessTime();
 
   swap(remote_devs_, *remote_devs);
@@ -717,6 +734,7 @@ MasterSession::MasterSession(const SessionOptions& opt, const MasterEnv* env,
 }
 
 MasterSession::~MasterSession() {
+  delete cancellation_manager_;
   for (const auto& iter : runs_) iter.second->Unref();
   for (const auto& iter : obsolete_) iter.second->Unref();
   delete flib_def_;
@@ -728,16 +746,23 @@ void MasterSession::UpdateLastAccessTime() {
 }
 
 Status MasterSession::Create(GraphDef* graph_def) {
+  if (session_opts_.config.graph_options().place_pruned_graph()) {
+    // TODO(b/29900832): Fix this or remove the option.
+    return errors::Unimplemented(
+        "MasterSession does not support the place_pruned_graph option.");
+  }
+
   // Keeps a copy of graph_def->library() and flib_def_ serves the
   // OpRegistryInterface used by the SimpleGraphExecutionState to construct the
   // pre-partitioned graphs during DoRunWithLocalExecution().
   func_def_lib_.Swap(graph_def->mutable_library());
-  flib_def_ = new FunctionLibraryDefinition(func_def_lib_);
+  flib_def_ =
+      new FunctionLibraryDefinition(OpRegistry::Global(), func_def_lib_);
 
   SimpleGraphExecutionStateOptions options;
   options.device_set = &devices_;
   options.session_options = &session_opts_;
-  execution_state_.reset(new SimpleGraphExecutionState(flib_def_, options));
+  execution_state_.reset(new SimpleGraphExecutionState(func_def_lib_, options));
   TF_RETURN_IF_ERROR(execution_state_->Create(graph_def));
 
   return Status::OK();
@@ -746,7 +771,7 @@ Status MasterSession::Create(GraphDef* graph_def) {
 Status MasterSession::Extend(const ExtendSessionRequest* req,
                              ExtendSessionResponse* resp) {
   UpdateLastAccessTime();
-  std::unique_ptr<SimpleGraphExecutionState> old_execution_state;
+  std::unique_ptr<SimpleGraphExecutionState> extended_execution_state;
   {
     mutex_lock l(mu_);
     // TODO(mrry): Redesign the locking with reader/writer locks to prevent
@@ -765,20 +790,16 @@ Status MasterSession::Extend(const ExtendSessionRequest* req,
     }
 
     CHECK(execution_state_);
-    SimpleGraphExecutionState* extended_execution_state = nullptr;
-    Status s =
-        execution_state_->Extend(req->graph_def(), &extended_execution_state);
-    if (s.ok()) {
-      CHECK(extended_execution_state);
-      old_execution_state =
-          std::move(execution_state_);  // Will be released outside the lock
-      execution_state_.reset(extended_execution_state);
-      ++graph_version_;
-      resp->set_new_graph_version(graph_version_);
-    }
+    TF_RETURN_IF_ERROR(
+        execution_state_->Extend(req->graph_def(), &extended_execution_state));
 
-    return s;
+    CHECK(extended_execution_state);
+    // The old execution state will be released outside the lock.
+    execution_state_.swap(extended_execution_state);
+    ++graph_version_;
+    resp->set_new_graph_version(graph_version_);
   }
+  return Status::OK();
 }
 
 Status MasterSession::StartStep(const RunStepRequest& req,
@@ -799,10 +820,11 @@ Status MasterSession::StartStep(const RunStepRequest& req,
       // cache it.
       VLOG(1) << "Unseen hash " << hash << " for "
               << BuildGraphOptionsString(*opts);
-      ClientGraph* client_graph = nullptr;
+      std::unique_ptr<SimpleClientGraph> client_graph;
       TF_RETURN_IF_ERROR(execution_state_->BuildGraph(*opts, &client_graph));
-      auto entry = new ReffedClientGraph(handle_, *opts, client_graph,
-                                         session_opts_.config.graph_options());
+      auto entry =
+          new ReffedClientGraph(handle_, *opts, std::move(client_graph),
+                                session_opts_.config.graph_options());
       iter = runs_.insert({hash, entry}).first;
       auto obs_iter = obsolete_.find(hash);
       if (obs_iter != obsolete_.end()) {
@@ -892,8 +914,9 @@ Status MasterSession::DoRunWithLocalExecution(CallOptions* opts,
   const uint64 step_id = (random::New64() & ((1uLL << 56) - 1)) | (1uLL << 56);
   TRACEPRINTF("stepid %llu", step_id);
 
-  TF_RETURN_IF_ERROR(rcg->RunPartitions(
-      env_, step_id, count, execution_state_.get(), &pss, opts, *req, resp));
+  TF_RETURN_IF_ERROR(rcg->RunPartitions(env_, step_id, count,
+                                        execution_state_.get(), &pss, opts,
+                                        *req, resp, cancellation_manager_));
 
   pss.end_micros = Env::Default()->NowMicros();
 
@@ -914,6 +937,7 @@ Status MasterSession::DoRunWithLocalExecution(CallOptions* opts,
 }
 
 Status MasterSession::Close() {
+  cancellation_manager_->StartCancel();
   std::vector<ReffedClientGraph*> to_unref;
   {
     mutex_lock l(mu_);

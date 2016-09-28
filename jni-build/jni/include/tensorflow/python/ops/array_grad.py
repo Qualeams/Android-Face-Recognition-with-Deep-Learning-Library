@@ -151,7 +151,7 @@ def _SliceGrad(op, grad):
 
 @ops.RegisterGradient("StridedSlice")
 def _StridedSliceGrad(op, grad):
-  """Gradient for unpack op."""
+  """Gradient for StridedSlice op."""
   x = array_ops.shape(op.inputs[0])
   begin = op.inputs[1]
   end = op.inputs[2]
@@ -165,9 +165,28 @@ def _StridedSliceGrad(op, grad):
       grad,
       begin_mask=op.get_attr("begin_mask"),
       end_mask=op.get_attr("end_mask"),
-      ellipse_mask=op.get_attr("ellipse_mask"),
+      ellipsis_mask=op.get_attr("ellipsis_mask"),
       new_axis_mask=op.get_attr("new_axis_mask"),
       shrink_axis_mask=op.get_attr("shrink_axis_mask")), None, None, None
+
+
+@ops.RegisterGradient("StridedSliceGrad")
+def _StridedSliceGradGrad(op, grad):
+  """Gradient for StridedSliceGrad op."""
+  begin = op.inputs[1]
+  end = op.inputs[2]
+  strides = op.inputs[3]
+
+  return None, None, None, None, array_ops.strided_slice(
+      grad,
+      begin,
+      end,
+      strides,
+      begin_mask=op.get_attr("begin_mask"),
+      end_mask=op.get_attr("end_mask"),
+      ellipsis_mask=op.get_attr("ellipsis_mask"),
+      new_axis_mask=op.get_attr("new_axis_mask"),
+      shrink_axis_mask=op.get_attr("shrink_axis_mask"))
 
 
 @ops.RegisterGradient("Split")
@@ -197,6 +216,22 @@ def _BatchMatrixDiagPartGrad(_, grad):
   return array_ops.batch_matrix_diag(grad)
 
 
+@ops.RegisterGradient("BatchMatrixSetDiag")
+def _BatchMatrixSetDiagGrad(op, grad):
+  diag_shape = op.inputs[1].get_shape()
+  diag_shape = diag_shape.merge_with(op.inputs[0].get_shape()[:-1])
+  diag_shape = diag_shape.merge_with(grad.get_shape()[:-1])
+  if diag_shape.is_fully_defined():
+    diag_shape = diag_shape.as_list()
+  else:
+    diag_shape = array_ops.shape(grad)
+    diag_shape = array_ops.slice(diag_shape, [0], [array_ops.rank(grad) - 1])
+  grad_input = array_ops.batch_matrix_set_diag(
+      grad, array_ops.zeros(diag_shape, dtype=grad.dtype))
+  grad_diag = array_ops.batch_matrix_diag_part(grad)
+  return (grad_input, grad_diag)
+
+
 @ops.RegisterGradient("BatchMatrixBandPart")
 def _BatchMatrixBandPartGrad(op, grad):
   num_lower = op.inputs[1]
@@ -219,6 +254,7 @@ ops.NoGradient("ZerosLike")
 
 @ops.RegisterGradient("Gather")
 def _GatherGrad(op, grad):
+  """Gradient for Gather op."""
   if op.inputs[0].get_shape().is_fully_defined():
     dense_shape = constant_op.constant(op.inputs[0].get_shape().as_list())
     values_shape = [-1] + op.inputs[0].get_shape()[1:].as_list()
@@ -236,6 +272,12 @@ def _GatherGrad(op, grad):
 @ops.RegisterGradient("GatherNd")
 def _GatherNdGrad(unused_op, unused_grad):
   raise NotImplementedError("Gradient for gather_nd is not implemented.")
+
+
+@ops.RegisterGradient("CheckNumerics")
+def _CheckNumericsGrad(_, grad):
+  """Gradient for check_numerics op."""
+  return grad
 
 
 @ops.RegisterGradient("Identity")

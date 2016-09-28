@@ -849,7 +849,8 @@ path can be passed directly to a call to `restore()`.
 
 
 *  <b>`TypeError`</b>: If `sess` is not a `Session`.
-*  <b>`ValueError`</b>: If `latest_filename` contains path components.
+*  <b>`ValueError`</b>: If `latest_filename` contains path components, or if it
+    collides with `save_path`.
 
 
 - - -
@@ -1023,6 +1024,11 @@ proto, returns it.
   A CheckpointState if the state was available, None
   otherwise.
 
+##### Raises:
+
+
+*  <b>`ValueError`</b>: if the checkpoint read doesn't have model_checkpoint_path set.
+
 
 - - -
 
@@ -1059,7 +1065,7 @@ create variables contingent on certain conditions.
 
 - - -
 
-### `tf.get_variable(name, shape=None, dtype=tf.float32, initializer=None, regularizer=None, trainable=True, collections=None, caching_device=None, partitioner=None, validate_shape=True)` {#get_variable}
+### `tf.get_variable(name, shape=None, dtype=None, initializer=None, regularizer=None, trainable=True, collections=None, caching_device=None, partitioner=None, validate_shape=True, custom_getter=None)` {#get_variable}
 
 Gets an existing variable with these parameters or create a new one.
 
@@ -1090,7 +1096,7 @@ via `_get_partitioned_variable`, and the return value is a
 `Tensor` composed of the shards concatenated along the partition axis.
 
 Some useful partitioners are available.  See, e.g.,
-`variable_axis_size_partitioner`.
+`variable_axis_size_partitioner` and `min_max_variable_partitioner`.
 
 ##### Args:
 
@@ -1117,6 +1123,18 @@ Some useful partitioners are available.  See, e.g.,
 *  <b>`validate_shape`</b>: If False, allows the variable to be initialized with a
       value of unknown shape. If True, the default, the shape of initial_value
       must be known.
+*  <b>`custom_getter`</b>: Callable that takes as a first argument the true getter, and
+    allows overwriting the internal get_variable method.
+    The signature of `custom_getter` should match that of this method,
+    but the most future-proof version will allow for changes:
+    `def custom_getter(getter, *args, **kwargs)`.  Direct access to
+    all `get_variable` parameters is also allowed:
+    `def custom_getter(getter, name, *args, **kwargs)`.  A simple identity
+    custom getter that simply creates variables with modified names is:
+    ```python
+    def custom_getter(getter, name, *args, **kwargs):
+      return getter(name + '_suffix', *args, **kwargs)
+    ```
 
 ##### Returns:
 
@@ -1147,10 +1165,12 @@ Attributes:
   caching_device: string, callable, or None: the caching device passed to
     get_variable.
   partitioner: callable or `None`: the partitioner passed to `get_variable`.
+  custom_getter: default custom getter passed to get_variable.
   name_scope: The name passed to `tf.name_scope`.
+  dtype: default type passed to get_variable (defaults to DT_FLOAT).
 - - -
 
-#### `tf.VariableScope.__init__(reuse, name='', initializer=None, regularizer=None, caching_device=None, partitioner=None, name_scope='')` {#VariableScope.__init__}
+#### `tf.VariableScope.__init__(reuse, name='', initializer=None, regularizer=None, caching_device=None, partitioner=None, custom_getter=None, name_scope='', dtype=tf.float32)` {#VariableScope.__init__}
 
 Creates a new VariableScope with the given properties.
 
@@ -1164,7 +1184,21 @@ Creates a new VariableScope with the given properties.
 
 - - -
 
-#### `tf.VariableScope.get_variable(var_store, name, shape=None, dtype=tf.float32, initializer=None, regularizer=None, trainable=True, collections=None, caching_device=None, partitioner=None, validate_shape=True)` {#VariableScope.get_variable}
+#### `tf.VariableScope.custom_getter` {#VariableScope.custom_getter}
+
+
+
+
+- - -
+
+#### `tf.VariableScope.dtype` {#VariableScope.dtype}
+
+
+
+
+- - -
+
+#### `tf.VariableScope.get_variable(var_store, name, shape=None, dtype=None, initializer=None, regularizer=None, trainable=True, collections=None, caching_device=None, partitioner=None, validate_shape=True, custom_getter=None)` {#VariableScope.get_variable}
 
 Gets an existing variable with this name or create a new one.
 
@@ -1227,6 +1261,20 @@ Set caching_device for this scope.
 
 - - -
 
+#### `tf.VariableScope.set_custom_getter(custom_getter)` {#VariableScope.set_custom_getter}
+
+Set custom getter for this scope.
+
+
+- - -
+
+#### `tf.VariableScope.set_dtype(dtype)` {#VariableScope.set_dtype}
+
+Set data type for this scope.
+
+
+- - -
+
 #### `tf.VariableScope.set_initializer(initializer)` {#VariableScope.set_initializer}
 
 Set initializer for this scope.
@@ -1249,7 +1297,7 @@ Set regularizer for this scope.
 
 - - -
 
-### `tf.variable_scope(name_or_scope, reuse=None, initializer=None, regularizer=None, caching_device=None, partitioner=None)` {#variable_scope}
+### `tf.variable_scope(name_or_scope, reuse=None, initializer=None, regularizer=None, caching_device=None, partitioner=None, custom_getter=None, dtype=None)` {#variable_scope}
 
 Returns a context for variable scope.
 
@@ -1319,6 +1367,9 @@ then all its sub-scopes become reusing as well.
 *  <b>`regularizer`</b>: default regularizer for variables within this scope.
 *  <b>`caching_device`</b>: default caching device for variables within this scope.
 *  <b>`partitioner`</b>: default partitioner for variables within this scope.
+*  <b>`custom_getter`</b>: default custom getter for variables within this scope.
+*  <b>`dtype`</b>: type of variables created in this scope (defaults to the type
+    in the passed scope, or inherited from parent scope).
 
 ##### Returns:
 
@@ -1334,7 +1385,7 @@ then all its sub-scopes become reusing as well.
 
 - - -
 
-### `tf.variable_op_scope(values, name_or_scope, default_name=None, initializer=None, regularizer=None, caching_device=None, partitioner=None, reuse=None)` {#variable_op_scope}
+### `tf.variable_op_scope(values, name_or_scope, default_name=None, initializer=None, regularizer=None, caching_device=None, partitioner=None, custom_getter=None, reuse=None, dtype=None)` {#variable_op_scope}
 
 Returns a context manager for defining an op that creates variables.
 
@@ -1375,8 +1426,11 @@ def my_op_with_vars(a, b, scope=None):
 *  <b>`regularizer`</b>: The default regularizer for variables within this scope.
 *  <b>`caching_device`</b>: The default caching device for variables within this scope.
 *  <b>`partitioner`</b>: The default partitioner for variables within this scope.
+*  <b>`custom_getter`</b>: The default custom getter for variables within this scope.
 *  <b>`reuse`</b>: `True` or `None`; if `True`, we go into reuse mode for this scope as
     well as all sub-scopes; if `None`, we just inherit the parent scope reuse.
+*  <b>`dtype`</b>: The default type of variables created in this scope, defaults to the
+    type of the parent scope.
 
 ##### Returns:
 
@@ -1399,7 +1453,7 @@ Returns the current variable scope.
 
 - - -
 
-### `tf.make_template(name_, func_, create_scope_now_=False, **kwargs)` {#make_template}
+### `tf.make_template(name_, func_, create_scope_now_=False, unique_name_=None, **kwargs)` {#make_template}
 
 Given an arbitrary function, wrap it so that it does variable sharing.
 
@@ -1487,6 +1541,9 @@ reduce the likelihood of collisions with kwargs.
 *  <b>`create_scope_now_`</b>: Boolean controlling whether the scope should be created
     when the template is constructed or when the template is called. Default
     is False, meaning the scope is created when the template is called.
+*  <b>`unique_name_`</b>: When used, it overrides name_ and is not made unique. If a
+    template of the same scope/unique_name already exists and reuse is false,
+    an error is raised. Defaults to None.
 *  <b>`**kwargs`</b>: Keyword arguments to apply to `func_`.
 
 ##### Returns:

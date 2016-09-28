@@ -310,7 +310,8 @@ sequences and large batches.
 
 *  <b>`cond`</b>: A callable that represents the termination condition of the loop.
 *  <b>`body`</b>: A callable that represents the loop body.
-*  <b>`loop_vars`</b>: A (possibly nested) tuple or list of variable input tensors.
+*  <b>`loop_vars`</b>: A (possibly nested) tuple or list of numpy array, `Tensor`,
+    and `TensorArray` objects.
 *  <b>`parallel_iterations`</b>: The number of iterations allowed to run in parallel.
 *  <b>`back_prop`</b>: Whether backprop is enabled for this while loop.
 *  <b>`swap_memory`</b>: Whether GPU-CPU memory swap is enabled for this loop.
@@ -318,13 +319,15 @@ sequences and large batches.
 
 ##### Returns:
 
-  The output tensors for the loop variables after the loop.
+  The output tensors for the loop variables after the loop. When the length
+  of `loop_vars` is 1 this is a Tensor, TensorArry or IndexedSlice and when
+  the length of `loop_vars` is greater than 1 it returns a list.
 
 ##### Raises:
 
 
 *  <b>`TypeError`</b>: if `cond` or `body` is not callable.
-*  <b>`ValueError`</b>: if `loop_var` is empty.
+*  <b>`ValueError`</b>: if `loop_vars` is empty.
 
 
 *  <b>`Example`</b>: 
@@ -357,6 +360,9 @@ to your graph.
 ### `tf.logical_and(x, y, name=None)` {#logical_and}
 
 Returns the truth value of x AND y element-wise.
+
+*NOTE*: `LogicalAnd` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -393,6 +399,9 @@ Returns the truth value of NOT x element-wise.
 
 Returns the truth value of x OR y element-wise.
 
+*NOTE*: `LogicalOr` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -424,6 +433,9 @@ operators to your graph.
 
 Returns the truth value of (x == y) element-wise.
 
+*NOTE*: `Equal` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -441,6 +453,9 @@ Returns the truth value of (x == y) element-wise.
 ### `tf.not_equal(x, y, name=None)` {#not_equal}
 
 Returns the truth value of (x != y) element-wise.
+
+*NOTE*: `NotEqual` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -460,6 +475,9 @@ Returns the truth value of (x != y) element-wise.
 
 Returns the truth value of (x < y) element-wise.
 
+*NOTE*: `Less` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -477,6 +495,9 @@ Returns the truth value of (x < y) element-wise.
 ### `tf.less_equal(x, y, name=None)` {#less_equal}
 
 Returns the truth value of (x <= y) element-wise.
+
+*NOTE*: `LessEqual` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 
@@ -496,6 +517,9 @@ Returns the truth value of (x <= y) element-wise.
 
 Returns the truth value of (x > y) element-wise.
 
+*NOTE*: `Greater` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
+
 ##### Args:
 
 
@@ -513,6 +537,9 @@ Returns the truth value of (x > y) element-wise.
 ### `tf.greater_equal(x, y, name=None)` {#greater_equal}
 
 Returns the truth value of (x >= y) element-wise.
+
+*NOTE*: `GreaterEqual` supports broadcasting. More about broadcasting
+[here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 ##### Args:
 

@@ -87,6 +87,11 @@ def _state_size_with_prefix(state_size, prefix=None):
 class RNNCell(object):
   """Abstract object representing an RNN cell.
 
+  The definition of cell in this package differs from the definition used in the
+  literature. In the literature, cell refers to an object with a single scalar
+  output. The definition in this package refers to a horizontal array of such
+  units.
+
   An RNN cell, in the most abstract setting, is anything that has
   a state and performs some operation that takes a matrix of inputs.
   This operation results in an output matrix with `self.output_size` columns.
@@ -176,7 +181,7 @@ class BasicRNNCell(RNNCell):
 
   def __init__(self, num_units, input_size=None, activation=tanh):
     if input_size is not None:
-      logging.warn("%s: The input_size parameter is deprecated." % self)
+      logging.warn("%s: The input_size parameter is deprecated.", self)
     self._num_units = num_units
     self._activation = activation
 
@@ -200,7 +205,7 @@ class GRUCell(RNNCell):
 
   def __init__(self, num_units, input_size=None, activation=tanh):
     if input_size is not None:
-      logging.warn("%s: The input_size parameter is deprecated." % self)
+      logging.warn("%s: The input_size parameter is deprecated.", self)
     self._num_units = num_units
     self._activation = activation
 
@@ -239,6 +244,14 @@ class LSTMStateTuple(_LSTMStateTuple):
   """
   __slots__ = ()
 
+  @property
+  def dtype(self):
+    (c, h) = self
+    if not c.dtype == h.dtype:
+      raise TypeError("Inconsistent internal state: %s vs %s" %
+                      (str(c.dtype), str(h.dtype)))
+    return c.dtype
+
 
 class BasicLSTMCell(RNNCell):
   """Basic LSTM recurrent network cell.
@@ -268,11 +281,10 @@ class BasicLSTMCell(RNNCell):
       activation: Activation function of the inner states.
     """
     if not state_is_tuple:
-      logging.warn(
-          "%s: Using a concatenated state is slower and will soon be "
-          "deprecated.  Use state_is_tuple=True." % self)
+      logging.warn("%s: Using a concatenated state is slower and will soon be "
+                   "deprecated.  Use state_is_tuple=True.", self)
     if input_size is not None:
-      logging.warn("%s: The input_size parameter is deprecated." % self)
+      logging.warn("%s: The input_size parameter is deprecated.", self)
     self._num_units = num_units
     self._forget_bias = forget_bias
     self._state_is_tuple = state_is_tuple
@@ -371,7 +383,7 @@ class LSTMCell(RNNCell):
 
   def __init__(self, num_units, input_size=None,
                use_peepholes=False, cell_clip=None,
-               initializer=None, num_proj=None,
+               initializer=None, num_proj=None, proj_clip=None,
                num_unit_shards=1, num_proj_shards=1,
                forget_bias=1.0, state_is_tuple=False,
                activation=tanh):
@@ -387,6 +399,9 @@ class LSTMCell(RNNCell):
         projection matrices.
       num_proj: (optional) int, The output dimensionality for the projection
         matrices.  If None, no projection is performed.
+      proj_clip: (optional) A float value.  If `num_proj > 0` and `proj_clip` is
+      provided, then the projected values are clipped elementwise to within
+      `[-proj_clip, proj_clip]`.
       num_unit_shards: How to split the weight matrix.  If >1, the weight
         matrix is stored across num_unit_shards.
       num_proj_shards: How to split the projection matrix.  If >1, the
@@ -400,16 +415,16 @@ class LSTMCell(RNNCell):
       activation: Activation function of the inner states.
     """
     if not state_is_tuple:
-      logging.warn(
-          "%s: Using a concatenated state is slower and will soon be "
-          "deprecated.  Use state_is_tuple=True." % self)
+      logging.warn("%s: Using a concatenated state is slower and will soon be "
+                   "deprecated.  Use state_is_tuple=True.", self)
     if input_size is not None:
-      logging.warn("%s: The input_size parameter is deprecated." % self)
+      logging.warn("%s: The input_size parameter is deprecated.", self)
     self._num_units = num_units
     self._use_peepholes = use_peepholes
     self._cell_clip = cell_clip
     self._initializer = initializer
     self._num_proj = num_proj
+    self._proj_clip = proj_clip
     self._num_unit_shards = num_unit_shards
     self._num_proj_shards = num_proj_shards
     self._forget_bias = forget_bias
@@ -519,6 +534,10 @@ class LSTMCell(RNNCell):
             dtype, self._num_proj_shards)
 
         m = math_ops.matmul(m, concat_w_proj)
+        if self._proj_clip is not None:
+          # pylint: disable=invalid-unary-operand-type
+          m = clip_ops.clip_by_value(m, -self._proj_clip, self._proj_clip)
+          # pylint: enable=invalid-unary-operand-type
 
     new_state = (LSTMStateTuple(c, m) if self._state_is_tuple
                  else array_ops.concat(1, [c, m]))
@@ -589,7 +608,7 @@ class InputProjectionWrapper(RNNCell):
       TypeError: if cell is not an RNNCell.
     """
     if input_size is not None:
-      logging.warn("%s: The input_size parameter is deprecated." % self)
+      logging.warn("%s: The input_size parameter is deprecated.", self)
     if not isinstance(cell, RNNCell):
       raise TypeError("The parameter cell is not RNNCell.")
     self._cell = cell
@@ -640,7 +659,7 @@ class DropoutWrapper(RNNCell):
                        % input_keep_prob)
     if (isinstance(output_keep_prob, float) and
         not (output_keep_prob >= 0.0 and output_keep_prob <= 1.0)):
-      raise ValueError("Parameter input_keep_prob must be between 0 and 1: %d"
+      raise ValueError("Parameter output_keep_prob must be between 0 and 1: %d"
                        % output_keep_prob)
     self._cell = cell
     self._input_keep_prob = input_keep_prob
@@ -660,7 +679,7 @@ class DropoutWrapper(RNNCell):
     if (not isinstance(self._input_keep_prob, float) or
         self._input_keep_prob < 1):
       inputs = nn_ops.dropout(inputs, self._input_keep_prob, seed=self._seed)
-    output, new_state = self._cell(inputs, state)
+    output, new_state = self._cell(inputs, state, scope)
     if (not isinstance(self._output_keep_prob, float) or
         self._output_keep_prob < 1):
       output = nn_ops.dropout(output, self._output_keep_prob, seed=self._seed)
@@ -720,9 +739,16 @@ class EmbeddingWrapper(RNNCell):
           # Default initializer for embeddings should have variance=1.
           sqrt3 = math.sqrt(3)  # Uniform(-sqrt(3), sqrt(3)) has variance=1.
           initializer = init_ops.random_uniform_initializer(-sqrt3, sqrt3)
-        embedding = vs.get_variable("embedding", [self._embedding_classes,
-                                                  self._embedding_size],
-                                    initializer=initializer)
+
+        if type(state) is tuple:
+          data_type = state[0].dtype
+        else:
+          data_type = state.dtype
+
+        embedding = vs.get_variable(
+            "embedding", [self._embedding_classes, self._embedding_size],
+            initializer=initializer,
+            dtype=data_type)
         embedded = embedding_ops.embedding_lookup(
             embedding, array_ops.reshape(inputs, [-1]))
     return self._cell(embedded, state)
@@ -868,9 +894,12 @@ def _linear(args, output_size, bias, bias_start=0.0, scope=None):
     else:
       total_arg_size += shape[1]
 
+  dtype = [a.dtype for a in args][0]
+
   # Now the computation.
   with vs.variable_scope(scope or "Linear"):
-    matrix = vs.get_variable("Matrix", [total_arg_size, output_size])
+    matrix = vs.get_variable(
+        "Matrix", [total_arg_size, output_size], dtype=dtype)
     if len(args) == 1:
       res = math_ops.matmul(args[0], matrix)
     else:
@@ -879,5 +908,7 @@ def _linear(args, output_size, bias, bias_start=0.0, scope=None):
       return res
     bias_term = vs.get_variable(
         "Bias", [output_size],
-        initializer=init_ops.constant_initializer(bias_start))
+        dtype=dtype,
+        initializer=init_ops.constant_initializer(
+            bias_start, dtype=dtype))
   return res + bias_term

@@ -2,26 +2,42 @@ Bernoulli distribution.
 
 The Bernoulli distribution is parameterized by p, the probability of a
 positive event.
-
-Note, the following methods of the base class aren't implemented:
-  * cdf
-  * log_cdf
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.__init__(p, dtype=tf.int32, strict=True, name='Bernoulli')` {#Bernoulli.__init__}
+#### `tf.contrib.distributions.Bernoulli.__init__(logits=None, p=None, dtype=tf.int32, validate_args=True, allow_nan_stats=False, name='Bernoulli')` {#Bernoulli.__init__}
 
 Construct Bernoulli distributions.
 
 ##### Args:
 
 
+*  <b>`logits`</b>: An N-D `Tensor` representing the log-odds
+    of a positive event. Each entry in the `Tensor` parametrizes
+    an independent Bernoulli distribution where the probability of an event
+    is sigmoid(logits).
 *  <b>`p`</b>: An N-D `Tensor` representing the probability of a positive
       event. Each entry in the `Tensor` parameterizes an independent
       Bernoulli distribution.
-*  <b>`dtype`</b>: dtype for samples. Note that other values will take the dtype of p.
-*  <b>`strict`</b>: Whether to assert that `0 <= p <= 1`. If not strict, `log_pmf` may
-    return nans.
+*  <b>`dtype`</b>: dtype for samples.
+*  <b>`validate_args`</b>: Whether to assert that `0 <= p <= 1`. If not validate_args,
+   `log_pmf` may return nans.
+*  <b>`allow_nan_stats`</b>: Boolean, default `False`.  If `False`, raise an
+    exception if a statistic (e.g. mean/mode/etc...) is undefined for any
+    batch member.  If `True`, batch members with valid parameters leading to
+    undefined statistics will return NaN for this statistic.
 *  <b>`name`</b>: A name for this distribution.
+
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If p and logits are passed, or if neither are passed.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.allow_nan_stats` {#Bernoulli.allow_nan_stats}
+
+Boolean describing behavior when a stat is undefined for batch member.
 
 
 - - -
@@ -85,6 +101,13 @@ Entropy of the distribution.
 
 - - -
 
+#### `tf.contrib.distributions.Bernoulli.is_continuous` {#Bernoulli.is_continuous}
+
+
+
+
+- - -
+
 #### `tf.contrib.distributions.Bernoulli.is_reparameterized` {#Bernoulli.is_reparameterized}
 
 
@@ -99,14 +122,21 @@ Log CDF.
 
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.log_likelihood(value, name='log_likelihood')` {#Bernoulli.log_likelihood}
+#### `tf.contrib.distributions.Bernoulli.log_pdf(value, name='log_pdf')` {#Bernoulli.log_pdf}
 
-Log likelihood of this distribution (same as log_pmf).
+Log of the probability density function.
 
 
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.log_pmf(event, name='log_pmf')` {#Bernoulli.log_pmf}
+#### `tf.contrib.distributions.Bernoulli.log_pmf(value, name='log_pmf')` {#Bernoulli.log_pmf}
+
+Log of the probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.log_prob(event, name='log_prob')` {#Bernoulli.log_prob}
 
 Log of the probability mass function.
 
@@ -119,6 +149,13 @@ Log of the probability mass function.
 ##### Returns:
 
   The log-probabilities of the events.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.logits` {#Bernoulli.logits}
+
+
 
 
 - - -
@@ -173,7 +210,21 @@ Mode of the distribution.
 
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.pmf(event, name='pmf')` {#Bernoulli.pmf}
+#### `tf.contrib.distributions.Bernoulli.pdf(value, name='pdf')` {#Bernoulli.pdf}
+
+The probability density function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.pmf(value, name='pmf')` {#Bernoulli.pmf}
+
+The probability mass function.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.prob(event, name='prob')` {#Bernoulli.prob}
 
 Probability mass function.
 
@@ -197,7 +248,31 @@ Probability mass function.
 
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.sample(n, seed=None, name='sample')` {#Bernoulli.sample}
+#### `tf.contrib.distributions.Bernoulli.sample(sample_shape=(), seed=None, name='sample')` {#Bernoulli.sample}
+
+Generate samples of the specified shape for each batched distribution.
+
+Note that a call to `sample()` without arguments will generate a single
+sample per batched distribution.
+
+##### Args:
+
+
+*  <b>`sample_shape`</b>: `int32` `Tensor` or tuple or list. Shape of the generated
+    samples.
+*  <b>`seed`</b>: Python integer seed for RNG
+*  <b>`name`</b>: name to give to the op.
+
+##### Returns:
+
+
+*  <b>`samples`</b>: a `Tensor` of dtype `self.dtype` and shape
+      `sample_shape + self.batch_shape + self.event_shape`.
+
+
+- - -
+
+#### `tf.contrib.distributions.Bernoulli.sample_n(n, seed=None, name='sample_n')` {#Bernoulli.sample_n}
 
 Generate `n` samples.
 
@@ -234,7 +309,7 @@ Standard deviation of the distribution.
 
 - - -
 
-#### `tf.contrib.distributions.Bernoulli.strict` {#Bernoulli.strict}
+#### `tf.contrib.distributions.Bernoulli.validate_args` {#Bernoulli.validate_args}
 
 Boolean describing behavior on invalid input.
 

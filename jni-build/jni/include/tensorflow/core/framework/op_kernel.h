@@ -1,4 +1,4 @@
-/* Copyright 2015 Google Inc. All Rights Reserved.
+/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ limitations under the License.
 #include "tensorflow/core/framework/unique_tensor_references.h"
 #include "tensorflow/core/lib/core/errors.h"
 #include "tensorflow/core/lib/core/status.h"
+#include "tensorflow/core/lib/gtl/manual_constructor.h"
 #include "tensorflow/core/platform/env.h"
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/platform/macros.h"
@@ -103,7 +104,7 @@ class OpKernel {
   // Returns true iff this op kernel is considered "expensive". The
   // runtime may use this flag to optimize graph execution for example
   // to "inline" inexpensive kernels.
-  virtual bool IsExpensive() { return true; }
+  virtual bool IsExpensive() { return expensive_; }
 
   // Accessors.
   const NodeDef& def() const { return def_; }
@@ -159,6 +160,7 @@ class OpKernel {
   const bool is_internal_;  // True if this is an internal operation
   NameRangeMap input_name_map_;
   NameRangeMap output_name_map_;
+  bool expensive_;
 
   TF_DISALLOW_COPY_AND_ASSIGN(OpKernel);
 };
@@ -178,6 +180,8 @@ class AsyncOpKernel : public OpKernel {
   AsyncOpKernel* AsAsync() final { return this; }
 
   void Compute(OpKernelContext* context) final;
+
+  bool IsExpensive() override { return true; }
 };
 
 // Wraps a tensor that is held by an Op across calls to Compute(). For
@@ -198,7 +202,9 @@ class PersistentTensor {
 
   // The check for initialization does not need to access the
   // underlying tensor buffer.
-  bool IsInitialized() { return tensor_.IsInitialized(); }
+  bool IsInitialized() const { return tensor_.IsInitialized(); }
+
+  int64 NumElements() const { return tensor_.NumElements(); }
 
  private:
   Tensor tensor_;
@@ -489,6 +495,8 @@ class OpKernelContext {
     }
 
     bool track_allocations = false;
+    bool log_memory = false;
+    bool record_tensor_accesses = false;
 
     // Array indexed by output number for this node
     const AllocatorAttributes* output_attr_array = nullptr;
@@ -531,6 +539,7 @@ class OpKernelContext {
     // Function call supports.
     FunctionCallFrame* call_frame = nullptr;
     FunctionLibraryRuntime* function_library = nullptr;
+    std::function<void(std::function<void()>)>* runner = nullptr;
 
     // TensorSliceReaderCache support.
     checkpoint::TensorSliceReaderCacheWrapper* slice_reader_cache = nullptr;
@@ -866,6 +875,10 @@ class OpKernelContext {
     return params_->function_library;
   }
 
+  std::function<void(std::function<void()>)>* runner() const {
+    return params_->runner;
+  }
+
   // Shared resources accessible to this kernel.
   ResourceMgr* resource_manager() const { return params_->resource_manager; }
 
@@ -968,9 +981,11 @@ class OpKernelContext {
   mutable mutex mu_;  // mutable so const accessors can acquire the lock
   gtl::InlinedVector<WrappedAllocator, 4> wrapped_allocators_ GUARDED_BY(mu_);
   gtl::InlinedVector<TensorValue, 4> outputs_;
-  UniqueTensorReferences referenced_tensors_ GUARDED_BY(mu_);
+
+  // Constructed only if <params->record_tensor_accesses>.
+  ManualConstructor<UniqueTensorReferences> referenced_tensors_ GUARDED_BY(mu_);
+
   bool is_output_dead_ = false;
-  bool record_tensor_accesses_ = false;
 
   TF_DISALLOW_COPY_AND_ASSIGN(OpKernelContext);
 };
@@ -1068,6 +1083,10 @@ Status FindKernelDef(DeviceType device_type, const NodeDef& node_def,
 // calling GlobalKernelRegistry()), inserts 'k' into registry_ptr.
 extern "C" void RegisterKernels(void* registry_ptr);
 
+// Writes a list of all registered kernels to LOG(INFO), to help users debug
+// missing kernel errors.
+void LogAllRegisteredKernels();
+
 namespace kernel_factory {
 
 class OpKernelRegistrar {
@@ -1116,18 +1135,18 @@ inline DataType OpKernelContext::expected_output_dtype(int index) const {
 }
 
 inline void OpKernelContext::record_tensor_reference(const Tensor& tensor) {
-  DCHECK(params_->device->RequiresRecordingAccessedTensors() ==
-         record_tensor_accesses_);
-  if (record_tensor_accesses_) {
+  DCHECK_EQ(params_->device->RequiresRecordingAccessedTensors(),
+            params_->record_tensor_accesses);
+  if (params_->record_tensor_accesses) {
     really_record_tensor_reference(tensor);
   }
 }
 
 inline void OpKernelContext::retrieve_accessed_tensors(
     TensorReferenceVector* out_vector) {
-  if (record_tensor_accesses_) {
+  if (params_->record_tensor_accesses) {
     mutex_lock l(mu_);
-    referenced_tensors_.FreezeAndReturnReferences(out_vector);
+    referenced_tensors_->FreezeAndReturnReferences(out_vector);
   }
 }
 

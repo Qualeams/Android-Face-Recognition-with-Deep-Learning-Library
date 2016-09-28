@@ -107,7 +107,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2futil_2fmemmapped_5ffile_5fsystem_2epro
     "ystemDirectoryElement\022\016\n\006offset\030\001 \001(\004\022\014\n"
     "\004name\030\002 \001(\t\"`\n\034MemmappedFileSystemDirect"
     "ory\022@\n\007element\030\001 \003(\0132/.tensorflow.Memmap"
-    "pedFileSystemDirectoryElementb\006proto3", 237);
+    "pedFileSystemDirectoryElementB\003\370\001\001b\006prot"
+    "o3", 242);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/util/memmapped_file_system.proto", &protobuf_RegisterTypes);
   MemmappedFileSystemDirectoryElement::default_instance_ = new MemmappedFileSystemDirectoryElement();
@@ -147,6 +148,14 @@ MemmappedFileSystemDirectoryElement::MemmappedFileSystemDirectoryElement()
   // @@protoc_insertion_point(constructor:tensorflow.MemmappedFileSystemDirectoryElement)
 }
 
+MemmappedFileSystemDirectoryElement::MemmappedFileSystemDirectoryElement(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.MemmappedFileSystemDirectoryElement)
+}
+
 void MemmappedFileSystemDirectoryElement::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -173,11 +182,21 @@ MemmappedFileSystemDirectoryElement::~MemmappedFileSystemDirectoryElement() {
 }
 
 void MemmappedFileSystemDirectoryElement::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
   }
 }
 
+void MemmappedFileSystemDirectoryElement::ArenaDtor(void* object) {
+  MemmappedFileSystemDirectoryElement* _this = reinterpret_cast< MemmappedFileSystemDirectoryElement* >(object);
+  (void)_this;
+}
+void MemmappedFileSystemDirectoryElement::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void MemmappedFileSystemDirectoryElement::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -196,21 +215,18 @@ const MemmappedFileSystemDirectoryElement& MemmappedFileSystemDirectoryElement::
 MemmappedFileSystemDirectoryElement* MemmappedFileSystemDirectoryElement::default_instance_ = NULL;
 
 MemmappedFileSystemDirectoryElement* MemmappedFileSystemDirectoryElement::New(::google::protobuf::Arena* arena) const {
-  MemmappedFileSystemDirectoryElement* n = new MemmappedFileSystemDirectoryElement;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<MemmappedFileSystemDirectoryElement>(arena);
 }
 
 void MemmappedFileSystemDirectoryElement::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.MemmappedFileSystemDirectoryElement)
   offset_ = GOOGLE_ULONGLONG(0);
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 
 bool MemmappedFileSystemDirectoryElement::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MemmappedFileSystemDirectoryElement)
   for (;;) {
@@ -315,6 +331,7 @@ void MemmappedFileSystemDirectoryElement::SerializeWithCachedSizes(
 }
 
 int MemmappedFileSystemDirectoryElement::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.MemmappedFileSystemDirectoryElement)
   int total_size = 0;
 
   // optional uint64 offset = 1;
@@ -338,35 +355,40 @@ int MemmappedFileSystemDirectoryElement::ByteSize() const {
 }
 
 void MemmappedFileSystemDirectoryElement::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MemmappedFileSystemDirectoryElement)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MemmappedFileSystemDirectoryElement* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MemmappedFileSystemDirectoryElement>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.MemmappedFileSystemDirectoryElement)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MemmappedFileSystemDirectoryElement)
     MergeFrom(*source);
   }
 }
 
 void MemmappedFileSystemDirectoryElement::MergeFrom(const MemmappedFileSystemDirectoryElement& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MemmappedFileSystemDirectoryElement)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.offset() != 0) {
     set_offset(from.offset());
   }
   if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    set_name(from.name());
   }
 }
 
 void MemmappedFileSystemDirectoryElement::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.MemmappedFileSystemDirectoryElement)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MemmappedFileSystemDirectoryElement::CopyFrom(const MemmappedFileSystemDirectoryElement& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MemmappedFileSystemDirectoryElement)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -379,6 +401,18 @@ bool MemmappedFileSystemDirectoryElement::IsInitialized() const {
 
 void MemmappedFileSystemDirectoryElement::Swap(MemmappedFileSystemDirectoryElement* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    MemmappedFileSystemDirectoryElement temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void MemmappedFileSystemDirectoryElement::UnsafeArenaSwap(MemmappedFileSystemDirectoryElement* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void MemmappedFileSystemDirectoryElement::InternalSwap(MemmappedFileSystemDirectoryElement* other) {
@@ -415,36 +449,46 @@ void MemmappedFileSystemDirectoryElement::clear_offset() {
 
 // optional string name = 2;
 void MemmappedFileSystemDirectoryElement::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& MemmappedFileSystemDirectoryElement::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.MemmappedFileSystemDirectoryElement.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void MemmappedFileSystemDirectoryElement::set_name(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
  void MemmappedFileSystemDirectoryElement::set_name(const char* value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
- void MemmappedFileSystemDirectoryElement::set_name(const char* value, size_t size) {
+ void MemmappedFileSystemDirectoryElement::set_name(const char* value,
+    size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
  ::std::string* MemmappedFileSystemDirectoryElement::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.MemmappedFileSystemDirectoryElement.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* MemmappedFileSystemDirectoryElement::release_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.MemmappedFileSystemDirectoryElement.name)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+ ::std::string* MemmappedFileSystemDirectoryElement::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.MemmappedFileSystemDirectoryElement.name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
  void MemmappedFileSystemDirectoryElement::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -452,8 +496,21 @@ void MemmappedFileSystemDirectoryElement::clear_name() {
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MemmappedFileSystemDirectoryElement.name)
+}
+ void MemmappedFileSystemDirectoryElement::unsafe_arena_set_allocated_name(
+    ::std::string* name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MemmappedFileSystemDirectoryElement.name)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -468,6 +525,15 @@ MemmappedFileSystemDirectory::MemmappedFileSystemDirectory()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.MemmappedFileSystemDirectory)
+}
+
+MemmappedFileSystemDirectory::MemmappedFileSystemDirectory(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  element_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.MemmappedFileSystemDirectory)
 }
 
 void MemmappedFileSystemDirectory::InitAsDefaultInstance() {
@@ -493,10 +559,20 @@ MemmappedFileSystemDirectory::~MemmappedFileSystemDirectory() {
 }
 
 void MemmappedFileSystemDirectory::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void MemmappedFileSystemDirectory::ArenaDtor(void* object) {
+  MemmappedFileSystemDirectory* _this = reinterpret_cast< MemmappedFileSystemDirectory* >(object);
+  (void)_this;
+}
+void MemmappedFileSystemDirectory::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void MemmappedFileSystemDirectory::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -515,20 +591,17 @@ const MemmappedFileSystemDirectory& MemmappedFileSystemDirectory::default_instan
 MemmappedFileSystemDirectory* MemmappedFileSystemDirectory::default_instance_ = NULL;
 
 MemmappedFileSystemDirectory* MemmappedFileSystemDirectory::New(::google::protobuf::Arena* arena) const {
-  MemmappedFileSystemDirectory* n = new MemmappedFileSystemDirectory;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<MemmappedFileSystemDirectory>(arena);
 }
 
 void MemmappedFileSystemDirectory::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.MemmappedFileSystemDirectory)
   element_.Clear();
 }
 
 bool MemmappedFileSystemDirectory::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MemmappedFileSystemDirectory)
   for (;;) {
@@ -600,6 +673,7 @@ void MemmappedFileSystemDirectory::SerializeWithCachedSizes(
 }
 
 int MemmappedFileSystemDirectory::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.MemmappedFileSystemDirectory)
   int total_size = 0;
 
   // repeated .tensorflow.MemmappedFileSystemDirectoryElement element = 1;
@@ -617,29 +691,35 @@ int MemmappedFileSystemDirectory::ByteSize() const {
 }
 
 void MemmappedFileSystemDirectory::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MemmappedFileSystemDirectory)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MemmappedFileSystemDirectory* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MemmappedFileSystemDirectory>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.MemmappedFileSystemDirectory)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MemmappedFileSystemDirectory)
     MergeFrom(*source);
   }
 }
 
 void MemmappedFileSystemDirectory::MergeFrom(const MemmappedFileSystemDirectory& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MemmappedFileSystemDirectory)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   element_.MergeFrom(from.element_);
 }
 
 void MemmappedFileSystemDirectory::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.MemmappedFileSystemDirectory)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MemmappedFileSystemDirectory::CopyFrom(const MemmappedFileSystemDirectory& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MemmappedFileSystemDirectory)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -652,6 +732,18 @@ bool MemmappedFileSystemDirectory::IsInitialized() const {
 
 void MemmappedFileSystemDirectory::Swap(MemmappedFileSystemDirectory* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    MemmappedFileSystemDirectory temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void MemmappedFileSystemDirectory::UnsafeArenaSwap(MemmappedFileSystemDirectory* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void MemmappedFileSystemDirectory::InternalSwap(MemmappedFileSystemDirectory* other) {

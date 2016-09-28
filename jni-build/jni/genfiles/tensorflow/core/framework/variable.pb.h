@@ -53,9 +53,14 @@ class VariableDef : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const VariableDef& default_instance();
 
+  void UnsafeArenaSwap(VariableDef* other);
   void Swap(VariableDef* other);
 
   // implements Message ----------------------------------------------
@@ -82,6 +87,11 @@ class VariableDef : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(VariableDef* other);
+  protected:
+  explicit VariableDef(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -107,6 +117,9 @@ class VariableDef : public ::google::protobuf::Message {
   ::std::string* mutable_variable_name();
   ::std::string* release_variable_name();
   void set_allocated_variable_name(::std::string* variable_name);
+  ::std::string* unsafe_arena_release_variable_name();
+  void unsafe_arena_set_allocated_variable_name(
+      ::std::string* variable_name);
 
   // optional string initializer_name = 2;
   void clear_initializer_name();
@@ -118,6 +131,9 @@ class VariableDef : public ::google::protobuf::Message {
   ::std::string* mutable_initializer_name();
   ::std::string* release_initializer_name();
   void set_allocated_initializer_name(::std::string* initializer_name);
+  ::std::string* unsafe_arena_release_initializer_name();
+  void unsafe_arena_set_allocated_initializer_name(
+      ::std::string* initializer_name);
 
   // optional string snapshot_name = 3;
   void clear_snapshot_name();
@@ -129,20 +145,35 @@ class VariableDef : public ::google::protobuf::Message {
   ::std::string* mutable_snapshot_name();
   ::std::string* release_snapshot_name();
   void set_allocated_snapshot_name(::std::string* snapshot_name);
+  ::std::string* unsafe_arena_release_snapshot_name();
+  void unsafe_arena_set_allocated_snapshot_name(
+      ::std::string* snapshot_name);
 
   // optional .tensorflow.SaveSliceInfoDef save_slice_info_def = 4;
   bool has_save_slice_info_def() const;
   void clear_save_slice_info_def();
   static const int kSaveSliceInfoDefFieldNumber = 4;
+  private:
+  void _slow_mutable_save_slice_info_def();
+  void _slow_set_allocated_save_slice_info_def(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::SaveSliceInfoDef** save_slice_info_def);
+  ::tensorflow::SaveSliceInfoDef* _slow_release_save_slice_info_def();
+  public:
   const ::tensorflow::SaveSliceInfoDef& save_slice_info_def() const;
   ::tensorflow::SaveSliceInfoDef* mutable_save_slice_info_def();
   ::tensorflow::SaveSliceInfoDef* release_save_slice_info_def();
   void set_allocated_save_slice_info_def(::tensorflow::SaveSliceInfoDef* save_slice_info_def);
+  ::tensorflow::SaveSliceInfoDef* unsafe_arena_release_save_slice_info_def();
+  void unsafe_arena_set_allocated_save_slice_info_def(
+      ::tensorflow::SaveSliceInfoDef* save_slice_info_def);
 
   // @@protoc_insertion_point(class_scope:tensorflow.VariableDef)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr variable_name_;
   ::google::protobuf::internal::ArenaStringPtr initializer_name_;
@@ -170,9 +201,14 @@ class SaveSliceInfoDef : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const SaveSliceInfoDef& default_instance();
 
+  void UnsafeArenaSwap(SaveSliceInfoDef* other);
   void Swap(SaveSliceInfoDef* other);
 
   // implements Message ----------------------------------------------
@@ -199,6 +235,11 @@ class SaveSliceInfoDef : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(SaveSliceInfoDef* other);
+  protected:
+  explicit SaveSliceInfoDef(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -224,6 +265,9 @@ class SaveSliceInfoDef : public ::google::protobuf::Message {
   ::std::string* mutable_full_name();
   ::std::string* release_full_name();
   void set_allocated_full_name(::std::string* full_name);
+  ::std::string* unsafe_arena_release_full_name();
+  void unsafe_arena_set_allocated_full_name(
+      ::std::string* full_name);
 
   // repeated int32 full_shape = 2;
   int full_shape_size() const;
@@ -265,6 +309,9 @@ class SaveSliceInfoDef : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr full_name_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > full_shape_;
@@ -291,36 +338,46 @@ class SaveSliceInfoDef : public ::google::protobuf::Message {
 
 // optional string variable_name = 1;
 inline void VariableDef::clear_variable_name() {
-  variable_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  variable_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& VariableDef::variable_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VariableDef.variable_name)
-  return variable_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return variable_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VariableDef::set_variable_name(const ::std::string& value) {
   
-  variable_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  variable_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.VariableDef.variable_name)
 }
 inline void VariableDef::set_variable_name(const char* value) {
   
-  variable_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  variable_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.VariableDef.variable_name)
 }
-inline void VariableDef::set_variable_name(const char* value, size_t size) {
+inline void VariableDef::set_variable_name(const char* value,
+    size_t size) {
   
-  variable_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  variable_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.VariableDef.variable_name)
 }
 inline ::std::string* VariableDef::mutable_variable_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.VariableDef.variable_name)
-  return variable_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return variable_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* VariableDef::release_variable_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.VariableDef.variable_name)
   
-  return variable_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return variable_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* VariableDef::unsafe_arena_release_variable_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.VariableDef.variable_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return variable_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void VariableDef::set_allocated_variable_name(::std::string* variable_name) {
   if (variable_name != NULL) {
@@ -328,42 +385,65 @@ inline void VariableDef::set_allocated_variable_name(::std::string* variable_nam
   } else {
     
   }
-  variable_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), variable_name);
+  variable_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), variable_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.VariableDef.variable_name)
+}
+inline void VariableDef::unsafe_arena_set_allocated_variable_name(
+    ::std::string* variable_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (variable_name != NULL) {
+    
+  } else {
+    
+  }
+  variable_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      variable_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VariableDef.variable_name)
 }
 
 // optional string initializer_name = 2;
 inline void VariableDef::clear_initializer_name() {
-  initializer_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  initializer_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& VariableDef::initializer_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VariableDef.initializer_name)
-  return initializer_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return initializer_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VariableDef::set_initializer_name(const ::std::string& value) {
   
-  initializer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  initializer_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.VariableDef.initializer_name)
 }
 inline void VariableDef::set_initializer_name(const char* value) {
   
-  initializer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  initializer_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.VariableDef.initializer_name)
 }
-inline void VariableDef::set_initializer_name(const char* value, size_t size) {
+inline void VariableDef::set_initializer_name(const char* value,
+    size_t size) {
   
-  initializer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  initializer_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.VariableDef.initializer_name)
 }
 inline ::std::string* VariableDef::mutable_initializer_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.VariableDef.initializer_name)
-  return initializer_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return initializer_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* VariableDef::release_initializer_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.VariableDef.initializer_name)
   
-  return initializer_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return initializer_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* VariableDef::unsafe_arena_release_initializer_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.VariableDef.initializer_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return initializer_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void VariableDef::set_allocated_initializer_name(::std::string* initializer_name) {
   if (initializer_name != NULL) {
@@ -371,42 +451,65 @@ inline void VariableDef::set_allocated_initializer_name(::std::string* initializ
   } else {
     
   }
-  initializer_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), initializer_name);
+  initializer_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), initializer_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.VariableDef.initializer_name)
+}
+inline void VariableDef::unsafe_arena_set_allocated_initializer_name(
+    ::std::string* initializer_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (initializer_name != NULL) {
+    
+  } else {
+    
+  }
+  initializer_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      initializer_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VariableDef.initializer_name)
 }
 
 // optional string snapshot_name = 3;
 inline void VariableDef::clear_snapshot_name() {
-  snapshot_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  snapshot_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& VariableDef::snapshot_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VariableDef.snapshot_name)
-  return snapshot_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return snapshot_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VariableDef::set_snapshot_name(const ::std::string& value) {
   
-  snapshot_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  snapshot_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.VariableDef.snapshot_name)
 }
 inline void VariableDef::set_snapshot_name(const char* value) {
   
-  snapshot_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  snapshot_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.VariableDef.snapshot_name)
 }
-inline void VariableDef::set_snapshot_name(const char* value, size_t size) {
+inline void VariableDef::set_snapshot_name(const char* value,
+    size_t size) {
   
-  snapshot_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  snapshot_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.VariableDef.snapshot_name)
 }
 inline ::std::string* VariableDef::mutable_snapshot_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.VariableDef.snapshot_name)
-  return snapshot_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return snapshot_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* VariableDef::release_snapshot_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.VariableDef.snapshot_name)
   
-  return snapshot_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return snapshot_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* VariableDef::unsafe_arena_release_snapshot_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.VariableDef.snapshot_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return snapshot_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void VariableDef::set_allocated_snapshot_name(::std::string* snapshot_name) {
   if (snapshot_name != NULL) {
@@ -414,8 +517,21 @@ inline void VariableDef::set_allocated_snapshot_name(::std::string* snapshot_nam
   } else {
     
   }
-  snapshot_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), snapshot_name);
+  snapshot_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), snapshot_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.VariableDef.snapshot_name)
+}
+inline void VariableDef::unsafe_arena_set_allocated_snapshot_name(
+    ::std::string* snapshot_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (snapshot_name != NULL) {
+    
+  } else {
+    
+  }
+  snapshot_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      snapshot_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VariableDef.snapshot_name)
 }
 
 // optional .tensorflow.SaveSliceInfoDef save_slice_info_def = 4;
@@ -433,19 +549,30 @@ inline const ::tensorflow::SaveSliceInfoDef& VariableDef::save_slice_info_def() 
 inline ::tensorflow::SaveSliceInfoDef* VariableDef::mutable_save_slice_info_def() {
   
   if (save_slice_info_def_ == NULL) {
-    save_slice_info_def_ = new ::tensorflow::SaveSliceInfoDef;
+    _slow_mutable_save_slice_info_def();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.VariableDef.save_slice_info_def)
   return save_slice_info_def_;
 }
 inline ::tensorflow::SaveSliceInfoDef* VariableDef::release_save_slice_info_def() {
+  // @@protoc_insertion_point(field_release:tensorflow.VariableDef.save_slice_info_def)
   
-  ::tensorflow::SaveSliceInfoDef* temp = save_slice_info_def_;
-  save_slice_info_def_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_save_slice_info_def();
+  } else {
+    ::tensorflow::SaveSliceInfoDef* temp = save_slice_info_def_;
+    save_slice_info_def_ = NULL;
+    return temp;
+  }
 }
-inline void VariableDef::set_allocated_save_slice_info_def(::tensorflow::SaveSliceInfoDef* save_slice_info_def) {
-  delete save_slice_info_def_;
+inline  void VariableDef::set_allocated_save_slice_info_def(::tensorflow::SaveSliceInfoDef* save_slice_info_def) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete save_slice_info_def_;
+  }
+  if (save_slice_info_def != NULL) {
+    _slow_set_allocated_save_slice_info_def(message_arena, &save_slice_info_def);
+  }
   save_slice_info_def_ = save_slice_info_def;
   if (save_slice_info_def) {
     
@@ -461,36 +588,46 @@ inline void VariableDef::set_allocated_save_slice_info_def(::tensorflow::SaveSli
 
 // optional string full_name = 1;
 inline void SaveSliceInfoDef::clear_full_name() {
-  full_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  full_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& SaveSliceInfoDef::full_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaveSliceInfoDef.full_name)
-  return full_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return full_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SaveSliceInfoDef::set_full_name(const ::std::string& value) {
   
-  full_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  full_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SaveSliceInfoDef.full_name)
 }
 inline void SaveSliceInfoDef::set_full_name(const char* value) {
   
-  full_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  full_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SaveSliceInfoDef.full_name)
 }
-inline void SaveSliceInfoDef::set_full_name(const char* value, size_t size) {
+inline void SaveSliceInfoDef::set_full_name(const char* value,
+    size_t size) {
   
-  full_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  full_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SaveSliceInfoDef.full_name)
 }
 inline ::std::string* SaveSliceInfoDef::mutable_full_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SaveSliceInfoDef.full_name)
-  return full_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return full_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* SaveSliceInfoDef::release_full_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.SaveSliceInfoDef.full_name)
   
-  return full_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return full_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* SaveSliceInfoDef::unsafe_arena_release_full_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SaveSliceInfoDef.full_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return full_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void SaveSliceInfoDef::set_allocated_full_name(::std::string* full_name) {
   if (full_name != NULL) {
@@ -498,8 +635,21 @@ inline void SaveSliceInfoDef::set_allocated_full_name(::std::string* full_name) 
   } else {
     
   }
-  full_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), full_name);
+  full_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), full_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SaveSliceInfoDef.full_name)
+}
+inline void SaveSliceInfoDef::unsafe_arena_set_allocated_full_name(
+    ::std::string* full_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (full_name != NULL) {
+    
+  } else {
+    
+  }
+  full_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      full_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SaveSliceInfoDef.full_name)
 }
 
 // repeated int32 full_shape = 2;

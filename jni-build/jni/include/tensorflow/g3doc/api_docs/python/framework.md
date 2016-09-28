@@ -360,6 +360,12 @@ with g.name_scope('my_layer') as scope:
   output = tf.nn.relu(affine, name=scope)
 ```
 
+NOTE: This constructor validates the given `name`. Valid scope
+names match one of the following regular expressions:
+
+    [A-Za-z0-9.][A-Za-z0-9_.\\-/]* (for scopes at the root)
+    [A-Za-z0-9_.\\-/]* (for other scopes)
+
 ##### Args:
 
 
@@ -368,6 +374,11 @@ with g.name_scope('my_layer') as scope:
 ##### Returns:
 
   A context manager that installs `name` as a new name scope.
+
+##### Raises:
+
+
+*  <b>`ValueError`</b>: If `name` is not a valid scope name. The rules are the
 
 
 
@@ -1094,7 +1105,10 @@ DEPRECATED: Use outputs.
 
 ### `class tf.Tensor` {#Tensor}
 
-Represents a value produced by an `Operation`.
+Represents one of the outputs of an `Operation`.
+
+*Note:* the `Tensor` class will be replaced by `Output` in the future.
+Currently these two are aliases for each other.
 
 A `Tensor` is a symbolic handle to one of the outputs of an
 `Operation`. It does not hold the values of that operation's output,

@@ -58,9 +58,14 @@ class AllocatorMemoryUsed : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const AllocatorMemoryUsed& default_instance();
 
+  void UnsafeArenaSwap(AllocatorMemoryUsed* other);
   void Swap(AllocatorMemoryUsed* other);
 
   // implements Message ----------------------------------------------
@@ -87,6 +92,11 @@ class AllocatorMemoryUsed : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(AllocatorMemoryUsed* other);
+  protected:
+  explicit AllocatorMemoryUsed(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -112,6 +122,9 @@ class AllocatorMemoryUsed : public ::google::protobuf::Message {
   ::std::string* mutable_allocator_name();
   ::std::string* release_allocator_name();
   void set_allocated_allocator_name(::std::string* allocator_name);
+  ::std::string* unsafe_arena_release_allocator_name();
+  void unsafe_arena_set_allocated_allocator_name(
+      ::std::string* allocator_name);
 
   // optional int64 total_bytes = 2;
   void clear_total_bytes();
@@ -129,6 +142,9 @@ class AllocatorMemoryUsed : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr allocator_name_;
   ::google::protobuf::int64 total_bytes_;
@@ -155,9 +171,14 @@ class NodeOutput : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const NodeOutput& default_instance();
 
+  void UnsafeArenaSwap(NodeOutput* other);
   void Swap(NodeOutput* other);
 
   // implements Message ----------------------------------------------
@@ -184,6 +205,11 @@ class NodeOutput : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(NodeOutput* other);
+  protected:
+  explicit NodeOutput(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -209,15 +235,27 @@ class NodeOutput : public ::google::protobuf::Message {
   bool has_tensor_description() const;
   void clear_tensor_description();
   static const int kTensorDescriptionFieldNumber = 3;
+  private:
+  void _slow_mutable_tensor_description();
+  void _slow_set_allocated_tensor_description(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::TensorDescription** tensor_description);
+  ::tensorflow::TensorDescription* _slow_release_tensor_description();
+  public:
   const ::tensorflow::TensorDescription& tensor_description() const;
   ::tensorflow::TensorDescription* mutable_tensor_description();
   ::tensorflow::TensorDescription* release_tensor_description();
   void set_allocated_tensor_description(::tensorflow::TensorDescription* tensor_description);
+  ::tensorflow::TensorDescription* unsafe_arena_release_tensor_description();
+  void unsafe_arena_set_allocated_tensor_description(
+      ::tensorflow::TensorDescription* tensor_description);
 
   // @@protoc_insertion_point(class_scope:tensorflow.NodeOutput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::tensorflow::TensorDescription* tensor_description_;
   ::google::protobuf::int32 slot_;
@@ -243,9 +281,14 @@ class NodeExecStats : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const NodeExecStats& default_instance();
 
+  void UnsafeArenaSwap(NodeExecStats* other);
   void Swap(NodeExecStats* other);
 
   // implements Message ----------------------------------------------
@@ -272,6 +315,11 @@ class NodeExecStats : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(NodeExecStats* other);
+  protected:
+  explicit NodeExecStats(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -297,6 +345,9 @@ class NodeExecStats : public ::google::protobuf::Message {
   ::std::string* mutable_node_name();
   ::std::string* release_node_name();
   void set_allocated_node_name(::std::string* node_name);
+  ::std::string* unsafe_arena_release_node_name();
+  void unsafe_arena_set_allocated_node_name(
+      ::std::string* node_name);
 
   // optional int64 all_start_micros = 2;
   void clear_all_start_micros();
@@ -356,6 +407,9 @@ class NodeExecStats : public ::google::protobuf::Message {
   ::std::string* mutable_timeline_label();
   ::std::string* release_timeline_label();
   void set_allocated_timeline_label(::std::string* timeline_label);
+  ::std::string* unsafe_arena_release_timeline_label();
+  void unsafe_arena_set_allocated_timeline_label(
+      ::std::string* timeline_label);
 
   // optional int64 scheduled_micros = 9;
   void clear_scheduled_micros();
@@ -385,6 +439,9 @@ class NodeExecStats : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr node_name_;
   ::google::protobuf::int64 all_start_micros_;
@@ -419,9 +476,14 @@ class DeviceStepStats : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const DeviceStepStats& default_instance();
 
+  void UnsafeArenaSwap(DeviceStepStats* other);
   void Swap(DeviceStepStats* other);
 
   // implements Message ----------------------------------------------
@@ -448,6 +510,11 @@ class DeviceStepStats : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(DeviceStepStats* other);
+  protected:
+  explicit DeviceStepStats(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -473,6 +540,9 @@ class DeviceStepStats : public ::google::protobuf::Message {
   ::std::string* mutable_device();
   ::std::string* release_device();
   void set_allocated_device(::std::string* device);
+  ::std::string* unsafe_arena_release_device();
+  void unsafe_arena_set_allocated_device(
+      ::std::string* device);
 
   // repeated .tensorflow.NodeExecStats node_stats = 2;
   int node_stats_size() const;
@@ -490,6 +560,9 @@ class DeviceStepStats : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr device_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::NodeExecStats > node_stats_;
@@ -515,9 +588,14 @@ class StepStats : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const StepStats& default_instance();
 
+  void UnsafeArenaSwap(StepStats* other);
   void Swap(StepStats* other);
 
   // implements Message ----------------------------------------------
@@ -544,6 +622,11 @@ class StepStats : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(StepStats* other);
+  protected:
+  explicit StepStats(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -575,6 +658,9 @@ class StepStats : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::DeviceStepStats > dev_stats_;
   mutable int _cached_size_;
@@ -595,36 +681,46 @@ class StepStats : public ::google::protobuf::Message {
 
 // optional string allocator_name = 1;
 inline void AllocatorMemoryUsed::clear_allocator_name() {
-  allocator_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& AllocatorMemoryUsed::allocator_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.AllocatorMemoryUsed.allocator_name)
-  return allocator_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void AllocatorMemoryUsed::set_allocator_name(const ::std::string& value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.AllocatorMemoryUsed.allocator_name)
 }
 inline void AllocatorMemoryUsed::set_allocator_name(const char* value) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.AllocatorMemoryUsed.allocator_name)
 }
-inline void AllocatorMemoryUsed::set_allocator_name(const char* value, size_t size) {
+inline void AllocatorMemoryUsed::set_allocator_name(const char* value,
+    size_t size) {
   
-  allocator_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.AllocatorMemoryUsed.allocator_name)
 }
 inline ::std::string* AllocatorMemoryUsed::mutable_allocator_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.AllocatorMemoryUsed.allocator_name)
-  return allocator_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* AllocatorMemoryUsed::release_allocator_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.AllocatorMemoryUsed.allocator_name)
   
-  return allocator_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* AllocatorMemoryUsed::unsafe_arena_release_allocator_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.AllocatorMemoryUsed.allocator_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return allocator_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void AllocatorMemoryUsed::set_allocated_allocator_name(::std::string* allocator_name) {
   if (allocator_name != NULL) {
@@ -632,8 +728,21 @@ inline void AllocatorMemoryUsed::set_allocated_allocator_name(::std::string* all
   } else {
     
   }
-  allocator_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name);
+  allocator_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), allocator_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.AllocatorMemoryUsed.allocator_name)
+}
+inline void AllocatorMemoryUsed::unsafe_arena_set_allocated_allocator_name(
+    ::std::string* allocator_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (allocator_name != NULL) {
+    
+  } else {
+    
+  }
+  allocator_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      allocator_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AllocatorMemoryUsed.allocator_name)
 }
 
 // optional int64 total_bytes = 2;
@@ -697,19 +806,30 @@ inline const ::tensorflow::TensorDescription& NodeOutput::tensor_description() c
 inline ::tensorflow::TensorDescription* NodeOutput::mutable_tensor_description() {
   
   if (tensor_description_ == NULL) {
-    tensor_description_ = new ::tensorflow::TensorDescription;
+    _slow_mutable_tensor_description();
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.NodeOutput.tensor_description)
   return tensor_description_;
 }
 inline ::tensorflow::TensorDescription* NodeOutput::release_tensor_description() {
+  // @@protoc_insertion_point(field_release:tensorflow.NodeOutput.tensor_description)
   
-  ::tensorflow::TensorDescription* temp = tensor_description_;
-  tensor_description_ = NULL;
-  return temp;
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_tensor_description();
+  } else {
+    ::tensorflow::TensorDescription* temp = tensor_description_;
+    tensor_description_ = NULL;
+    return temp;
+  }
 }
-inline void NodeOutput::set_allocated_tensor_description(::tensorflow::TensorDescription* tensor_description) {
-  delete tensor_description_;
+inline  void NodeOutput::set_allocated_tensor_description(::tensorflow::TensorDescription* tensor_description) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete tensor_description_;
+  }
+  if (tensor_description != NULL) {
+    _slow_set_allocated_tensor_description(message_arena, &tensor_description);
+  }
   tensor_description_ = tensor_description;
   if (tensor_description) {
     
@@ -725,36 +845,46 @@ inline void NodeOutput::set_allocated_tensor_description(::tensorflow::TensorDes
 
 // optional string node_name = 1;
 inline void NodeExecStats::clear_node_name() {
-  node_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  node_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& NodeExecStats::node_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.NodeExecStats.node_name)
-  return node_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void NodeExecStats::set_node_name(const ::std::string& value) {
   
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.NodeExecStats.node_name)
 }
 inline void NodeExecStats::set_node_name(const char* value) {
   
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.NodeExecStats.node_name)
 }
-inline void NodeExecStats::set_node_name(const char* value, size_t size) {
+inline void NodeExecStats::set_node_name(const char* value,
+    size_t size) {
   
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.NodeExecStats.node_name)
 }
 inline ::std::string* NodeExecStats::mutable_node_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.NodeExecStats.node_name)
-  return node_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* NodeExecStats::release_node_name() {
+  // @@protoc_insertion_point(field_release:tensorflow.NodeExecStats.node_name)
   
-  return node_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* NodeExecStats::unsafe_arena_release_node_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.NodeExecStats.node_name)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return node_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void NodeExecStats::set_allocated_node_name(::std::string* node_name) {
   if (node_name != NULL) {
@@ -762,8 +892,21 @@ inline void NodeExecStats::set_allocated_node_name(::std::string* node_name) {
   } else {
     
   }
-  node_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), node_name);
+  node_name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), node_name,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.NodeExecStats.node_name)
+}
+inline void NodeExecStats::unsafe_arena_set_allocated_node_name(
+    ::std::string* node_name) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (node_name != NULL) {
+    
+  } else {
+    
+  }
+  node_name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      node_name, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.NodeExecStats.node_name)
 }
 
 // optional int64 all_start_micros = 2;
@@ -884,36 +1027,46 @@ NodeExecStats::output() const {
 
 // optional string timeline_label = 8;
 inline void NodeExecStats::clear_timeline_label() {
-  timeline_label_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  timeline_label_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& NodeExecStats::timeline_label() const {
   // @@protoc_insertion_point(field_get:tensorflow.NodeExecStats.timeline_label)
-  return timeline_label_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return timeline_label_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void NodeExecStats::set_timeline_label(const ::std::string& value) {
   
-  timeline_label_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  timeline_label_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.NodeExecStats.timeline_label)
 }
 inline void NodeExecStats::set_timeline_label(const char* value) {
   
-  timeline_label_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  timeline_label_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.NodeExecStats.timeline_label)
 }
-inline void NodeExecStats::set_timeline_label(const char* value, size_t size) {
+inline void NodeExecStats::set_timeline_label(const char* value,
+    size_t size) {
   
-  timeline_label_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  timeline_label_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.NodeExecStats.timeline_label)
 }
 inline ::std::string* NodeExecStats::mutable_timeline_label() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.NodeExecStats.timeline_label)
-  return timeline_label_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return timeline_label_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* NodeExecStats::release_timeline_label() {
+  // @@protoc_insertion_point(field_release:tensorflow.NodeExecStats.timeline_label)
   
-  return timeline_label_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return timeline_label_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* NodeExecStats::unsafe_arena_release_timeline_label() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.NodeExecStats.timeline_label)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return timeline_label_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void NodeExecStats::set_allocated_timeline_label(::std::string* timeline_label) {
   if (timeline_label != NULL) {
@@ -921,8 +1074,21 @@ inline void NodeExecStats::set_allocated_timeline_label(::std::string* timeline_
   } else {
     
   }
-  timeline_label_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), timeline_label);
+  timeline_label_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), timeline_label,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.NodeExecStats.timeline_label)
+}
+inline void NodeExecStats::unsafe_arena_set_allocated_timeline_label(
+    ::std::string* timeline_label) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (timeline_label != NULL) {
+    
+  } else {
+    
+  }
+  timeline_label_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      timeline_label, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.NodeExecStats.timeline_label)
 }
 
 // optional int64 scheduled_micros = 9;
@@ -989,36 +1155,46 @@ NodeExecStats::referenced_tensor() const {
 
 // optional string device = 1;
 inline void DeviceStepStats::clear_device() {
-  device_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  device_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline const ::std::string& DeviceStepStats::device() const {
   // @@protoc_insertion_point(field_get:tensorflow.DeviceStepStats.device)
-  return device_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return device_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void DeviceStepStats::set_device(const ::std::string& value) {
   
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  device_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.DeviceStepStats.device)
 }
 inline void DeviceStepStats::set_device(const char* value) {
   
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  device_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.DeviceStepStats.device)
 }
-inline void DeviceStepStats::set_device(const char* value, size_t size) {
+inline void DeviceStepStats::set_device(const char* value,
+    size_t size) {
   
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+  device_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.DeviceStepStats.device)
 }
 inline ::std::string* DeviceStepStats::mutable_device() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.DeviceStepStats.device)
-  return device_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return device_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 inline ::std::string* DeviceStepStats::release_device() {
+  // @@protoc_insertion_point(field_release:tensorflow.DeviceStepStats.device)
   
-  return device_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return device_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+inline ::std::string* DeviceStepStats::unsafe_arena_release_device() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.DeviceStepStats.device)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return device_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
 }
 inline void DeviceStepStats::set_allocated_device(::std::string* device) {
   if (device != NULL) {
@@ -1026,8 +1202,21 @@ inline void DeviceStepStats::set_allocated_device(::std::string* device) {
   } else {
     
   }
-  device_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), device);
+  device_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), device,
+      GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.DeviceStepStats.device)
+}
+inline void DeviceStepStats::unsafe_arena_set_allocated_device(
+    ::std::string* device) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (device != NULL) {
+    
+  } else {
+    
+  }
+  device_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      device, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.DeviceStepStats.device)
 }
 
 // repeated .tensorflow.NodeExecStats node_stats = 2;

@@ -382,7 +382,7 @@ dimension.
 ##### Args:
 
 
-*  <b>`image`</b>: 3-D tensor of shape [height, width, channels]
+*  <b>`image`</b>: 3-D tensor of shape `[height, width, channels]`
 *  <b>`target_height`</b>: Target height.
 *  <b>`target_width`</b>: Target width.
 
@@ -461,7 +461,8 @@ This op does nothing if `offset_*` is zero and the image already has size
 
 
 *  <b>`ValueError`</b>: If the shape of `image` is incompatible with the `offset_*` or
-    `target_*` arguments
+    `target_*` arguments, or either `offset_height` or `offset_width` is
+    negative.
 
 
 - - -
@@ -494,7 +495,8 @@ lower-right corner is at
 
 
 *  <b>`ValueError`</b>: If the shape of `image` is incompatible with the `offset_*` or
-  `target_*` arguments
+    `target_*` arguments, or either `offset_height` or `offset_width` is
+    negative, or either `target_height` or `target_width` is not positive.
 
 
 - - -
@@ -611,7 +613,7 @@ result is a 4-D tensor `[num_boxes, crop_height, crop_width, depth]`.
 
 
 
-## Flipping and Transposing
+## Flipping, Rotating and Transposing
 
 - - -
 
@@ -745,6 +747,24 @@ See also `transpose()`.
 
 
 
+- - -
+
+### `tf.image.rot90(image, k=1)` {#rot90}
+
+Rotate an image counter-clockwise by 90 degrees.
+
+##### Args:
+
+
+*  <b>`image`</b>: A 3-D tensor of shape `[height, width, channels].`
+*  <b>`k`</b>: Number of times the image is rotated by 90 degrees.
+
+##### Returns:
+
+  A rotated 3-D tensor of the same type and shape as `image`.
+
+
+
 ## Converting Between Colorspaces.
 
 Image ops work either on individual images or on batches of images, depending on
@@ -764,7 +784,7 @@ Internally, images are either stored in as one `float32` per channel per pixel
 (implicitly, values are assumed to lie in `[0,1)`) or one `uint8` per channel
 per pixel (values are assumed to lie in `[0,255]`).
 
-Tensorflow can convert between images in RGB or HSV. The conversion functions
+TensorFlow can convert between images in RGB or HSV. The conversion functions
 work only on float images, so you need to convert images in other formats using
 [`convert_image_dtype`](#convert-image-dtype).
 
@@ -835,13 +855,13 @@ See `rgb_to_hsv` for a description of the HSV encoding.
 ##### Args:
 
 
-*  <b>`images`</b>: A `Tensor` of type `float32`.
+*  <b>`images`</b>: A `Tensor`. Must be one of the following types: `float32`, `float64`.
     1-D or higher rank. HSV data to convert. Last dimension must be size 3.
 *  <b>`name`</b>: A name for the operation (optional).
 
 ##### Returns:
 
-  A `Tensor` of type `float32`. `images` converted to RGB.
+  A `Tensor`. Has the same type as `images`. `images` converted to RGB.
 
 
 - - -
@@ -861,13 +881,13 @@ corresponds to pure red, hue 1/3 is pure green, and 2/3 is pure blue.
 ##### Args:
 
 
-*  <b>`images`</b>: A `Tensor` of type `float32`.
+*  <b>`images`</b>: A `Tensor`. Must be one of the following types: `float32`, `float64`.
     1-D or higher rank. RGB data to convert. Last dimension must be size 3.
 *  <b>`name`</b>: A name for the operation (optional).
 
 ##### Returns:
 
-  A `Tensor` of type `float32`. `images` converted to HSV.
+  A `Tensor`. Has the same type as `images`. `images` converted to HSV.
 
 
 
@@ -1200,7 +1220,7 @@ Draw bounding boxes on a batch of images.
 
 Outputs a copy of `images` but draws on top of the pixels zero or more bounding
 boxes specified by the locations in `boxes`. The coordinates of the each
-bounding box in `boxes are encoded as `[y_min, x_min, y_max, x_max]`. The
+bounding box in `boxes` are encoded as `[y_min, x_min, y_max, x_max]`. The
 bounding box coordinates are floats in `[0.0, 1.0]` relative to the width and
 height of the underlying image.
 
@@ -1225,6 +1245,54 @@ Parts of the bounding box may fall outside the image.
   A `Tensor`. Has the same type as `images`.
   4-D with the same shape as `images`. The batch of input images with
   bounding boxes drawn on the images.
+
+
+- - -
+
+### `tf.image.non_max_suppression(boxes, scores, max_output_size, iou_threshold=None, name=None)` {#non_max_suppression}
+
+Greedily selects a subset of bounding boxes in descending order of score,
+
+pruning away boxes that have high intersection-over-union (IOU) overlap
+with previously selected boxes.  Bounding boxes are supplied as
+[y1, x1, y2, x2], where (y1, x1) and (y2, x2) are the coordinates of any
+diagonal pair of box corners and the coordinates can be provided as normalized
+(i.e., lying in the interval [0, 1]) or absolute.  Note that this algorithm
+is agnostic to where the origin is in the coordinate system.  Note that this
+algorithm is invariant to orthogonal transformations and translations
+of the coordinate system; thus translating or reflections of the coordinate
+system result in the same boxes being selected by the algorithm.
+
+The output of this operation is a set of integers indexing into the input
+collection of bounding boxes representing the selected boxes.  The bounding
+box coordinates corresponding to the selected indices can then be obtained
+using the tf.gather operation.  For example:
+
+  selected_indices = tf.image.non_max_suppression(
+      boxes, scores, max_output_size, iou_threshold)
+  selected_boxes = tf.gather(boxes, selected_indices)
+
+##### Args:
+
+
+*  <b>`boxes`</b>: A `Tensor` of type `float32`.
+    A 2-D float tensor of shape `[num_boxes, 4]`.
+*  <b>`scores`</b>: A `Tensor` of type `float32`.
+    A 1-D float tensor of shape `[num_boxes]` representing a single
+    score corresponding to each box (each row of boxes).
+*  <b>`max_output_size`</b>: A `Tensor` of type `int32`.
+    A scalar integer tensor representing the maximum number of
+    boxes to be selected by non max suppression.
+*  <b>`iou_threshold`</b>: An optional `float`. Defaults to `0.5`.
+    A float representing the threshold for deciding whether boxes
+    overlap too much with respect to IOU.
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A `Tensor` of type `int32`.
+  A 1-D integer tensor of shape `[M]` representing the selected
+  indices from the boxes tensor, where `M <= max_output_size`.
 
 
 - - -

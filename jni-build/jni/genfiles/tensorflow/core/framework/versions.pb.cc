@@ -84,8 +84,8 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
     "\n(tensorflow/core/framework/versions.pro"
     "to\022\ntensorflow\"K\n\nVersionDef\022\020\n\010producer"
     "\030\001 \001(\005\022\024\n\014min_consumer\030\002 \001(\005\022\025\n\rbad_cons"
-    "umers\030\003 \003(\005B,\n\030org.tensorflow.frameworkB"
-    "\016VersionsProtosP\001b\006proto3", 185);
+    "umers\030\003 \003(\005B/\n\030org.tensorflow.frameworkB"
+    "\016VersionsProtosP\001\370\001\001b\006proto3", 188);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/versions.proto", &protobuf_RegisterTypes);
   VersionDef::default_instance_ = new VersionDef();
@@ -124,6 +124,15 @@ VersionDef::VersionDef()
   // @@protoc_insertion_point(constructor:tensorflow.VersionDef)
 }
 
+VersionDef::VersionDef(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  bad_consumers_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.VersionDef)
+}
+
 void VersionDef::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
@@ -149,10 +158,20 @@ VersionDef::~VersionDef() {
 }
 
 void VersionDef::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
   if (this != default_instance_) {
   }
 }
 
+void VersionDef::ArenaDtor(void* object) {
+  VersionDef* _this = reinterpret_cast< VersionDef* >(object);
+  (void)_this;
+}
+void VersionDef::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
 void VersionDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
@@ -171,16 +190,21 @@ const VersionDef& VersionDef::default_instance() {
 VersionDef* VersionDef::default_instance_ = NULL;
 
 VersionDef* VersionDef::New(::google::protobuf::Arena* arena) const {
-  VersionDef* n = new VersionDef;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+  return ::google::protobuf::Arena::CreateMessage<VersionDef>(arena);
 }
 
 void VersionDef::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.VersionDef)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(VersionDef, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<VersionDef*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -197,7 +221,7 @@ void VersionDef::Clear() {
 
 bool VersionDef::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.VersionDef)
   for (;;) {
@@ -331,6 +355,7 @@ void VersionDef::SerializeWithCachedSizes(
 }
 
 int VersionDef::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.VersionDef)
   int total_size = 0;
 
   // optional int32 producer = 1;
@@ -371,18 +396,22 @@ int VersionDef::ByteSize() const {
 }
 
 void VersionDef::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.VersionDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VersionDef* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VersionDef>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.VersionDef)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.VersionDef)
     MergeFrom(*source);
   }
 }
 
 void VersionDef::MergeFrom(const VersionDef& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.VersionDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   bad_consumers_.MergeFrom(from.bad_consumers_);
   if (from.producer() != 0) {
@@ -394,12 +423,14 @@ void VersionDef::MergeFrom(const VersionDef& from) {
 }
 
 void VersionDef::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.VersionDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VersionDef::CopyFrom(const VersionDef& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.VersionDef)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -412,6 +443,18 @@ bool VersionDef::IsInitialized() const {
 
 void VersionDef::Swap(VersionDef* other) {
   if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    VersionDef temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void VersionDef::UnsafeArenaSwap(VersionDef* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
 void VersionDef::InternalSwap(VersionDef* other) {

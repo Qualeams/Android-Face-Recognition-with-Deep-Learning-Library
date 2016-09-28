@@ -16,14 +16,26 @@ limitations under the License.
 #define THIRD_PARTY_TENSORFLOW_CORE_FRAMEWORK_SHAPE_INFERENCE_TESTUTIL_H_
 
 #include <vector>
+#include "tensorflow/core/framework/graph.pb.h"
 #include "tensorflow/core/lib/core/status.h"
+#include "tensorflow/core/lib/core/stringpiece.h"
 #include "tensorflow/core/platform/types.h"
 
 // Contains utilities for writing tests for shape inference functions.
 
 namespace tensorflow {
 
-// Run shape inference for <op_name>, given inputs specified by <ins>
+class NodeDef;
+class Tensor;
+
+struct ShapeInferenceTestOp {
+  explicit ShapeInferenceTestOp(StringPiece name) : name(name.ToString()) {}
+  string name;
+  NodeDef node_def;
+  std::vector<const Tensor*> input_tensors;
+};
+
+// Run shape inference for <op.name>, given inputs specified by <ins>
 // and returns an error if the inferred shape does not match expected_outs.
 //
 // <ins> is a semicolon separated list of shapes. Each shape is formatted
@@ -44,12 +56,19 @@ namespace tensorflow {
 //            the second is which dimension in that input it corresponds to.
 // <expected_outs> can be "e"; this is used to indicate that shape inference
 // should have failed.
-Status InferShapes(const string& op_name, const string& ins,
+Status InferShapes(ShapeInferenceTestOp op, const string& ins,
                    const string& expected_outs);
 
 #define INFER_OK(op, i, o) EXPECT_EQ("", InferShapes(op, i, o).error_message())
-#define INFER_ERROR(s, op, i) \
-  EXPECT_EQ(s, InferShapes(op, i, "x").error_message())
+#define INFER_ERROR(error_substring, op, i)                              \
+  {                                                                      \
+    string error_message = InferShapes(op, i, "e").error_message();      \
+    const string& substring = error_substring;                           \
+    EXPECT_NE("", error_message);                                        \
+    EXPECT_TRUE(StringPiece(error_message).contains(substring))          \
+        << "Expected to see '" << substring << "' in '" << error_message \
+        << "'";                                                          \
+  }
 
 }  // namespace tensorflow
 

@@ -60,9 +60,14 @@ class BytesList : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const BytesList& default_instance();
 
+  void UnsafeArenaSwap(BytesList* other);
   void Swap(BytesList* other);
 
   // implements Message ----------------------------------------------
@@ -89,6 +94,11 @@ class BytesList : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(BytesList* other);
+  protected:
+  explicit BytesList(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -124,6 +134,9 @@ class BytesList : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::std::string> value_;
   mutable int _cached_size_;
@@ -148,9 +161,14 @@ class FloatList : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const FloatList& default_instance();
 
+  void UnsafeArenaSwap(FloatList* other);
   void Swap(FloatList* other);
 
   // implements Message ----------------------------------------------
@@ -177,6 +195,11 @@ class FloatList : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(FloatList* other);
+  protected:
+  explicit FloatList(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -208,6 +231,9 @@ class FloatList : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedField< float > value_;
   mutable int _value_cached_byte_size_;
@@ -233,9 +259,14 @@ class Int64List : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const Int64List& default_instance();
 
+  void UnsafeArenaSwap(Int64List* other);
   void Swap(Int64List* other);
 
   // implements Message ----------------------------------------------
@@ -262,6 +293,11 @@ class Int64List : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(Int64List* other);
+  protected:
+  explicit Int64List(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -293,6 +329,9 @@ class Int64List : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > value_;
   mutable int _value_cached_byte_size_;
@@ -318,6 +357,10 @@ class Feature : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const Feature& default_instance();
 
@@ -328,6 +371,7 @@ class Feature : public ::google::protobuf::Message {
     KIND_NOT_SET = 0,
   };
 
+  void UnsafeArenaSwap(Feature* other);
   void Swap(Feature* other);
 
   // implements Message ----------------------------------------------
@@ -354,6 +398,11 @@ class Feature : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(Feature* other);
+  protected:
+  explicit Feature(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -373,28 +422,55 @@ class Feature : public ::google::protobuf::Message {
   bool has_bytes_list() const;
   void clear_bytes_list();
   static const int kBytesListFieldNumber = 1;
+  private:
+  void _slow_mutable_bytes_list();
+  void _slow_set_allocated_bytes_list(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::BytesList** bytes_list);
+  ::tensorflow::BytesList* _slow_release_bytes_list();
+  public:
   const ::tensorflow::BytesList& bytes_list() const;
   ::tensorflow::BytesList* mutable_bytes_list();
   ::tensorflow::BytesList* release_bytes_list();
   void set_allocated_bytes_list(::tensorflow::BytesList* bytes_list);
+  ::tensorflow::BytesList* unsafe_arena_release_bytes_list();
+  void unsafe_arena_set_allocated_bytes_list(
+      ::tensorflow::BytesList* bytes_list);
 
   // optional .tensorflow.FloatList float_list = 2;
   bool has_float_list() const;
   void clear_float_list();
   static const int kFloatListFieldNumber = 2;
+  private:
+  void _slow_mutable_float_list();
+  void _slow_set_allocated_float_list(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::FloatList** float_list);
+  ::tensorflow::FloatList* _slow_release_float_list();
+  public:
   const ::tensorflow::FloatList& float_list() const;
   ::tensorflow::FloatList* mutable_float_list();
   ::tensorflow::FloatList* release_float_list();
   void set_allocated_float_list(::tensorflow::FloatList* float_list);
+  ::tensorflow::FloatList* unsafe_arena_release_float_list();
+  void unsafe_arena_set_allocated_float_list(
+      ::tensorflow::FloatList* float_list);
 
   // optional .tensorflow.Int64List int64_list = 3;
   bool has_int64_list() const;
   void clear_int64_list();
   static const int kInt64ListFieldNumber = 3;
+  private:
+  void _slow_mutable_int64_list();
+  void _slow_set_allocated_int64_list(
+      ::google::protobuf::Arena* message_arena, ::tensorflow::Int64List** int64_list);
+  ::tensorflow::Int64List* _slow_release_int64_list();
+  public:
   const ::tensorflow::Int64List& int64_list() const;
   ::tensorflow::Int64List* mutable_int64_list();
   ::tensorflow::Int64List* release_int64_list();
   void set_allocated_int64_list(::tensorflow::Int64List* int64_list);
+  ::tensorflow::Int64List* unsafe_arena_release_int64_list();
+  void unsafe_arena_set_allocated_int64_list(
+      ::tensorflow::Int64List* int64_list);
 
   KindCase kind_case() const;
   // @@protoc_insertion_point(class_scope:tensorflow.Feature)
@@ -408,6 +484,9 @@ class Feature : public ::google::protobuf::Message {
   inline void clear_has_kind();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   union KindUnion {
     KindUnion() {}
@@ -439,9 +518,14 @@ class Features : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const Features& default_instance();
 
+  void UnsafeArenaSwap(Features* other);
   void Swap(Features* other);
 
   // implements Message ----------------------------------------------
@@ -468,6 +552,11 @@ class Features : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(Features* other);
+  protected:
+  explicit Features(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -497,6 +586,9 @@ class Features : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   typedef ::google::protobuf::internal::MapEntryLite<
       ::std::string, ::tensorflow::Feature,
@@ -531,9 +623,14 @@ class FeatureList : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const FeatureList& default_instance();
 
+  void UnsafeArenaSwap(FeatureList* other);
   void Swap(FeatureList* other);
 
   // implements Message ----------------------------------------------
@@ -560,6 +657,11 @@ class FeatureList : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(FeatureList* other);
+  protected:
+  explicit FeatureList(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -591,6 +693,9 @@ class FeatureList : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::RepeatedPtrField< ::tensorflow::Feature > feature_;
   mutable int _cached_size_;
@@ -615,9 +720,14 @@ class FeatureLists : public ::google::protobuf::Message {
     return *this;
   }
 
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
   static const ::google::protobuf::Descriptor* descriptor();
   static const FeatureLists& default_instance();
 
+  void UnsafeArenaSwap(FeatureLists* other);
   void Swap(FeatureLists* other);
 
   // implements Message ----------------------------------------------
@@ -644,6 +754,11 @@ class FeatureLists : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   void InternalSwap(FeatureLists* other);
+  protected:
+  explicit FeatureLists(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -673,6 +788,9 @@ class FeatureLists : public ::google::protobuf::Message {
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   bool _is_default_instance_;
   typedef ::google::protobuf::internal::MapEntryLite<
       ::std::string, ::tensorflow::FeatureList,
@@ -730,6 +848,7 @@ inline void BytesList::set_value(int index, const void* value, size_t size) {
   // @@protoc_insertion_point(field_set_pointer:tensorflow.BytesList.value)
 }
 inline ::std::string* BytesList::add_value() {
+  // @@protoc_insertion_point(field_add_mutable:tensorflow.BytesList.value)
   return value_.Add();
 }
 inline void BytesList::add_value(const ::std::string& value) {
@@ -836,7 +955,9 @@ inline void Feature::set_has_bytes_list() {
 }
 inline void Feature::clear_bytes_list() {
   if (has_bytes_list()) {
-    delete kind_.bytes_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.bytes_list_;
+    }
     clear_has_kind();
   }
 }
@@ -850,12 +971,52 @@ inline ::tensorflow::BytesList* Feature::mutable_bytes_list() {
   if (!has_bytes_list()) {
     clear_kind();
     set_has_bytes_list();
-    kind_.bytes_list_ = new ::tensorflow::BytesList;
+    kind_.bytes_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::BytesList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.Feature.bytes_list)
   return kind_.bytes_list_;
 }
 inline ::tensorflow::BytesList* Feature::release_bytes_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.Feature.bytes_list)
+  if (has_bytes_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::BytesList* temp = new ::tensorflow::BytesList;
+      temp->MergeFrom(*kind_.bytes_list_);
+      kind_.bytes_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::BytesList* temp = kind_.bytes_list_;
+      kind_.bytes_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+inline void Feature::set_allocated_bytes_list(::tensorflow::BytesList* bytes_list) {
+  clear_kind();
+  if (bytes_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(bytes_list) == NULL) {
+      GetArenaNoVirtual()->Own(bytes_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(bytes_list)) {
+      ::tensorflow::BytesList* new_bytes_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::BytesList >(
+          GetArenaNoVirtual());
+      new_bytes_list->CopyFrom(*bytes_list);
+      bytes_list = new_bytes_list;
+    }
+    set_has_bytes_list();
+    kind_.bytes_list_ = bytes_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.bytes_list)
+}
+inline  ::tensorflow::BytesList* Feature::unsafe_arena_release_bytes_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Feature.bytes_list)
   if (has_bytes_list()) {
     clear_has_kind();
     ::tensorflow::BytesList* temp = kind_.bytes_list_;
@@ -865,13 +1026,13 @@ inline ::tensorflow::BytesList* Feature::release_bytes_list() {
     return NULL;
   }
 }
-inline void Feature::set_allocated_bytes_list(::tensorflow::BytesList* bytes_list) {
+inline  void Feature::unsafe_arena_set_allocated_bytes_list(::tensorflow::BytesList* bytes_list) {
   clear_kind();
   if (bytes_list) {
     set_has_bytes_list();
     kind_.bytes_list_ = bytes_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.bytes_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Feature.bytes_list)
 }
 
 // optional .tensorflow.FloatList float_list = 2;
@@ -883,7 +1044,9 @@ inline void Feature::set_has_float_list() {
 }
 inline void Feature::clear_float_list() {
   if (has_float_list()) {
-    delete kind_.float_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.float_list_;
+    }
     clear_has_kind();
   }
 }
@@ -897,12 +1060,52 @@ inline ::tensorflow::FloatList* Feature::mutable_float_list() {
   if (!has_float_list()) {
     clear_kind();
     set_has_float_list();
-    kind_.float_list_ = new ::tensorflow::FloatList;
+    kind_.float_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::FloatList >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.Feature.float_list)
   return kind_.float_list_;
 }
 inline ::tensorflow::FloatList* Feature::release_float_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.Feature.float_list)
+  if (has_float_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::FloatList* temp = new ::tensorflow::FloatList;
+      temp->MergeFrom(*kind_.float_list_);
+      kind_.float_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::FloatList* temp = kind_.float_list_;
+      kind_.float_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+inline void Feature::set_allocated_float_list(::tensorflow::FloatList* float_list) {
+  clear_kind();
+  if (float_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(float_list) == NULL) {
+      GetArenaNoVirtual()->Own(float_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(float_list)) {
+      ::tensorflow::FloatList* new_float_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::FloatList >(
+          GetArenaNoVirtual());
+      new_float_list->CopyFrom(*float_list);
+      float_list = new_float_list;
+    }
+    set_has_float_list();
+    kind_.float_list_ = float_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.float_list)
+}
+inline  ::tensorflow::FloatList* Feature::unsafe_arena_release_float_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Feature.float_list)
   if (has_float_list()) {
     clear_has_kind();
     ::tensorflow::FloatList* temp = kind_.float_list_;
@@ -912,13 +1115,13 @@ inline ::tensorflow::FloatList* Feature::release_float_list() {
     return NULL;
   }
 }
-inline void Feature::set_allocated_float_list(::tensorflow::FloatList* float_list) {
+inline  void Feature::unsafe_arena_set_allocated_float_list(::tensorflow::FloatList* float_list) {
   clear_kind();
   if (float_list) {
     set_has_float_list();
     kind_.float_list_ = float_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.float_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Feature.float_list)
 }
 
 // optional .tensorflow.Int64List int64_list = 3;
@@ -930,7 +1133,9 @@ inline void Feature::set_has_int64_list() {
 }
 inline void Feature::clear_int64_list() {
   if (has_int64_list()) {
-    delete kind_.int64_list_;
+    if (GetArenaNoVirtual() == NULL) {
+      delete kind_.int64_list_;
+    }
     clear_has_kind();
   }
 }
@@ -944,12 +1149,52 @@ inline ::tensorflow::Int64List* Feature::mutable_int64_list() {
   if (!has_int64_list()) {
     clear_kind();
     set_has_int64_list();
-    kind_.int64_list_ = new ::tensorflow::Int64List;
+    kind_.int64_list_ = 
+      ::google::protobuf::Arena::CreateMessage< ::tensorflow::Int64List >(
+      GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:tensorflow.Feature.int64_list)
   return kind_.int64_list_;
 }
 inline ::tensorflow::Int64List* Feature::release_int64_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.Feature.int64_list)
+  if (has_int64_list()) {
+    clear_has_kind();
+    if (GetArenaNoVirtual() != NULL) {
+      ::tensorflow::Int64List* temp = new ::tensorflow::Int64List;
+      temp->MergeFrom(*kind_.int64_list_);
+      kind_.int64_list_ = NULL;
+      return temp;
+    } else {
+      ::tensorflow::Int64List* temp = kind_.int64_list_;
+      kind_.int64_list_ = NULL;
+      return temp;
+    }
+  } else {
+    return NULL;
+  }
+}
+inline void Feature::set_allocated_int64_list(::tensorflow::Int64List* int64_list) {
+  clear_kind();
+  if (int64_list) {
+    if (GetArenaNoVirtual() != NULL &&
+        ::google::protobuf::Arena::GetArena(int64_list) == NULL) {
+      GetArenaNoVirtual()->Own(int64_list);
+    } else if (GetArenaNoVirtual() !=
+               ::google::protobuf::Arena::GetArena(int64_list)) {
+      ::tensorflow::Int64List* new_int64_list = 
+          ::google::protobuf::Arena::CreateMessage< ::tensorflow::Int64List >(
+          GetArenaNoVirtual());
+      new_int64_list->CopyFrom(*int64_list);
+      int64_list = new_int64_list;
+    }
+    set_has_int64_list();
+    kind_.int64_list_ = int64_list;
+  }
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.int64_list)
+}
+inline  ::tensorflow::Int64List* Feature::unsafe_arena_release_int64_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Feature.int64_list)
   if (has_int64_list()) {
     clear_has_kind();
     ::tensorflow::Int64List* temp = kind_.int64_list_;
@@ -959,13 +1204,13 @@ inline ::tensorflow::Int64List* Feature::release_int64_list() {
     return NULL;
   }
 }
-inline void Feature::set_allocated_int64_list(::tensorflow::Int64List* int64_list) {
+inline  void Feature::unsafe_arena_set_allocated_int64_list(::tensorflow::Int64List* int64_list) {
   clear_kind();
   if (int64_list) {
     set_has_int64_list();
     kind_.int64_list_ = int64_list;
   }
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Feature.int64_list)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Feature.int64_list)
 }
 
 inline bool Feature::has_kind() const {
