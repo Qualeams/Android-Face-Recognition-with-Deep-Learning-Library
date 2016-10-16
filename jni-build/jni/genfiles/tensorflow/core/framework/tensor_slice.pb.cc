@@ -34,6 +34,7 @@ struct TensorSliceProto_ExtentOneofInstance {
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -47,14 +48,13 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto(
   TensorSliceProto_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       TensorSliceProto_descriptor_,
-      TensorSliceProto::default_instance_,
+      TensorSliceProto::internal_default_instance(),
       TensorSliceProto_offsets_,
       -1,
       -1,
       -1,
       sizeof(TensorSliceProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto, _internal_metadata_));
   TensorSliceProto_Extent_descriptor_ = TensorSliceProto_descriptor_->nested_type(0);
   static const int TensorSliceProto_Extent_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto_Extent, start_),
@@ -64,7 +64,7 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto(
   TensorSliceProto_Extent_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       TensorSliceProto_Extent_descriptor_,
-      TensorSliceProto_Extent::default_instance_,
+      TensorSliceProto_Extent::internal_default_instance(),
       TensorSliceProto_Extent_offsets_,
       -1,
       -1,
@@ -72,42 +72,55 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto(
       TensorSliceProto_Extent_default_oneof_instance_,
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto_Extent, _oneof_case_[0]),
       sizeof(TensorSliceProto_Extent),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto_Extent, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto_Extent, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorSliceProto_Extent, _internal_metadata_));
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TensorSliceProto_descriptor_, &TensorSliceProto::default_instance());
+      TensorSliceProto_descriptor_, TensorSliceProto::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TensorSliceProto_Extent_descriptor_, &TensorSliceProto_Extent::default_instance());
+      TensorSliceProto_Extent_descriptor_, TensorSliceProto_Extent::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
-  delete TensorSliceProto::default_instance_;
+  TensorSliceProto_default_instance_.Shutdown();
   delete TensorSliceProto_reflection_;
-  delete TensorSliceProto_Extent::default_instance_;
+  TensorSliceProto_Extent_default_instance_.Shutdown();
   delete TensorSliceProto_Extent_default_oneof_instance_;
   delete TensorSliceProto_Extent_reflection_;
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+  TensorSliceProto_default_instance_.DefaultConstruct();
+  TensorSliceProto_Extent_default_instance_.DefaultConstruct();
+  TensorSliceProto_Extent_default_oneof_instance_ = new TensorSliceProto_ExtentOneofInstance();
+  TensorSliceProto_default_instance_.get_mutable()->InitAsDefaultInstance();
+  TensorSliceProto_Extent_default_instance_.get_mutable()->InitAsDefaultInstance();
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n,tensorflow/core/framework/tensor_slice"
     ".proto\022\ntensorflow\"\200\001\n\020TensorSliceProto\022"
@@ -118,14 +131,14 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
     "\001b\006proto3", 249);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/tensor_slice.proto", &protobuf_RegisterTypes);
-  TensorSliceProto::default_instance_ = new TensorSliceProto();
-  TensorSliceProto_Extent::default_instance_ = new TensorSliceProto_Extent();
-  TensorSliceProto_Extent_default_oneof_instance_ = new TensorSliceProto_ExtentOneofInstance();
-  TensorSliceProto::default_instance_->InitAsDefaultInstance();
-  TensorSliceProto_Extent::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto() {
@@ -135,9 +148,9 @@ struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_5fslic
 
 namespace {
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
 }
 
 }  // namespace
@@ -152,20 +165,22 @@ const int TensorSliceProto_Extent::kLengthFieldNumber;
 
 TensorSliceProto_Extent::TensorSliceProto_Extent()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TensorSliceProto.Extent)
 }
-
 TensorSliceProto_Extent::TensorSliceProto_Extent(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.TensorSliceProto.Extent)
 }
 
 void TensorSliceProto_Extent::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
   TensorSliceProto_Extent_default_oneof_instance_->length_ = GOOGLE_LONGLONG(0);
 }
 
@@ -173,15 +188,14 @@ TensorSliceProto_Extent::TensorSliceProto_Extent(const TensorSliceProto_Extent& 
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.TensorSliceProto.Extent)
 }
 
 void TensorSliceProto_Extent::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
   start_ = GOOGLE_LONGLONG(0);
   clear_has_has_length();
+  _cached_size_ = 0;
 }
 
 TensorSliceProto_Extent::~TensorSliceProto_Extent() {
@@ -190,14 +204,13 @@ TensorSliceProto_Extent::~TensorSliceProto_Extent() {
 }
 
 void TensorSliceProto_Extent::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
   if (has_has_length()) {
     clear_has_length();
-  }
-  if (this != default_instance_) {
   }
 }
 
@@ -218,11 +231,11 @@ const ::google::protobuf::Descriptor* TensorSliceProto_Extent::descriptor() {
 }
 
 const TensorSliceProto_Extent& TensorSliceProto_Extent::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
+  return *internal_default_instance();
 }
 
-TensorSliceProto_Extent* TensorSliceProto_Extent::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<TensorSliceProto_Extent> TensorSliceProto_Extent_default_instance_;
 
 TensorSliceProto_Extent* TensorSliceProto_Extent::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<TensorSliceProto_Extent>(arena);
@@ -230,7 +243,7 @@ TensorSliceProto_Extent* TensorSliceProto_Extent::New(::google::protobuf::Arena*
 
 void TensorSliceProto_Extent::clear_has_length() {
 // @@protoc_insertion_point(one_of_clear_start:tensorflow.TensorSliceProto.Extent)
-  switch(has_length_case()) {
+  switch (has_length_case()) {
     case kLength: {
       // No need to clear
       break;
@@ -262,10 +275,10 @@ bool TensorSliceProto_Extent::MergePartialFromCodedStream(
       // optional int64 start = 1;
       case 1: {
         if (tag == 8) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &start_)));
-
         } else {
           goto handle_unusual;
         }
@@ -326,8 +339,9 @@ void TensorSliceProto_Extent::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.TensorSliceProto.Extent)
 }
 
-::google::protobuf::uint8* TensorSliceProto_Extent::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* TensorSliceProto_Extent::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorSliceProto.Extent)
   // optional int64 start = 1;
   if (this->start() != 0) {
@@ -343,9 +357,9 @@ void TensorSliceProto_Extent::SerializeWithCachedSizes(
   return target;
 }
 
-int TensorSliceProto_Extent::ByteSize() const {
+size_t TensorSliceProto_Extent::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorSliceProto.Extent)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional int64 start = 1;
   if (this->start() != 0) {
@@ -366,8 +380,9 @@ int TensorSliceProto_Extent::ByteSize() const {
       break;
     }
   }
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -375,7 +390,7 @@ int TensorSliceProto_Extent::ByteSize() const {
 void TensorSliceProto_Extent::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorSliceProto.Extent)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const TensorSliceProto_Extent* source = 
+  const TensorSliceProto_Extent* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const TensorSliceProto_Extent>(
           &from);
   if (source == NULL) {
@@ -383,13 +398,21 @@ void TensorSliceProto_Extent::MergeFrom(const ::google::protobuf::Message& from)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorSliceProto.Extent)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void TensorSliceProto_Extent::MergeFrom(const TensorSliceProto_Extent& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorSliceProto.Extent)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void TensorSliceProto_Extent::UnsafeMergeFrom(const TensorSliceProto_Extent& from) {
+  GOOGLE_DCHECK(&from != this);
   switch (from.has_length_case()) {
     case kLength: {
       set_length(from.length());
@@ -415,7 +438,7 @@ void TensorSliceProto_Extent::CopyFrom(const TensorSliceProto_Extent& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorSliceProto.Extent)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool TensorSliceProto_Extent::IsInitialized() const {
@@ -429,7 +452,7 @@ void TensorSliceProto_Extent::Swap(TensorSliceProto_Extent* other) {
     InternalSwap(other);
   } else {
     TensorSliceProto_Extent temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -464,33 +487,34 @@ const int TensorSliceProto::kExtentFieldNumber;
 
 TensorSliceProto::TensorSliceProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TensorSliceProto)
 }
-
 TensorSliceProto::TensorSliceProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
   extent_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.TensorSliceProto)
 }
 
 void TensorSliceProto::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 TensorSliceProto::TensorSliceProto(const TensorSliceProto& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.TensorSliceProto)
 }
 
 void TensorSliceProto::SharedCtor() {
-    _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
@@ -500,12 +524,11 @@ TensorSliceProto::~TensorSliceProto() {
 }
 
 void TensorSliceProto::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
-  }
 }
 
 void TensorSliceProto::ArenaDtor(void* object) {
@@ -525,11 +548,11 @@ const ::google::protobuf::Descriptor* TensorSliceProto::descriptor() {
 }
 
 const TensorSliceProto& TensorSliceProto::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fslice_2eproto();
+  return *internal_default_instance();
 }
 
-TensorSliceProto* TensorSliceProto::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<TensorSliceProto> TensorSliceProto_default_instance_;
 
 TensorSliceProto* TensorSliceProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<TensorSliceProto>(arena);
@@ -599,34 +622,39 @@ void TensorSliceProto::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.TensorSliceProto)
 }
 
-::google::protobuf::uint8* TensorSliceProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* TensorSliceProto::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorSliceProto)
   // repeated .tensorflow.TensorSliceProto.Extent extent = 1;
   for (unsigned int i = 0, n = this->extent_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->extent(i), target);
+      InternalWriteMessageNoVirtualToArray(
+        1, this->extent(i), false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.TensorSliceProto)
   return target;
 }
 
-int TensorSliceProto::ByteSize() const {
+size_t TensorSliceProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorSliceProto)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // repeated .tensorflow.TensorSliceProto.Extent extent = 1;
-  total_size += 1 * this->extent_size();
-  for (int i = 0; i < this->extent_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->extent(i));
+  {
+    unsigned int count = this->extent_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->extent(i));
+    }
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -634,7 +662,7 @@ int TensorSliceProto::ByteSize() const {
 void TensorSliceProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorSliceProto)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const TensorSliceProto* source = 
+  const TensorSliceProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const TensorSliceProto>(
           &from);
   if (source == NULL) {
@@ -642,13 +670,21 @@ void TensorSliceProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorSliceProto)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void TensorSliceProto::MergeFrom(const TensorSliceProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorSliceProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void TensorSliceProto::UnsafeMergeFrom(const TensorSliceProto& from) {
+  GOOGLE_DCHECK(&from != this);
   extent_.MergeFrom(from.extent_);
 }
 
@@ -663,7 +699,7 @@ void TensorSliceProto::CopyFrom(const TensorSliceProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorSliceProto)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool TensorSliceProto::IsInitialized() const {
@@ -677,7 +713,7 @@ void TensorSliceProto::Swap(TensorSliceProto* other) {
     InternalSwap(other);
   } else {
     TensorSliceProto temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -708,11 +744,11 @@ void TensorSliceProto::InternalSwap(TensorSliceProto* other) {
 void TensorSliceProto_Extent::clear_start() {
   start_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 TensorSliceProto_Extent::start() const {
+::google::protobuf::int64 TensorSliceProto_Extent::start() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorSliceProto.Extent.start)
   return start_;
 }
- void TensorSliceProto_Extent::set_start(::google::protobuf::int64 value) {
+void TensorSliceProto_Extent::set_start(::google::protobuf::int64 value) {
   
   start_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.TensorSliceProto.Extent.start)
@@ -731,14 +767,14 @@ void TensorSliceProto_Extent::clear_length() {
     clear_has_has_length();
   }
 }
- ::google::protobuf::int64 TensorSliceProto_Extent::length() const {
+::google::protobuf::int64 TensorSliceProto_Extent::length() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorSliceProto.Extent.length)
   if (has_length()) {
     return has_length_.length_;
   }
   return GOOGLE_LONGLONG(0);
 }
- void TensorSliceProto_Extent::set_length(::google::protobuf::int64 value) {
+void TensorSliceProto_Extent::set_length(::google::protobuf::int64 value) {
   if (!has_length()) {
     clear_has_length();
     set_has_length();
@@ -755,6 +791,9 @@ void TensorSliceProto_Extent::clear_has_has_length() {
 }
 TensorSliceProto_Extent::HasLengthCase TensorSliceProto_Extent::has_length_case() const {
   return TensorSliceProto_Extent::HasLengthCase(_oneof_case_[0]);
+}
+inline const TensorSliceProto_Extent* TensorSliceProto_Extent::internal_default_instance() {
+  return &TensorSliceProto_Extent_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -790,6 +829,9 @@ TensorSliceProto::extent() const {
   return extent_;
 }
 
+inline const TensorSliceProto* TensorSliceProto::internal_default_instance() {
+  return &TensorSliceProto_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

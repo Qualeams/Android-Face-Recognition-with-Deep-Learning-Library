@@ -27,9 +27,6 @@ TENSORFLOW_CFLAGS	  := \
   -funwind-tables \
   -no-canonical-prefixes \
   -fno-canonical-system-headers \
-  '-march=armv7-a' \
-  '-mfpu=vfpv3-d16' \
-  '-mfloat-abi=softfp' \
   -DHAVE_PTHREAD \
   -Wall \
   -Wwrite-strings \
@@ -39,7 +36,6 @@ TENSORFLOW_CFLAGS	  := \
   '-std=c++11' \
   -fno-exceptions \
   -DEIGEN_AVOID_STL_ARRAY \
-  '-mfpu=neon' \
   '-std=c++11' \
   '-DMIN_LOG_LEVEL=0' \
   -DTF_LEAN_BINARY \
@@ -74,13 +70,10 @@ LOCAL_LDLIBS    := \
 	-lm \
 	-z defs \
 	-s \
-	'-Wl,--icf=all' \
 	-Wl,--exclude-libs,ALL \
 	-lz \
 	-static-libgcc \
 	-no-canonical-prefixes \
-	'-march=armv7-a' \
-	-Wl,--fix-cortex-a8 \
 	-Wl,-S \
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include \

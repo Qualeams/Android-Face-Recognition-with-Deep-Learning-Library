@@ -24,10 +24,12 @@ namespace {
 const ::google::protobuf::Descriptor* SaverDef_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SaverDef_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* SaverDef_CheckpointFormatVersion_descriptor_ = NULL;
 
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -35,69 +37,88 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
       "tensorflow/core/protobuf/saver.proto");
   GOOGLE_CHECK(file != NULL);
   SaverDef_descriptor_ = file->message_type(0);
-  static const int SaverDef_offsets_[6] = {
+  static const int SaverDef_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, filename_tensor_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, save_tensor_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, restore_op_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, max_to_keep_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, sharded_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, keep_checkpoint_every_n_hours_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, version_),
   };
   SaverDef_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       SaverDef_descriptor_,
-      SaverDef::default_instance_,
+      SaverDef::internal_default_instance(),
       SaverDef_offsets_,
       -1,
       -1,
       -1,
       sizeof(SaverDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SaverDef, _internal_metadata_));
+  SaverDef_CheckpointFormatVersion_descriptor_ = SaverDef_descriptor_->enum_type(0);
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      SaverDef_descriptor_, &SaverDef::default_instance());
+      SaverDef_descriptor_, SaverDef::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
-  delete SaverDef::default_instance_;
+  SaverDef_default_instance_.Shutdown();
   delete SaverDef_reflection_;
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+  ::google::protobuf::internal::GetEmptyString();
+  SaverDef_default_instance_.DefaultConstruct();
+  SaverDef_default_instance_.get_mutable()->InitAsDefaultInstance();
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n$tensorflow/core/protobuf/saver.proto\022\n"
-    "tensorflow\"\250\001\n\010SaverDef\022\034\n\024filename_tens"
+    "tensorflow\"\236\002\n\010SaverDef\022\034\n\024filename_tens"
     "or_name\030\001 \001(\t\022\030\n\020save_tensor_name\030\002 \001(\t\022"
     "\027\n\017restore_op_name\030\003 \001(\t\022\023\n\013max_to_keep\030"
     "\004 \001(\005\022\017\n\007sharded\030\005 \001(\010\022%\n\035keep_checkpoin"
-    "t_every_n_hours\030\006 \001(\002B\'\n\023org.tensorflow."
-    "utilB\013SaverProtosP\001\370\001\001b\006proto3", 270);
+    "t_every_n_hours\030\006 \001(\002\022=\n\007version\030\007 \001(\0162,"
+    ".tensorflow.SaverDef.CheckpointFormatVer"
+    "sion\"5\n\027CheckpointFormatVersion\022\n\n\006LEGAC"
+    "Y\020\000\022\006\n\002V1\020\001\022\006\n\002V2\020\002B\'\n\023org.tensorflow.ut"
+    "ilB\013SaverProtosP\001\370\001\001b\006proto3", 388);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/protobuf/saver.proto", &protobuf_RegisterTypes);
-  SaverDef::default_instance_ = new SaverDef();
-  SaverDef::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto() {
@@ -107,9 +128,9 @@ struct StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto 
 
 namespace {
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
 }
 
 }  // namespace
@@ -117,6 +138,29 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+const ::google::protobuf::EnumDescriptor* SaverDef_CheckpointFormatVersion_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SaverDef_CheckpointFormatVersion_descriptor_;
+}
+bool SaverDef_CheckpointFormatVersion_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const SaverDef_CheckpointFormatVersion SaverDef::LEGACY;
+const SaverDef_CheckpointFormatVersion SaverDef::V1;
+const SaverDef_CheckpointFormatVersion SaverDef::V2;
+const SaverDef_CheckpointFormatVersion SaverDef::CheckpointFormatVersion_MIN;
+const SaverDef_CheckpointFormatVersion SaverDef::CheckpointFormatVersion_MAX;
+const int SaverDef::CheckpointFormatVersion_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int SaverDef::kFilenameTensorNameFieldNumber;
 const int SaverDef::kSaveTensorNameFieldNumber;
@@ -124,44 +168,44 @@ const int SaverDef::kRestoreOpNameFieldNumber;
 const int SaverDef::kMaxToKeepFieldNumber;
 const int SaverDef::kShardedFieldNumber;
 const int SaverDef::kKeepCheckpointEveryNHoursFieldNumber;
+const int SaverDef::kVersionFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SaverDef::SaverDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.SaverDef)
 }
-
 SaverDef::SaverDef(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.SaverDef)
 }
 
 void SaverDef::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 SaverDef::SaverDef(const SaverDef& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.SaverDef)
 }
 
 void SaverDef::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
   filename_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   save_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   restore_op_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  max_to_keep_ = 0;
-  sharded_ = false;
-  keep_checkpoint_every_n_hours_ = 0;
+  ::memset(&max_to_keep_, 0, reinterpret_cast<char*>(&version_) -
+    reinterpret_cast<char*>(&max_to_keep_) + sizeof(version_));
+  _cached_size_ = 0;
 }
 
 SaverDef::~SaverDef() {
@@ -170,15 +214,14 @@ SaverDef::~SaverDef() {
 }
 
 void SaverDef::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  filename_tensor_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  save_tensor_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  restore_op_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (this != default_instance_) {
-  }
+  filename_tensor_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
+  save_tensor_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
+  restore_op_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
 }
 
 void SaverDef::ArenaDtor(void* object) {
@@ -198,11 +241,11 @@ const ::google::protobuf::Descriptor* SaverDef::descriptor() {
 }
 
 const SaverDef& SaverDef::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fsaver_2eproto();
+  return *internal_default_instance();
 }
 
-SaverDef* SaverDef::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<SaverDef> SaverDef_default_instance_;
 
 SaverDef* SaverDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<SaverDef>(arena);
@@ -222,11 +265,11 @@ void SaverDef::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(max_to_keep_, keep_checkpoint_every_n_hours_);
+  ZR_(max_to_keep_, version_);
   filename_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   save_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   restore_op_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
@@ -300,10 +343,10 @@ bool SaverDef::MergePartialFromCodedStream(
       case 4: {
         if (tag == 32) {
          parse_max_to_keep:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &max_to_keep_)));
-
         } else {
           goto handle_unusual;
         }
@@ -315,10 +358,10 @@ bool SaverDef::MergePartialFromCodedStream(
       case 5: {
         if (tag == 40) {
          parse_sharded:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &sharded_)));
-
         } else {
           goto handle_unusual;
         }
@@ -330,10 +373,26 @@ bool SaverDef::MergePartialFromCodedStream(
       case 6: {
         if (tag == 53) {
          parse_keep_checkpoint_every_n_hours:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &keep_checkpoint_every_n_hours_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_version;
+        break;
+      }
 
+      // optional .tensorflow.SaverDef.CheckpointFormatVersion version = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_version:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_version(static_cast< ::tensorflow::SaverDef_CheckpointFormatVersion >(value));
         } else {
           goto handle_unusual;
         }
@@ -410,11 +469,18 @@ void SaverDef::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->keep_checkpoint_every_n_hours(), output);
   }
 
+  // optional .tensorflow.SaverDef.CheckpointFormatVersion version = 7;
+  if (this->version() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->version(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.SaverDef)
 }
 
-::google::protobuf::uint8* SaverDef::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* SaverDef::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.SaverDef)
   // optional string filename_tensor_name = 1;
   if (this->filename_tensor_name().size() > 0) {
@@ -464,13 +530,19 @@ void SaverDef::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->keep_checkpoint_every_n_hours(), target);
   }
 
+  // optional .tensorflow.SaverDef.CheckpointFormatVersion version = 7;
+  if (this->version() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      7, this->version(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.SaverDef)
   return target;
 }
 
-int SaverDef::ByteSize() const {
+size_t SaverDef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.SaverDef)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional string filename_tensor_name = 1;
   if (this->filename_tensor_name().size() > 0) {
@@ -510,8 +582,15 @@ int SaverDef::ByteSize() const {
     total_size += 1 + 4;
   }
 
+  // optional .tensorflow.SaverDef.CheckpointFormatVersion version = 7;
+  if (this->version() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->version());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -519,7 +598,7 @@ int SaverDef::ByteSize() const {
 void SaverDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SaverDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const SaverDef* source = 
+  const SaverDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const SaverDef>(
           &from);
   if (source == NULL) {
@@ -527,13 +606,21 @@ void SaverDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SaverDef)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void SaverDef::MergeFrom(const SaverDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SaverDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void SaverDef::UnsafeMergeFrom(const SaverDef& from) {
+  GOOGLE_DCHECK(&from != this);
   if (from.filename_tensor_name().size() > 0) {
     set_filename_tensor_name(from.filename_tensor_name());
   }
@@ -552,6 +639,9 @@ void SaverDef::MergeFrom(const SaverDef& from) {
   if (from.keep_checkpoint_every_n_hours() != 0) {
     set_keep_checkpoint_every_n_hours(from.keep_checkpoint_every_n_hours());
   }
+  if (from.version() != 0) {
+    set_version(from.version());
+  }
 }
 
 void SaverDef::CopyFrom(const ::google::protobuf::Message& from) {
@@ -565,7 +655,7 @@ void SaverDef::CopyFrom(const SaverDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SaverDef)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool SaverDef::IsInitialized() const {
@@ -579,7 +669,7 @@ void SaverDef::Swap(SaverDef* other) {
     InternalSwap(other);
   } else {
     SaverDef temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -596,6 +686,7 @@ void SaverDef::InternalSwap(SaverDef* other) {
   std::swap(max_to_keep_, other->max_to_keep_);
   std::swap(sharded_, other->sharded_);
   std::swap(keep_checkpoint_every_n_hours_, other->keep_checkpoint_every_n_hours_);
+  std::swap(version_, other->version_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -615,46 +706,46 @@ void SaverDef::InternalSwap(SaverDef* other) {
 void SaverDef::clear_filename_tensor_name() {
   filename_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& SaverDef::filename_tensor_name() const {
+const ::std::string& SaverDef::filename_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.filename_tensor_name)
   return filename_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SaverDef::set_filename_tensor_name(const ::std::string& value) {
+void SaverDef::set_filename_tensor_name(const ::std::string& value) {
   
   filename_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.filename_tensor_name)
 }
- void SaverDef::set_filename_tensor_name(const char* value) {
+void SaverDef::set_filename_tensor_name(const char* value) {
   
   filename_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SaverDef.filename_tensor_name)
 }
- void SaverDef::set_filename_tensor_name(const char* value,
+void SaverDef::set_filename_tensor_name(const char* value,
     size_t size) {
   
   filename_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SaverDef.filename_tensor_name)
 }
- ::std::string* SaverDef::mutable_filename_tensor_name() {
+::std::string* SaverDef::mutable_filename_tensor_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SaverDef.filename_tensor_name)
   return filename_tensor_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::release_filename_tensor_name() {
+::std::string* SaverDef::release_filename_tensor_name() {
   // @@protoc_insertion_point(field_release:tensorflow.SaverDef.filename_tensor_name)
   
   return filename_tensor_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::unsafe_arena_release_filename_tensor_name() {
+::std::string* SaverDef::unsafe_arena_release_filename_tensor_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SaverDef.filename_tensor_name)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return filename_tensor_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void SaverDef::set_allocated_filename_tensor_name(::std::string* filename_tensor_name) {
+void SaverDef::set_allocated_filename_tensor_name(::std::string* filename_tensor_name) {
   if (filename_tensor_name != NULL) {
     
   } else {
@@ -664,7 +755,7 @@ void SaverDef::clear_filename_tensor_name() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SaverDef.filename_tensor_name)
 }
- void SaverDef::unsafe_arena_set_allocated_filename_tensor_name(
+void SaverDef::unsafe_arena_set_allocated_filename_tensor_name(
     ::std::string* filename_tensor_name) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (filename_tensor_name != NULL) {
@@ -681,46 +772,46 @@ void SaverDef::clear_filename_tensor_name() {
 void SaverDef::clear_save_tensor_name() {
   save_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& SaverDef::save_tensor_name() const {
+const ::std::string& SaverDef::save_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.save_tensor_name)
   return save_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SaverDef::set_save_tensor_name(const ::std::string& value) {
+void SaverDef::set_save_tensor_name(const ::std::string& value) {
   
   save_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.save_tensor_name)
 }
- void SaverDef::set_save_tensor_name(const char* value) {
+void SaverDef::set_save_tensor_name(const char* value) {
   
   save_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SaverDef.save_tensor_name)
 }
- void SaverDef::set_save_tensor_name(const char* value,
+void SaverDef::set_save_tensor_name(const char* value,
     size_t size) {
   
   save_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SaverDef.save_tensor_name)
 }
- ::std::string* SaverDef::mutable_save_tensor_name() {
+::std::string* SaverDef::mutable_save_tensor_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SaverDef.save_tensor_name)
   return save_tensor_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::release_save_tensor_name() {
+::std::string* SaverDef::release_save_tensor_name() {
   // @@protoc_insertion_point(field_release:tensorflow.SaverDef.save_tensor_name)
   
   return save_tensor_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::unsafe_arena_release_save_tensor_name() {
+::std::string* SaverDef::unsafe_arena_release_save_tensor_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SaverDef.save_tensor_name)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return save_tensor_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void SaverDef::set_allocated_save_tensor_name(::std::string* save_tensor_name) {
+void SaverDef::set_allocated_save_tensor_name(::std::string* save_tensor_name) {
   if (save_tensor_name != NULL) {
     
   } else {
@@ -730,7 +821,7 @@ void SaverDef::clear_save_tensor_name() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SaverDef.save_tensor_name)
 }
- void SaverDef::unsafe_arena_set_allocated_save_tensor_name(
+void SaverDef::unsafe_arena_set_allocated_save_tensor_name(
     ::std::string* save_tensor_name) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (save_tensor_name != NULL) {
@@ -747,46 +838,46 @@ void SaverDef::clear_save_tensor_name() {
 void SaverDef::clear_restore_op_name() {
   restore_op_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& SaverDef::restore_op_name() const {
+const ::std::string& SaverDef::restore_op_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.restore_op_name)
   return restore_op_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SaverDef::set_restore_op_name(const ::std::string& value) {
+void SaverDef::set_restore_op_name(const ::std::string& value) {
   
   restore_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.restore_op_name)
 }
- void SaverDef::set_restore_op_name(const char* value) {
+void SaverDef::set_restore_op_name(const char* value) {
   
   restore_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.SaverDef.restore_op_name)
 }
- void SaverDef::set_restore_op_name(const char* value,
+void SaverDef::set_restore_op_name(const char* value,
     size_t size) {
   
   restore_op_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.SaverDef.restore_op_name)
 }
- ::std::string* SaverDef::mutable_restore_op_name() {
+::std::string* SaverDef::mutable_restore_op_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.SaverDef.restore_op_name)
   return restore_op_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::release_restore_op_name() {
+::std::string* SaverDef::release_restore_op_name() {
   // @@protoc_insertion_point(field_release:tensorflow.SaverDef.restore_op_name)
   
   return restore_op_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* SaverDef::unsafe_arena_release_restore_op_name() {
+::std::string* SaverDef::unsafe_arena_release_restore_op_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SaverDef.restore_op_name)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return restore_op_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void SaverDef::set_allocated_restore_op_name(::std::string* restore_op_name) {
+void SaverDef::set_allocated_restore_op_name(::std::string* restore_op_name) {
   if (restore_op_name != NULL) {
     
   } else {
@@ -796,7 +887,7 @@ void SaverDef::clear_restore_op_name() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.SaverDef.restore_op_name)
 }
- void SaverDef::unsafe_arena_set_allocated_restore_op_name(
+void SaverDef::unsafe_arena_set_allocated_restore_op_name(
     ::std::string* restore_op_name) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (restore_op_name != NULL) {
@@ -813,11 +904,11 @@ void SaverDef::clear_restore_op_name() {
 void SaverDef::clear_max_to_keep() {
   max_to_keep_ = 0;
 }
- ::google::protobuf::int32 SaverDef::max_to_keep() const {
+::google::protobuf::int32 SaverDef::max_to_keep() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.max_to_keep)
   return max_to_keep_;
 }
- void SaverDef::set_max_to_keep(::google::protobuf::int32 value) {
+void SaverDef::set_max_to_keep(::google::protobuf::int32 value) {
   
   max_to_keep_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.max_to_keep)
@@ -827,11 +918,11 @@ void SaverDef::clear_max_to_keep() {
 void SaverDef::clear_sharded() {
   sharded_ = false;
 }
- bool SaverDef::sharded() const {
+bool SaverDef::sharded() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.sharded)
   return sharded_;
 }
- void SaverDef::set_sharded(bool value) {
+void SaverDef::set_sharded(bool value) {
   
   sharded_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.sharded)
@@ -841,16 +932,33 @@ void SaverDef::clear_sharded() {
 void SaverDef::clear_keep_checkpoint_every_n_hours() {
   keep_checkpoint_every_n_hours_ = 0;
 }
- float SaverDef::keep_checkpoint_every_n_hours() const {
+float SaverDef::keep_checkpoint_every_n_hours() const {
   // @@protoc_insertion_point(field_get:tensorflow.SaverDef.keep_checkpoint_every_n_hours)
   return keep_checkpoint_every_n_hours_;
 }
- void SaverDef::set_keep_checkpoint_every_n_hours(float value) {
+void SaverDef::set_keep_checkpoint_every_n_hours(float value) {
   
   keep_checkpoint_every_n_hours_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.SaverDef.keep_checkpoint_every_n_hours)
 }
 
+// optional .tensorflow.SaverDef.CheckpointFormatVersion version = 7;
+void SaverDef::clear_version() {
+  version_ = 0;
+}
+::tensorflow::SaverDef_CheckpointFormatVersion SaverDef::version() const {
+  // @@protoc_insertion_point(field_get:tensorflow.SaverDef.version)
+  return static_cast< ::tensorflow::SaverDef_CheckpointFormatVersion >(version_);
+}
+void SaverDef::set_version(::tensorflow::SaverDef_CheckpointFormatVersion value) {
+  
+  version_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.SaverDef.version)
+}
+
+inline const SaverDef* SaverDef::internal_default_instance() {
+  return &SaverDef_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

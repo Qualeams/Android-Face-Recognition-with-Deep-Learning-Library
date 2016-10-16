@@ -226,6 +226,8 @@ TEST_F(SessionDebugMinusAXTest, RunSimpleNetworkWithTwoDebugNodesInserted) {
   // Create debug tensor watch options with two debug ops:
   // DebugIdentity and DebugNanCount
   RunOptions run_opts;
+  run_opts.set_output_partition_graphs(true);
+
   const string debug_identity = "DebugIdentity";
   const string debug_nan_count = "DebugNanCount";
   DebugTensorWatch* tensor_watch_opts = run_opts.add_debug_tensor_watch_opts();
@@ -295,6 +297,14 @@ TEST_F(SessionDebugMinusAXTest, RunSimpleNetworkWithTwoDebugNodesInserted) {
   Status s = session->Run(run_opts, inputs, output_names, target_nodes,
                           &outputs, &run_metadata);
   TF_ASSERT_OK(s);
+
+// Verify the correct number of partition graphs (GraphDefs) outputted
+// through RunMetadata, given whether GPU is involved.
+#if GOOGLE_CUDA
+  ASSERT_EQ(2, run_metadata.partition_graphs().size());
+#else
+  ASSERT_EQ(1, run_metadata.partition_graphs().size());
+#endif
 
   // Wait for callbacks to complete.
   callbacks_done.WaitForNotification();
@@ -386,6 +396,7 @@ TEST_F(SessionDebugMinusAXTest,
     // Create unique debug tensor watch options for each of the two concurrent
     // run calls.
     RunOptions run_opts;
+    run_opts.set_output_partition_graphs(true);
     DebugTensorWatch* tensor_watch_opts =
         run_opts.add_debug_tensor_watch_opts();
 
@@ -399,8 +410,13 @@ TEST_F(SessionDebugMinusAXTest,
     std::vector<Tensor> outputs;
     Status s = session->Run(run_opts, inputs, output_names, target_nodes,
                             &outputs, &run_metadata);
-
     TF_ASSERT_OK(s);
+
+#if GOOGLE_CUDA
+    ASSERT_EQ(2, run_metadata.partition_graphs().size());
+#else
+    ASSERT_EQ(1, run_metadata.partition_graphs().size());
+#endif
 
     ASSERT_EQ(1, outputs.size());
     ASSERT_TRUE(outputs[0].IsInitialized());
@@ -434,7 +450,7 @@ TEST_F(SessionDebugMinusAXTest,
   }
 }
 
-class SessionDebugGPUVariableTest : public ::testing::Test {
+class SessionDebugVariableTest : public ::testing::Test {
  public:
   void Initialize() {
     Graph graph(OpRegistry::Global());
@@ -493,7 +509,84 @@ class SessionDebugGPUVariableTest : public ::testing::Test {
   GraphDef def_;
 };
 
-TEST_F(SessionDebugGPUVariableTest, VariableAssignWithDebugOps) {
+TEST_F(SessionDebugVariableTest, WatchUninitializedVariableWithDebugOps) {
+  Initialize();
+  std::unique_ptr<DirectSession> session(CreateSession());
+  ASSERT_TRUE(session != nullptr);
+
+  DebugGateway debug_gateway(session.get());
+
+  TF_ASSERT_OK(session->Create(def_));
+
+  // Set up DebugTensorWatch for an uninitialized tensor (in node var).
+  RunOptions run_opts;
+  const string debug_identity = "DebugIdentity";
+  DebugTensorWatch* tensor_watch_opts = run_opts.add_debug_tensor_watch_opts();
+  tensor_watch_opts->set_node_name(var_node_name_);
+  tensor_watch_opts->set_output_slot(0);
+  tensor_watch_opts->add_debug_ops(debug_identity);
+
+  // Expected name of the inserted debug node
+  string debug_identity_node_name = DebugNodeInserter::GetDebugNodeName(
+      strings::StrCat(var_node_name_, ":", 0), 0, debug_identity);
+
+  // Supply completion and value callbacks
+  mutex mu;
+  // Completed nodes with and without outputs
+  std::vector<string> completed_debug_nodes;
+
+  Notification callbacks_done;
+  debug_gateway.SetNodeCompletionCallback(
+      [this, &mu, &debug_identity_node_name, &completed_debug_nodes,
+       &callbacks_done](const string& node_name, const bool any_output) {
+        mutex_lock l(mu);
+        if (any_output && (node_name == debug_identity_node_name)) {
+          completed_debug_nodes.push_back(node_name);
+        }
+      });
+
+  std::vector<Tensor> debug_identity_tensor_vals;
+
+  debug_gateway.SetNodeValueCallback(
+      [this, &mu, &debug_identity_node_name, &debug_identity_tensor_vals,
+       &callbacks_done](const string& node_name, const int output_slot,
+                        const Tensor& tensor_value, const bool is_ref) {
+        mutex_lock l(mu);
+        if (node_name == debug_identity_node_name && output_slot == 0) {
+          // output_slot == 0 carries the debug signal. Same below.
+          debug_identity_tensor_vals.push_back(tensor_value);
+        }
+
+        // Set the notification once we have the value from the target node.
+        if (node_name == init_node_name_ && !callbacks_done.HasBeenNotified()) {
+          callbacks_done.Notify();
+        }
+      });
+
+  // First run the initialization op
+  std::vector<std::pair<string, Tensor>> inputs_init;
+  std::vector<Tensor> outputs_init;
+
+  RunMetadata run_metadata;
+  Status s = session->Run(run_opts, inputs_init, {init_node_name_}, {},
+                          &outputs_init, &run_metadata);
+  TF_ASSERT_OK(s);
+
+  callbacks_done.WaitForNotification();
+
+  ASSERT_EQ(1, completed_debug_nodes.size());
+  ASSERT_EQ(
+      1, std::count(completed_debug_nodes.begin(), completed_debug_nodes.end(),
+                    debug_identity_node_name));
+
+  // Assert the output reflects the uninitialized nature of var's tensor.
+  ASSERT_EQ(1, debug_identity_tensor_vals.size());
+  ASSERT_FALSE(debug_identity_tensor_vals[0].IsInitialized());
+  ASSERT_EQ(DT_FLOAT, debug_identity_tensor_vals[0].dtype());
+  ASSERT_EQ(TensorShape({3}), debug_identity_tensor_vals[0].shape());
+}
+
+TEST_F(SessionDebugVariableTest, VariableAssignWithDebugOps) {
   // Tensor contains one count of NaN
   Initialize();
   std::unique_ptr<DirectSession> session(CreateSession());
@@ -512,6 +605,7 @@ TEST_F(SessionDebugGPUVariableTest, VariableAssignWithDebugOps) {
   // Create debug tensor watch options with two ref-type debug ops:
   // DebugIdentity and DebugNanCount
   RunOptions run_opts;
+  run_opts.set_output_partition_graphs(true);
   const string debug_identity = "DebugIdentity";
   const string debug_nan_count = "DebugNanCount";
   DebugTensorWatch* tensor_watch_opts = run_opts.add_debug_tensor_watch_opts();
@@ -577,6 +671,12 @@ TEST_F(SessionDebugGPUVariableTest, VariableAssignWithDebugOps) {
   s = session->Run(run_opts, inputs, output_names, target_nodes, &outputs,
                    &run_metadata);
   TF_ASSERT_OK(s);
+
+#if GOOGLE_CUDA
+  ASSERT_EQ(2, run_metadata.partition_graphs().size());
+#else
+  ASSERT_EQ(1, run_metadata.partition_graphs().size());
+#endif
 
   // Wait for callbacks to complete.
   callbacks_done.WaitForNotification();
@@ -660,9 +760,10 @@ TEST_F(SessionDebugGPUSwitchTest, RunSwitchWithHostMemoryDebugOp) {
   DebugGateway debug_gateway(session.get());
 
   RunOptions run_opts;
+  run_opts.set_output_partition_graphs(true);
   // This is the name of the boolean tensor fed as pred to the Switch node.
   // On GPU, this edge is HOST_MEMORY.
-  const string watched_tensor = strings::StrCat(pred_node_name_, "/_2");
+  const string watched_tensor = strings::StrCat(pred_node_name_, "/_1");
 
   const string debug_identity = "DebugIdentity";
   DebugTensorWatch* tensor_watch_opts = run_opts.add_debug_tensor_watch_opts();
@@ -722,6 +823,8 @@ TEST_F(SessionDebugGPUSwitchTest, RunSwitchWithHostMemoryDebugOp) {
   Status s = session->Run(run_opts, inputs, output_names, target_nodes,
                           &outputs, &run_metadata);
   TF_ASSERT_OK(s);
+
+  ASSERT_EQ(2, run_metadata.partition_graphs().size());
 
   // Wait for callbacks to complete.
   callbacks_done.WaitForNotification();

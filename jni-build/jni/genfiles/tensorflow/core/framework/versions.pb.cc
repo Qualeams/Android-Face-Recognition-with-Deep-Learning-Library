@@ -28,6 +28,7 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -43,43 +44,53 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
   VersionDef_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       VersionDef_descriptor_,
-      VersionDef::default_instance_,
+      VersionDef::internal_default_instance(),
       VersionDef_offsets_,
       -1,
       -1,
       -1,
       sizeof(VersionDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionDef, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionDef, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionDef, _internal_metadata_));
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fversions_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VersionDef_descriptor_, &VersionDef::default_instance());
+      VersionDef_descriptor_, VersionDef::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fversions_2eproto() {
-  delete VersionDef::default_instance_;
+  VersionDef_default_instance_.Shutdown();
   delete VersionDef_reflection_;
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+  VersionDef_default_instance_.DefaultConstruct();
+  VersionDef_default_instance_.get_mutable()->InitAsDefaultInstance();
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n(tensorflow/core/framework/versions.pro"
     "to\022\ntensorflow\"K\n\nVersionDef\022\020\n\010producer"
@@ -88,11 +99,14 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
     "\016VersionsProtosP\001\370\001\001b\006proto3", 188);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/versions.proto", &protobuf_RegisterTypes);
-  VersionDef::default_instance_ = new VersionDef();
-  VersionDef::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fversions_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fversions_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fversions_2eproto() {
@@ -102,9 +116,9 @@ struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fversions_2epr
 
 namespace {
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
 }
 
 }  // namespace
@@ -120,36 +134,37 @@ const int VersionDef::kBadConsumersFieldNumber;
 
 VersionDef::VersionDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.VersionDef)
 }
-
 VersionDef::VersionDef(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
   bad_consumers_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.VersionDef)
 }
 
 void VersionDef::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 VersionDef::VersionDef(const VersionDef& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.VersionDef)
 }
 
 void VersionDef::SharedCtor() {
-    _is_default_instance_ = false;
+  ::memset(&producer_, 0, reinterpret_cast<char*>(&min_consumer_) -
+    reinterpret_cast<char*>(&producer_) + sizeof(min_consumer_));
   _cached_size_ = 0;
-  producer_ = 0;
-  min_consumer_ = 0;
 }
 
 VersionDef::~VersionDef() {
@@ -158,12 +173,11 @@ VersionDef::~VersionDef() {
 }
 
 void VersionDef::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
-  }
 }
 
 void VersionDef::ArenaDtor(void* object) {
@@ -183,11 +197,11 @@ const ::google::protobuf::Descriptor* VersionDef::descriptor() {
 }
 
 const VersionDef& VersionDef::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto();
+  return *internal_default_instance();
 }
 
-VersionDef* VersionDef::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<VersionDef> VersionDef_default_instance_;
 
 VersionDef* VersionDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<VersionDef>(arena);
@@ -207,7 +221,7 @@ void VersionDef::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
@@ -232,10 +246,10 @@ bool VersionDef::MergePartialFromCodedStream(
       // optional int32 producer = 1;
       case 1: {
         if (tag == 8) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &producer_)));
-
         } else {
           goto handle_unusual;
         }
@@ -247,10 +261,10 @@ bool VersionDef::MergePartialFromCodedStream(
       case 2: {
         if (tag == 16) {
          parse_min_consumer:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &min_consumer_)));
-
         } else {
           goto handle_unusual;
         }
@@ -323,8 +337,9 @@ void VersionDef::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.VersionDef)
 }
 
-::google::protobuf::uint8* VersionDef::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* VersionDef::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.VersionDef)
   // optional int32 producer = 1;
   if (this->producer() != 0) {
@@ -354,9 +369,9 @@ void VersionDef::SerializeWithCachedSizes(
   return target;
 }
 
-int VersionDef::ByteSize() const {
+size_t VersionDef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.VersionDef)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional int32 producer = 1;
   if (this->producer() != 0) {
@@ -374,8 +389,9 @@ int VersionDef::ByteSize() const {
 
   // repeated int32 bad_consumers = 3;
   {
-    int data_size = 0;
-    for (int i = 0; i < this->bad_consumers_size(); i++) {
+    size_t data_size = 0;
+    unsigned int count = this->bad_consumers_size();
+    for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
         Int32Size(this->bad_consumers(i));
     }
@@ -383,14 +399,16 @@ int VersionDef::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _bad_consumers_cached_byte_size_ = data_size;
+    _bad_consumers_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -398,7 +416,7 @@ int VersionDef::ByteSize() const {
 void VersionDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.VersionDef)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const VersionDef* source = 
+  const VersionDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const VersionDef>(
           &from);
   if (source == NULL) {
@@ -406,14 +424,22 @@ void VersionDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.VersionDef)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void VersionDef::MergeFrom(const VersionDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.VersionDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  bad_consumers_.MergeFrom(from.bad_consumers_);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void VersionDef::UnsafeMergeFrom(const VersionDef& from) {
+  GOOGLE_DCHECK(&from != this);
+  bad_consumers_.UnsafeMergeFrom(from.bad_consumers_);
   if (from.producer() != 0) {
     set_producer(from.producer());
   }
@@ -433,7 +459,7 @@ void VersionDef::CopyFrom(const VersionDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.VersionDef)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool VersionDef::IsInitialized() const {
@@ -447,7 +473,7 @@ void VersionDef::Swap(VersionDef* other) {
     InternalSwap(other);
   } else {
     VersionDef temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -480,11 +506,11 @@ void VersionDef::InternalSwap(VersionDef* other) {
 void VersionDef::clear_producer() {
   producer_ = 0;
 }
- ::google::protobuf::int32 VersionDef::producer() const {
+::google::protobuf::int32 VersionDef::producer() const {
   // @@protoc_insertion_point(field_get:tensorflow.VersionDef.producer)
   return producer_;
 }
- void VersionDef::set_producer(::google::protobuf::int32 value) {
+void VersionDef::set_producer(::google::protobuf::int32 value) {
   
   producer_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.VersionDef.producer)
@@ -494,11 +520,11 @@ void VersionDef::clear_producer() {
 void VersionDef::clear_min_consumer() {
   min_consumer_ = 0;
 }
- ::google::protobuf::int32 VersionDef::min_consumer() const {
+::google::protobuf::int32 VersionDef::min_consumer() const {
   // @@protoc_insertion_point(field_get:tensorflow.VersionDef.min_consumer)
   return min_consumer_;
 }
- void VersionDef::set_min_consumer(::google::protobuf::int32 value) {
+void VersionDef::set_min_consumer(::google::protobuf::int32 value) {
   
   min_consumer_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.VersionDef.min_consumer)
@@ -511,29 +537,32 @@ int VersionDef::bad_consumers_size() const {
 void VersionDef::clear_bad_consumers() {
   bad_consumers_.Clear();
 }
- ::google::protobuf::int32 VersionDef::bad_consumers(int index) const {
+::google::protobuf::int32 VersionDef::bad_consumers(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.VersionDef.bad_consumers)
   return bad_consumers_.Get(index);
 }
- void VersionDef::set_bad_consumers(int index, ::google::protobuf::int32 value) {
+void VersionDef::set_bad_consumers(int index, ::google::protobuf::int32 value) {
   bad_consumers_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.VersionDef.bad_consumers)
 }
- void VersionDef::add_bad_consumers(::google::protobuf::int32 value) {
+void VersionDef::add_bad_consumers(::google::protobuf::int32 value) {
   bad_consumers_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.VersionDef.bad_consumers)
 }
- const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 VersionDef::bad_consumers() const {
   // @@protoc_insertion_point(field_list:tensorflow.VersionDef.bad_consumers)
   return bad_consumers_;
 }
- ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 VersionDef::mutable_bad_consumers() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.VersionDef.bad_consumers)
   return &bad_consumers_;
 }
 
+inline const VersionDef* VersionDef::internal_default_instance() {
+  return &VersionDef_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

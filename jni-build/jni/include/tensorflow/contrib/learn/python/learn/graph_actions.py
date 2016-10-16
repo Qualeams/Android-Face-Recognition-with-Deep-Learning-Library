@@ -31,8 +31,6 @@ from six import reraise
 from tensorflow.contrib.framework.python.ops import ops as contrib_ops
 from tensorflow.contrib.framework.python.ops import variables as contrib_variables
 from tensorflow.contrib.learn.python.learn import monitors as monitors_lib
-from tensorflow.contrib.learn.python.learn import summary_writer_cache
-from tensorflow.contrib.learn.python.learn import supervised_session
 from tensorflow.contrib.learn.python.learn.utils import checkpoints
 from tensorflow.core.framework import summary_pb2
 from tensorflow.python.client import session as tf_session
@@ -42,12 +40,14 @@ from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import data_flow_ops
 from tensorflow.python.ops import logging_ops
 from tensorflow.python.ops import variables
-from tensorflow.python.platform import gfile
 from tensorflow.python.platform import tf_logging as logging
+from tensorflow.python.training import basic_session_run_hooks
 from tensorflow.python.training import coordinator
+from tensorflow.python.training import monitored_session
 from tensorflow.python.training import queue_runner
 from tensorflow.python.training import saver as tf_saver
 from tensorflow.python.training import session_manager as session_manager_lib
+from tensorflow.python.training import summary_io
 from tensorflow.python.training import supervisor as tf_supervisor
 
 # Singleton for SummaryWriter per logdir folder.
@@ -59,7 +59,7 @@ _summary_writer_lock = threading.Lock()
 
 def clear_summary_writers():
   """Clear cached summary writers. Currently only used for unit tests."""
-  return summary_writer_cache.SummaryWriterCache.clear()
+  return summary_io.SummaryWriterCache.clear()
 
 
 def get_summary_writer(logdir):
@@ -72,13 +72,7 @@ def get_summary_writer(logdir):
     Existing `SummaryWriter` object or new one if never wrote to given
     directory.
   """
-  return summary_writer_cache.SummaryWriterCache.get(logdir)
-
-
-class NanLossDuringTrainingError(RuntimeError):
-
-  def __str__(self):
-    return 'NaN loss during training.'
+  return summary_io.SummaryWriterCache.get(logdir)
 
 
 def _make_saver(graph, keep_checkpoint_max=5):
@@ -93,7 +87,6 @@ def _make_saver(graph, keep_checkpoint_max=5):
 
 def _restore_from_checkpoint(session, graph, checkpoint_path, saver=None):
   logging.info('Loading model from checkpoint: %s.', checkpoint_path)
-  assert gfile.Glob(checkpoint_path)
   saver = saver or _make_saver(graph)
   if saver:
     saver.restore(session, checkpoint_path)
@@ -119,26 +112,27 @@ def _run_with_monitors(session, step, tensors, feed_dict, monitors):
   return outputs, should_stop
 
 
-def _supervised_train(graph,
-                      output_dir,
-                      train_op,
-                      loss_op,
-                      global_step_tensor=None,
-                      init_op=None,
-                      init_feed_dict=None,
-                      init_fn=None,
-                      log_every_steps=10,
-                      supervisor_is_chief=True,
-                      supervisor_master='',
-                      supervisor_save_model_secs=600,
-                      keep_checkpoint_max=5,
-                      supervisor_save_summaries_steps=100,
-                      feed_fn=None,
-                      steps=None,
-                      fail_on_nan_loss=True,
-                      monitors=None,
-                      max_steps=None):
-  """Train a model via supervised_session.
+def _monitored_train(graph,
+                     output_dir,
+                     train_op,
+                     loss_op,
+                     global_step_tensor=None,
+                     init_op=None,
+                     init_feed_dict=None,
+                     init_fn=None,
+                     log_every_steps=10,
+                     supervisor_is_chief=True,
+                     supervisor_master='',
+                     supervisor_save_model_secs=600,
+                     supervisor_save_model_steps=None,
+                     keep_checkpoint_max=5,
+                     supervisor_save_summaries_steps=100,
+                     feed_fn=None,
+                     steps=None,
+                     fail_on_nan_loss=True,
+                     hooks=None,
+                     max_steps=None):
+  """Train a model via monitored_session.
 
   Given `graph`, a directory to write outputs to (`output_dir`), and some ops,
   run a training loop. The given `train_op` performs one step of training on the
@@ -167,16 +161,18 @@ def _supervised_train(graph,
       This feed dictionary will be used when `init_op` is evaluated.
     init_fn: Optional callable passed to Supervisor to initialize the model.
     log_every_steps: Output logs regularly. The logs contain timing data and the
-      current loss.
+      current loss. A `0` or negative value disables logging.
     supervisor_is_chief: Whether the current process is the chief supervisor in
       charge of restoring the model and running standard services.
-    supervisor_master: The master string to use when preparing the session.
-    supervisor_save_model_secs: Save model every
-      `supervisor_save_model_secs` seconds when training.
+    supervisor_master: The master string to use when preparing the session.      
+    supervisor_save_model_secs: Save checkpoints every this many seconds. Can
+        not be specified with `supervisor_save_model_steps`.
+    supervisor_save_model_steps: Save checkpoints every this many steps. Can not
+        be specified with `supervisor_save_model_secs`.
     keep_checkpoint_max: The maximum number of recent checkpoint files to
       keep. As new files are created, older files are deleted. If None or 0,
       all checkpoint files are kept. This is simply passed as the max_to_keep
-      arg to tf.Saver constructor.
+      arg to `tf.Saver` constructor.
     supervisor_save_summaries_steps: Save summaries every
       `supervisor_save_summaries_steps` seconds when training.
     feed_fn: A function that is called every iteration to produce a `feed_dict`
@@ -184,7 +180,7 @@ def _supervised_train(graph,
     steps: Trains for this many steps (e.g. current global step + `steps`).
     fail_on_nan_loss: If true, raise `NanLossDuringTrainingError` if `loss_op`
       evaluates to `NaN`. If false, continue training as if nothing happened.
-    monitors: List of `BaseMonitor` subclass instances. Used for callbacks
+    hooks: List of `SessionRunHook` subclass instances. Used for callbacks
       inside the training loop.
     max_steps: Number of total steps for which to train model. If `None`,
       train forever. Two calls fit(steps=100) means 200 training iterations.
@@ -210,10 +206,10 @@ def _supervised_train(graph,
     raise ValueError('Missing train_op.')
   if loss_op is None:
     raise ValueError('Missing loss_op.')
-  if monitors is None:
-    monitors = []
-  if not isinstance(monitors, list):
-    raise ValueError('Monitors should be a list.')
+  if hooks is None:
+    hooks = []
+  if not isinstance(hooks, list):
+    raise ValueError('Hooks should be a list.')
   with graph.as_default():
     global_step_tensor = contrib_variables.assert_or_get_global_step(
         graph, global_step_tensor)
@@ -230,51 +226,66 @@ def _supervised_train(graph,
     except:  # pylint: disable=bare-except
       pass
 
+  # Adapted SessionRunHooks such as ExportMonitor depend on the
+  # CheckpointSaverHook to be executed before they should be executed.
+  # The `hooks` param comprises of deprecated monitor hooks
+  # (such as ExportMonitor). Appending them after the basic_session_run_hooks.
+  all_hooks = []
   with graph.as_default():
-    # See question about adding the summary writer to the scaffold.
-    if supervisor_is_chief:
-      summary_writer = summary_writer_cache.SummaryWriterCache.get(output_dir)
-      monitors.extend([
-          monitors_lib.StepCounter(summary_writer=summary_writer),
-          monitors_lib.NanLoss(loss_op,
-                               fail_on_nan_loss=fail_on_nan_loss),
-          monitors_lib.PrintTensor({'loss': loss_op.name},
-                                   every_n=log_every_steps),
-      ])
+    all_hooks.append(basic_session_run_hooks.NanTensorHook(
+        loss_op, fail_on_nan_loss=fail_on_nan_loss))
+    if log_every_steps > 0:
+      all_hooks.append(basic_session_run_hooks.LoggingTensorHook({
+          'loss': loss_op.name,
+          'step': global_step_tensor.name
+      }, every_n_iter=log_every_steps))
 
-    # Finalize graph and add savers
-    # TODO(ispir): remove keep_checkpoint_max from Scaffold interface
-    scaffold = supervised_session.Scaffold(
-        global_step_tensor=global_step_tensor,
+    def make_saver():
+      return tf_saver.Saver(
+          sharded=True, max_to_keep=keep_checkpoint_max, defer_build=True)
+
+    scaffold = monitored_session.Scaffold(
         init_op=init_op,
         init_feed_dict=init_feed_dict,
         init_fn=init_fn,
-        keep_checkpoint_max=keep_checkpoint_max)
-    if supervisor_is_chief:
-      monitors.append(
-          monitors_lib.SummarySaver(
-              summary_op=None,
+        saver=monitored_session.Scaffold.get_or_default('saver',
+                                                        ops.GraphKeys.SAVERS,
+                                                        make_saver))
+
+    if not supervisor_is_chief:
+      session_creator = monitored_session.WorkerSessionCreator(
+          scaffold=scaffold,
+          master=supervisor_master)
+    else:
+      session_creator = monitored_session.ChiefSessionCreator(
+          scaffold=scaffold,
+          checkpoint_dir=output_dir,
+          master=supervisor_master)
+      summary_writer = summary_io.SummaryWriterCache.get(output_dir)
+      all_hooks.append(
+          basic_session_run_hooks.StepCounterHook(
+              summary_writer=summary_writer))
+      all_hooks.append(
+          basic_session_run_hooks.SummarySaverHook(
               save_steps=supervisor_save_summaries_steps,
               summary_writer=summary_writer,
               scaffold=scaffold))
-      if supervisor_save_model_secs > 0:
-        monitors.append(
-            monitors_lib.CheckpointSaver(
+      if (supervisor_save_model_secs is not None
+          or supervisor_save_model_steps is not None):
+        all_hooks.append(
+            basic_session_run_hooks.CheckpointSaverHook(
                 output_dir,
                 save_secs=supervisor_save_model_secs,
+                save_steps=supervisor_save_model_steps,
                 scaffold=scaffold))
 
     if steps is not None or max_steps is not None:
-      monitors.append(monitors_lib.StopAtStep(steps, max_steps))
-    if not supervisor_is_chief:
-      # Prune list of monitor to the ones runnable on all workers.
-      monitors = [monitor for monitor in monitors if monitor.run_on_all_workers]
+      all_hooks.append(basic_session_run_hooks.StopAtStepHook(steps, max_steps))
+    all_hooks.extend(hooks)
 
-    with supervised_session.SupervisedSession(supervisor_master,
-                                              is_chief=supervisor_is_chief,
-                                              checkpoint_dir=output_dir,
-                                              monitors=monitors,
-                                              scaffold=scaffold) as super_sess:
+    with monitored_session.MonitoredSession(
+        session_creator=session_creator,
+        hooks=all_hooks) as super_sess:
       loss = None
       while not super_sess.should_stop():
         _, loss = super_sess.run([train_op, loss_op], feed_fn() if feed_fn else
@@ -498,7 +509,7 @@ def _train_internal(graph,
           failure_message = 'Model diverged with loss = NaN.'
           if fail_on_nan_loss:
             logging.error(failure_message)
-            raise NanLossDuringTrainingError()
+            raise monitors_lib.NanLossDuringTrainingError()
           else:
             logging.warning(failure_message)
 
@@ -622,6 +633,9 @@ def _write_summary_results(output_dir, eval_results, current_global_step):
     if (isinstance(eval_results[key], np.float32) or
         isinstance(eval_results[key], float)):
       value.simple_value = float(eval_results[key])
+    else:
+      logging.warn('Skipping summary for %s, must be a float or np.float32.',
+                   key)
   summary_writer.add_summary(summary, current_global_step)
   summary_writer.flush()
 
@@ -659,7 +673,7 @@ def evaluate(graph,
       evaluated in every logging step. The result of the final evaluation is
       returned. If `update_op` is None, then it's evaluated in every step. If
       `max_steps` is `None`, this should depend on a reader that will raise an
-      end-of-inupt exception when the inputs are exhausted.
+      end-of-input exception when the inputs are exhausted.
     update_op: A `Tensor` which is run in every step.
     global_step_tensor: A `Variable` containing the global step. If `None`,
       one is extracted from the graph using the same logic as in `Supervisor`.

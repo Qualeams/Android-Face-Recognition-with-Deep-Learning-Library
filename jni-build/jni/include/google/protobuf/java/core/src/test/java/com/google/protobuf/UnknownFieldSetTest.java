@@ -38,11 +38,9 @@ import protobuf_unittest.UnittestProto.TestEmptyMessage;
 import protobuf_unittest.UnittestProto.TestEmptyMessageWithExtensions;
 import protobuf_unittest.UnittestProto.TestPackedExtensions;
 import protobuf_unittest.UnittestProto.TestPackedTypes;
-
-import junit.framework.TestCase;
-
 import java.util.Arrays;
 import java.util.Map;
+import junit.framework.TestCase;
 
 /**
  * Tests related to unknown field handling.
@@ -50,6 +48,7 @@ import java.util.Map;
  * @author kenton@google.com (Kenton Varda)
  */
 public class UnknownFieldSetTest extends TestCase {
+  @Override
   public void setUp() throws Exception {
     descriptor = TestAllTypes.getDescriptor();
     allFields = TestUtil.getAllSet();

@@ -69,7 +69,7 @@ and
 models.
 * [preprocess](https://www.tensorflow.org/code/tensorflow/contrib/slim/python/slim/preprocess.py):
 is a module with various preprocessing utilities.
-* [queues](https://www.tensorflow.org/code/tensorflow/contrib/slim/queues.py):
+* [queues](https://www.tensorflow.org/code/tensorflow/contrib/slim/python/slim/queues.py):
 provides a context manager for easily and safely starting and closing
 QueueRunners.
 * [regularizers](https://www.tensorflow.org/code/tensorflow/contrib/layers/python/layers/regularizers.py):
@@ -258,7 +258,7 @@ number. More concretely, the scopes in the example above would be named
 
 Furthermore, TF-Slim's `slim.stack` operator allows a caller to repeatedly apply
 the same operation with different arguments to create a *stack* or tower of
-layers. `slim.stack` also creates a new `tf.variable_op_scope` for each
+layers. `slim.stack` also creates a new `tf.variable_scope` for each
 operation created. For example, a simple way to create a Multi-Layer Perceptron
 (MLP):
 
@@ -292,9 +292,7 @@ slim.stack(x, slim.conv2d, [(32, [3, 3]), (32, [1, 1]), (64, [3, 3]), (64, [1, 1
 
 In addition to the types of scope mechanisms in TensorFlow
 ([name_scope](https://www.tensorflow.org/api_docs/python/framework.html#name_scope),
-[op_scope](https://www.tensorflow.org/api_docs/python/framework.html#op_scope),
 [variable_scope](https://www.tensorflow.org/api_docs/python/state_layers.html#variable_scope),
-[variable_op_scope](https://www.tensorflow.org/api_docs/python/state_layers.html#variable_op_scope)),
 TF-Slim adds a new scoping mechanism called
 [arg_scope](https://www.tensorflow.org/code/tensorflow/contrib/framework/python/ops/arg_scope.py).
 This new scope allows a user to specify one or more operations and a set of
@@ -505,7 +503,7 @@ pose_loss = MyCustomLossFunction(pose_predictions, pose_labels)
 slim.losses.add_loss(pose_loss) # Letting TF-Slim know about the additional loss.
 
 # The following two ways to compute the total loss are equivalent:
-regularization_loss = tf.add_n(slim.get_regularization_losses())
+regularization_loss = tf.add_n(slim.losses.get_regularization_losses())
 total_loss1 = classification_loss + sum_of_squares_loss + pose_loss + regularization_loss
 
 # (Regularization Loss is included in the total loss by default).
@@ -724,14 +722,14 @@ predictions = vgg.vgg_16(images)
 train_op = slim.learning.create_train_op(...)
 
 # Specify where the Model, trained on ImageNet, was saved.
-model_path = '/cns/.../pre_trained_on_imagenet.checkpoint'
+model_path = '/path/to/pre_trained_on_imagenet.checkpoint'
 
 # Specify where the new model will live:
-log_dir = '/cns/.../my_pascal_model_dir/'
+log_dir = '/path/to/my_pascal_model_dir/'
 
 # Restore only the convolutional layers:
 variables_to_restore = slim.get_variables_to_restore(exclude=['fc6', 'fc7', 'fc8'])
-init_fn = assign_from_checkpoint_fn(model_path, var_list):
+init_fn = assign_from_checkpoint_fn(model_path, variables_to_restore)
 
 # Start training.
 slim.learning.train(train_op, log_dir, init_fn=init_fn)

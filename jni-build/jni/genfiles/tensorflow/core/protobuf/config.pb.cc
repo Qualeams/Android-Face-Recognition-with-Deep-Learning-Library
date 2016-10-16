@@ -52,6 +52,7 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -59,23 +60,23 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
       "tensorflow/core/protobuf/config.proto");
   GOOGLE_CHECK(file != NULL);
   GPUOptions_descriptor_ = file->message_type(0);
-  static const int GPUOptions_offsets_[4] = {
+  static const int GPUOptions_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, per_process_gpu_memory_fraction_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, allocator_type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, deferred_deletion_bytes_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, allow_growth_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, visible_device_list_),
   };
   GPUOptions_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       GPUOptions_descriptor_,
-      GPUOptions::default_instance_,
+      GPUOptions::internal_default_instance(),
       GPUOptions_offsets_,
       -1,
       -1,
       -1,
       sizeof(GPUOptions),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUOptions, _internal_metadata_));
   OptimizerOptions_descriptor_ = file->message_type(1);
   static const int OptimizerOptions_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OptimizerOptions, do_common_subexpression_elimination_),
@@ -86,34 +87,34 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
   OptimizerOptions_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       OptimizerOptions_descriptor_,
-      OptimizerOptions::default_instance_,
+      OptimizerOptions::internal_default_instance(),
       OptimizerOptions_offsets_,
       -1,
       -1,
       -1,
       sizeof(OptimizerOptions),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OptimizerOptions, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OptimizerOptions, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OptimizerOptions, _internal_metadata_));
   OptimizerOptions_Level_descriptor_ = OptimizerOptions_descriptor_->enum_type(0);
   GraphOptions_descriptor_ = file->message_type(2);
-  static const int GraphOptions_offsets_[5] = {
+  static const int GraphOptions_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, enable_recv_scheduling_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, optimizer_options_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, build_cost_model_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, infer_shapes_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, place_pruned_graph_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, enable_bfloat16_sendrecv_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, timeline_step_),
   };
   GraphOptions_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       GraphOptions_descriptor_,
-      GraphOptions::default_instance_,
+      GraphOptions::internal_default_instance(),
       GraphOptions_offsets_,
       -1,
       -1,
       -1,
       sizeof(GraphOptions),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphOptions, _internal_metadata_));
   ThreadPoolOptionProto_descriptor_ = file->message_type(3);
   static const int ThreadPoolOptionProto_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ThreadPoolOptionProto, num_threads_),
@@ -121,14 +122,13 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
   ThreadPoolOptionProto_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       ThreadPoolOptionProto_descriptor_,
-      ThreadPoolOptionProto::default_instance_,
+      ThreadPoolOptionProto::internal_default_instance(),
       ThreadPoolOptionProto_offsets_,
       -1,
       -1,
       -1,
       sizeof(ThreadPoolOptionProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ThreadPoolOptionProto, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ThreadPoolOptionProto, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ThreadPoolOptionProto, _internal_metadata_));
   ConfigProto_descriptor_ = file->message_type(4);
   static const int ConfigProto_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigProto, device_count_),
@@ -147,14 +147,13 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
   ConfigProto_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       ConfigProto_descriptor_,
-      ConfigProto::default_instance_,
+      ConfigProto::internal_default_instance(),
       ConfigProto_offsets_,
       -1,
       -1,
       -1,
       sizeof(ConfigProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigProto, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigProto, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigProto, _internal_metadata_));
   ConfigProto_DeviceCountEntry_descriptor_ = ConfigProto_descriptor_->nested_type(0);
   DebugTensorWatch_descriptor_ = file->message_type(5);
   static const int DebugTensorWatch_offsets_[4] = {
@@ -166,71 +165,71 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
   DebugTensorWatch_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       DebugTensorWatch_descriptor_,
-      DebugTensorWatch::default_instance_,
+      DebugTensorWatch::internal_default_instance(),
       DebugTensorWatch_offsets_,
       -1,
       -1,
       -1,
       sizeof(DebugTensorWatch),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DebugTensorWatch, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DebugTensorWatch, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DebugTensorWatch, _internal_metadata_));
   RunOptions_descriptor_ = file->message_type(6);
-  static const int RunOptions_offsets_[4] = {
+  static const int RunOptions_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, trace_level_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, timeout_in_ms_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, inter_op_thread_pool_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, debug_tensor_watch_opts_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, output_partition_graphs_),
   };
   RunOptions_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       RunOptions_descriptor_,
-      RunOptions::default_instance_,
+      RunOptions::internal_default_instance(),
       RunOptions_offsets_,
       -1,
       -1,
       -1,
       sizeof(RunOptions),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunOptions, _internal_metadata_));
   RunOptions_TraceLevel_descriptor_ = RunOptions_descriptor_->enum_type(0);
   RunMetadata_descriptor_ = file->message_type(7);
-  static const int RunMetadata_offsets_[2] = {
+  static const int RunMetadata_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, step_stats_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, cost_graph_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, partition_graphs_),
   };
   RunMetadata_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       RunMetadata_descriptor_,
-      RunMetadata::default_instance_,
+      RunMetadata::internal_default_instance(),
       RunMetadata_offsets_,
       -1,
       -1,
       -1,
       sizeof(RunMetadata),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunMetadata, _internal_metadata_));
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GPUOptions_descriptor_, &GPUOptions::default_instance());
+      GPUOptions_descriptor_, GPUOptions::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      OptimizerOptions_descriptor_, &OptimizerOptions::default_instance());
+      OptimizerOptions_descriptor_, OptimizerOptions::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GraphOptions_descriptor_, &GraphOptions::default_instance());
+      GraphOptions_descriptor_, GraphOptions::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ThreadPoolOptionProto_descriptor_, &ThreadPoolOptionProto::default_instance());
+      ThreadPoolOptionProto_descriptor_, ThreadPoolOptionProto::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ConfigProto_descriptor_, &ConfigProto::default_instance());
+      ConfigProto_descriptor_, ConfigProto::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
         ConfigProto_DeviceCountEntry_descriptor_,
         ::google::protobuf::internal::MapEntry<
@@ -241,111 +240,137 @@ void protobuf_RegisterTypes(const ::std::string&) {
             0>::CreateDefaultInstance(
                 ConfigProto_DeviceCountEntry_descriptor_));
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      DebugTensorWatch_descriptor_, &DebugTensorWatch::default_instance());
+      DebugTensorWatch_descriptor_, DebugTensorWatch::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RunOptions_descriptor_, &RunOptions::default_instance());
+      RunOptions_descriptor_, RunOptions::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RunMetadata_descriptor_, &RunMetadata::default_instance());
+      RunMetadata_descriptor_, RunMetadata::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
-  delete GPUOptions::default_instance_;
+  GPUOptions_default_instance_.Shutdown();
   delete GPUOptions_reflection_;
-  delete OptimizerOptions::default_instance_;
+  OptimizerOptions_default_instance_.Shutdown();
   delete OptimizerOptions_reflection_;
-  delete GraphOptions::default_instance_;
+  GraphOptions_default_instance_.Shutdown();
   delete GraphOptions_reflection_;
-  delete ThreadPoolOptionProto::default_instance_;
+  ThreadPoolOptionProto_default_instance_.Shutdown();
   delete ThreadPoolOptionProto_reflection_;
-  delete ConfigProto::default_instance_;
+  ConfigProto_default_instance_.Shutdown();
   delete ConfigProto_reflection_;
-  delete DebugTensorWatch::default_instance_;
+  DebugTensorWatch_default_instance_.Shutdown();
   delete DebugTensorWatch_reflection_;
-  delete RunOptions::default_instance_;
+  RunOptions_default_instance_.Shutdown();
   delete RunOptions_reflection_;
-  delete RunMetadata::default_instance_;
+  RunMetadata_default_instance_.Shutdown();
   delete RunMetadata_reflection_;
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fcost_5fgraph_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fstep_5fstats_2eproto();
+  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fcost_5fgraph_2eproto();
+  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fstep_5fstats_2eproto();
+  ::google::protobuf::internal::GetEmptyString();
+  GPUOptions_default_instance_.DefaultConstruct();
+  OptimizerOptions_default_instance_.DefaultConstruct();
+  GraphOptions_default_instance_.DefaultConstruct();
+  ThreadPoolOptionProto_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  ConfigProto_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  ::google::protobuf::internal::GetEmptyString();
+  DebugTensorWatch_default_instance_.DefaultConstruct();
+  RunOptions_default_instance_.DefaultConstruct();
+  RunMetadata_default_instance_.DefaultConstruct();
+  GPUOptions_default_instance_.get_mutable()->InitAsDefaultInstance();
+  OptimizerOptions_default_instance_.get_mutable()->InitAsDefaultInstance();
+  GraphOptions_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ThreadPoolOptionProto_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ConfigProto_default_instance_.get_mutable()->InitAsDefaultInstance();
+  DebugTensorWatch_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RunOptions_default_instance_.get_mutable()->InitAsDefaultInstance();
+  RunMetadata_default_instance_.get_mutable()->InitAsDefaultInstance();
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n%tensorflow/core/protobuf/config.proto\022"
     "\ntensorflow\032*tensorflow/core/framework/c"
-    "ost_graph.proto\032*tensorflow/core/framewo"
-    "rk/step_stats.proto\"\204\001\n\nGPUOptions\022\'\n\037pe"
-    "r_process_gpu_memory_fraction\030\001 \001(\001\022\026\n\016a"
-    "llocator_type\030\002 \001(\t\022\037\n\027deferred_deletion"
-    "_bytes\030\003 \001(\003\022\024\n\014allow_growth\030\004 \001(\010\"\323\001\n\020O"
-    "ptimizerOptions\022+\n#do_common_subexpressi"
-    "on_elimination\030\001 \001(\010\022\033\n\023do_constant_fold"
-    "ing\030\002 \001(\010\022\034\n\024do_function_inlining\030\004 \001(\010\022"
-    "5\n\topt_level\030\003 \001(\0162\".tensorflow.Optimize"
-    "rOptions.Level\" \n\005Level\022\006\n\002L1\020\000\022\017\n\002L0\020\377\377"
-    "\377\377\377\377\377\377\377\001\"\340\001\n\014GraphOptions\022\036\n\026enable_recv"
-    "_scheduling\030\002 \001(\010\0227\n\021optimizer_options\030\003"
-    " \001(\0132\034.tensorflow.OptimizerOptions\022\030\n\020bu"
-    "ild_cost_model\030\004 \001(\003\022\024\n\014infer_shapes\030\005 \001"
-    "(\010\022\032\n\022place_pruned_graph\030\006 \001(\010J\004\010\001\020\002R%sk"
-    "ip_common_subexpression_elimination\",\n\025T"
-    "hreadPoolOptionProto\022\023\n\013num_threads\030\001 \001("
-    "\005\"\244\004\n\013ConfigProto\022>\n\014device_count\030\001 \003(\0132"
-    "(.tensorflow.ConfigProto.DeviceCountEntr"
-    "y\022$\n\034intra_op_parallelism_threads\030\002 \001(\005\022"
-    "$\n\034inter_op_parallelism_threads\030\005 \001(\005\022\037\n"
-    "\027use_per_session_threads\030\t \001(\010\022G\n\034sessio"
-    "n_inter_op_thread_pool\030\014 \003(\0132!.tensorflo"
-    "w.ThreadPoolOptionProto\022\030\n\020placement_per"
-    "iod\030\003 \001(\005\022\026\n\016device_filters\030\004 \003(\t\022+\n\013gpu"
-    "_options\030\006 \001(\0132\026.tensorflow.GPUOptions\022\034"
-    "\n\024allow_soft_placement\030\007 \001(\010\022\034\n\024log_devi"
-    "ce_placement\030\010 \001(\010\022/\n\rgraph_options\030\n \001("
-    "\0132\030.tensorflow.GraphOptions\022\037\n\027operation"
-    "_timeout_in_ms\030\013 \001(\003\0322\n\020DeviceCountEntry"
-    "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\"a\n\020Debu"
-    "gTensorWatch\022\021\n\tnode_name\030\001 \001(\t\022\023\n\013outpu"
-    "t_slot\030\002 \001(\005\022\021\n\tdebug_ops\030\003 \003(\t\022\022\n\ndebug"
-    "_urls\030\004 \003(\t\"\214\002\n\nRunOptions\0226\n\013trace_leve"
-    "l\030\001 \001(\0162!.tensorflow.RunOptions.TraceLev"
-    "el\022\025\n\rtimeout_in_ms\030\002 \001(\003\022\034\n\024inter_op_th"
-    "read_pool\030\003 \001(\005\022=\n\027debug_tensor_watch_op"
-    "ts\030\004 \003(\0132\034.tensorflow.DebugTensorWatch\"R"
-    "\n\nTraceLevel\022\014\n\010NO_TRACE\020\000\022\022\n\016SOFTWARE_T"
-    "RACE\020\001\022\022\n\016HARDWARE_TRACE\020\002\022\016\n\nFULL_TRACE"
-    "\020\003\"f\n\013RunMetadata\022)\n\nstep_stats\030\001 \001(\0132\025."
-    "tensorflow.StepStats\022,\n\ncost_graph\030\002 \001(\013"
-    "2\030.tensorflow.CostGraphDefB-\n\030org.tensor"
-    "flow.frameworkB\014ConfigProtosP\001\370\001\001b\006proto"
-    "3", 1841);
+    "ost_graph.proto\032%tensorflow/core/framewo"
+    "rk/graph.proto\032*tensorflow/core/framewor"
+    "k/step_stats.proto\"\241\001\n\nGPUOptions\022\'\n\037per"
+    "_process_gpu_memory_fraction\030\001 \001(\001\022\026\n\016al"
+    "locator_type\030\002 \001(\t\022\037\n\027deferred_deletion_"
+    "bytes\030\003 \001(\003\022\024\n\014allow_growth\030\004 \001(\010\022\033\n\023vis"
+    "ible_device_list\030\005 \001(\t\"\323\001\n\020OptimizerOpti"
+    "ons\022+\n#do_common_subexpression_eliminati"
+    "on\030\001 \001(\010\022\033\n\023do_constant_folding\030\002 \001(\010\022\034\n"
+    "\024do_function_inlining\030\004 \001(\010\0225\n\topt_level"
+    "\030\003 \001(\0162\".tensorflow.OptimizerOptions.Lev"
+    "el\" \n\005Level\022\006\n\002L1\020\000\022\017\n\002L0\020\377\377\377\377\377\377\377\377\377\001\"\231\002\n"
+    "\014GraphOptions\022\036\n\026enable_recv_scheduling\030"
+    "\002 \001(\010\0227\n\021optimizer_options\030\003 \001(\0132\034.tenso"
+    "rflow.OptimizerOptions\022\030\n\020build_cost_mod"
+    "el\030\004 \001(\003\022\024\n\014infer_shapes\030\005 \001(\010\022\032\n\022place_"
+    "pruned_graph\030\006 \001(\010\022 \n\030enable_bfloat16_se"
+    "ndrecv\030\007 \001(\010\022\025\n\rtimeline_step\030\010 \001(\005J\004\010\001\020"
+    "\002R%skip_common_subexpression_elimination"
+    "\",\n\025ThreadPoolOptionProto\022\023\n\013num_threads"
+    "\030\001 \001(\005\"\244\004\n\013ConfigProto\022>\n\014device_count\030\001"
+    " \003(\0132(.tensorflow.ConfigProto.DeviceCoun"
+    "tEntry\022$\n\034intra_op_parallelism_threads\030\002"
+    " \001(\005\022$\n\034inter_op_parallelism_threads\030\005 \001"
+    "(\005\022\037\n\027use_per_session_threads\030\t \001(\010\022G\n\034s"
+    "ession_inter_op_thread_pool\030\014 \003(\0132!.tens"
+    "orflow.ThreadPoolOptionProto\022\030\n\020placemen"
+    "t_period\030\003 \001(\005\022\026\n\016device_filters\030\004 \003(\t\022+"
+    "\n\013gpu_options\030\006 \001(\0132\026.tensorflow.GPUOpti"
+    "ons\022\034\n\024allow_soft_placement\030\007 \001(\010\022\034\n\024log"
+    "_device_placement\030\010 \001(\010\022/\n\rgraph_options"
+    "\030\n \001(\0132\030.tensorflow.GraphOptions\022\037\n\027oper"
+    "ation_timeout_in_ms\030\013 \001(\003\0322\n\020DeviceCount"
+    "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\"a\n"
+    "\020DebugTensorWatch\022\021\n\tnode_name\030\001 \001(\t\022\023\n\013"
+    "output_slot\030\002 \001(\005\022\021\n\tdebug_ops\030\003 \003(\t\022\022\n\n"
+    "debug_urls\030\004 \003(\t\"\255\002\n\nRunOptions\0226\n\013trace"
+    "_level\030\001 \001(\0162!.tensorflow.RunOptions.Tra"
+    "ceLevel\022\025\n\rtimeout_in_ms\030\002 \001(\003\022\034\n\024inter_"
+    "op_thread_pool\030\003 \001(\005\022=\n\027debug_tensor_wat"
+    "ch_opts\030\004 \003(\0132\034.tensorflow.DebugTensorWa"
+    "tch\022\037\n\027output_partition_graphs\030\005 \001(\010\"R\n\n"
+    "TraceLevel\022\014\n\010NO_TRACE\020\000\022\022\n\016SOFTWARE_TRA"
+    "CE\020\001\022\022\n\016HARDWARE_TRACE\020\002\022\016\n\nFULL_TRACE\020\003"
+    "\"\226\001\n\013RunMetadata\022)\n\nstep_stats\030\001 \001(\0132\025.t"
+    "ensorflow.StepStats\022,\n\ncost_graph\030\002 \001(\0132"
+    "\030.tensorflow.CostGraphDef\022.\n\020partition_g"
+    "raphs\030\003 \003(\0132\024.tensorflow.GraphDefB-\n\030org"
+    ".tensorflow.frameworkB\014ConfigProtosP\001\370\001\001"
+    "b\006proto3", 2048);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/protobuf/config.proto", &protobuf_RegisterTypes);
-  GPUOptions::default_instance_ = new GPUOptions();
-  OptimizerOptions::default_instance_ = new OptimizerOptions();
-  GraphOptions::default_instance_ = new GraphOptions();
-  ThreadPoolOptionProto::default_instance_ = new ThreadPoolOptionProto();
-  ConfigProto::default_instance_ = new ConfigProto();
-  DebugTensorWatch::default_instance_ = new DebugTensorWatch();
-  RunOptions::default_instance_ = new RunOptions();
-  RunMetadata::default_instance_ = new RunMetadata();
-  GPUOptions::default_instance_->InitAsDefaultInstance();
-  OptimizerOptions::default_instance_->InitAsDefaultInstance();
-  GraphOptions::default_instance_->InitAsDefaultInstance();
-  ThreadPoolOptionProto::default_instance_->InitAsDefaultInstance();
-  ConfigProto::default_instance_->InitAsDefaultInstance();
-  DebugTensorWatch::default_instance_->InitAsDefaultInstance();
-  RunOptions::default_instance_->InitAsDefaultInstance();
-  RunMetadata::default_instance_->InitAsDefaultInstance();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fcost_5fgraph_2eproto();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fstep_5fstats_2eproto();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto() {
@@ -355,9 +380,9 @@ struct StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto
 
 namespace {
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
 }
 
 }  // namespace
@@ -370,42 +395,43 @@ const int GPUOptions::kPerProcessGpuMemoryFractionFieldNumber;
 const int GPUOptions::kAllocatorTypeFieldNumber;
 const int GPUOptions::kDeferredDeletionBytesFieldNumber;
 const int GPUOptions::kAllowGrowthFieldNumber;
+const int GPUOptions::kVisibleDeviceListFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GPUOptions::GPUOptions()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.GPUOptions)
 }
-
 GPUOptions::GPUOptions(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.GPUOptions)
 }
 
 void GPUOptions::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 GPUOptions::GPUOptions(const GPUOptions& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.GPUOptions)
 }
 
 void GPUOptions::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  per_process_gpu_memory_fraction_ = 0;
   allocator_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  deferred_deletion_bytes_ = GOOGLE_LONGLONG(0);
-  allow_growth_ = false;
+  visible_device_list_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&per_process_gpu_memory_fraction_, 0, reinterpret_cast<char*>(&allow_growth_) -
+    reinterpret_cast<char*>(&per_process_gpu_memory_fraction_) + sizeof(allow_growth_));
+  _cached_size_ = 0;
 }
 
 GPUOptions::~GPUOptions() {
@@ -414,13 +440,13 @@ GPUOptions::~GPUOptions() {
 }
 
 void GPUOptions::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  allocator_type_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (this != default_instance_) {
-  }
+  allocator_type_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
+  visible_device_list_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
 }
 
 void GPUOptions::ArenaDtor(void* object) {
@@ -440,11 +466,11 @@ const ::google::protobuf::Descriptor* GPUOptions::descriptor() {
 }
 
 const GPUOptions& GPUOptions::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-GPUOptions* GPUOptions::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<GPUOptions> GPUOptions_default_instance_;
 
 GPUOptions* GPUOptions::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<GPUOptions>(arena);
@@ -464,13 +490,13 @@ void GPUOptions::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(deferred_deletion_bytes_, allow_growth_);
-  per_process_gpu_memory_fraction_ = 0;
+  ZR_(per_process_gpu_memory_fraction_, allow_growth_);
   allocator_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  visible_device_list_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -490,10 +516,10 @@ bool GPUOptions::MergePartialFromCodedStream(
       // optional double per_process_gpu_memory_fraction = 1;
       case 1: {
         if (tag == 9) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &per_process_gpu_memory_fraction_)));
-
         } else {
           goto handle_unusual;
         }
@@ -522,10 +548,10 @@ bool GPUOptions::MergePartialFromCodedStream(
       case 3: {
         if (tag == 24) {
          parse_deferred_deletion_bytes:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &deferred_deletion_bytes_)));
-
         } else {
           goto handle_unusual;
         }
@@ -537,10 +563,27 @@ bool GPUOptions::MergePartialFromCodedStream(
       case 4: {
         if (tag == 32) {
          parse_allow_growth:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &allow_growth_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_visible_device_list;
+        break;
+      }
 
+      // optional string visible_device_list = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_visible_device_list:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_visible_device_list()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->visible_device_list().data(), this->visible_device_list().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.GPUOptions.visible_device_list"));
         } else {
           goto handle_unusual;
         }
@@ -597,11 +640,22 @@ void GPUOptions::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->allow_growth(), output);
   }
 
+  // optional string visible_device_list = 5;
+  if (this->visible_device_list().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->visible_device_list().data(), this->visible_device_list().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.GPUOptions.visible_device_list");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->visible_device_list(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.GPUOptions)
 }
 
-::google::protobuf::uint8* GPUOptions::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* GPUOptions::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.GPUOptions)
   // optional double per_process_gpu_memory_fraction = 1;
   if (this->per_process_gpu_memory_fraction() != 0) {
@@ -629,13 +683,24 @@ void GPUOptions::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->allow_growth(), target);
   }
 
+  // optional string visible_device_list = 5;
+  if (this->visible_device_list().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->visible_device_list().data(), this->visible_device_list().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.GPUOptions.visible_device_list");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->visible_device_list(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.GPUOptions)
   return target;
 }
 
-int GPUOptions::ByteSize() const {
+size_t GPUOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.GPUOptions)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional double per_process_gpu_memory_fraction = 1;
   if (this->per_process_gpu_memory_fraction() != 0) {
@@ -661,8 +726,16 @@ int GPUOptions::ByteSize() const {
     total_size += 1 + 1;
   }
 
+  // optional string visible_device_list = 5;
+  if (this->visible_device_list().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->visible_device_list());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -670,7 +743,7 @@ int GPUOptions::ByteSize() const {
 void GPUOptions::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.GPUOptions)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const GPUOptions* source = 
+  const GPUOptions* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const GPUOptions>(
           &from);
   if (source == NULL) {
@@ -678,13 +751,21 @@ void GPUOptions::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.GPUOptions)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void GPUOptions::MergeFrom(const GPUOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.GPUOptions)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void GPUOptions::UnsafeMergeFrom(const GPUOptions& from) {
+  GOOGLE_DCHECK(&from != this);
   if (from.per_process_gpu_memory_fraction() != 0) {
     set_per_process_gpu_memory_fraction(from.per_process_gpu_memory_fraction());
   }
@@ -696,6 +777,9 @@ void GPUOptions::MergeFrom(const GPUOptions& from) {
   }
   if (from.allow_growth() != 0) {
     set_allow_growth(from.allow_growth());
+  }
+  if (from.visible_device_list().size() > 0) {
+    set_visible_device_list(from.visible_device_list());
   }
 }
 
@@ -710,7 +794,7 @@ void GPUOptions::CopyFrom(const GPUOptions& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.GPUOptions)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool GPUOptions::IsInitialized() const {
@@ -724,7 +808,7 @@ void GPUOptions::Swap(GPUOptions* other) {
     InternalSwap(other);
   } else {
     GPUOptions temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -739,6 +823,7 @@ void GPUOptions::InternalSwap(GPUOptions* other) {
   allocator_type_.Swap(&other->allocator_type_);
   std::swap(deferred_deletion_bytes_, other->deferred_deletion_bytes_);
   std::swap(allow_growth_, other->allow_growth_);
+  visible_device_list_.Swap(&other->visible_device_list_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -758,11 +843,11 @@ void GPUOptions::InternalSwap(GPUOptions* other) {
 void GPUOptions::clear_per_process_gpu_memory_fraction() {
   per_process_gpu_memory_fraction_ = 0;
 }
- double GPUOptions::per_process_gpu_memory_fraction() const {
+double GPUOptions::per_process_gpu_memory_fraction() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.per_process_gpu_memory_fraction)
   return per_process_gpu_memory_fraction_;
 }
- void GPUOptions::set_per_process_gpu_memory_fraction(double value) {
+void GPUOptions::set_per_process_gpu_memory_fraction(double value) {
   
   per_process_gpu_memory_fraction_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.per_process_gpu_memory_fraction)
@@ -772,46 +857,46 @@ void GPUOptions::clear_per_process_gpu_memory_fraction() {
 void GPUOptions::clear_allocator_type() {
   allocator_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& GPUOptions::allocator_type() const {
+const ::std::string& GPUOptions::allocator_type() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.allocator_type)
   return allocator_type_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void GPUOptions::set_allocator_type(const ::std::string& value) {
+void GPUOptions::set_allocator_type(const ::std::string& value) {
   
   allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.allocator_type)
 }
- void GPUOptions::set_allocator_type(const char* value) {
+void GPUOptions::set_allocator_type(const char* value) {
   
   allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.GPUOptions.allocator_type)
 }
- void GPUOptions::set_allocator_type(const char* value,
+void GPUOptions::set_allocator_type(const char* value,
     size_t size) {
   
   allocator_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.GPUOptions.allocator_type)
 }
- ::std::string* GPUOptions::mutable_allocator_type() {
+::std::string* GPUOptions::mutable_allocator_type() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.GPUOptions.allocator_type)
   return allocator_type_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* GPUOptions::release_allocator_type() {
+::std::string* GPUOptions::release_allocator_type() {
   // @@protoc_insertion_point(field_release:tensorflow.GPUOptions.allocator_type)
   
   return allocator_type_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* GPUOptions::unsafe_arena_release_allocator_type() {
+::std::string* GPUOptions::unsafe_arena_release_allocator_type() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.GPUOptions.allocator_type)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return allocator_type_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void GPUOptions::set_allocated_allocator_type(::std::string* allocator_type) {
+void GPUOptions::set_allocated_allocator_type(::std::string* allocator_type) {
   if (allocator_type != NULL) {
     
   } else {
@@ -821,7 +906,7 @@ void GPUOptions::clear_allocator_type() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.GPUOptions.allocator_type)
 }
- void GPUOptions::unsafe_arena_set_allocated_allocator_type(
+void GPUOptions::unsafe_arena_set_allocated_allocator_type(
     ::std::string* allocator_type) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (allocator_type != NULL) {
@@ -838,11 +923,11 @@ void GPUOptions::clear_allocator_type() {
 void GPUOptions::clear_deferred_deletion_bytes() {
   deferred_deletion_bytes_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 GPUOptions::deferred_deletion_bytes() const {
+::google::protobuf::int64 GPUOptions::deferred_deletion_bytes() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.deferred_deletion_bytes)
   return deferred_deletion_bytes_;
 }
- void GPUOptions::set_deferred_deletion_bytes(::google::protobuf::int64 value) {
+void GPUOptions::set_deferred_deletion_bytes(::google::protobuf::int64 value) {
   
   deferred_deletion_bytes_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.deferred_deletion_bytes)
@@ -852,16 +937,85 @@ void GPUOptions::clear_deferred_deletion_bytes() {
 void GPUOptions::clear_allow_growth() {
   allow_growth_ = false;
 }
- bool GPUOptions::allow_growth() const {
+bool GPUOptions::allow_growth() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.allow_growth)
   return allow_growth_;
 }
- void GPUOptions::set_allow_growth(bool value) {
+void GPUOptions::set_allow_growth(bool value) {
   
   allow_growth_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.allow_growth)
 }
 
+// optional string visible_device_list = 5;
+void GPUOptions::clear_visible_device_list() {
+  visible_device_list_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+const ::std::string& GPUOptions::visible_device_list() const {
+  // @@protoc_insertion_point(field_get:tensorflow.GPUOptions.visible_device_list)
+  return visible_device_list_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void GPUOptions::set_visible_device_list(const ::std::string& value) {
+  
+  visible_device_list_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.GPUOptions.visible_device_list)
+}
+void GPUOptions::set_visible_device_list(const char* value) {
+  
+  visible_device_list_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.GPUOptions.visible_device_list)
+}
+void GPUOptions::set_visible_device_list(const char* value,
+    size_t size) {
+  
+  visible_device_list_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.GPUOptions.visible_device_list)
+}
+::std::string* GPUOptions::mutable_visible_device_list() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.GPUOptions.visible_device_list)
+  return visible_device_list_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* GPUOptions::release_visible_device_list() {
+  // @@protoc_insertion_point(field_release:tensorflow.GPUOptions.visible_device_list)
+  
+  return visible_device_list_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* GPUOptions::unsafe_arena_release_visible_device_list() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.GPUOptions.visible_device_list)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return visible_device_list_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+void GPUOptions::set_allocated_visible_device_list(::std::string* visible_device_list) {
+  if (visible_device_list != NULL) {
+    
+  } else {
+    
+  }
+  visible_device_list_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), visible_device_list,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.GPUOptions.visible_device_list)
+}
+void GPUOptions::unsafe_arena_set_allocated_visible_device_list(
+    ::std::string* visible_device_list) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (visible_device_list != NULL) {
+    
+  } else {
+    
+  }
+  visible_device_list_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      visible_device_list, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.GPUOptions.visible_device_list)
+}
+
+inline const GPUOptions* GPUOptions::internal_default_instance() {
+  return &GPUOptions_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -871,7 +1025,7 @@ const ::google::protobuf::EnumDescriptor* OptimizerOptions_Level_descriptor() {
   return OptimizerOptions_Level_descriptor_;
 }
 bool OptimizerOptions_Level_IsValid(int value) {
-  switch(value) {
+  switch (value) {
     case -1:
     case 0:
       return true;
@@ -896,37 +1050,36 @@ const int OptimizerOptions::kOptLevelFieldNumber;
 
 OptimizerOptions::OptimizerOptions()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.OptimizerOptions)
 }
-
 OptimizerOptions::OptimizerOptions(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.OptimizerOptions)
 }
 
 void OptimizerOptions::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 OptimizerOptions::OptimizerOptions(const OptimizerOptions& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.OptimizerOptions)
 }
 
 void OptimizerOptions::SharedCtor() {
-    _is_default_instance_ = false;
+  ::memset(&do_common_subexpression_elimination_, 0, reinterpret_cast<char*>(&opt_level_) -
+    reinterpret_cast<char*>(&do_common_subexpression_elimination_) + sizeof(opt_level_));
   _cached_size_ = 0;
-  do_common_subexpression_elimination_ = false;
-  do_constant_folding_ = false;
-  do_function_inlining_ = false;
-  opt_level_ = 0;
 }
 
 OptimizerOptions::~OptimizerOptions() {
@@ -935,12 +1088,11 @@ OptimizerOptions::~OptimizerOptions() {
 }
 
 void OptimizerOptions::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
-  }
 }
 
 void OptimizerOptions::ArenaDtor(void* object) {
@@ -960,11 +1112,11 @@ const ::google::protobuf::Descriptor* OptimizerOptions::descriptor() {
 }
 
 const OptimizerOptions& OptimizerOptions::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-OptimizerOptions* OptimizerOptions::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<OptimizerOptions> OptimizerOptions_default_instance_;
 
 OptimizerOptions* OptimizerOptions::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<OptimizerOptions>(arena);
@@ -984,7 +1136,7 @@ void OptimizerOptions::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
@@ -1008,10 +1160,10 @@ bool OptimizerOptions::MergePartialFromCodedStream(
       // optional bool do_common_subexpression_elimination = 1;
       case 1: {
         if (tag == 8) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &do_common_subexpression_elimination_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1023,10 +1175,10 @@ bool OptimizerOptions::MergePartialFromCodedStream(
       case 2: {
         if (tag == 16) {
          parse_do_constant_folding:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &do_constant_folding_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1054,10 +1206,10 @@ bool OptimizerOptions::MergePartialFromCodedStream(
       case 4: {
         if (tag == 32) {
          parse_do_function_inlining:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &do_function_inlining_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1113,8 +1265,9 @@ void OptimizerOptions::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.OptimizerOptions)
 }
 
-::google::protobuf::uint8* OptimizerOptions::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* OptimizerOptions::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.OptimizerOptions)
   // optional bool do_common_subexpression_elimination = 1;
   if (this->do_common_subexpression_elimination() != 0) {
@@ -1141,9 +1294,9 @@ void OptimizerOptions::SerializeWithCachedSizes(
   return target;
 }
 
-int OptimizerOptions::ByteSize() const {
+size_t OptimizerOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.OptimizerOptions)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional bool do_common_subexpression_elimination = 1;
   if (this->do_common_subexpression_elimination() != 0) {
@@ -1166,8 +1319,9 @@ int OptimizerOptions::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->opt_level());
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -1175,7 +1329,7 @@ int OptimizerOptions::ByteSize() const {
 void OptimizerOptions::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.OptimizerOptions)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const OptimizerOptions* source = 
+  const OptimizerOptions* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const OptimizerOptions>(
           &from);
   if (source == NULL) {
@@ -1183,13 +1337,21 @@ void OptimizerOptions::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.OptimizerOptions)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void OptimizerOptions::MergeFrom(const OptimizerOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.OptimizerOptions)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void OptimizerOptions::UnsafeMergeFrom(const OptimizerOptions& from) {
+  GOOGLE_DCHECK(&from != this);
   if (from.do_common_subexpression_elimination() != 0) {
     set_do_common_subexpression_elimination(from.do_common_subexpression_elimination());
   }
@@ -1215,7 +1377,7 @@ void OptimizerOptions::CopyFrom(const OptimizerOptions& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.OptimizerOptions)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool OptimizerOptions::IsInitialized() const {
@@ -1229,7 +1391,7 @@ void OptimizerOptions::Swap(OptimizerOptions* other) {
     InternalSwap(other);
   } else {
     OptimizerOptions temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -1263,11 +1425,11 @@ void OptimizerOptions::InternalSwap(OptimizerOptions* other) {
 void OptimizerOptions::clear_do_common_subexpression_elimination() {
   do_common_subexpression_elimination_ = false;
 }
- bool OptimizerOptions::do_common_subexpression_elimination() const {
+bool OptimizerOptions::do_common_subexpression_elimination() const {
   // @@protoc_insertion_point(field_get:tensorflow.OptimizerOptions.do_common_subexpression_elimination)
   return do_common_subexpression_elimination_;
 }
- void OptimizerOptions::set_do_common_subexpression_elimination(bool value) {
+void OptimizerOptions::set_do_common_subexpression_elimination(bool value) {
   
   do_common_subexpression_elimination_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.OptimizerOptions.do_common_subexpression_elimination)
@@ -1277,11 +1439,11 @@ void OptimizerOptions::clear_do_common_subexpression_elimination() {
 void OptimizerOptions::clear_do_constant_folding() {
   do_constant_folding_ = false;
 }
- bool OptimizerOptions::do_constant_folding() const {
+bool OptimizerOptions::do_constant_folding() const {
   // @@protoc_insertion_point(field_get:tensorflow.OptimizerOptions.do_constant_folding)
   return do_constant_folding_;
 }
- void OptimizerOptions::set_do_constant_folding(bool value) {
+void OptimizerOptions::set_do_constant_folding(bool value) {
   
   do_constant_folding_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.OptimizerOptions.do_constant_folding)
@@ -1291,11 +1453,11 @@ void OptimizerOptions::clear_do_constant_folding() {
 void OptimizerOptions::clear_do_function_inlining() {
   do_function_inlining_ = false;
 }
- bool OptimizerOptions::do_function_inlining() const {
+bool OptimizerOptions::do_function_inlining() const {
   // @@protoc_insertion_point(field_get:tensorflow.OptimizerOptions.do_function_inlining)
   return do_function_inlining_;
 }
- void OptimizerOptions::set_do_function_inlining(bool value) {
+void OptimizerOptions::set_do_function_inlining(bool value) {
   
   do_function_inlining_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.OptimizerOptions.do_function_inlining)
@@ -1305,16 +1467,19 @@ void OptimizerOptions::clear_do_function_inlining() {
 void OptimizerOptions::clear_opt_level() {
   opt_level_ = 0;
 }
- ::tensorflow::OptimizerOptions_Level OptimizerOptions::opt_level() const {
+::tensorflow::OptimizerOptions_Level OptimizerOptions::opt_level() const {
   // @@protoc_insertion_point(field_get:tensorflow.OptimizerOptions.opt_level)
   return static_cast< ::tensorflow::OptimizerOptions_Level >(opt_level_);
 }
- void OptimizerOptions::set_opt_level(::tensorflow::OptimizerOptions_Level value) {
+void OptimizerOptions::set_opt_level(::tensorflow::OptimizerOptions_Level value) {
   
   opt_level_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.OptimizerOptions.opt_level)
 }
 
+inline const OptimizerOptions* OptimizerOptions::internal_default_instance() {
+  return &OptimizerOptions_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1327,8 +1492,7 @@ void GraphOptions::_slow_mutable_optimizer_options() {
   if (optimizer_options_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::OptimizerOptions* temp = new ::tensorflow::OptimizerOptions;
-    temp->MergeFrom(*optimizer_options_);
+    ::tensorflow::OptimizerOptions* temp = new ::tensorflow::OptimizerOptions(*optimizer_options_);
     optimizer_options_ = NULL;
     return temp;
   }
@@ -1373,43 +1537,45 @@ const int GraphOptions::kOptimizerOptionsFieldNumber;
 const int GraphOptions::kBuildCostModelFieldNumber;
 const int GraphOptions::kInferShapesFieldNumber;
 const int GraphOptions::kPlacePrunedGraphFieldNumber;
+const int GraphOptions::kEnableBfloat16SendrecvFieldNumber;
+const int GraphOptions::kTimelineStepFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GraphOptions::GraphOptions()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.GraphOptions)
 }
-
 GraphOptions::GraphOptions(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.GraphOptions)
 }
 
 void GraphOptions::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  optimizer_options_ = const_cast< ::tensorflow::OptimizerOptions*>(&::tensorflow::OptimizerOptions::default_instance());
+  optimizer_options_ = const_cast< ::tensorflow::OptimizerOptions*>(
+      ::tensorflow::OptimizerOptions::internal_default_instance());
 }
 
 GraphOptions::GraphOptions(const GraphOptions& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.GraphOptions)
 }
 
 void GraphOptions::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
-  enable_recv_scheduling_ = false;
   optimizer_options_ = NULL;
-  build_cost_model_ = GOOGLE_LONGLONG(0);
-  infer_shapes_ = false;
-  place_pruned_graph_ = false;
+  ::memset(&build_cost_model_, 0, reinterpret_cast<char*>(&timeline_step_) -
+    reinterpret_cast<char*>(&build_cost_model_) + sizeof(timeline_step_));
+  _cached_size_ = 0;
 }
 
 GraphOptions::~GraphOptions() {
@@ -1418,11 +1584,12 @@ GraphOptions::~GraphOptions() {
 }
 
 void GraphOptions::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
+  if (this != &GraphOptions_default_instance_.get()) {
     delete optimizer_options_;
   }
 }
@@ -1444,11 +1611,11 @@ const ::google::protobuf::Descriptor* GraphOptions::descriptor() {
 }
 
 const GraphOptions& GraphOptions::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-GraphOptions* GraphOptions::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<GraphOptions> GraphOptions_default_instance_;
 
 GraphOptions* GraphOptions::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<GraphOptions>(arena);
@@ -1468,11 +1635,11 @@ void GraphOptions::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(build_cost_model_, place_pruned_graph_);
+  ZR_(build_cost_model_, timeline_step_);
   if (GetArenaNoVirtual() == NULL && optimizer_options_ != NULL) delete optimizer_options_;
   optimizer_options_ = NULL;
 
@@ -1494,10 +1661,10 @@ bool GraphOptions::MergePartialFromCodedStream(
       // optional bool enable_recv_scheduling = 2;
       case 2: {
         if (tag == 16) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &enable_recv_scheduling_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1522,10 +1689,10 @@ bool GraphOptions::MergePartialFromCodedStream(
       case 4: {
         if (tag == 32) {
          parse_build_cost_model:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &build_cost_model_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1537,10 +1704,10 @@ bool GraphOptions::MergePartialFromCodedStream(
       case 5: {
         if (tag == 40) {
          parse_infer_shapes:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &infer_shapes_)));
-
         } else {
           goto handle_unusual;
         }
@@ -1552,10 +1719,40 @@ bool GraphOptions::MergePartialFromCodedStream(
       case 6: {
         if (tag == 48) {
          parse_place_pruned_graph:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &place_pruned_graph_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_enable_bfloat16_sendrecv;
+        break;
+      }
 
+      // optional bool enable_bfloat16_sendrecv = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_enable_bfloat16_sendrecv:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &enable_bfloat16_sendrecv_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(64)) goto parse_timeline_step;
+        break;
+      }
+
+      // optional int32 timeline_step = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_timeline_step:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &timeline_step_)));
         } else {
           goto handle_unusual;
         }
@@ -1613,11 +1810,22 @@ void GraphOptions::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->place_pruned_graph(), output);
   }
 
+  // optional bool enable_bfloat16_sendrecv = 7;
+  if (this->enable_bfloat16_sendrecv() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->enable_bfloat16_sendrecv(), output);
+  }
+
+  // optional int32 timeline_step = 8;
+  if (this->timeline_step() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->timeline_step(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.GraphOptions)
 }
 
-::google::protobuf::uint8* GraphOptions::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* GraphOptions::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.GraphOptions)
   // optional bool enable_recv_scheduling = 2;
   if (this->enable_recv_scheduling() != 0) {
@@ -1627,8 +1835,8 @@ void GraphOptions::SerializeWithCachedSizes(
   // optional .tensorflow.OptimizerOptions optimizer_options = 3;
   if (this->has_optimizer_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, *this->optimizer_options_, target);
+      InternalWriteMessageNoVirtualToArray(
+        3, *this->optimizer_options_, false, target);
   }
 
   // optional int64 build_cost_model = 4;
@@ -1646,13 +1854,23 @@ void GraphOptions::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->place_pruned_graph(), target);
   }
 
+  // optional bool enable_bfloat16_sendrecv = 7;
+  if (this->enable_bfloat16_sendrecv() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->enable_bfloat16_sendrecv(), target);
+  }
+
+  // optional int32 timeline_step = 8;
+  if (this->timeline_step() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->timeline_step(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.GraphOptions)
   return target;
 }
 
-int GraphOptions::ByteSize() const {
+size_t GraphOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.GraphOptions)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional bool enable_recv_scheduling = 2;
   if (this->enable_recv_scheduling() != 0) {
@@ -1683,8 +1901,21 @@ int GraphOptions::ByteSize() const {
     total_size += 1 + 1;
   }
 
+  // optional bool enable_bfloat16_sendrecv = 7;
+  if (this->enable_bfloat16_sendrecv() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional int32 timeline_step = 8;
+  if (this->timeline_step() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->timeline_step());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -1692,7 +1923,7 @@ int GraphOptions::ByteSize() const {
 void GraphOptions::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.GraphOptions)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const GraphOptions* source = 
+  const GraphOptions* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const GraphOptions>(
           &from);
   if (source == NULL) {
@@ -1700,13 +1931,21 @@ void GraphOptions::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.GraphOptions)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void GraphOptions::MergeFrom(const GraphOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.GraphOptions)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void GraphOptions::UnsafeMergeFrom(const GraphOptions& from) {
+  GOOGLE_DCHECK(&from != this);
   if (from.enable_recv_scheduling() != 0) {
     set_enable_recv_scheduling(from.enable_recv_scheduling());
   }
@@ -1722,6 +1961,12 @@ void GraphOptions::MergeFrom(const GraphOptions& from) {
   if (from.place_pruned_graph() != 0) {
     set_place_pruned_graph(from.place_pruned_graph());
   }
+  if (from.enable_bfloat16_sendrecv() != 0) {
+    set_enable_bfloat16_sendrecv(from.enable_bfloat16_sendrecv());
+  }
+  if (from.timeline_step() != 0) {
+    set_timeline_step(from.timeline_step());
+  }
 }
 
 void GraphOptions::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1735,7 +1980,7 @@ void GraphOptions::CopyFrom(const GraphOptions& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.GraphOptions)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool GraphOptions::IsInitialized() const {
@@ -1749,7 +1994,7 @@ void GraphOptions::Swap(GraphOptions* other) {
     InternalSwap(other);
   } else {
     GraphOptions temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -1765,6 +2010,8 @@ void GraphOptions::InternalSwap(GraphOptions* other) {
   std::swap(build_cost_model_, other->build_cost_model_);
   std::swap(infer_shapes_, other->infer_shapes_);
   std::swap(place_pruned_graph_, other->place_pruned_graph_);
+  std::swap(enable_bfloat16_sendrecv_, other->enable_bfloat16_sendrecv_);
+  std::swap(timeline_step_, other->timeline_step_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1784,11 +2031,11 @@ void GraphOptions::InternalSwap(GraphOptions* other) {
 void GraphOptions::clear_enable_recv_scheduling() {
   enable_recv_scheduling_ = false;
 }
- bool GraphOptions::enable_recv_scheduling() const {
+bool GraphOptions::enable_recv_scheduling() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.enable_recv_scheduling)
   return enable_recv_scheduling_;
 }
- void GraphOptions::set_enable_recv_scheduling(bool value) {
+void GraphOptions::set_enable_recv_scheduling(bool value) {
   
   enable_recv_scheduling_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.enable_recv_scheduling)
@@ -1796,7 +2043,7 @@ void GraphOptions::clear_enable_recv_scheduling() {
 
 // optional .tensorflow.OptimizerOptions optimizer_options = 3;
 bool GraphOptions::has_optimizer_options() const {
-  return !_is_default_instance_ && optimizer_options_ != NULL;
+  return this != internal_default_instance() && optimizer_options_ != NULL;
 }
 void GraphOptions::clear_optimizer_options() {
   if (GetArenaNoVirtual() == NULL && optimizer_options_ != NULL) delete optimizer_options_;
@@ -1804,7 +2051,8 @@ void GraphOptions::clear_optimizer_options() {
 }
 const ::tensorflow::OptimizerOptions& GraphOptions::optimizer_options() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.optimizer_options)
-  return optimizer_options_ != NULL ? *optimizer_options_ : *default_instance_->optimizer_options_;
+  return optimizer_options_ != NULL ? *optimizer_options_
+                         : *::tensorflow::OptimizerOptions::internal_default_instance();
 }
 ::tensorflow::OptimizerOptions* GraphOptions::mutable_optimizer_options() {
   
@@ -1846,11 +2094,11 @@ const ::tensorflow::OptimizerOptions& GraphOptions::optimizer_options() const {
 void GraphOptions::clear_build_cost_model() {
   build_cost_model_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 GraphOptions::build_cost_model() const {
+::google::protobuf::int64 GraphOptions::build_cost_model() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.build_cost_model)
   return build_cost_model_;
 }
- void GraphOptions::set_build_cost_model(::google::protobuf::int64 value) {
+void GraphOptions::set_build_cost_model(::google::protobuf::int64 value) {
   
   build_cost_model_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.build_cost_model)
@@ -1860,11 +2108,11 @@ void GraphOptions::clear_build_cost_model() {
 void GraphOptions::clear_infer_shapes() {
   infer_shapes_ = false;
 }
- bool GraphOptions::infer_shapes() const {
+bool GraphOptions::infer_shapes() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.infer_shapes)
   return infer_shapes_;
 }
- void GraphOptions::set_infer_shapes(bool value) {
+void GraphOptions::set_infer_shapes(bool value) {
   
   infer_shapes_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.infer_shapes)
@@ -1874,16 +2122,47 @@ void GraphOptions::clear_infer_shapes() {
 void GraphOptions::clear_place_pruned_graph() {
   place_pruned_graph_ = false;
 }
- bool GraphOptions::place_pruned_graph() const {
+bool GraphOptions::place_pruned_graph() const {
   // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.place_pruned_graph)
   return place_pruned_graph_;
 }
- void GraphOptions::set_place_pruned_graph(bool value) {
+void GraphOptions::set_place_pruned_graph(bool value) {
   
   place_pruned_graph_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.place_pruned_graph)
 }
 
+// optional bool enable_bfloat16_sendrecv = 7;
+void GraphOptions::clear_enable_bfloat16_sendrecv() {
+  enable_bfloat16_sendrecv_ = false;
+}
+bool GraphOptions::enable_bfloat16_sendrecv() const {
+  // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.enable_bfloat16_sendrecv)
+  return enable_bfloat16_sendrecv_;
+}
+void GraphOptions::set_enable_bfloat16_sendrecv(bool value) {
+  
+  enable_bfloat16_sendrecv_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.enable_bfloat16_sendrecv)
+}
+
+// optional int32 timeline_step = 8;
+void GraphOptions::clear_timeline_step() {
+  timeline_step_ = 0;
+}
+::google::protobuf::int32 GraphOptions::timeline_step() const {
+  // @@protoc_insertion_point(field_get:tensorflow.GraphOptions.timeline_step)
+  return timeline_step_;
+}
+void GraphOptions::set_timeline_step(::google::protobuf::int32 value) {
+  
+  timeline_step_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.GraphOptions.timeline_step)
+}
+
+inline const GraphOptions* GraphOptions::internal_default_instance() {
+  return &GraphOptions_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1894,34 +2173,35 @@ const int ThreadPoolOptionProto::kNumThreadsFieldNumber;
 
 ThreadPoolOptionProto::ThreadPoolOptionProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.ThreadPoolOptionProto)
 }
-
 ThreadPoolOptionProto::ThreadPoolOptionProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.ThreadPoolOptionProto)
 }
 
 void ThreadPoolOptionProto::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 ThreadPoolOptionProto::ThreadPoolOptionProto(const ThreadPoolOptionProto& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.ThreadPoolOptionProto)
 }
 
 void ThreadPoolOptionProto::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
   num_threads_ = 0;
+  _cached_size_ = 0;
 }
 
 ThreadPoolOptionProto::~ThreadPoolOptionProto() {
@@ -1930,12 +2210,11 @@ ThreadPoolOptionProto::~ThreadPoolOptionProto() {
 }
 
 void ThreadPoolOptionProto::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
-  }
 }
 
 void ThreadPoolOptionProto::ArenaDtor(void* object) {
@@ -1955,11 +2234,11 @@ const ::google::protobuf::Descriptor* ThreadPoolOptionProto::descriptor() {
 }
 
 const ThreadPoolOptionProto& ThreadPoolOptionProto::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-ThreadPoolOptionProto* ThreadPoolOptionProto::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<ThreadPoolOptionProto> ThreadPoolOptionProto_default_instance_;
 
 ThreadPoolOptionProto* ThreadPoolOptionProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<ThreadPoolOptionProto>(arena);
@@ -1983,10 +2262,10 @@ bool ThreadPoolOptionProto::MergePartialFromCodedStream(
       // optional int32 num_threads = 1;
       case 1: {
         if (tag == 8) {
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &num_threads_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2026,8 +2305,9 @@ void ThreadPoolOptionProto::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.ThreadPoolOptionProto)
 }
 
-::google::protobuf::uint8* ThreadPoolOptionProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* ThreadPoolOptionProto::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.ThreadPoolOptionProto)
   // optional int32 num_threads = 1;
   if (this->num_threads() != 0) {
@@ -2038,9 +2318,9 @@ void ThreadPoolOptionProto::SerializeWithCachedSizes(
   return target;
 }
 
-int ThreadPoolOptionProto::ByteSize() const {
+size_t ThreadPoolOptionProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.ThreadPoolOptionProto)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional int32 num_threads = 1;
   if (this->num_threads() != 0) {
@@ -2049,8 +2329,9 @@ int ThreadPoolOptionProto::ByteSize() const {
         this->num_threads());
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -2058,7 +2339,7 @@ int ThreadPoolOptionProto::ByteSize() const {
 void ThreadPoolOptionProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.ThreadPoolOptionProto)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const ThreadPoolOptionProto* source = 
+  const ThreadPoolOptionProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const ThreadPoolOptionProto>(
           &from);
   if (source == NULL) {
@@ -2066,13 +2347,21 @@ void ThreadPoolOptionProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.ThreadPoolOptionProto)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void ThreadPoolOptionProto::MergeFrom(const ThreadPoolOptionProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.ThreadPoolOptionProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void ThreadPoolOptionProto::UnsafeMergeFrom(const ThreadPoolOptionProto& from) {
+  GOOGLE_DCHECK(&from != this);
   if (from.num_threads() != 0) {
     set_num_threads(from.num_threads());
   }
@@ -2089,7 +2378,7 @@ void ThreadPoolOptionProto::CopyFrom(const ThreadPoolOptionProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.ThreadPoolOptionProto)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool ThreadPoolOptionProto::IsInitialized() const {
@@ -2103,7 +2392,7 @@ void ThreadPoolOptionProto::Swap(ThreadPoolOptionProto* other) {
     InternalSwap(other);
   } else {
     ThreadPoolOptionProto temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -2134,16 +2423,19 @@ void ThreadPoolOptionProto::InternalSwap(ThreadPoolOptionProto* other) {
 void ThreadPoolOptionProto::clear_num_threads() {
   num_threads_ = 0;
 }
- ::google::protobuf::int32 ThreadPoolOptionProto::num_threads() const {
+::google::protobuf::int32 ThreadPoolOptionProto::num_threads() const {
   // @@protoc_insertion_point(field_get:tensorflow.ThreadPoolOptionProto.num_threads)
   return num_threads_;
 }
- void ThreadPoolOptionProto::set_num_threads(::google::protobuf::int32 value) {
+void ThreadPoolOptionProto::set_num_threads(::google::protobuf::int32 value) {
   
   num_threads_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ThreadPoolOptionProto.num_threads)
 }
 
+inline const ThreadPoolOptionProto* ThreadPoolOptionProto::internal_default_instance() {
+  return &ThreadPoolOptionProto_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2156,8 +2448,7 @@ void ConfigProto::_slow_mutable_gpu_options() {
   if (gpu_options_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::GPUOptions* temp = new ::tensorflow::GPUOptions;
-    temp->MergeFrom(*gpu_options_);
+    ::tensorflow::GPUOptions* temp = new ::tensorflow::GPUOptions(*gpu_options_);
     gpu_options_ = NULL;
     return temp;
   }
@@ -2204,8 +2495,7 @@ void ConfigProto::_slow_mutable_graph_options() {
   if (graph_options_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::GraphOptions* temp = new ::tensorflow::GraphOptions;
-    temp->MergeFrom(*graph_options_);
+    ::tensorflow::GraphOptions* temp = new ::tensorflow::GraphOptions(*graph_options_);
     graph_options_ = NULL;
     return temp;
   }
@@ -2261,52 +2551,49 @@ const int ConfigProto::kOperationTimeoutInMsFieldNumber;
 
 ConfigProto::ConfigProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.ConfigProto)
 }
-
 ConfigProto::ConfigProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
   device_count_(arena),
   session_inter_op_thread_pool_(arena),
   device_filters_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.ConfigProto)
 }
 
 void ConfigProto::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  gpu_options_ = const_cast< ::tensorflow::GPUOptions*>(&::tensorflow::GPUOptions::default_instance());
-  graph_options_ = const_cast< ::tensorflow::GraphOptions*>(&::tensorflow::GraphOptions::default_instance());
+  gpu_options_ = const_cast< ::tensorflow::GPUOptions*>(
+      ::tensorflow::GPUOptions::internal_default_instance());
+  graph_options_ = const_cast< ::tensorflow::GraphOptions*>(
+      ::tensorflow::GraphOptions::internal_default_instance());
 }
 
 ConfigProto::ConfigProto(const ConfigProto& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.ConfigProto)
 }
 
 void ConfigProto::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
   device_count_.SetAssignDescriptorCallback(
       protobuf_AssignDescriptorsOnce);
   device_count_.SetEntryDescriptor(
       &::tensorflow::ConfigProto_DeviceCountEntry_descriptor_);
-  intra_op_parallelism_threads_ = 0;
-  inter_op_parallelism_threads_ = 0;
-  use_per_session_threads_ = false;
-  placement_period_ = 0;
   gpu_options_ = NULL;
-  allow_soft_placement_ = false;
-  log_device_placement_ = false;
   graph_options_ = NULL;
-  operation_timeout_in_ms_ = GOOGLE_LONGLONG(0);
+  ::memset(&intra_op_parallelism_threads_, 0, reinterpret_cast<char*>(&operation_timeout_in_ms_) -
+    reinterpret_cast<char*>(&intra_op_parallelism_threads_) + sizeof(operation_timeout_in_ms_));
+  _cached_size_ = 0;
 }
 
 ConfigProto::~ConfigProto() {
@@ -2315,11 +2602,12 @@ ConfigProto::~ConfigProto() {
 }
 
 void ConfigProto::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
+  if (this != &ConfigProto_default_instance_.get()) {
     delete gpu_options_;
     delete graph_options_;
   }
@@ -2342,11 +2630,11 @@ const ::google::protobuf::Descriptor* ConfigProto::descriptor() {
 }
 
 const ConfigProto& ConfigProto::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-ConfigProto* ConfigProto::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<ConfigProto> ConfigProto_default_instance_;
 
 ConfigProto* ConfigProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<ConfigProto>(arena);
@@ -2366,18 +2654,16 @@ void ConfigProto::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(intra_op_parallelism_threads_, inter_op_parallelism_threads_);
-  ZR_(placement_period_, use_per_session_threads_);
+  ZR_(intra_op_parallelism_threads_, use_per_session_threads_);
   if (GetArenaNoVirtual() == NULL && gpu_options_ != NULL) delete gpu_options_;
   gpu_options_ = NULL;
-  ZR_(allow_soft_placement_, log_device_placement_);
+  ZR_(allow_soft_placement_, operation_timeout_in_ms_);
   if (GetArenaNoVirtual() == NULL && graph_options_ != NULL) delete graph_options_;
   graph_options_ = NULL;
-  operation_timeout_in_ms_ = GOOGLE_LONGLONG(0);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -2402,15 +2688,18 @@ bool ConfigProto::MergePartialFromCodedStream(
         if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_device_count:
-          ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry(device_count_.NewEntry());
+          ConfigProto_DeviceCountEntry::Parser< ::google::protobuf::internal::MapField<
+              ::std::string, ::google::protobuf::int32,
+              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+              ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+              0 >,
+            ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 > > parser(&device_count_);
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, entry.get()));
-          (*mutable_device_count())[entry->key()] = *entry->mutable_value();
+              input, &parser));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->key().data(), entry->key().length(),
+            parser.key().data(), parser.key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "tensorflow.ConfigProto.DeviceCountEntry.key"));
-          if (entry->GetArena() != NULL) entry.release();
         } else {
           goto handle_unusual;
         }
@@ -2424,10 +2713,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 2: {
         if (tag == 16) {
          parse_intra_op_parallelism_threads:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &intra_op_parallelism_threads_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2439,10 +2728,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 3: {
         if (tag == 24) {
          parse_placement_period:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &placement_period_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2473,10 +2762,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 5: {
         if (tag == 40) {
          parse_inter_op_parallelism_threads:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &inter_op_parallelism_threads_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2501,10 +2790,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 7: {
         if (tag == 56) {
          parse_allow_soft_placement:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &allow_soft_placement_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2516,10 +2805,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 8: {
         if (tag == 64) {
          parse_log_device_placement:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &log_device_placement_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2531,10 +2820,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 9: {
         if (tag == 72) {
          parse_use_per_session_threads:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &use_per_session_threads_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2559,10 +2848,10 @@ bool ConfigProto::MergePartialFromCodedStream(
       case 11: {
         if (tag == 88) {
          parse_operation_timeout_in_ms:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &operation_timeout_in_ms_)));
-
         } else {
           goto handle_unusual;
         }
@@ -2612,24 +2901,57 @@ void ConfigProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.ConfigProto)
   // map<string, int32> device_count = 1;
-  {
-    ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
-        it = this->device_count().begin();
-        it != this->device_count().end(); ++it) {
-      if (entry.get() != NULL && entry->GetArena() != NULL) {
-        entry.release();
+  if (!this->device_count().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "tensorflow.ConfigProto.DeviceCountEntry.key");
       }
-      entry.reset(device_count_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "tensorflow.ConfigProto.DeviceCountEntry.key");
-    }
-    if (entry.get() != NULL && entry->GetArena() != NULL) {
-      entry.release();
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->device_count().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->device_count().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+          it = this->device_count().begin();
+          it != this->device_count().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(device_count_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        if (entry->GetArena() != NULL) {
+          entry.release();
+        }
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+          it = this->device_count().begin();
+          it != this->device_count().end(); ++it) {
+        entry.reset(device_count_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        if (entry->GetArena() != NULL) {
+          entry.release();
+        }
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -2699,29 +3021,66 @@ void ConfigProto::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.ConfigProto)
 }
 
-::google::protobuf::uint8* ConfigProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* ConfigProto::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.ConfigProto)
   // map<string, int32> device_count = 1;
-  {
-    ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
-        it = this->device_count().begin();
-        it != this->device_count().end(); ++it) {
-      if (entry.get() != NULL && entry->GetArena() != NULL) {
-        entry.release();
+  if (!this->device_count().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "tensorflow.ConfigProto.DeviceCountEntry.key");
       }
-      entry.reset(device_count_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          WriteMessageNoVirtualToArray(
-              1, *entry, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "tensorflow.ConfigProto.DeviceCountEntry.key");
-    }
-    if (entry.get() != NULL && entry->GetArena() != NULL) {
-      entry.release();
+    };
+
+    if (deterministic &&
+        this->device_count().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->device_count().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+          it = this->device_count().begin();
+          it != this->device_count().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(device_count_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        if (entry->GetArena() != NULL) {
+          entry.release();
+        }
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+          it = this->device_count().begin();
+          it != this->device_count().end(); ++it) {
+        entry.reset(device_count_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        if (entry->GetArena() != NULL) {
+          entry.release();
+        }
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -2753,8 +3112,8 @@ void ConfigProto::SerializeWithCachedSizes(
   // optional .tensorflow.GPUOptions gpu_options = 6;
   if (this->has_gpu_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, *this->gpu_options_, target);
+      InternalWriteMessageNoVirtualToArray(
+        6, *this->gpu_options_, false, target);
   }
 
   // optional bool allow_soft_placement = 7;
@@ -2775,8 +3134,8 @@ void ConfigProto::SerializeWithCachedSizes(
   // optional .tensorflow.GraphOptions graph_options = 10;
   if (this->has_graph_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        10, *this->graph_options_, target);
+      InternalWriteMessageNoVirtualToArray(
+        10, *this->graph_options_, false, target);
   }
 
   // optional int64 operation_timeout_in_ms = 11;
@@ -2787,17 +3146,17 @@ void ConfigProto::SerializeWithCachedSizes(
   // repeated .tensorflow.ThreadPoolOptionProto session_inter_op_thread_pool = 12;
   for (unsigned int i = 0, n = this->session_inter_op_thread_pool_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        12, this->session_inter_op_thread_pool(i), target);
+      InternalWriteMessageNoVirtualToArray(
+        12, this->session_inter_op_thread_pool(i), false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.ConfigProto)
   return target;
 }
 
-int ConfigProto::ByteSize() const {
+size_t ConfigProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.ConfigProto)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional int32 intra_op_parallelism_threads = 2;
   if (this->intra_op_parallelism_threads() != 0) {
@@ -2857,7 +3216,8 @@ int ConfigProto::ByteSize() const {
   }
 
   // map<string, int32> device_count = 1;
-  total_size += 1 * this->device_count_size();
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->device_count_size());
   {
     ::google::protobuf::scoped_ptr<ConfigProto_DeviceCountEntry> entry;
     for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
@@ -2876,22 +3236,27 @@ int ConfigProto::ByteSize() const {
   }
 
   // repeated .tensorflow.ThreadPoolOptionProto session_inter_op_thread_pool = 12;
-  total_size += 1 * this->session_inter_op_thread_pool_size();
-  for (int i = 0; i < this->session_inter_op_thread_pool_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->session_inter_op_thread_pool(i));
+  {
+    unsigned int count = this->session_inter_op_thread_pool_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->session_inter_op_thread_pool(i));
+    }
   }
 
   // repeated string device_filters = 4;
-  total_size += 1 * this->device_filters_size();
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->device_filters_size());
   for (int i = 0; i < this->device_filters_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->device_filters(i));
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -2899,7 +3264,7 @@ int ConfigProto::ByteSize() const {
 void ConfigProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.ConfigProto)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const ConfigProto* source = 
+  const ConfigProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const ConfigProto>(
           &from);
   if (source == NULL) {
@@ -2907,16 +3272,24 @@ void ConfigProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.ConfigProto)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void ConfigProto::MergeFrom(const ConfigProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.ConfigProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void ConfigProto::UnsafeMergeFrom(const ConfigProto& from) {
+  GOOGLE_DCHECK(&from != this);
   device_count_.MergeFrom(from.device_count_);
   session_inter_op_thread_pool_.MergeFrom(from.session_inter_op_thread_pool_);
-  device_filters_.MergeFrom(from.device_filters_);
+  device_filters_.UnsafeMergeFrom(from.device_filters_);
   if (from.intra_op_parallelism_threads() != 0) {
     set_intra_op_parallelism_threads(from.intra_op_parallelism_threads());
   }
@@ -2957,7 +3330,7 @@ void ConfigProto::CopyFrom(const ConfigProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.ConfigProto)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool ConfigProto::IsInitialized() const {
@@ -2971,7 +3344,7 @@ void ConfigProto::Swap(ConfigProto* other) {
     InternalSwap(other);
   } else {
     ConfigProto temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -3031,11 +3404,11 @@ ConfigProto::mutable_device_count() {
 void ConfigProto::clear_intra_op_parallelism_threads() {
   intra_op_parallelism_threads_ = 0;
 }
- ::google::protobuf::int32 ConfigProto::intra_op_parallelism_threads() const {
+::google::protobuf::int32 ConfigProto::intra_op_parallelism_threads() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.intra_op_parallelism_threads)
   return intra_op_parallelism_threads_;
 }
- void ConfigProto::set_intra_op_parallelism_threads(::google::protobuf::int32 value) {
+void ConfigProto::set_intra_op_parallelism_threads(::google::protobuf::int32 value) {
   
   intra_op_parallelism_threads_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.intra_op_parallelism_threads)
@@ -3045,11 +3418,11 @@ void ConfigProto::clear_intra_op_parallelism_threads() {
 void ConfigProto::clear_inter_op_parallelism_threads() {
   inter_op_parallelism_threads_ = 0;
 }
- ::google::protobuf::int32 ConfigProto::inter_op_parallelism_threads() const {
+::google::protobuf::int32 ConfigProto::inter_op_parallelism_threads() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.inter_op_parallelism_threads)
   return inter_op_parallelism_threads_;
 }
- void ConfigProto::set_inter_op_parallelism_threads(::google::protobuf::int32 value) {
+void ConfigProto::set_inter_op_parallelism_threads(::google::protobuf::int32 value) {
   
   inter_op_parallelism_threads_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.inter_op_parallelism_threads)
@@ -3059,11 +3432,11 @@ void ConfigProto::clear_inter_op_parallelism_threads() {
 void ConfigProto::clear_use_per_session_threads() {
   use_per_session_threads_ = false;
 }
- bool ConfigProto::use_per_session_threads() const {
+bool ConfigProto::use_per_session_threads() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.use_per_session_threads)
   return use_per_session_threads_;
 }
- void ConfigProto::set_use_per_session_threads(bool value) {
+void ConfigProto::set_use_per_session_threads(bool value) {
   
   use_per_session_threads_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.use_per_session_threads)
@@ -3103,11 +3476,11 @@ ConfigProto::session_inter_op_thread_pool() const {
 void ConfigProto::clear_placement_period() {
   placement_period_ = 0;
 }
- ::google::protobuf::int32 ConfigProto::placement_period() const {
+::google::protobuf::int32 ConfigProto::placement_period() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.placement_period)
   return placement_period_;
 }
- void ConfigProto::set_placement_period(::google::protobuf::int32 value) {
+void ConfigProto::set_placement_period(::google::protobuf::int32 value) {
   
   placement_period_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.placement_period)
@@ -3120,49 +3493,49 @@ int ConfigProto::device_filters_size() const {
 void ConfigProto::clear_device_filters() {
   device_filters_.Clear();
 }
- const ::std::string& ConfigProto::device_filters(int index) const {
+const ::std::string& ConfigProto::device_filters(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.device_filters)
   return device_filters_.Get(index);
 }
- ::std::string* ConfigProto::mutable_device_filters(int index) {
+::std::string* ConfigProto::mutable_device_filters(int index) {
   // @@protoc_insertion_point(field_mutable:tensorflow.ConfigProto.device_filters)
   return device_filters_.Mutable(index);
 }
- void ConfigProto::set_device_filters(int index, const ::std::string& value) {
+void ConfigProto::set_device_filters(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.device_filters)
   device_filters_.Mutable(index)->assign(value);
 }
- void ConfigProto::set_device_filters(int index, const char* value) {
+void ConfigProto::set_device_filters(int index, const char* value) {
   device_filters_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.ConfigProto.device_filters)
 }
- void ConfigProto::set_device_filters(int index, const char* value, size_t size) {
+void ConfigProto::set_device_filters(int index, const char* value, size_t size) {
   device_filters_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:tensorflow.ConfigProto.device_filters)
 }
- ::std::string* ConfigProto::add_device_filters() {
+::std::string* ConfigProto::add_device_filters() {
   // @@protoc_insertion_point(field_add_mutable:tensorflow.ConfigProto.device_filters)
   return device_filters_.Add();
 }
- void ConfigProto::add_device_filters(const ::std::string& value) {
+void ConfigProto::add_device_filters(const ::std::string& value) {
   device_filters_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.ConfigProto.device_filters)
 }
- void ConfigProto::add_device_filters(const char* value) {
+void ConfigProto::add_device_filters(const char* value) {
   device_filters_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.ConfigProto.device_filters)
 }
- void ConfigProto::add_device_filters(const char* value, size_t size) {
+void ConfigProto::add_device_filters(const char* value, size_t size) {
   device_filters_.Add()->assign(reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_add_pointer:tensorflow.ConfigProto.device_filters)
 }
- const ::google::protobuf::RepeatedPtrField< ::std::string>&
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
 ConfigProto::device_filters() const {
   // @@protoc_insertion_point(field_list:tensorflow.ConfigProto.device_filters)
   return device_filters_;
 }
- ::google::protobuf::RepeatedPtrField< ::std::string>*
+::google::protobuf::RepeatedPtrField< ::std::string>*
 ConfigProto::mutable_device_filters() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.ConfigProto.device_filters)
   return &device_filters_;
@@ -3170,7 +3543,7 @@ ConfigProto::mutable_device_filters() {
 
 // optional .tensorflow.GPUOptions gpu_options = 6;
 bool ConfigProto::has_gpu_options() const {
-  return !_is_default_instance_ && gpu_options_ != NULL;
+  return this != internal_default_instance() && gpu_options_ != NULL;
 }
 void ConfigProto::clear_gpu_options() {
   if (GetArenaNoVirtual() == NULL && gpu_options_ != NULL) delete gpu_options_;
@@ -3178,7 +3551,8 @@ void ConfigProto::clear_gpu_options() {
 }
 const ::tensorflow::GPUOptions& ConfigProto::gpu_options() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.gpu_options)
-  return gpu_options_ != NULL ? *gpu_options_ : *default_instance_->gpu_options_;
+  return gpu_options_ != NULL ? *gpu_options_
+                         : *::tensorflow::GPUOptions::internal_default_instance();
 }
 ::tensorflow::GPUOptions* ConfigProto::mutable_gpu_options() {
   
@@ -3220,11 +3594,11 @@ const ::tensorflow::GPUOptions& ConfigProto::gpu_options() const {
 void ConfigProto::clear_allow_soft_placement() {
   allow_soft_placement_ = false;
 }
- bool ConfigProto::allow_soft_placement() const {
+bool ConfigProto::allow_soft_placement() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.allow_soft_placement)
   return allow_soft_placement_;
 }
- void ConfigProto::set_allow_soft_placement(bool value) {
+void ConfigProto::set_allow_soft_placement(bool value) {
   
   allow_soft_placement_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.allow_soft_placement)
@@ -3234,11 +3608,11 @@ void ConfigProto::clear_allow_soft_placement() {
 void ConfigProto::clear_log_device_placement() {
   log_device_placement_ = false;
 }
- bool ConfigProto::log_device_placement() const {
+bool ConfigProto::log_device_placement() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.log_device_placement)
   return log_device_placement_;
 }
- void ConfigProto::set_log_device_placement(bool value) {
+void ConfigProto::set_log_device_placement(bool value) {
   
   log_device_placement_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.log_device_placement)
@@ -3246,7 +3620,7 @@ void ConfigProto::clear_log_device_placement() {
 
 // optional .tensorflow.GraphOptions graph_options = 10;
 bool ConfigProto::has_graph_options() const {
-  return !_is_default_instance_ && graph_options_ != NULL;
+  return this != internal_default_instance() && graph_options_ != NULL;
 }
 void ConfigProto::clear_graph_options() {
   if (GetArenaNoVirtual() == NULL && graph_options_ != NULL) delete graph_options_;
@@ -3254,7 +3628,8 @@ void ConfigProto::clear_graph_options() {
 }
 const ::tensorflow::GraphOptions& ConfigProto::graph_options() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.graph_options)
-  return graph_options_ != NULL ? *graph_options_ : *default_instance_->graph_options_;
+  return graph_options_ != NULL ? *graph_options_
+                         : *::tensorflow::GraphOptions::internal_default_instance();
 }
 ::tensorflow::GraphOptions* ConfigProto::mutable_graph_options() {
   
@@ -3296,16 +3671,19 @@ const ::tensorflow::GraphOptions& ConfigProto::graph_options() const {
 void ConfigProto::clear_operation_timeout_in_ms() {
   operation_timeout_in_ms_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 ConfigProto::operation_timeout_in_ms() const {
+::google::protobuf::int64 ConfigProto::operation_timeout_in_ms() const {
   // @@protoc_insertion_point(field_get:tensorflow.ConfigProto.operation_timeout_in_ms)
   return operation_timeout_in_ms_;
 }
- void ConfigProto::set_operation_timeout_in_ms(::google::protobuf::int64 value) {
+void ConfigProto::set_operation_timeout_in_ms(::google::protobuf::int64 value) {
   
   operation_timeout_in_ms_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.ConfigProto.operation_timeout_in_ms)
 }
 
+inline const ConfigProto* ConfigProto::internal_default_instance() {
+  return &ConfigProto_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3319,38 +3697,38 @@ const int DebugTensorWatch::kDebugUrlsFieldNumber;
 
 DebugTensorWatch::DebugTensorWatch()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.DebugTensorWatch)
 }
-
 DebugTensorWatch::DebugTensorWatch(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
   debug_ops_(arena),
   debug_urls_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.DebugTensorWatch)
 }
 
 void DebugTensorWatch::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 DebugTensorWatch::DebugTensorWatch(const DebugTensorWatch& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.DebugTensorWatch)
 }
 
 void DebugTensorWatch::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
   node_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   output_slot_ = 0;
+  _cached_size_ = 0;
 }
 
 DebugTensorWatch::~DebugTensorWatch() {
@@ -3359,13 +3737,12 @@ DebugTensorWatch::~DebugTensorWatch() {
 }
 
 void DebugTensorWatch::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  node_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (this != default_instance_) {
-  }
+  node_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
 }
 
 void DebugTensorWatch::ArenaDtor(void* object) {
@@ -3385,11 +3762,11 @@ const ::google::protobuf::Descriptor* DebugTensorWatch::descriptor() {
 }
 
 const DebugTensorWatch& DebugTensorWatch::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-DebugTensorWatch* DebugTensorWatch::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<DebugTensorWatch> DebugTensorWatch_default_instance_;
 
 DebugTensorWatch* DebugTensorWatch::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<DebugTensorWatch>(arena);
@@ -3433,10 +3810,10 @@ bool DebugTensorWatch::MergePartialFromCodedStream(
       case 2: {
         if (tag == 16) {
          parse_output_slot:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &output_slot_)));
-
         } else {
           goto handle_unusual;
         }
@@ -3544,8 +3921,9 @@ void DebugTensorWatch::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.DebugTensorWatch)
 }
 
-::google::protobuf::uint8* DebugTensorWatch::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* DebugTensorWatch::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.DebugTensorWatch)
   // optional string node_name = 1;
   if (this->node_name().size() > 0) {
@@ -3587,9 +3965,9 @@ void DebugTensorWatch::SerializeWithCachedSizes(
   return target;
 }
 
-int DebugTensorWatch::ByteSize() const {
+size_t DebugTensorWatch::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.DebugTensorWatch)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional string node_name = 1;
   if (this->node_name().size() > 0) {
@@ -3606,21 +3984,24 @@ int DebugTensorWatch::ByteSize() const {
   }
 
   // repeated string debug_ops = 3;
-  total_size += 1 * this->debug_ops_size();
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->debug_ops_size());
   for (int i = 0; i < this->debug_ops_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->debug_ops(i));
   }
 
   // repeated string debug_urls = 4;
-  total_size += 1 * this->debug_urls_size();
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->debug_urls_size());
   for (int i = 0; i < this->debug_urls_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->debug_urls(i));
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -3628,7 +4009,7 @@ int DebugTensorWatch::ByteSize() const {
 void DebugTensorWatch::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.DebugTensorWatch)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const DebugTensorWatch* source = 
+  const DebugTensorWatch* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const DebugTensorWatch>(
           &from);
   if (source == NULL) {
@@ -3636,15 +4017,23 @@ void DebugTensorWatch::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.DebugTensorWatch)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void DebugTensorWatch::MergeFrom(const DebugTensorWatch& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.DebugTensorWatch)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  debug_ops_.MergeFrom(from.debug_ops_);
-  debug_urls_.MergeFrom(from.debug_urls_);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void DebugTensorWatch::UnsafeMergeFrom(const DebugTensorWatch& from) {
+  GOOGLE_DCHECK(&from != this);
+  debug_ops_.UnsafeMergeFrom(from.debug_ops_);
+  debug_urls_.UnsafeMergeFrom(from.debug_urls_);
   if (from.node_name().size() > 0) {
     set_node_name(from.node_name());
   }
@@ -3664,7 +4053,7 @@ void DebugTensorWatch::CopyFrom(const DebugTensorWatch& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.DebugTensorWatch)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool DebugTensorWatch::IsInitialized() const {
@@ -3678,7 +4067,7 @@ void DebugTensorWatch::Swap(DebugTensorWatch* other) {
     InternalSwap(other);
   } else {
     DebugTensorWatch temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -3712,46 +4101,46 @@ void DebugTensorWatch::InternalSwap(DebugTensorWatch* other) {
 void DebugTensorWatch::clear_node_name() {
   node_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& DebugTensorWatch::node_name() const {
+const ::std::string& DebugTensorWatch::node_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.node_name)
   return node_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void DebugTensorWatch::set_node_name(const ::std::string& value) {
+void DebugTensorWatch::set_node_name(const ::std::string& value) {
   
   node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.node_name)
 }
- void DebugTensorWatch::set_node_name(const char* value) {
+void DebugTensorWatch::set_node_name(const char* value) {
   
   node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.node_name)
 }
- void DebugTensorWatch::set_node_name(const char* value,
+void DebugTensorWatch::set_node_name(const char* value,
     size_t size) {
   
   node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.node_name)
 }
- ::std::string* DebugTensorWatch::mutable_node_name() {
+::std::string* DebugTensorWatch::mutable_node_name() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.node_name)
   return node_name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* DebugTensorWatch::release_node_name() {
+::std::string* DebugTensorWatch::release_node_name() {
   // @@protoc_insertion_point(field_release:tensorflow.DebugTensorWatch.node_name)
   
   return node_name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* DebugTensorWatch::unsafe_arena_release_node_name() {
+::std::string* DebugTensorWatch::unsafe_arena_release_node_name() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.DebugTensorWatch.node_name)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return node_name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void DebugTensorWatch::set_allocated_node_name(::std::string* node_name) {
+void DebugTensorWatch::set_allocated_node_name(::std::string* node_name) {
   if (node_name != NULL) {
     
   } else {
@@ -3761,7 +4150,7 @@ void DebugTensorWatch::clear_node_name() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.DebugTensorWatch.node_name)
 }
- void DebugTensorWatch::unsafe_arena_set_allocated_node_name(
+void DebugTensorWatch::unsafe_arena_set_allocated_node_name(
     ::std::string* node_name) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (node_name != NULL) {
@@ -3778,11 +4167,11 @@ void DebugTensorWatch::clear_node_name() {
 void DebugTensorWatch::clear_output_slot() {
   output_slot_ = 0;
 }
- ::google::protobuf::int32 DebugTensorWatch::output_slot() const {
+::google::protobuf::int32 DebugTensorWatch::output_slot() const {
   // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.output_slot)
   return output_slot_;
 }
- void DebugTensorWatch::set_output_slot(::google::protobuf::int32 value) {
+void DebugTensorWatch::set_output_slot(::google::protobuf::int32 value) {
   
   output_slot_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.output_slot)
@@ -3795,49 +4184,49 @@ int DebugTensorWatch::debug_ops_size() const {
 void DebugTensorWatch::clear_debug_ops() {
   debug_ops_.Clear();
 }
- const ::std::string& DebugTensorWatch::debug_ops(int index) const {
+const ::std::string& DebugTensorWatch::debug_ops(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.debug_ops)
   return debug_ops_.Get(index);
 }
- ::std::string* DebugTensorWatch::mutable_debug_ops(int index) {
+::std::string* DebugTensorWatch::mutable_debug_ops(int index) {
   // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.debug_ops)
   return debug_ops_.Mutable(index);
 }
- void DebugTensorWatch::set_debug_ops(int index, const ::std::string& value) {
+void DebugTensorWatch::set_debug_ops(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.debug_ops)
   debug_ops_.Mutable(index)->assign(value);
 }
- void DebugTensorWatch::set_debug_ops(int index, const char* value) {
+void DebugTensorWatch::set_debug_ops(int index, const char* value) {
   debug_ops_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.debug_ops)
 }
- void DebugTensorWatch::set_debug_ops(int index, const char* value, size_t size) {
+void DebugTensorWatch::set_debug_ops(int index, const char* value, size_t size) {
   debug_ops_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.debug_ops)
 }
- ::std::string* DebugTensorWatch::add_debug_ops() {
+::std::string* DebugTensorWatch::add_debug_ops() {
   // @@protoc_insertion_point(field_add_mutable:tensorflow.DebugTensorWatch.debug_ops)
   return debug_ops_.Add();
 }
- void DebugTensorWatch::add_debug_ops(const ::std::string& value) {
+void DebugTensorWatch::add_debug_ops(const ::std::string& value) {
   debug_ops_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.DebugTensorWatch.debug_ops)
 }
- void DebugTensorWatch::add_debug_ops(const char* value) {
+void DebugTensorWatch::add_debug_ops(const char* value) {
   debug_ops_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.DebugTensorWatch.debug_ops)
 }
- void DebugTensorWatch::add_debug_ops(const char* value, size_t size) {
+void DebugTensorWatch::add_debug_ops(const char* value, size_t size) {
   debug_ops_.Add()->assign(reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_add_pointer:tensorflow.DebugTensorWatch.debug_ops)
 }
- const ::google::protobuf::RepeatedPtrField< ::std::string>&
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
 DebugTensorWatch::debug_ops() const {
   // @@protoc_insertion_point(field_list:tensorflow.DebugTensorWatch.debug_ops)
   return debug_ops_;
 }
- ::google::protobuf::RepeatedPtrField< ::std::string>*
+::google::protobuf::RepeatedPtrField< ::std::string>*
 DebugTensorWatch::mutable_debug_ops() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.DebugTensorWatch.debug_ops)
   return &debug_ops_;
@@ -3850,54 +4239,57 @@ int DebugTensorWatch::debug_urls_size() const {
 void DebugTensorWatch::clear_debug_urls() {
   debug_urls_.Clear();
 }
- const ::std::string& DebugTensorWatch::debug_urls(int index) const {
+const ::std::string& DebugTensorWatch::debug_urls(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.DebugTensorWatch.debug_urls)
   return debug_urls_.Get(index);
 }
- ::std::string* DebugTensorWatch::mutable_debug_urls(int index) {
+::std::string* DebugTensorWatch::mutable_debug_urls(int index) {
   // @@protoc_insertion_point(field_mutable:tensorflow.DebugTensorWatch.debug_urls)
   return debug_urls_.Mutable(index);
 }
- void DebugTensorWatch::set_debug_urls(int index, const ::std::string& value) {
+void DebugTensorWatch::set_debug_urls(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.DebugTensorWatch.debug_urls)
   debug_urls_.Mutable(index)->assign(value);
 }
- void DebugTensorWatch::set_debug_urls(int index, const char* value) {
+void DebugTensorWatch::set_debug_urls(int index, const char* value) {
   debug_urls_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.DebugTensorWatch.debug_urls)
 }
- void DebugTensorWatch::set_debug_urls(int index, const char* value, size_t size) {
+void DebugTensorWatch::set_debug_urls(int index, const char* value, size_t size) {
   debug_urls_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:tensorflow.DebugTensorWatch.debug_urls)
 }
- ::std::string* DebugTensorWatch::add_debug_urls() {
+::std::string* DebugTensorWatch::add_debug_urls() {
   // @@protoc_insertion_point(field_add_mutable:tensorflow.DebugTensorWatch.debug_urls)
   return debug_urls_.Add();
 }
- void DebugTensorWatch::add_debug_urls(const ::std::string& value) {
+void DebugTensorWatch::add_debug_urls(const ::std::string& value) {
   debug_urls_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.DebugTensorWatch.debug_urls)
 }
- void DebugTensorWatch::add_debug_urls(const char* value) {
+void DebugTensorWatch::add_debug_urls(const char* value) {
   debug_urls_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.DebugTensorWatch.debug_urls)
 }
- void DebugTensorWatch::add_debug_urls(const char* value, size_t size) {
+void DebugTensorWatch::add_debug_urls(const char* value, size_t size) {
   debug_urls_.Add()->assign(reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_add_pointer:tensorflow.DebugTensorWatch.debug_urls)
 }
- const ::google::protobuf::RepeatedPtrField< ::std::string>&
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
 DebugTensorWatch::debug_urls() const {
   // @@protoc_insertion_point(field_list:tensorflow.DebugTensorWatch.debug_urls)
   return debug_urls_;
 }
- ::google::protobuf::RepeatedPtrField< ::std::string>*
+::google::protobuf::RepeatedPtrField< ::std::string>*
 DebugTensorWatch::mutable_debug_urls() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.DebugTensorWatch.debug_urls)
   return &debug_urls_;
 }
 
+inline const DebugTensorWatch* DebugTensorWatch::internal_default_instance() {
+  return &DebugTensorWatch_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3907,7 +4299,7 @@ const ::google::protobuf::EnumDescriptor* RunOptions_TraceLevel_descriptor() {
   return RunOptions_TraceLevel_descriptor_;
 }
 bool RunOptions_TraceLevel_IsValid(int value) {
-  switch(value) {
+  switch (value) {
     case 0:
     case 1:
     case 2:
@@ -3932,41 +4324,42 @@ const int RunOptions::kTraceLevelFieldNumber;
 const int RunOptions::kTimeoutInMsFieldNumber;
 const int RunOptions::kInterOpThreadPoolFieldNumber;
 const int RunOptions::kDebugTensorWatchOptsFieldNumber;
+const int RunOptions::kOutputPartitionGraphsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RunOptions::RunOptions()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.RunOptions)
 }
-
 RunOptions::RunOptions(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
   debug_tensor_watch_opts_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.RunOptions)
 }
 
 void RunOptions::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
 }
 
 RunOptions::RunOptions(const RunOptions& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.RunOptions)
 }
 
 void RunOptions::SharedCtor() {
-    _is_default_instance_ = false;
+  ::memset(&timeout_in_ms_, 0, reinterpret_cast<char*>(&output_partition_graphs_) -
+    reinterpret_cast<char*>(&timeout_in_ms_) + sizeof(output_partition_graphs_));
   _cached_size_ = 0;
-  trace_level_ = 0;
-  timeout_in_ms_ = GOOGLE_LONGLONG(0);
-  inter_op_thread_pool_ = 0;
 }
 
 RunOptions::~RunOptions() {
@@ -3975,12 +4368,11 @@ RunOptions::~RunOptions() {
 }
 
 void RunOptions::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
-  }
 }
 
 void RunOptions::ArenaDtor(void* object) {
@@ -4000,11 +4392,11 @@ const ::google::protobuf::Descriptor* RunOptions::descriptor() {
 }
 
 const RunOptions& RunOptions::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-RunOptions* RunOptions::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<RunOptions> RunOptions_default_instance_;
 
 RunOptions* RunOptions::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<RunOptions>(arena);
@@ -4024,11 +4416,11 @@ void RunOptions::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(timeout_in_ms_, inter_op_thread_pool_);
+  ZR_(timeout_in_ms_, output_partition_graphs_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -4065,10 +4457,10 @@ bool RunOptions::MergePartialFromCodedStream(
       case 2: {
         if (tag == 16) {
          parse_timeout_in_ms:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &timeout_in_ms_)));
-
         } else {
           goto handle_unusual;
         }
@@ -4080,10 +4472,10 @@ bool RunOptions::MergePartialFromCodedStream(
       case 3: {
         if (tag == 24) {
          parse_inter_op_thread_pool:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &inter_op_thread_pool_)));
-
         } else {
           goto handle_unusual;
         }
@@ -4104,6 +4496,21 @@ bool RunOptions::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(34)) goto parse_loop_debug_tensor_watch_opts;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(40)) goto parse_output_partition_graphs;
+        break;
+      }
+
+      // optional bool output_partition_graphs = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_output_partition_graphs:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &output_partition_graphs_)));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4154,11 +4561,17 @@ void RunOptions::SerializeWithCachedSizes(
       4, this->debug_tensor_watch_opts(i), output);
   }
 
+  // optional bool output_partition_graphs = 5;
+  if (this->output_partition_graphs() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->output_partition_graphs(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.RunOptions)
 }
 
-::google::protobuf::uint8* RunOptions::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* RunOptions::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.RunOptions)
   // optional .tensorflow.RunOptions.TraceLevel trace_level = 1;
   if (this->trace_level() != 0) {
@@ -4179,17 +4592,22 @@ void RunOptions::SerializeWithCachedSizes(
   // repeated .tensorflow.DebugTensorWatch debug_tensor_watch_opts = 4;
   for (unsigned int i = 0, n = this->debug_tensor_watch_opts_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->debug_tensor_watch_opts(i), target);
+      InternalWriteMessageNoVirtualToArray(
+        4, this->debug_tensor_watch_opts(i), false, target);
+  }
+
+  // optional bool output_partition_graphs = 5;
+  if (this->output_partition_graphs() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->output_partition_graphs(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.RunOptions)
   return target;
 }
 
-int RunOptions::ByteSize() const {
+size_t RunOptions::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.RunOptions)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional .tensorflow.RunOptions.TraceLevel trace_level = 1;
   if (this->trace_level() != 0) {
@@ -4211,16 +4629,25 @@ int RunOptions::ByteSize() const {
         this->inter_op_thread_pool());
   }
 
-  // repeated .tensorflow.DebugTensorWatch debug_tensor_watch_opts = 4;
-  total_size += 1 * this->debug_tensor_watch_opts_size();
-  for (int i = 0; i < this->debug_tensor_watch_opts_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->debug_tensor_watch_opts(i));
+  // optional bool output_partition_graphs = 5;
+  if (this->output_partition_graphs() != 0) {
+    total_size += 1 + 1;
   }
 
+  // repeated .tensorflow.DebugTensorWatch debug_tensor_watch_opts = 4;
+  {
+    unsigned int count = this->debug_tensor_watch_opts_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->debug_tensor_watch_opts(i));
+    }
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -4228,7 +4655,7 @@ int RunOptions::ByteSize() const {
 void RunOptions::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.RunOptions)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const RunOptions* source = 
+  const RunOptions* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const RunOptions>(
           &from);
   if (source == NULL) {
@@ -4236,13 +4663,21 @@ void RunOptions::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.RunOptions)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void RunOptions::MergeFrom(const RunOptions& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.RunOptions)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void RunOptions::UnsafeMergeFrom(const RunOptions& from) {
+  GOOGLE_DCHECK(&from != this);
   debug_tensor_watch_opts_.MergeFrom(from.debug_tensor_watch_opts_);
   if (from.trace_level() != 0) {
     set_trace_level(from.trace_level());
@@ -4252,6 +4687,9 @@ void RunOptions::MergeFrom(const RunOptions& from) {
   }
   if (from.inter_op_thread_pool() != 0) {
     set_inter_op_thread_pool(from.inter_op_thread_pool());
+  }
+  if (from.output_partition_graphs() != 0) {
+    set_output_partition_graphs(from.output_partition_graphs());
   }
 }
 
@@ -4266,7 +4704,7 @@ void RunOptions::CopyFrom(const RunOptions& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.RunOptions)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool RunOptions::IsInitialized() const {
@@ -4280,7 +4718,7 @@ void RunOptions::Swap(RunOptions* other) {
     InternalSwap(other);
   } else {
     RunOptions temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -4295,6 +4733,7 @@ void RunOptions::InternalSwap(RunOptions* other) {
   std::swap(timeout_in_ms_, other->timeout_in_ms_);
   std::swap(inter_op_thread_pool_, other->inter_op_thread_pool_);
   debug_tensor_watch_opts_.UnsafeArenaSwap(&other->debug_tensor_watch_opts_);
+  std::swap(output_partition_graphs_, other->output_partition_graphs_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -4314,11 +4753,11 @@ void RunOptions::InternalSwap(RunOptions* other) {
 void RunOptions::clear_trace_level() {
   trace_level_ = 0;
 }
- ::tensorflow::RunOptions_TraceLevel RunOptions::trace_level() const {
+::tensorflow::RunOptions_TraceLevel RunOptions::trace_level() const {
   // @@protoc_insertion_point(field_get:tensorflow.RunOptions.trace_level)
   return static_cast< ::tensorflow::RunOptions_TraceLevel >(trace_level_);
 }
- void RunOptions::set_trace_level(::tensorflow::RunOptions_TraceLevel value) {
+void RunOptions::set_trace_level(::tensorflow::RunOptions_TraceLevel value) {
   
   trace_level_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.RunOptions.trace_level)
@@ -4328,11 +4767,11 @@ void RunOptions::clear_trace_level() {
 void RunOptions::clear_timeout_in_ms() {
   timeout_in_ms_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 RunOptions::timeout_in_ms() const {
+::google::protobuf::int64 RunOptions::timeout_in_ms() const {
   // @@protoc_insertion_point(field_get:tensorflow.RunOptions.timeout_in_ms)
   return timeout_in_ms_;
 }
- void RunOptions::set_timeout_in_ms(::google::protobuf::int64 value) {
+void RunOptions::set_timeout_in_ms(::google::protobuf::int64 value) {
   
   timeout_in_ms_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.RunOptions.timeout_in_ms)
@@ -4342,11 +4781,11 @@ void RunOptions::clear_timeout_in_ms() {
 void RunOptions::clear_inter_op_thread_pool() {
   inter_op_thread_pool_ = 0;
 }
- ::google::protobuf::int32 RunOptions::inter_op_thread_pool() const {
+::google::protobuf::int32 RunOptions::inter_op_thread_pool() const {
   // @@protoc_insertion_point(field_get:tensorflow.RunOptions.inter_op_thread_pool)
   return inter_op_thread_pool_;
 }
- void RunOptions::set_inter_op_thread_pool(::google::protobuf::int32 value) {
+void RunOptions::set_inter_op_thread_pool(::google::protobuf::int32 value) {
   
   inter_op_thread_pool_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.RunOptions.inter_op_thread_pool)
@@ -4382,6 +4821,23 @@ RunOptions::debug_tensor_watch_opts() const {
   return debug_tensor_watch_opts_;
 }
 
+// optional bool output_partition_graphs = 5;
+void RunOptions::clear_output_partition_graphs() {
+  output_partition_graphs_ = false;
+}
+bool RunOptions::output_partition_graphs() const {
+  // @@protoc_insertion_point(field_get:tensorflow.RunOptions.output_partition_graphs)
+  return output_partition_graphs_;
+}
+void RunOptions::set_output_partition_graphs(bool value) {
+  
+  output_partition_graphs_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.RunOptions.output_partition_graphs)
+}
+
+inline const RunOptions* RunOptions::internal_default_instance() {
+  return &RunOptions_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4394,8 +4850,7 @@ void RunMetadata::_slow_mutable_step_stats() {
   if (step_stats_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::StepStats* temp = new ::tensorflow::StepStats;
-    temp->MergeFrom(*step_stats_);
+    ::tensorflow::StepStats* temp = new ::tensorflow::StepStats(*step_stats_);
     step_stats_ = NULL;
     return temp;
   }
@@ -4442,8 +4897,7 @@ void RunMetadata::_slow_mutable_cost_graph() {
   if (cost_graph_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::CostGraphDef* temp = new ::tensorflow::CostGraphDef;
-    temp->MergeFrom(*cost_graph_);
+    ::tensorflow::CostGraphDef* temp = new ::tensorflow::CostGraphDef(*cost_graph_);
     cost_graph_ = NULL;
     return temp;
   }
@@ -4485,41 +4939,46 @@ void RunMetadata::unsafe_arena_set_allocated_cost_graph(
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RunMetadata::kStepStatsFieldNumber;
 const int RunMetadata::kCostGraphFieldNumber;
+const int RunMetadata::kPartitionGraphsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RunMetadata::RunMetadata()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.RunMetadata)
 }
-
 RunMetadata::RunMetadata(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
-  _internal_metadata_(arena) {
+  _internal_metadata_(arena),
+  partition_graphs_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.RunMetadata)
 }
 
 void RunMetadata::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  step_stats_ = const_cast< ::tensorflow::StepStats*>(&::tensorflow::StepStats::default_instance());
-  cost_graph_ = const_cast< ::tensorflow::CostGraphDef*>(&::tensorflow::CostGraphDef::default_instance());
+  step_stats_ = const_cast< ::tensorflow::StepStats*>(
+      ::tensorflow::StepStats::internal_default_instance());
+  cost_graph_ = const_cast< ::tensorflow::CostGraphDef*>(
+      ::tensorflow::CostGraphDef::internal_default_instance());
 }
 
 RunMetadata::RunMetadata(const RunMetadata& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.RunMetadata)
 }
 
 void RunMetadata::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
   step_stats_ = NULL;
   cost_graph_ = NULL;
+  _cached_size_ = 0;
 }
 
 RunMetadata::~RunMetadata() {
@@ -4528,11 +4987,12 @@ RunMetadata::~RunMetadata() {
 }
 
 void RunMetadata::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  if (this != default_instance_) {
+  if (this != &RunMetadata_default_instance_.get()) {
     delete step_stats_;
     delete cost_graph_;
   }
@@ -4555,11 +5015,11 @@ const ::google::protobuf::Descriptor* RunMetadata::descriptor() {
 }
 
 const RunMetadata& RunMetadata::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
+  return *internal_default_instance();
 }
 
-RunMetadata* RunMetadata::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<RunMetadata> RunMetadata_default_instance_;
 
 RunMetadata* RunMetadata::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<RunMetadata>(arena);
@@ -4571,6 +5031,7 @@ void RunMetadata::Clear() {
   step_stats_ = NULL;
   if (GetArenaNoVirtual() == NULL && cost_graph_ != NULL) delete cost_graph_;
   cost_graph_ = NULL;
+  partition_graphs_.Clear();
 }
 
 bool RunMetadata::MergePartialFromCodedStream(
@@ -4604,6 +5065,23 @@ bool RunMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_partition_graphs;
+        break;
+      }
+
+      // repeated .tensorflow.GraphDef partition_graphs = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_partition_graphs:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_partition_graphs:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_partition_graphs()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_loop_partition_graphs;
+        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4644,33 +5122,47 @@ void RunMetadata::SerializeWithCachedSizes(
       2, *this->cost_graph_, output);
   }
 
+  // repeated .tensorflow.GraphDef partition_graphs = 3;
+  for (unsigned int i = 0, n = this->partition_graphs_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->partition_graphs(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.RunMetadata)
 }
 
-::google::protobuf::uint8* RunMetadata::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* RunMetadata::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.RunMetadata)
   // optional .tensorflow.StepStats step_stats = 1;
   if (this->has_step_stats()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->step_stats_, target);
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->step_stats_, false, target);
   }
 
   // optional .tensorflow.CostGraphDef cost_graph = 2;
   if (this->has_cost_graph()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->cost_graph_, target);
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->cost_graph_, false, target);
+  }
+
+  // repeated .tensorflow.GraphDef partition_graphs = 3;
+  for (unsigned int i = 0, n = this->partition_graphs_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        3, this->partition_graphs(i), false, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.RunMetadata)
   return target;
 }
 
-int RunMetadata::ByteSize() const {
+size_t RunMetadata::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.RunMetadata)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional .tensorflow.StepStats step_stats = 1;
   if (this->has_step_stats()) {
@@ -4686,8 +5178,20 @@ int RunMetadata::ByteSize() const {
         *this->cost_graph_);
   }
 
+  // repeated .tensorflow.GraphDef partition_graphs = 3;
+  {
+    unsigned int count = this->partition_graphs_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->partition_graphs(i));
+    }
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -4695,7 +5199,7 @@ int RunMetadata::ByteSize() const {
 void RunMetadata::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.RunMetadata)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const RunMetadata* source = 
+  const RunMetadata* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const RunMetadata>(
           &from);
   if (source == NULL) {
@@ -4703,13 +5207,22 @@ void RunMetadata::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.RunMetadata)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void RunMetadata::MergeFrom(const RunMetadata& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.RunMetadata)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void RunMetadata::UnsafeMergeFrom(const RunMetadata& from) {
+  GOOGLE_DCHECK(&from != this);
+  partition_graphs_.MergeFrom(from.partition_graphs_);
   if (from.has_step_stats()) {
     mutable_step_stats()->::tensorflow::StepStats::MergeFrom(from.step_stats());
   }
@@ -4729,7 +5242,7 @@ void RunMetadata::CopyFrom(const RunMetadata& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.RunMetadata)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool RunMetadata::IsInitialized() const {
@@ -4743,7 +5256,7 @@ void RunMetadata::Swap(RunMetadata* other) {
     InternalSwap(other);
   } else {
     RunMetadata temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -4756,6 +5269,7 @@ void RunMetadata::UnsafeArenaSwap(RunMetadata* other) {
 void RunMetadata::InternalSwap(RunMetadata* other) {
   std::swap(step_stats_, other->step_stats_);
   std::swap(cost_graph_, other->cost_graph_);
+  partition_graphs_.UnsafeArenaSwap(&other->partition_graphs_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -4773,7 +5287,7 @@ void RunMetadata::InternalSwap(RunMetadata* other) {
 
 // optional .tensorflow.StepStats step_stats = 1;
 bool RunMetadata::has_step_stats() const {
-  return !_is_default_instance_ && step_stats_ != NULL;
+  return this != internal_default_instance() && step_stats_ != NULL;
 }
 void RunMetadata::clear_step_stats() {
   if (GetArenaNoVirtual() == NULL && step_stats_ != NULL) delete step_stats_;
@@ -4781,7 +5295,8 @@ void RunMetadata::clear_step_stats() {
 }
 const ::tensorflow::StepStats& RunMetadata::step_stats() const {
   // @@protoc_insertion_point(field_get:tensorflow.RunMetadata.step_stats)
-  return step_stats_ != NULL ? *step_stats_ : *default_instance_->step_stats_;
+  return step_stats_ != NULL ? *step_stats_
+                         : *::tensorflow::StepStats::internal_default_instance();
 }
 ::tensorflow::StepStats* RunMetadata::mutable_step_stats() {
   
@@ -4821,7 +5336,7 @@ const ::tensorflow::StepStats& RunMetadata::step_stats() const {
 
 // optional .tensorflow.CostGraphDef cost_graph = 2;
 bool RunMetadata::has_cost_graph() const {
-  return !_is_default_instance_ && cost_graph_ != NULL;
+  return this != internal_default_instance() && cost_graph_ != NULL;
 }
 void RunMetadata::clear_cost_graph() {
   if (GetArenaNoVirtual() == NULL && cost_graph_ != NULL) delete cost_graph_;
@@ -4829,7 +5344,8 @@ void RunMetadata::clear_cost_graph() {
 }
 const ::tensorflow::CostGraphDef& RunMetadata::cost_graph() const {
   // @@protoc_insertion_point(field_get:tensorflow.RunMetadata.cost_graph)
-  return cost_graph_ != NULL ? *cost_graph_ : *default_instance_->cost_graph_;
+  return cost_graph_ != NULL ? *cost_graph_
+                         : *::tensorflow::CostGraphDef::internal_default_instance();
 }
 ::tensorflow::CostGraphDef* RunMetadata::mutable_cost_graph() {
   
@@ -4867,6 +5383,39 @@ const ::tensorflow::CostGraphDef& RunMetadata::cost_graph() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.RunMetadata.cost_graph)
 }
 
+// repeated .tensorflow.GraphDef partition_graphs = 3;
+int RunMetadata::partition_graphs_size() const {
+  return partition_graphs_.size();
+}
+void RunMetadata::clear_partition_graphs() {
+  partition_graphs_.Clear();
+}
+const ::tensorflow::GraphDef& RunMetadata::partition_graphs(int index) const {
+  // @@protoc_insertion_point(field_get:tensorflow.RunMetadata.partition_graphs)
+  return partition_graphs_.Get(index);
+}
+::tensorflow::GraphDef* RunMetadata::mutable_partition_graphs(int index) {
+  // @@protoc_insertion_point(field_mutable:tensorflow.RunMetadata.partition_graphs)
+  return partition_graphs_.Mutable(index);
+}
+::tensorflow::GraphDef* RunMetadata::add_partition_graphs() {
+  // @@protoc_insertion_point(field_add:tensorflow.RunMetadata.partition_graphs)
+  return partition_graphs_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::tensorflow::GraphDef >*
+RunMetadata::mutable_partition_graphs() {
+  // @@protoc_insertion_point(field_mutable_list:tensorflow.RunMetadata.partition_graphs)
+  return &partition_graphs_;
+}
+const ::google::protobuf::RepeatedPtrField< ::tensorflow::GraphDef >&
+RunMetadata::partition_graphs() const {
+  // @@protoc_insertion_point(field_list:tensorflow.RunMetadata.partition_graphs)
+  return partition_graphs_;
+}
+
+inline const RunMetadata* RunMetadata::internal_default_instance() {
+  return &RunMetadata_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

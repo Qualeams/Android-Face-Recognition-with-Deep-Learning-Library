@@ -47,6 +47,10 @@ public final class WireFormat {
   // Do not allow instantiation.
   private WireFormat() {}
 
+  static final int FIXED_32_SIZE = 4;
+  static final int FIXED_64_SIZE = 8;
+  static final int MAX_VARINT_SIZE = 10;
+
   public static final int WIRETYPE_VARINT           = 0;
   public static final int WIRETYPE_FIXED64          = 1;
   public static final int WIRETYPE_LENGTH_DELIMITED = 2;
@@ -116,16 +120,24 @@ public final class WireFormat {
     FIXED32 (JavaType.INT        , WIRETYPE_FIXED32         ),
     BOOL    (JavaType.BOOLEAN    , WIRETYPE_VARINT          ),
     STRING  (JavaType.STRING     , WIRETYPE_LENGTH_DELIMITED) {
-      public boolean isPackable() { return false; }
+      @Override
+      public boolean isPackable() {
+        return false; }
     },
     GROUP   (JavaType.MESSAGE    , WIRETYPE_START_GROUP     ) {
-      public boolean isPackable() { return false; }
+      @Override
+      public boolean isPackable() {
+        return false; }
     },
     MESSAGE (JavaType.MESSAGE    , WIRETYPE_LENGTH_DELIMITED) {
-      public boolean isPackable() { return false; }
+      @Override
+      public boolean isPackable() {
+        return false; }
     },
     BYTES   (JavaType.BYTE_STRING, WIRETYPE_LENGTH_DELIMITED) {
-      public boolean isPackable() { return false; }
+      @Override
+      public boolean isPackable() {
+        return false; }
     },
     UINT32  (JavaType.INT        , WIRETYPE_VARINT          ),
     ENUM    (JavaType.ENUM       , WIRETYPE_VARINT          ),
@@ -170,18 +182,21 @@ public final class WireFormat {
   enum Utf8Validation {
     /** Eagerly parses to String; silently accepts invalid UTF8 bytes. */
     LOOSE {
+      @Override
       Object readString(CodedInputStream input) throws IOException {
         return input.readString();
       }
     },
     /** Eagerly parses to String; throws an IOException on invalid bytes. */
     STRICT {
+      @Override
       Object readString(CodedInputStream input) throws IOException {
         return input.readStringRequireUtf8();
       }
     },
     /** Keep data as ByteString; validation/conversion to String is lazy. */
     LAZY {
+      @Override
       Object readString(CodedInputStream input) throws IOException {
         return input.readBytes();
       }

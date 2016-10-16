@@ -34,10 +34,8 @@ import protobuf_unittest.LazyFieldsLite.LazyExtension;
 import protobuf_unittest.LazyFieldsLite.LazyInnerMessageLite;
 import protobuf_unittest.LazyFieldsLite.LazyMessageLite;
 import protobuf_unittest.LazyFieldsLite.LazyNestedInnerMessageLite;
-
-import junit.framework.TestCase;
-
 import java.util.ArrayList;
+import junit.framework.TestCase;
 
 /**
  * Unit test for messages with lazy fields.
@@ -249,6 +247,23 @@ public class LazyMessageLiteTest extends TestCase {
     assertEquals(42, merged.getInner().getNumWithDefault());
     assertEquals(115, merged.getOneofInner().getNum());
     assertEquals(42, merged.getOneofInner().getNumWithDefault());
+  }
+
+  // Regression test for b/28198805.
+  public void testMergeOneofMessages() throws Exception {
+    LazyInnerMessageLite inner = LazyInnerMessageLite.newBuilder().build();
+    LazyMessageLite outer = LazyMessageLite.newBuilder().setOneofInner(inner).build();
+    ByteString data1 = outer.toByteString();
+
+    // The following should not alter the content of the 'outer' message.
+    LazyMessageLite.Builder merged = LazyMessageLite.newBuilder().mergeFrom(outer);
+    LazyInnerMessageLite anotherInner = LazyInnerMessageLite.newBuilder().setNum(12345).build();
+    merged.setOneofInner(anotherInner);
+
+    // Check that the 'outer' stays the same.
+    ByteString data2 = outer.toByteString();
+    assertEquals(data1, data2);
+    assertEquals(0, outer.getOneofInner().getNum());
   }
 
   public void testSerialize() throws InvalidProtocolBufferException {

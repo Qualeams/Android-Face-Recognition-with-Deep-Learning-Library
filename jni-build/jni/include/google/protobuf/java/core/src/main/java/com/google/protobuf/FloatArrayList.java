@@ -34,32 +34,31 @@ import com.google.protobuf.Internal.FloatList;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.RandomAccess;
 
 /**
  * An implementation of {@link FloatList} on top of a primitive array.
- * 
+ *
  * @author dweis@google.com (Daniel Weis)
  */
-final class FloatArrayList extends AbstractProtobufList<Float> implements FloatList, RandomAccess {
-  
-  private static final int DEFAULT_CAPACITY = 10;
-  
+final class FloatArrayList
+    extends AbstractProtobufList<Float>
+    implements FloatList, RandomAccess {
+
   private static final FloatArrayList EMPTY_LIST = new FloatArrayList();
   static {
     EMPTY_LIST.makeImmutable();
   }
-  
+
   public static FloatArrayList emptyList() {
     return EMPTY_LIST;
   }
-  
+
   /**
    * The backing store for the list.
    */
   private float[] array;
-  
+
   /**
    * The size of the list distinct from the length of the array. That is, it is the number of
    * elements set in the list.
@@ -70,34 +69,58 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements FloatL
    * Constructs a new mutable {@code FloatArrayList} with default capacity.
    */
   FloatArrayList() {
-    this(DEFAULT_CAPACITY);
+    this(new float[DEFAULT_CAPACITY], 0);
   }
 
   /**
-   * Constructs a new mutable {@code FloatArrayList} with the provided capacity.
+   * Constructs a new mutable {@code FloatArrayList}
+   * containing the same elements as {@code other}.
    */
-  FloatArrayList(int capacity) {
-    array = new float[capacity];
-    size = 0;
+  private FloatArrayList(float[] other, int size) {
+    array = other;
+    this.size = size;
   }
 
-  /**
-   * Constructs a new mutable {@code FloatArrayList} containing the same elements as {@code other}.
-   */
-  FloatArrayList(List<Float> other) {
-    if (other instanceof FloatArrayList) {
-      FloatArrayList list = (FloatArrayList) other;
-      array = list.array.clone();
-      size = list.size;
-    } else {
-      size = other.size();
-      array = new float[size];
-      for (int i = 0; i < size; i++) {
-        array[i] = other.get(i);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof FloatArrayList)) {
+      return super.equals(o);
+    }
+    FloatArrayList other = (FloatArrayList) o;
+    if (size != other.size) {
+      return false;
+    }
+
+    final float[] arr = other.array;
+    for (int i = 0; i < size; i++) {
+      if (array[i] != arr[i]) {
+        return false;
       }
     }
+
+    return true;
   }
-  
+
+  @Override
+  public int hashCode() {
+    int result = 1;
+    for (int i = 0; i < size; i++) {
+      result = (31 * result) + Float.floatToIntBits(array[i]);
+    }
+    return result;
+  }
+
+  @Override
+  public FloatList mutableCopyWithCapacity(int capacity) {
+    if (capacity < size) {
+      throw new IllegalArgumentException();
+    }
+    return new FloatArrayList(Arrays.copyOf(array, capacity), size);
+  }
+
   @Override
   public Float get(int index) {
     return getFloat(index);
@@ -149,7 +172,7 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements FloatL
     if (index < 0 || index > size) {
       throw new IndexOutOfBoundsException(makeOutOfBoundsExceptionMessage(index));
     }
-    
+
     if (size < array.length) {
       // Shift everything over to make room
       System.arraycopy(array, index, array, index + 1, size - index);
@@ -157,10 +180,10 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements FloatL
       // Resize to 1.5x the size
       int length = ((size * 3) / 2) + 1;
       float[] newArray = new float[length];
-      
+
       // Copy the first part directly
       System.arraycopy(array, 0, newArray, 0, index);
-      
+
       // Copy the rest shifted over by one to make room
       System.arraycopy(array, index, newArray, index + 1, size - index);
       array = newArray;
@@ -174,38 +197,38 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements FloatL
   @Override
   public boolean addAll(Collection<? extends Float> collection) {
     ensureIsMutable();
-    
+
     if (collection == null) {
       throw new NullPointerException();
     }
-    
+
     // We specialize when adding another FloatArrayList to avoid boxing elements.
     if (!(collection instanceof FloatArrayList)) {
       return super.addAll(collection);
     }
-    
+
     FloatArrayList list = (FloatArrayList) collection;
     if (list.size == 0) {
       return false;
     }
-    
+
     int overflow = Integer.MAX_VALUE - size;
     if (overflow < list.size) {
       // We can't actually represent a list this large.
       throw new OutOfMemoryError();
     }
-    
+
     int newSize = size + list.size;
     if (newSize > array.length) {
       array = Arrays.copyOf(array, newSize);
     }
-    
+
     System.arraycopy(list.array, 0, array, size, list.size);
     size = newSize;
     modCount++;
     return true;
   }
-  
+
   @Override
   public boolean remove(Object o) {
     ensureIsMutable();
@@ -234,7 +257,7 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements FloatL
   /**
    * Ensures that the provided {@code index} is within the range of {@code [0, size]}. Throws an
    * {@link IndexOutOfBoundsException} if it is not.
-   * 
+   *
    * @param index the index to verify is in range
    */
   private void ensureIndexInRange(int index) {

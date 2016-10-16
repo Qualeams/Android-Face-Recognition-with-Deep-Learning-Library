@@ -32,12 +32,11 @@ package com.google.protobuf;
 
 import static java.util.Arrays.asList;
 
-import junit.framework.TestCase;
-
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
+import junit.framework.TestCase;
 
 /**
  * Tests for {@link ProtobufArrayList}.
@@ -61,20 +60,6 @@ public class ProtobufArrayListTest extends TestCase {
   
   public void testEmptyListIsImmutable() {
     assertImmutable(ProtobufArrayList.<Integer>emptyList());
-  }
-  
-  public void testCopyConstructor() {
-    ProtobufArrayList<Integer> copy = new ProtobufArrayList<Integer>(TERTIARY_LIST);
-    assertEquals(TERTIARY_LIST, copy);
-
-    copy = new ProtobufArrayList<Integer>(IntArrayList.emptyList());
-    assertEquals(ProtobufArrayList.emptyList(), copy);
-    
-    copy = new ProtobufArrayList<Integer>(asList(1, 2, 3));
-    assertEquals(asList(1, 2, 3), copy);
-
-    copy = new ProtobufArrayList<Integer>(Collections.<Integer>emptyList());
-    assertEquals(ProtobufArrayList.emptyList(), copy);
   }
   
   public void testModificationWithIteration() {

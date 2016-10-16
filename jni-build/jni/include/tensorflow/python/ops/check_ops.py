@@ -24,6 +24,8 @@
 @@assert_integer
 @@assert_less
 @@assert_less_equal
+@@assert_greater
+@@assert_greater_equal
 @@assert_rank
 @@assert_rank_at_least
 @@assert_type
@@ -43,7 +45,6 @@ from tensorflow.python.framework import ops
 from tensorflow.python.framework import tensor_util
 from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import control_flow_ops
-from tensorflow.python.ops import logging_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.util import compat
 
@@ -62,6 +63,8 @@ __all__ = [
     'assert_integer',
     'assert_less',
     'assert_less_equal',
+    'assert_greater',
+    'assert_greater_equal',
     'assert_rank',
     'assert_rank_at_least',
     'assert_type',
@@ -129,7 +132,7 @@ def assert_negative(x, data=None, summarize=None, message=None, name=None):
     Op raising `InvalidArgumentError` unless `x` is all negative.
   """
   message = message or ''
-  with ops.op_scope([x, data], name, 'assert_negative'):
+  with ops.name_scope(name, 'assert_negative', [x, data]):
     x = ops.convert_to_tensor(x, name='x')
     if data is None:
       data = [
@@ -169,7 +172,7 @@ def assert_positive(x, data=None, summarize=None, message=None, name=None):
     Op raising `InvalidArgumentError` unless `x` is all positive.
   """
   message = message or ''
-  with ops.op_scope([x, data], name, 'assert_positive'):
+  with ops.name_scope(name, 'assert_positive', [x, data]):
     x = ops.convert_to_tensor(x, name='x')
     if data is None:
       data = [
@@ -210,7 +213,7 @@ def assert_non_negative(x, data=None, summarize=None, message=None, name=None):
     Op raising `InvalidArgumentError` unless `x` is all non-negative.
   """
   message = message or ''
-  with ops.op_scope([x, data], name, 'assert_non_negative'):
+  with ops.name_scope(name, 'assert_non_negative', [x, data]):
     x = ops.convert_to_tensor(x, name='x')
     if data is None:
       data = [
@@ -252,7 +255,7 @@ def assert_non_positive(x, data=None, summarize=None, message=None, name=None):
     Op raising `InvalidArgumentError` unless `x` is all non-positive.
   """
   message = message or ''
-  with ops.op_scope([x, data], name, 'assert_non_positive'):
+  with ops.name_scope(name, 'assert_non_positive', [x, data]):
     x = ops.convert_to_tensor(x, name='x')
     if data is None:
       data = [
@@ -295,7 +298,7 @@ def assert_equal(x, y, data=None, summarize=None, message=None, name=None):
     Op that raises `InvalidArgumentError` if `x == y` is False.
   """
   message = message or ''
-  with ops.op_scope([x, y, data], name, 'assert_equal'):
+  with ops.name_scope(name, 'assert_equal', [x, y, data]):
     x = ops.convert_to_tensor(x, name='x')
     y = ops.convert_to_tensor(y, name='y')
     if data is None:
@@ -305,7 +308,7 @@ def assert_equal(x, y, data=None, summarize=None, message=None, name=None):
           y.name, y
       ]
     condition = math_ops.reduce_all(math_ops.equal(x, y))
-    return logging_ops.Assert(condition, data, summarize=summarize)
+    return control_flow_ops.Assert(condition, data, summarize=summarize)
 
 
 def assert_less(x, y, data=None, summarize=None, message=None, name=None):
@@ -341,7 +344,7 @@ def assert_less(x, y, data=None, summarize=None, message=None, name=None):
     Op that raises `InvalidArgumentError` if `x < y` is False.
   """
   message = message or ''
-  with ops.op_scope([x, y, data], name, 'assert_less'):
+  with ops.name_scope(name, 'assert_less', [x, y, data]):
     x = ops.convert_to_tensor(x, name='x')
     y = ops.convert_to_tensor(y, name='y')
     if data is None:
@@ -351,7 +354,7 @@ def assert_less(x, y, data=None, summarize=None, message=None, name=None):
           y.name, y
       ]
     condition = math_ops.reduce_all(math_ops.less(x, y))
-    return logging_ops.Assert(condition, data, summarize=summarize)
+    return control_flow_ops.Assert(condition, data, summarize=summarize)
 
 
 def assert_less_equal(x, y, data=None, summarize=None, message=None, name=None):
@@ -387,7 +390,7 @@ def assert_less_equal(x, y, data=None, summarize=None, message=None, name=None):
     Op that raises `InvalidArgumentError` if `x <= y` is False.
   """
   message = message or ''
-  with ops.op_scope([x, y, data], name, 'assert_less_equal'):
+  with ops.name_scope(name, 'assert_less_equal', [x, y, data]):
     x = ops.convert_to_tensor(x, name='x')
     y = ops.convert_to_tensor(y, name='y')
     if data is None:
@@ -397,7 +400,101 @@ def assert_less_equal(x, y, data=None, summarize=None, message=None, name=None):
           y.name, y
       ]
     condition = math_ops.reduce_all(math_ops.less_equal(x, y))
-    return logging_ops.Assert(condition, data, summarize=summarize)
+    return control_flow_ops.Assert(condition, data, summarize=summarize)
+
+
+def assert_greater(x, y, data=None, summarize=None, message=None, name=None):
+  """Assert the condition `x > y` holds element-wise.
+
+  Example of adding a dependency to an operation:
+
+  ```python
+  with tf.control_dependencies([tf.assert_greater(x, y)]):
+    output = tf.reduce_sum(x)
+  ```
+
+  Example of adding dependency to the tensor being checked:
+
+  ```python
+  x = tf.with_dependencies([tf.assert_greater(x, y)], x)
+  ```
+
+  This condition holds if for every pair of (possibly broadcast) elements
+  `x[i]`, `y[i]`, we have `x[i] > y[i]`.
+  If both `x` and `y` are empty, this is trivially satisfied.
+
+  Args:
+    x:  Numeric `Tensor`.
+    y:  Numeric `Tensor`, same dtype as and broadcastable to `x`.
+    data:  The tensors to print out if the condition is False.  Defaults to
+      error message and first few entries of `x`, `y`.
+    summarize: Print this many entries of each tensor.
+    message: A string to prefix to the default message.
+    name: A name for this operation (optional).  Defaults to "assert_greater".
+
+  Returns:
+    Op that raises `InvalidArgumentError` if `x > y` is False.
+  """
+  message = message or ''
+  with ops.name_scope(name, 'assert_greater', [x, y, data]):
+    x = ops.convert_to_tensor(x, name='x')
+    y = ops.convert_to_tensor(y, name='y')
+    if data is None:
+      data = [
+          message,
+          'Condition x > y did not hold element-wise: x = ', x.name, x, 'y = ',
+          y.name, y
+      ]
+    condition = math_ops.reduce_all(math_ops.greater(x, y))
+    return control_flow_ops.Assert(condition, data, summarize=summarize)
+
+
+def assert_greater_equal(x, y, data=None, summarize=None, message=None,
+                         name=None):
+  """Assert the condition `x >= y` holds element-wise.
+
+  Example of adding a dependency to an operation:
+
+  ```python
+  with tf.control_dependencies([tf.assert_greater_equal(x, y)]):
+    output = tf.reduce_sum(x)
+  ```
+
+  Example of adding dependency to the tensor being checked:
+
+  ```python
+  x = tf.with_dependencies([tf.assert_greater_equal(x, y)], x)
+  ```
+
+  This condition holds if for every pair of (possibly broadcast) elements
+  `x[i]`, `y[i]`, we have `x[i] >= y[i]`.
+  If both `x` and `y` are empty, this is trivially satisfied.
+
+  Args:
+    x:  Numeric `Tensor`.
+    y:  Numeric `Tensor`, same dtype as and broadcastable to `x`.
+    data:  The tensors to print out if the condition is False.  Defaults to
+      error message and first few entries of `x`, `y`.
+    summarize: Print this many entries of each tensor.
+    message: A string to prefix to the default message.
+    name: A name for this operation (optional).  Defaults to
+      "assert_greater_equal"
+
+  Returns:
+    Op that raises `InvalidArgumentError` if `x >= y` is False.
+  """
+  message = message or ''
+  with ops.name_scope(name, 'assert_greater_equal', [x, y, data]):
+    x = ops.convert_to_tensor(x, name='x')
+    y = ops.convert_to_tensor(y, name='y')
+    if data is None:
+      data = [
+          message,
+          'Condition x >= y did not hold element-wise: x = ', x.name, x, 'y = ',
+          y.name, y
+      ]
+    condition = math_ops.reduce_all(math_ops.greater_equal(x, y))
+    return control_flow_ops.Assert(condition, data, summarize=summarize)
 
 
 def _assert_rank_condition(x, rank, static_condition, dynamic_condition, data,
@@ -423,7 +520,7 @@ def _assert_rank_condition(x, rank, static_condition, dynamic_condition, data,
   Raises:
     ValueError:  If static checks determine `x` fails static_condition.
   """
-  with ops.op_scope([x], name, 'assert_rank'):
+  with ops.name_scope(name, 'assert_rank', [x]):
     x = ops.convert_to_tensor(x, name='x')
     rank = ops.convert_to_tensor(rank, name='rank')
 
@@ -452,7 +549,7 @@ def _assert_rank_condition(x, rank, static_condition, dynamic_condition, data,
       rank_check = assert_rank(rank, 0, data=this_data)
       condition = control_flow_ops.with_dependencies([rank_check], condition)
 
-  return logging_ops.Assert(condition, data, summarize=summarize)
+  return control_flow_ops.Assert(condition, data, summarize=summarize)
 
 
 def assert_rank(x, rank, data=None, summarize=None, message=None, name=None):
@@ -602,7 +699,7 @@ def assert_integer(x, message=None, name=None):
     A `no_op` that does nothing.  Type can be determined statically.
   """
   message = message or ''
-  with ops.op_scope([x], name, 'assert_integer'):
+  with ops.name_scope(name, 'assert_integer', [x]):
     x = ops.convert_to_tensor(x, name='x')
     if not x.dtype.is_integer:
       err_msg = (
@@ -618,18 +715,19 @@ def assert_type(tensor, tf_type, message=None, name=None):
 
   Args:
     tensor: A tensorflow `Tensor`.
-    tf_type: A tensorflow type (dtypes.float32, tf.int64, dtypes.bool, etc).
+    tf_type: A tensorflow type (`dtypes.float32`, `tf.int64`, `dtypes.bool`,
+      etc).
     message: A string to prefix to the default message.
     name:  A name to give this `Op`.  Defaults to "assert_type"
 
   Raises:
-    TypeError: If the tensors data type doesn't match tf_type.
+    TypeError: If the tensors data type doesn't match `tf_type`.
 
   Returns:
     A `no_op` that does nothing.  Type can be determined statically.
   """
   message = message or ''
-  with ops.op_scope([tensor], name, 'assert_type'):
+  with ops.name_scope(name, 'assert_type', [tensor]):
     tensor = ops.convert_to_tensor(tensor, name='tensor')
     if tensor.dtype != tf_type:
       raise TypeError(
@@ -677,7 +775,7 @@ def is_non_decreasing(x, name=None):
   Raises:
     TypeError: if `x` is not a numeric tensor.
   """
-  with ops.op_scope([x], name, 'is_non_decreasing'):
+  with ops.name_scope(name, 'is_non_decreasing', [x]):
     diff = _get_diff_for_monotonic_comparison(x)
     # When len(x) = 1, diff = [], less_equal = [], and reduce_all([]) = True.
     zero = ops.convert_to_tensor(0, dtype=diff.dtype)
@@ -704,7 +802,7 @@ def is_strictly_increasing(x, name=None):
   Raises:
     TypeError: if `x` is not a numeric tensor.
   """
-  with ops.op_scope([x], name, 'is_strictly_increasing'):
+  with ops.name_scope(name, 'is_strictly_increasing', [x]):
     diff = _get_diff_for_monotonic_comparison(x)
     # When len(x) = 1, diff = [], less = [], and reduce_all([]) = True.
     zero = ops.convert_to_tensor(0, dtype=diff.dtype)

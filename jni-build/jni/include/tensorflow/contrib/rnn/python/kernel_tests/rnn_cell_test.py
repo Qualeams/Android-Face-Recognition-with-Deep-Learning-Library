@@ -105,7 +105,8 @@ class RNNCellTest(tf.test.TestCase):
         m = tf.zeros([batch_size, state_size*num_shifts])
         output, state = tf.contrib.rnn.GridLSTMCell(
             num_units=num_units, feature_size=feature_size,
-            frequency_skip=frequency_skip, forget_bias=1.0)(x, m)
+            frequency_skip=frequency_skip, forget_bias=1.0,
+            num_frequency_blocks=num_shifts)(x, m)
         sess.run([tf.initialize_all_variables()])
         res = sess.run([output, state],
                        {x.name: np.array([[1., 1., 1., 1.],
@@ -124,6 +125,72 @@ class RNNCellTest(tf.test.TestCase):
               float(np.linalg.norm((res[0][0, :] - res[0][i, :]))) > 1e-6)
           self.assertTrue(
               float(np.linalg.norm((res[1][0, :] - res[1][i, :]))) > 1e-6)
+
+  def testGridLstmCellWithCoupledInputForgetGates(self):
+    num_units = 2
+    state_size = num_units * 2
+    batch_size = 3
+    input_size = 4
+    feature_size = 2
+    frequency_skip = 1
+    num_shifts = int((input_size - feature_size) / frequency_skip + 1)
+    expected_output = np.array(
+        [[ 0.416383, 0.416383, 0.403238, 0.403238, 0.524020, 0.524020,
+           0.565425, 0.565425, 0.557865, 0.557865, 0.609699, 0.609699],
+         [ 0.627331, 0.627331, 0.622393, 0.622393, 0.688342, 0.688342,
+           0.708078, 0.708078, 0.694245, 0.694245, 0.715171, 0.715171],
+         [ 0.711050, 0.711050, 0.709197, 0.709197, 0.736533, 0.736533,
+           0.744264, 0.744264, 0.737390, 0.737390, 0.745250, 0.745250]],
+        dtype=np.float32)
+    expected_state = np.array(
+        [[ 0.625556, 0.625556, 0.416383, 0.416383, 0.759134, 0.759134,
+           0.524020, 0.524020, 0.798795, 0.798795, 0.557865, 0.557865],
+         [ 0.875488, 0.875488, 0.627331, 0.627331, 0.936432, 0.936432,
+           0.688342, 0.688342, 0.941961, 0.941961, 0.694245, 0.694245],
+         [ 0.957327, 0.957327, 0.711050, 0.711050, 0.979522, 0.979522,
+           0.736533, 0.736533, 0.980245, 0.980245, 0.737390, 0.737390]],
+        dtype=np.float32)
+    for state_is_tuple in [False, True]:
+      with self.test_session() as sess:
+        with tf.variable_scope("state_is_tuple" + str(state_is_tuple),
+                               initializer=tf.constant_initializer(0.5)):
+          cell = tf.contrib.rnn.GridLSTMCell(
+              num_units=num_units, feature_size=feature_size,
+              frequency_skip=frequency_skip, forget_bias=1.0,
+              num_frequency_blocks=num_shifts,
+              couple_input_forget_gates=True,
+              state_is_tuple=state_is_tuple)
+          inputs = tf.constant(np.array([[1., 1., 1., 1.],
+                                         [2., 2., 2., 2.],
+                                         [3., 3., 3., 3.]],
+                                        dtype=np.float32), dtype=tf.float32)
+          if state_is_tuple:
+            state_value = tf.constant(
+                0.1 * np.ones((batch_size, num_units), dtype=np.float32),
+                dtype=tf.float32)
+            init_state = cell.state_tuple_type(
+                *([state_value, state_value] * num_shifts))
+          else:
+            init_state = tf.constant(
+                0.1 * np.ones((batch_size, num_units * num_shifts * 2),
+                              dtype=np.float32),
+                dtype=tf.float32)
+          output, state = cell(inputs, init_state)
+          sess.run([tf.initialize_all_variables()])
+          res = sess.run([output, state])
+          # This is a smoke test: Only making sure expected values not change.
+          self.assertEqual(len(res), 2)
+          self.assertAllClose(res[0], expected_output)
+          if not state_is_tuple:
+            self.assertAllClose(res[1], expected_state)
+          else:
+            # There should be num_shifts * 2 states in the tuple.
+            self.assertEqual(len(res[1]), num_shifts * 2)
+            # Checking the shape of each state to be batch_size * num_units
+            for ss in res[1]:
+              self.assertEqual(ss.shape[0], batch_size)
+              self.assertEqual(ss.shape[1], num_units)
+            self.assertAllClose(np.concatenate(res[1], axis=1), expected_state)
 
   def testAttentionCellWrapperFailures(self):
     with self.assertRaisesRegexp(
@@ -297,6 +364,173 @@ class RNNCellTest(tf.test.TestCase):
           sess.run(tf.initialize_all_variables())
           self.assertAllClose(sess.run(output), expected_output)
           self.assertAllClose(sess.run(state), expected_state)
+
+
+class LayerNormBasicLSTMCellTest(tf.test.TestCase):
+
+  # NOTE: all the values in the current test case have been calculated.
+
+  def testBasicLSTMCell(self):
+    with self.test_session() as sess:
+      with tf.variable_scope("root", initializer=tf.constant_initializer(0.5)):
+        x = tf.zeros([1, 2])
+        c0 = tf.zeros([1, 2])
+        h0 = tf.zeros([1, 2])
+        state0 = tf.nn.rnn_cell.LSTMStateTuple(c0, h0)
+        c1 = tf.zeros([1, 2])
+        h1 = tf.zeros([1, 2])
+        state1 = tf.nn.rnn_cell.LSTMStateTuple(c1, h1)
+        state = (state0, state1)
+        cell = tf.contrib.rnn.LayerNormBasicLSTMCell(2)
+        cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2)
+        g, out_m = cell(x, state)
+        sess.run([tf.initialize_all_variables()])
+        res = sess.run([g, out_m],
+                       {
+                           x.name: np.array([[1., 1.]]),
+                           c0.name: 0.1 * np.asarray([[0, 1]]),
+                           h0.name: 0.1 * np.asarray([[2, 3]]),
+                           c1.name: 0.1 * np.asarray([[4, 5]]),
+                           h1.name: 0.1 * np.asarray([[6, 7]]),
+                       })
+
+        expected_h = np.array([[-0.38079708, 0.38079708]])
+        expected_state0_c = np.array([[-1.0, 1.0]])
+        expected_state0_h = np.array([[-0.38079708, 0.38079708]])
+        expected_state1_c = np.array([[-1.0, 1.0]])
+        expected_state1_h = np.array([[-0.38079708, 0.38079708]])
+
+        actual_h = res[0]
+        actual_state0_c = res[1][0].c
+        actual_state0_h = res[1][0].h
+        actual_state1_c = res[1][1].c
+        actual_state1_h = res[1][1].h
+
+        self.assertAllClose(actual_h, expected_h, 1e-5)
+        self.assertAllClose(expected_state0_c, actual_state0_c, 1e-5)
+        self.assertAllClose(expected_state0_h, actual_state0_h, 1e-5)
+        self.assertAllClose(expected_state1_c, actual_state1_c, 1e-5)
+        self.assertAllClose(expected_state1_h, actual_state1_h, 1e-5)
+
+      with tf.variable_scope("other", initializer=tf.constant_initializer(0.5)):
+        x = tf.zeros([1, 3])  # Test BasicLSTMCell with input_size != num_units.
+        c = tf.zeros([1, 2])
+        h = tf.zeros([1, 2])
+        state = tf.nn.rnn_cell.LSTMStateTuple(c, h)
+        cell = tf.contrib.rnn.LayerNormBasicLSTMCell(2)
+        g, out_m = cell(x, state)
+        sess.run([tf.initialize_all_variables()])
+        res = sess.run([g, out_m],
+                       {
+                           x.name: np.array([[1., 1., 1.]]),
+                           c.name: 0.1 * np.asarray([[0, 1]]),
+                           h.name: 0.1 * np.asarray([[2, 3]]),
+                       })
+
+        expected_h = np.array([[-0.38079708, 0.38079708]])
+        expected_c = np.array([[-1.0, 1.0]])
+        self.assertEqual(len(res), 2)
+        self.assertAllClose(res[0], expected_h, 1e-5)
+        self.assertAllClose(res[1].c, expected_c, 1e-5)
+        self.assertAllClose(res[1].h, expected_h, 1e-5)
+
+  def testBasicLSTMCellWithStateTuple(self):
+    with self.test_session() as sess:
+      with tf.variable_scope("root", initializer=tf.constant_initializer(0.5)):
+        x = tf.zeros([1, 2])
+        c0 = tf.zeros([1, 2])
+        h0 = tf.zeros([1, 2])
+        state0 = tf.nn.rnn_cell.LSTMStateTuple(c0, h0)
+        c1 = tf.zeros([1, 2])
+        h1 = tf.zeros([1, 2])
+        state1 = tf.nn.rnn_cell.LSTMStateTuple(c1, h1)
+        cell = tf.contrib.rnn.LayerNormBasicLSTMCell(2)
+        cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2)
+        h, (s0, s1) = cell(x, (state0, state1))
+        sess.run([tf.initialize_all_variables()])
+        res = sess.run([h, s0, s1],
+                       {
+                           x.name: np.array([[1., 1.]]),
+                           c0.name: 0.1 * np.asarray([[0, 1]]),
+                           h0.name: 0.1 * np.asarray([[2, 3]]),
+                           c1.name: 0.1 * np.asarray([[4, 5]]),
+                           h1.name: 0.1 * np.asarray([[6, 7]]),
+                       })
+
+        expected_h = np.array([[-0.38079708, 0.38079708]])
+        expected_h0 = np.array([[-0.38079708, 0.38079708]])
+        expected_c0 = np.array([[-1.0, 1.0]])
+        expected_h1 = np.array([[-0.38079708, 0.38079708]])
+        expected_c1 = np.array([[-1.0, 1.0]])
+
+        self.assertEqual(len(res), 3)
+        self.assertAllClose(res[0], expected_h, 1e-5)
+        self.assertAllClose(res[1].c, expected_c0, 1e-5)
+        self.assertAllClose(res[1].h, expected_h0, 1e-5)
+        self.assertAllClose(res[2].c, expected_c1, 1e-5)
+        self.assertAllClose(res[2].h, expected_h1, 1e-5)
+
+  def testBasicLSTMCellWithDropout(self):
+
+    def _is_close(x, y, digits=4):
+      delta = x - y
+      return delta < 10 ** (-digits)
+
+    def _is_close_in(x, items, digits=4):
+      for i in items:
+        if _is_close(x, i, digits):
+          return True
+      return False
+
+    keep_prob = 0.5
+    c_high = 2.9998924946
+    c_low = 0.999983298578
+    h_low = 0.761552567265
+    h_high = 0.995008519604
+    num_units = 5
+    allowed_low = [2, 3]
+
+    with self.test_session() as sess:
+      with tf.variable_scope("other", initializer=tf.constant_initializer(1)):
+        x = tf.zeros([1, 5])
+        c = tf.zeros([1, 5])
+        h = tf.zeros([1, 5])
+        state = tf.nn.rnn_cell.LSTMStateTuple(c, h)
+        cell = tf.contrib.rnn.LayerNormBasicLSTMCell(
+            num_units, layer_norm=False, dropout_keep_prob=keep_prob)
+
+        g, s = cell(x, state)
+        sess.run([tf.initialize_all_variables()])
+        res = sess.run([g, s],
+                       {
+                           x.name: np.ones([1, 5]),
+                           c.name: np.ones([1, 5]),
+                           h.name: np.ones([1, 5]),
+                       })
+
+        # Since the returned tensors are of size [1,n]
+        # get the first component right now.
+        actual_h = res[0][0]
+        actual_state_c = res[1].c[0]
+        actual_state_h = res[1].h[0]
+
+        # For each item in `c` (the cell inner state) check that
+        # it is equal to one of the allowed values `c_high` (not
+        # dropped out) or `c_low` (dropped out) and verify that the
+        # corresponding item in `h` (the cell activation) is coherent.
+        # Count the dropped activations and check that their number is
+        # coherent with the dropout probability.
+        dropped_count = 0
+        self.assertTrue((actual_h == actual_state_h).all())
+        for citem, hitem in zip(actual_state_c, actual_state_h):
+          self.assertTrue(_is_close_in(citem, [c_low, c_high]))
+          if _is_close(citem, c_low):
+            self.assertTrue(_is_close(hitem, h_low))
+            dropped_count += 1
+          elif _is_close(citem, c_high):
+            self.assertTrue(_is_close(hitem, h_high))
+        self.assertIn(dropped_count, allowed_low)
+
 
 if __name__ == "__main__":
   tf.test.main()

@@ -62,7 +62,7 @@ using internal::shared_ptr;
 namespace python {
 
 struct ExtensionDict;
-struct PyDescriptorPool;
+struct PyMessageFactory;
 
 typedef struct CMessage {
   PyObject_HEAD;
@@ -112,24 +112,47 @@ typedef struct CMessage {
   // Similar to composite_fields, acting as a cache, but also contains the
   // required extension dict logic.
   ExtensionDict* extensions;
+
+  // Implements the "weakref" protocol for this object.
+  PyObject* weakreflist;
 } CMessage;
 
 extern PyTypeObject CMessage_Type;
+
+
+// The (meta) type of all Messages classes.
+// It allows us to cache some C++ pointers in the class object itself, they are
+// faster to extract than from the type's dictionary.
+
+struct CMessageClass {
+  // This is how CPython subclasses C structures: the base structure must be
+  // the first member of the object.
+  PyHeapTypeObject super;
+
+  // C++ descriptor of this message.
+  const Descriptor* message_descriptor;
+
+  // Owned reference, used to keep the pointer above alive.
+  PyObject* py_message_descriptor;
+
+  // The Python MessageFactory used to create the class. It is needed to resolve
+  // fields descriptors, including extensions fields; its C++ MessageFactory is
+  // used to instantiate submessages.
+  // We own the reference, because it's important to keep the factory alive.
+  PyMessageFactory* py_message_factory;
+
+  PyObject* AsPyObject() {
+    return reinterpret_cast<PyObject*>(this);
+  }
+};
+
 
 namespace cmessage {
 
 // Internal function to create a new empty Message Python object, but with empty
 // pointers to the C++ objects.
 // The caller must fill self->message, self->owner and eventually self->parent.
-CMessage* NewEmptyMessage(PyObject* type, const Descriptor* descriptor);
-
-// Release a submessage from its proto tree, making it a new top-level messgae.
-// A new message will be created if this is a read-only default instance.
-//
-// Corresponds to reflection api method ReleaseMessage.
-int ReleaseSubMessage(CMessage* self,
-                      const FieldDescriptor* field_descriptor,
-                      CMessage* child_cmessage);
+CMessage* NewEmptyMessage(CMessageClass* type);
 
 // Retrieves the C++ descriptor of a Python Extension descriptor.
 // On error, return NULL with an exception set.
@@ -206,7 +229,9 @@ PyObject* HasFieldByDescriptor(
 PyObject* HasField(CMessage* self, PyObject* arg);
 
 // Initializes values of fields on a newly constructed message.
-int InitAttributes(CMessage* self, PyObject* kwargs);
+// Note that positional arguments are disallowed: 'args' must be NULL or the
+// empty tuple.
+int InitAttributes(CMessage* self, PyObject* args, PyObject* kwargs);
 
 PyObject* MergeFrom(CMessage* self, PyObject* arg);
 
@@ -229,14 +254,15 @@ int SetOwner(CMessage* self, const shared_ptr<Message>& new_owner);
 
 int AssureWritable(CMessage* self);
 
-// Returns the "best" DescriptorPool for the given message.
-// This is often equivalent to message.DESCRIPTOR.pool, but not always, when
-// the message class was created from a MessageFactory using a custom pool which
-// uses the generated pool as an underlay.
+// Returns the message factory for the given message.
+// This is equivalent to message.MESSAGE_FACTORY
 //
-// The returned pool is suitable for finding fields and building submessages,
+// The returned factory is suitable for finding fields and building submessages,
 // even in the case of extensions.
-PyDescriptorPool* GetDescriptorPoolForMessage(CMessage* message);
+// Returns a *borrowed* reference, and never fails because we pass a CMessage.
+PyMessageFactory* GetFactoryForMessage(CMessage* message);
+
+PyObject* SetAllowOversizeProtos(PyObject* m, PyObject* arg);
 
 }  // namespace cmessage
 
@@ -322,6 +348,8 @@ bool CheckFieldBelongsToMessage(const FieldDescriptor* field_descriptor,
                                 const Message* message);
 
 extern PyObject* PickleError_class;
+
+bool InitProto2MessageModule(PyObject *m);
 
 }  // namespace python
 }  // namespace protobuf

@@ -1,4 +1,4 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
+# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -185,7 +185,7 @@ def parallel_read(data_sources,
 
   Args:
     data_sources: a list/tuple of files or the location of the data, i.e.
-      /cns/../train@128, /cns/.../train* or /tmp/.../train*
+      /path/to/train@128, /path/to/train* or /tmp/.../train*
     reader_class: one of the io_ops.ReaderBase subclasses ex: TFRecordReader
     num_epochs: The number of times each data source is read. If left as None,
         the data will be cycled through indefinitely.
@@ -234,7 +234,7 @@ def single_pass_read(data_sources,
 
   Args:
     data_sources: a list/tuple of files or the location of the data, i.e.
-      /cns/../train@128, /cns/.../train* or /tmp/.../train*
+      /path/to/train@128, /path/to/train* or /tmp/.../train*
     reader_class: one of the io_ops.ReaderBase subclasses ex: TFRecordReader.
     reader_kwargs: an optional dict, of kwargs for the reader.
 
@@ -256,7 +256,7 @@ def get_data_files(data_sources):
 
   Args:
     data_sources: a list/tuple of files or the location of the data, i.e.
-      /cns/../train@128, /cns/.../train* or /tmp/.../train*
+      /path/to/train@128, /path/to/train* or /tmp/.../train*
 
   Returns:
     a list of data_files.

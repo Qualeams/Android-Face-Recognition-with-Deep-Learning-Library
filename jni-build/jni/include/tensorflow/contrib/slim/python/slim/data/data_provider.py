@@ -1,4 +1,4 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
+# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 """Contains code for the DataProvider.
 
 A DataProvider is a class which provides some predefined data types from some
-source (SSTable, TFRecord, CNS directory, etc). The most basic function of a
+source (TFRecord, etc). The most basic function of a
 data provider is the `Get` operation where one requests one or more types of
 data, or 'items':
 

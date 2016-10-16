@@ -31,7 +31,7 @@
 #import "GPBUnknownField_PackagePrivate.h"
 
 #import "GPBArray.h"
-#import "GPBCodedOutputStream.h"
+#import "GPBCodedOutputStream_PackagePrivate.h"
 
 @implementation GPBUnknownField {
  @protected
@@ -66,6 +66,12 @@
 
   [super dealloc];
 }
+
+// Direct access is use for speed, to avoid even internally declaring things
+// read/write, etc. The warning is enabled in the project to ensure code calling
+// protos can turn on -Wdirect-ivar-access without issues.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdirect-ivar-access"
 
 - (id)copyWithZone:(NSZone *)zone {
   GPBUnknownField *result =
@@ -322,5 +328,7 @@
     [mutableGroupList_ addObject:value];
   }
 }
+
+#pragma clang diagnostic pop
 
 @end

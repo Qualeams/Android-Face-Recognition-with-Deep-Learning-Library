@@ -31,14 +31,12 @@
 package com.google.protobuf;
 
 import com.google.protobuf.ByteString.Output;
-
-import junit.framework.TestCase;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -47,6 +45,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import junit.framework.TestCase;
 
 /**
  * Test methods with implementations in {@link ByteString}, plus do some top-level "integration"
@@ -756,5 +755,18 @@ public class ByteStringTest extends TestCase {
     assertEquals((byte) 1, result[dataSize - dataSize / 2 - 1]);
     assertEquals((byte) 2, result[dataSize - dataSize / 2]);
     assertEquals((byte) 2, result[dataSize - 1]);
+  }
+  
+  /**
+   * Tests ByteString uses Arrays based byte copier when running under Hotstop VM.
+   */
+  public void testByteArrayCopier() throws Exception {
+    Field field = ByteString.class.getDeclaredField("byteArrayCopier");
+    field.setAccessible(true);
+    Object byteArrayCopier = field.get(null);
+    assertNotNull(byteArrayCopier);
+    assertTrue(
+        byteArrayCopier.toString(),
+        byteArrayCopier.getClass().getSimpleName().endsWith("ArraysByteArrayCopier"));
   }
 }

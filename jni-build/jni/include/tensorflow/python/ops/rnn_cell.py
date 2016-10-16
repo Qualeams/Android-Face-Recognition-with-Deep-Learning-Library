@@ -98,7 +98,7 @@ class RNNCell(object):
   If `self.state_size` is an integer, this operation also results in a new
   state matrix with `self.state_size` columns.  If `self.state_size` is a
   tuple of integers, then it results in a tuple of `len(state_size)` state
-  matrices, each with the a column size corresponding to values in `state_size`.
+  matrices, each with a column size corresponding to values in `state_size`.
 
   This module provides a number of basic commonly used RNN cells, such as
   LSTM (Long Short Term Memory) or GRU (Gated Recurrent Unit), and a number
@@ -121,6 +121,7 @@ class RNNCell(object):
 
     Returns:
       A pair containing:
+
       - Output: A `2-D` tensor with shape `[batch_size x self.output_size]`.
       - New state: Either a single `2-D` tensor, or a tuple of tensors matching
         the arity and shapes of `state`.
@@ -268,7 +269,7 @@ class BasicLSTMCell(RNNCell):
   """
 
   def __init__(self, num_units, forget_bias=1.0, input_size=None,
-               state_is_tuple=False, activation=tanh):
+               state_is_tuple=True, activation=tanh):
     """Initialize the basic LSTM cell.
 
     Args:
@@ -276,8 +277,8 @@ class BasicLSTMCell(RNNCell):
       forget_bias: float, The bias added to forget gates (see above).
       input_size: Deprecated and unused.
       state_is_tuple: If True, accepted and returned states are 2-tuples of
-        the `c_state` and `m_state`.  By default (False), they are concatenated
-        along the column axis.  This default behavior will soon be deprecated.
+        the `c_state` and `m_state`.  If False, they are concatenated
+        along the column axis.  The latter behavior will soon be deprecated.
       activation: Activation function of the inner states.
     """
     if not state_is_tuple:
@@ -385,7 +386,7 @@ class LSTMCell(RNNCell):
                use_peepholes=False, cell_clip=None,
                initializer=None, num_proj=None, proj_clip=None,
                num_unit_shards=1, num_proj_shards=1,
-               forget_bias=1.0, state_is_tuple=False,
+               forget_bias=1.0, state_is_tuple=True,
                activation=tanh):
     """Initialize the parameters for an LSTM cell.
 
@@ -410,8 +411,8 @@ class LSTMCell(RNNCell):
         in order to reduce the scale of forgetting at the beginning of
         the training.
       state_is_tuple: If True, accepted and returned states are 2-tuples of
-        the `c_state` and `m_state`.  By default (False), they are concatenated
-        along the column axis.  This default behavior will soon be deprecated.
+        the `c_state` and `m_state`.  If False, they are concatenated
+        along the column axis.  This latter behavior will soon be deprecated.
       activation: Activation function of the inner states.
     """
     if not state_is_tuple:
@@ -463,6 +464,7 @@ class LSTMCell(RNNCell):
 
     Returns:
       A tuple containing:
+
       - A `2-D, [batch x output_dim]`, Tensor representing the output of the
         LSTM after reading `inputs` when previous state was `state`.
         Here output_dim is:
@@ -495,7 +497,7 @@ class LSTMCell(RNNCell):
 
       b = vs.get_variable(
           "B", shape=[4 * self._num_units],
-          initializer=array_ops.zeros_initializer, dtype=dtype)
+          initializer=init_ops.zeros_initializer, dtype=dtype)
 
       # i = input_gate, j = new_input, f = forget_gate, o = output_gate
       cell_inputs = array_ops.concat(1, [inputs, m_prev])
@@ -757,14 +759,15 @@ class EmbeddingWrapper(RNNCell):
 class MultiRNNCell(RNNCell):
   """RNN cell composed sequentially of multiple simple cells."""
 
-  def __init__(self, cells, state_is_tuple=False):
+  def __init__(self, cells, state_is_tuple=True):
     """Create a RNN cell composed sequentially of a number of RNNCells.
 
     Args:
       cells: list of RNNCells that will be composed in this order.
       state_is_tuple: If True, accepted and returned states are n-tuples, where
-        `n = len(cells)`.  By default (False), the states are all
-        concatenated along the column axis.
+        `n = len(cells)`.  If False, the states are all
+        concatenated along the column axis.  This latter behavior will soon be
+        deprecated.
 
     Raises:
       ValueError: if cells is empty (not allowed), or at least one of the cells

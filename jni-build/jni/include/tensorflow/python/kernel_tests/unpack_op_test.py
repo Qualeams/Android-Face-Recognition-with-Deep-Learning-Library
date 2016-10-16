@@ -23,7 +23,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
 
-def np_split_sqeeze(array, axis):
+def np_split_squeeze(array, axis):
   axis_len = array.shape[axis]
   return [
       np.squeeze(arr, axis=(axis,))
@@ -35,43 +35,40 @@ class UnpackOpTest(tf.test.TestCase):
 
   def testSimple(self):
     np.random.seed(7)
-    for use_gpu in False, True:
-      with self.test_session(use_gpu=use_gpu):
-        for shape in (2,), (3,), (2, 3), (3, 2), (4, 3, 2):
-          data = np.random.randn(*shape)
-          # Convert data to a single tensorflow tensor
-          x = tf.constant(data)
-          # Unpack into a list of tensors
-          cs = tf.unpack(x, num=shape[0])
-          self.assertEqual(type(cs), list)
-          self.assertEqual(len(cs), shape[0])
-          cs = [c.eval() for c in cs]
-          self.assertAllEqual(cs, data)
-
-  def testGradientsAxis0(self):
-    for use_gpu in False, True:
+    with self.test_session(use_gpu=True):
       for shape in (2,), (3,), (2, 3), (3, 2), (4, 3, 2):
         data = np.random.randn(*shape)
-        shapes = [shape[1:]] * shape[0]
-        for i in xrange(shape[0]):
-          with self.test_session(use_gpu=use_gpu):
-            x = tf.constant(data)
-            cs = tf.unpack(x, num=shape[0])
-            err = tf.test.compute_gradient_error(x, shape, cs[i], shapes[i])
-            self.assertLess(err, 1e-6)
+        # Convert data to a single tensorflow tensor
+        x = tf.constant(data)
+        # Unpack into a list of tensors
+        cs = tf.unpack(x, num=shape[0])
+        self.assertEqual(type(cs), list)
+        self.assertEqual(len(cs), shape[0])
+        cs = [c.eval() for c in cs]
+        self.assertAllEqual(cs, data)
+
+  def testGradientsAxis0(self):
+    for shape in (2,), (3,), (2, 3), (3, 2), (4, 3, 2):
+      data = np.random.randn(*shape)
+      shapes = [shape[1:]] * shape[0]
+      for i in xrange(shape[0]):
+        with self.test_session(use_gpu=True):
+          x = tf.constant(data)
+          cs = tf.unpack(x, num=shape[0])
+          err = tf.test.compute_gradient_error(x, shape, cs[i], shapes[i])
+          self.assertLess(err, 1e-6)
 
   def testGradientsAxis1(self):
-    for use_gpu in False, True:
-      for shape in (2, 3), (3, 2), (4, 3, 2):
-        data = np.random.randn(*shape)
-        out_shape = list(shape)
-        del out_shape[1]
-        for i in xrange(shape[1]):
-          with self.test_session(use_gpu=use_gpu):
-            x = tf.constant(data)
-            cs = tf.unpack(x, num=shape[1], axis=1)
-            err = tf.test.compute_gradient_error(x, shape, cs[i], out_shape)
-            self.assertLess(err, 1e-6)
+    for shape in (2, 3), (3, 2), (4, 3, 2):
+      data = np.random.randn(*shape)
+      out_shape = list(shape)
+      del out_shape[1]
+      for i in xrange(shape[1]):
+        with self.test_session(use_gpu=True):
+          x = tf.constant(data)
+          cs = tf.unpack(x, num=shape[1], axis=1)
+          err = tf.test.compute_gradient_error(x, shape, cs[i], out_shape)
+          self.assertLess(err, 1e-6)
 
   def testInferNum(self):
     with self.test_session():
@@ -104,7 +101,7 @@ class UnpackOpTest(tf.test.TestCase):
 
       # For all the possible axis to split it, including negative indices.
       for j in range(-i, i):
-        expected = np_split_sqeeze(a, j)
+        expected = np_split_squeeze(a, j)
 
         with self.test_session() as sess:
           actual = sess.run(tf.unpack(a, axis=j))

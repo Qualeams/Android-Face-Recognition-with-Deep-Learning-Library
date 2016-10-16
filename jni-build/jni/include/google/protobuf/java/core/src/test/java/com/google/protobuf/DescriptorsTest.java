@@ -55,16 +55,15 @@ import protobuf_unittest.UnittestProto.ForeignMessage;
 import protobuf_unittest.UnittestProto.TestAllExtensions;
 import protobuf_unittest.UnittestProto.TestAllTypes;
 import protobuf_unittest.UnittestProto.TestExtremeDefaultValues;
+import protobuf_unittest.UnittestProto.TestJsonName;
 import protobuf_unittest.UnittestProto.TestMultipleExtensionRanges;
 import protobuf_unittest.UnittestProto.TestRequired;
 import protobuf_unittest.UnittestProto.TestReservedFields;
 import protobuf_unittest.UnittestProto.TestService;
-
-import junit.framework.TestCase;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import junit.framework.TestCase;
 
 /**
  * Unit test for {@link Descriptors}.
@@ -383,6 +382,14 @@ public class DescriptorsTest extends TestCase {
     assertEquals(Long.valueOf(8765432109L),
       field.getOptions().getExtension(UnittestCustomOptions.fieldOpt1));
 
+    OneofDescriptor oneof = descriptor.getOneofs().get(0);
+    assertNotNull(oneof);
+
+    assertTrue(
+      oneof.getOptions().hasExtension(UnittestCustomOptions.oneofOpt1));
+    assertEquals(Integer.valueOf(-99),
+      oneof.getOptions().getExtension(UnittestCustomOptions.oneofOpt1));
+
     EnumDescriptor enumType =
       UnittestCustomOptions.TestMessageWithCustomOptions.AnEnum.getDescriptor();
 
@@ -573,6 +580,42 @@ public class DescriptorsTest extends TestCase {
     }
   }
 
+  public void testUnknownFieldsDenied() throws Exception {
+    FileDescriptorProto fooProto = FileDescriptorProto.newBuilder()
+        .setName("foo.proto")
+        .addMessageType(DescriptorProto.newBuilder()
+            .setName("Foo")
+            .addField(FieldDescriptorProto.newBuilder()
+                .setLabel(FieldDescriptorProto.Label.LABEL_OPTIONAL)
+                .setTypeName("Bar")
+                .setName("bar")
+                .setNumber(1)))
+        .build();
+
+    try {
+      Descriptors.FileDescriptor.buildFrom(fooProto, new FileDescriptor[0]);
+      fail("DescriptorValidationException expected");
+    } catch (DescriptorValidationException e) {
+      assertTrue(e.getMessage().indexOf("Bar") != -1);
+      assertTrue(e.getMessage().indexOf("is not defined") != -1);
+    }
+  }
+
+  public void testUnknownFieldsAllowed() throws Exception {
+    FileDescriptorProto fooProto = FileDescriptorProto.newBuilder()
+        .setName("foo.proto")
+        .addDependency("bar.proto")
+        .addMessageType(DescriptorProto.newBuilder()
+            .setName("Foo")
+            .addField(FieldDescriptorProto.newBuilder()
+                .setLabel(FieldDescriptorProto.Label.LABEL_OPTIONAL)
+                .setTypeName("Bar")
+                .setName("bar")
+                .setNumber(1)))
+        .build();
+    Descriptors.FileDescriptor.buildFrom(fooProto, new FileDescriptor[0], true);
+  }
+
   public void testHiddenDependency() throws Exception {
     FileDescriptorProto barProto = FileDescriptorProto.newBuilder()
         .setName("bar.proto")
@@ -761,5 +804,16 @@ public class DescriptorsTest extends TestCase {
         .build();
     Descriptors.FileDescriptor.buildFrom(
         fileDescriptorProto, new FileDescriptor[0]);
+  }
+
+  public void testFieldJsonName() throws Exception {
+    Descriptor d = TestJsonName.getDescriptor();
+    assertEquals(6, d.getFields().size());
+    assertEquals("fieldName1", d.getFields().get(0).getJsonName());
+    assertEquals("fieldName2", d.getFields().get(1).getJsonName());
+    assertEquals("FieldName3", d.getFields().get(2).getJsonName());
+    assertEquals("FieldName4", d.getFields().get(3).getJsonName());
+    assertEquals("FIELDNAME5", d.getFields().get(4).getJsonName());
+    assertEquals("@type", d.getFields().get(5).getJsonName());
   }
 }

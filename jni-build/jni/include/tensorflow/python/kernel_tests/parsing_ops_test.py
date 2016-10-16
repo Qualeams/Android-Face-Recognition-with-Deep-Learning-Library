@@ -24,6 +24,7 @@ import numpy as np
 import tensorflow as tf
 
 from google.protobuf import json_format
+from tensorflow.python.framework import tensor_util
 
 # Helpers for creating Example objects
 example = tf.train.Example
@@ -271,6 +272,56 @@ class ParseExampleTest(tf.test.TestCase):
     ]
 
     serialized = [m.SerializeToString() for m in original]
+
+    expected_output = {
+        aname: np.array(
+            [[1, 1], [-1, -1]], dtype=np.float32).reshape(2, 1, 2, 1),
+        bname: np.array(
+            ["b0_str", "b1"], dtype=bytes).reshape(2, 1, 1, 1, 1),
+    }
+
+    # No defaults, values required
+    self._test(
+        {
+            "serialized": tf.convert_to_tensor(serialized),
+            "features": {
+                aname: tf.FixedLenFeature(
+                    (1, 2, 1), dtype=tf.float32),
+                bname: tf.FixedLenFeature(
+                    (1, 1, 1, 1), dtype=tf.string),
+            }
+        },
+        expected_output)
+
+  # This test is identical as the previous one except
+  # for the creation of 'serialized'.
+  def testSerializedContainingDenseWithConcat(self):
+    aname = "a"
+    bname = "b*has+a:tricky_name"
+    # TODO(lew): Feature appearing twice should be an error in future.
+    original = [
+        (
+            example(features=features({
+                aname: float_feature([10, 10]),
+            })),
+            example(features=features({
+                aname: float_feature([1, 1]),
+                bname: bytes_feature([b"b0_str"]),
+            }))
+        ),
+        (
+            example(features=features({
+                bname: bytes_feature([b"b100"]),
+            })),
+            example(features=features({
+                aname: float_feature([-1, -1]),
+                bname: bytes_feature([b"b1"]),
+            })),
+        ),
+    ]
+
+    serialized = [
+        m.SerializeToString() + n.SerializeToString() for (m, n) in original]
 
     expected_output = {
         aname: np.array(
@@ -917,6 +968,61 @@ class DecodeJSONExampleTest(tf.test.TestCase):
       binary_tensor = tf.decode_json_example(json_tensor)
       with self.assertRaisesOpError("Error while parsing JSON"):
         sess.run(binary_tensor)
+
+
+class ParseTensorOpTest(tf.test.TestCase):
+
+  def testToFloat32(self):
+    with self.test_session():
+      expected = np.random.rand(3, 4, 5).astype(np.float32)
+      tensor_proto = tensor_util.make_tensor_proto(expected)
+
+      serialized = tf.placeholder(tf.string)
+      tensor = tf.parse_tensor(serialized, tf.float32)
+
+      result = tensor.eval(
+          feed_dict={serialized: tensor_proto.SerializeToString()})
+
+      self.assertAllEqual(expected, result)
+
+  def testToUint8(self):
+    with self.test_session():
+      expected = np.random.rand(3, 4, 5).astype(np.uint8)
+      tensor_proto = tensor_util.make_tensor_proto(expected)
+
+      serialized = tf.placeholder(tf.string)
+      tensor = tf.parse_tensor(serialized, tf.uint8)
+
+      result = tensor.eval(
+          feed_dict={serialized: tensor_proto.SerializeToString()})
+
+      self.assertAllEqual(expected, result)
+
+  def testTypeMismatch(self):
+    with self.test_session():
+      expected = np.random.rand(3, 4, 5).astype(np.uint8)
+      tensor_proto = tensor_util.make_tensor_proto(expected)
+
+      serialized = tf.placeholder(tf.string)
+      tensor = tf.parse_tensor(serialized, tf.uint16)
+
+      with self.assertRaisesOpError(
+          r"Type mismatch between parsed tensor \(uint8\) and dtype "
+          r"\(uint16\)"):
+        tensor.eval(feed_dict={serialized: tensor_proto.SerializeToString()})
+
+  def testInvalidInput(self):
+    with self.test_session():
+      serialized = tf.placeholder(tf.string)
+      tensor = tf.parse_tensor(serialized, tf.uint16)
+
+      with self.assertRaisesOpError(
+          "Could not parse `serialized` as TensorProto: 'bogus'"):
+        tensor.eval(feed_dict={serialized: "bogus"})
+
+      with self.assertRaisesOpError(
+          r"Expected `serialized` to be a scalar, got shape: \[1\]"):
+        tensor.eval(feed_dict={serialized: ["bogus"]})
 
 
 if __name__ == "__main__":

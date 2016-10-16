@@ -19,7 +19,7 @@
 The activation ops provide different types of nonlinearities for use in neural
 networks.  These include smooth nonlinearities (`sigmoid`, `tanh`, `elu`,
 `softplus`, and `softsign`), continuous but not everywhere differentiable
-functions (`relu`, `relu6`, and `relu_x`), and random regularization
+functions (`relu`, `relu6`, `crelu` and `relu_x`), and random regularization
 (`dropout`).
 
 All activation ops apply componentwise, and produce a tensor of the same
@@ -27,6 +27,7 @@ shape as the input tensor.
 
 @@relu
 @@relu6
+@@crelu
 @@elu
 @@softplus
 @@softsign
@@ -103,12 +104,15 @@ vectors.  For `depthwise_conv_2d`, each scalar component `input[b, i, j, k]`
 is multiplied by a vector `filter[di, dj, k]`, and all the vectors are
 concatenated.
 
+@@convolution
 @@conv2d
 @@depthwise_conv2d
 @@separable_conv2d
 @@atrous_conv2d
 @@conv2d_transpose
+@@conv1d
 @@conv3d
+@@conv3d_transpose
 
 ## Pooling
 
@@ -130,14 +134,16 @@ to the `Convolution` section for details about the padding calculation.
 @@max_pool_with_argmax
 @@avg_pool3d
 @@max_pool3d
+@@fractional_avg_pool
+@@fractional_max_pool
+@@pool
 
 ## Morphological filtering
 
 Morphological operators are non-linear filters used in image processing.
 
-[Greyscale morphological dilation]
-(https://en.wikipedia.org/wiki/Dilation_(morphology)) is the max-sum counterpart
-of standard sum-product convolution:
+[Greyscale morphological dilation](https://en.wikipedia.org/wiki/Dilation_(morphology))
+is the max-sum counterpart of standard sum-product convolution:
 
     output[b, y, x, c] =
         max_{dy, dx} input[b,
@@ -150,9 +156,8 @@ The `filter` is usually called structuring function. Max-pooling is a special
 case of greyscale morphological dilation when the filter assumes all-zero
 values (a.k.a. flat structuring function).
 
-[Greyscale morphological erosion]
-(https://en.wikipedia.org/wiki/Erosion_(morphology)) is the min-sum counterpart
-of standard sum-product convolution:
+[Greyscale morphological erosion](https://en.wikipedia.org/wiki/Erosion_(morphology))
+is the min-sum counterpart of standard sum-product convolution:
 
     output[b, y, x, c] =
         min_{dy, dx} input[b,
@@ -181,6 +186,7 @@ have varying scale, and to aid generalization.
 @@sufficient_statistics
 @@normalize_moments
 @@moments
+@@weighted_moments
 
 ## Losses
 
@@ -219,9 +225,11 @@ Neural Networks.  Most accept an `RNNCell`-subclassed object
 @@dynamic_rnn
 @@rnn
 @@state_saving_rnn
+@@bidirectional_dynamic_rnn
 @@bidirectional_rnn
+@@raw_rnn
 
-## Conectionist Temporal Classification (CTC)
+## Connectionist Temporal Classification (CTC)
 
 @@ctc_loss
 @@ctc_greedy_decoder
@@ -230,7 +238,7 @@ Neural Networks.  Most accept an `RNNCell`-subclassed object
 ## Evaluation
 
 The evaluation ops are useful for measuring the performance of a network.
-Since they are nondifferentiable, they are typically used at evaluation time.
+Since they are non-differentiable, they are typically used at evaluation time.
 
 @@top_k
 @@in_top_k
@@ -245,8 +253,8 @@ Candidate Sampling training algorithms can speed up your step times by
 only considering a small randomly-chosen subset of contrastive classes
 (called candidates) for each batch of training examples.
 
-See our [Candidate Sampling Algorithms Reference]
-(../../extras/candidate_sampling.pdf)
+See our
+[Candidate Sampling Algorithms Reference](../../extras/candidate_sampling.pdf)
 
 ### Sampled Loss Functions
 
@@ -285,6 +293,7 @@ from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import candidate_sampling_ops
 from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import embedding_ops
+from tensorflow.python.ops import gen_nn_ops
 from tensorflow.python.ops import init_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import nn_grad
@@ -312,17 +321,17 @@ from tensorflow.python.ops.rnn import *
 
 
 def log_poisson_loss(log_input, targets, compute_full_loss=False, name=None):
-  """Computes log poisson loss given `log_input`.
+  """Computes log Poisson loss given `log_input`.
 
   Gives the log-likelihood loss between the prediction and the target under the
-  assumption that the target has a poisson distribution.
+  assumption that the target has a Poisson distribution.
   Caveat: By default, this is not the exact loss, but the loss minus a
     constant term [log(z!)]. That has no effect for optimization, but
     does not play well with relative loss comparisons. To compute an
     approximation of the log factorial term, specify
     compute_full_loss=True to enable Stirling's Approximation.
 
-  For brevity, let `c = log(x) = log_input`, `z = targets`.  The log poisson
+  For brevity, let `c = log(x) = log_input`, `z = targets`.  The log Poisson
   loss is
 
         -log(exp(-x) * (x^z) / z!)
@@ -349,7 +358,7 @@ def log_poisson_loss(log_input, targets, compute_full_loss=False, name=None):
   Raises:
     ValueError: If `log_input` and `targets` do not have the same shape.
   """
-  with ops.op_scope([log_input, targets], name, "log_poisson_loss") as name:
+  with ops.name_scope(name, "log_poisson_loss", [log_input, targets]) as name:
     log_input = ops.convert_to_tensor(log_input, name="log_input")
     targets = ops.convert_to_tensor(targets, name="targets")
     try:
@@ -417,7 +426,7 @@ def sigmoid_cross_entropy_with_logits(logits, targets, name=None):
   Raises:
     ValueError: If `logits` and `targets` do not have the same shape.
   """
-  with ops.op_scope([logits, targets], name, "logistic_loss") as name:
+  with ops.name_scope(name, "logistic_loss", [logits, targets]) as name:
     logits = ops.convert_to_tensor(logits, name="logits")
     targets = ops.convert_to_tensor(targets, name="targets")
     try:
@@ -484,12 +493,12 @@ def weighted_cross_entropy_with_logits(logits, targets, pos_weight, name=None):
 
   Returns:
     A `Tensor` of the same shape as `logits` with the componentwise
-    weightedlogistic losses.
+    weighted logistic losses.
 
   Raises:
     ValueError: If `logits` and `targets` do not have the same shape.
   """
-  with ops.op_scope([logits, targets], name, "logistic_loss") as name:
+  with ops.name_scope(name, "logistic_loss", [logits, targets]) as name:
     logits = ops.convert_to_tensor(logits, name="logits")
     targets = ops.convert_to_tensor(targets, name="targets")
     try:
@@ -526,7 +535,7 @@ def relu_layer(x, weights, biases, name=None):
     A 2-D Tensor computing relu(matmul(x, weights) + biases).
     Dimensions typically: batch, out_units.
   """
-  with ops.op_scope([x, weights, biases], name, "relu_layer") as name:
+  with ops.name_scope(name, "relu_layer", [x, weights, biases]) as name:
     x = ops.convert_to_tensor(x, name="x")
     weights = ops.convert_to_tensor(weights, name="weights")
     biases = ops.convert_to_tensor(biases, name="biases")
@@ -546,7 +555,8 @@ def l2_normalize(x, dim, epsilon=1e-12, name=None):
 
   Args:
     x: A `Tensor`.
-    dim: Dimension along which to normalize.
+    dim: Dimension along which to normalize.  A scalar or a vector of
+      integers.
     epsilon: A lower bound value for the norm. Will use `sqrt(epsilon)` as the
       divisor if `norm < sqrt(epsilon)`.
     name: A name for this operation (optional).
@@ -554,9 +564,9 @@ def l2_normalize(x, dim, epsilon=1e-12, name=None):
   Returns:
     A `Tensor` with the same shape as `x`.
   """
-  with ops.op_scope([x], name, "l2_normalize") as name:
+  with ops.name_scope(name, "l2_normalize", [x]) as name:
     x = ops.convert_to_tensor(x, name="x")
-    square_sum = math_ops.reduce_sum(math_ops.square(x), [dim], keep_dims=True)
+    square_sum = math_ops.reduce_sum(math_ops.square(x), dim, keep_dims=True)
     x_inv_norm = math_ops.rsqrt(math_ops.maximum(square_sum, epsilon))
     return math_ops.mul(x, x_inv_norm, name=name)
 
@@ -568,8 +578,10 @@ def zero_fraction(value, name=None):
 
   This is useful in summaries to measure and report sparsity.  For example,
 
+  ```python
       z = tf.Relu(...)
       summ = tf.scalar_summary('sparsity', tf.nn.zero_fraction(z))
+  ```
 
   Args:
     value: A tensor of numeric type.
@@ -578,14 +590,14 @@ def zero_fraction(value, name=None):
   Returns:
     The fraction of zeros in `value`, with type `float32`.
   """
-  with ops.op_scope([value], name, "zero_fraction"):
+  with ops.name_scope(name, "zero_fraction", [value]):
     value = ops.convert_to_tensor(value, name="value")
     zero = constant_op.constant(0, dtype=value.dtype, name="zero")
     return math_ops.reduce_mean(
         math_ops.cast(math_ops.equal(value, zero), dtypes.float32))
 
 
-# pylint: disable=redefined-builtin,line-too-long
+# pylint: disable=redefined-builtin
 def depthwise_conv2d(input, filter, strides, padding, name=None):
   """Depthwise 2-D convolution.
 
@@ -621,31 +633,13 @@ def depthwise_conv2d(input, filter, strides, padding, name=None):
     A 4-D `Tensor` of shape
     `[batch, out_height, out_width, in_channels * channel_multiplier].`
   """
-  with ops.op_scope([input, filter], name, "depthwise") as name:
+  with ops.name_scope(name, "depthwise", [input, filter]) as name:
     input = ops.convert_to_tensor(input, name="tensor_in")
     filter = ops.convert_to_tensor(filter, name="filter_in")
-    # A shape is required to statically compute the number of separable filters.
-    if filter.get_shape().ndims is not None:
-      assert len(filter.get_shape()) == 4
-      in_channels = filter.get_shape()[2]
-      # Sanity checks, if shape information is available for the inputs.
-      if input.get_shape().ndims is not None:
-        assert len(input.get_shape()) == 4
-        assert input.get_shape()[3] == in_channels, (
-            "Mismatched input depth %d and number of depthwise filters %d." %
-            (input.get_shape()[3].value, in_channels))
-    else:
-      assert input.get_shape().ndims is not None, (
-          "Either tensor must provide static shape information.")
-      assert input.get_shape().ndims == 4
-      in_channels = input.get_shape()[3]
 
-    if in_channels == 1:
-      return nn_ops.conv2d(input, filter, strides, padding, name=name)
-    else:
-      return nn_ops.depthwise_conv2d_native(
-          input, filter, strides, padding, name=name)
-# pylint: enable=redefined-builtin,line-too-long
+    return nn_ops.depthwise_conv2d_native(
+        input, filter, strides, padding, name=name)
+# pylint: enable=redefined-builtin
 
 
 # pylint: disable=redefined-builtin,line-too-long
@@ -693,29 +687,32 @@ def separable_conv2d(input, depthwise_filter, pointwise_filter, strides,
     ValueError: If channel_multiplier * in_channels > out_channels,
       which means that the separable convolution is overparameterized.
   """
-  with ops.op_scope([input, depthwise_filter, pointwise_filter],
-                    name, "separable_conv2d") as name:
+  with ops.name_scope(name, "separable_conv2d",
+                      [input, depthwise_filter, pointwise_filter]) as name:
     input = ops.convert_to_tensor(input, name="tensor_in")
     depthwise_filter = ops.convert_to_tensor(
         depthwise_filter, name="depthwise_filter")
     pointwise_filter = ops.convert_to_tensor(
         pointwise_filter, name="pointwise_filter")
 
-    if pointwise_filter.get_shape().ndims is not None:
-      assert len(pointwise_filter.get_shape()) == 4
-      assert pointwise_filter.get_shape()[0] == 1
-      assert pointwise_filter.get_shape()[1] == 1
-      if depthwise_filter.get_shape().ndims and input.get_shape().ndims:
-        channel_multiplier = depthwise_filter.get_shape()[3]
-        in_channels = input.get_shape()[3]
-        out_channels = pointwise_filter.get_shape()[3]
-        if channel_multiplier * in_channels > out_channels:
-          raise ValueError(
-              ("Refusing to perform an overparameterized separable "
-               "convolution: channel_multiplier * in_channels = "
-               "%d * %d = %d > %d = out_channels" %
-               (channel_multiplier, in_channels,
-                channel_multiplier * in_channels, out_channels)))
+    pointwise_filter_shape = pointwise_filter.get_shape().with_rank(4)
+    pointwise_filter_shape[0].assert_is_compatible_with(1)
+    pointwise_filter_shape[1].assert_is_compatible_with(1)
+
+    channel_multiplier = depthwise_filter.get_shape().with_rank(4)[3]
+    in_channels = input.get_shape().with_rank(4)[3]
+    out_channels = pointwise_filter_shape[3]
+
+    # If any of channel numbers is unknown, then the comparison below returns
+    # None. See TensorShape.__gt__().
+    if channel_multiplier * in_channels > out_channels:
+      raise ValueError(
+          "Refusing to perform an overparameterized separable "
+          "convolution: channel_multiplier * in_channels = "
+          "%d * %d = %d > %d = out_channels" %
+          (channel_multiplier, in_channels,
+           channel_multiplier * in_channels, out_channels))
+
     # The layout of the ops in the graph are expected to be as follows:
     # depthwise_conv2d  // Conv2D op corresponding to native deptwise conv.
     # separable_conv2d  // Conv2D op corresponding to the pointwise conv.
@@ -744,13 +741,14 @@ def sufficient_statistics(x, axes, shift=None, keep_dims=False, name=None):
 
   Returns:
     Four `Tensor` objects of the same type as `x`:
+
     * the count (number of elements to average over).
     * the (possibly shifted) sum of the elements in the array.
     * the (possibly shifted) sum of squares of the elements in the array.
     * the shift by which the mean must be corrected or None if `shift` is None.
   """
   axes = list(set(axes))
-  with ops.op_scope([x, shift], name, "sufficient_statistics"):
+  with ops.name_scope(name, "sufficient_statistics", [x, shift]):
     x = ops.convert_to_tensor(x, name="x")
     x_shape = x.get_shape()
     if x_shape.is_fully_defined():
@@ -790,7 +788,7 @@ def normalize_moments(counts, mean_ss, variance_ss, shift, name=None):
   Returns:
     Two `Tensor` objects: `mean` and `variance`.
   """
-  with ops.op_scope([counts, mean_ss, variance_ss, shift], name, "normalize"):
+  with ops.name_scope(name, "normalize", [counts, mean_ss, variance_ss, shift]):
     divisor = math_ops.inv(counts, name="divisor")
     if shift is not None:
       shifted_mean = math_ops.mul(mean_ss, divisor, name="shifted_mean")
@@ -813,13 +811,14 @@ def moments(x, axes, shift=None, name=None, keep_dims=False):
 
   When using these moments for batch normalization (see
   `tf.nn.batch_normalization`):
-    * for so-called "global normalization", used with convolutional filters with
-      shape `[batch, height, width, depth]`, pass `axes=[0, 1, 2]`.
-    * for simple batch normalization pass `axes=[0]` (batch only).
+
+   * for so-called "global normalization", used with convolutional filters with
+     shape `[batch, height, width, depth]`, pass `axes=[0, 1, 2]`.
+   * for simple batch normalization pass `axes=[0]` (batch only).
 
   Args:
     x: A `Tensor`.
-    axes: array of ints.  Axes along which to compute mean and
+    axes: Array of ints.  Axes along which to compute mean and
       variance.
     shift: A `Tensor` containing the value by which to shift the data for
       numerical stability, or `None` if no shift is to be performed. A shift
@@ -830,7 +829,7 @@ def moments(x, axes, shift=None, name=None, keep_dims=False):
   Returns:
     Two `Tensor` objects: `mean` and `variance`.
   """
-  with ops.op_scope([x, axes, shift], name, "moments"):
+  with ops.name_scope(name, "moments", [x, axes, shift]):
     # The dynamic range of fp16 is too limited to support the collection of
     # sufficient statistics. As a workaround we simply perform the operations
     # on 32-bit floats before converting the mean and variance back to fp16
@@ -848,6 +847,82 @@ def moments(x, axes, shift=None, name=None, keep_dims=False):
         return (mean, variance)
 
 
+def weighted_moments(x, axes, frequency_weights, name=None, keep_dims=False):
+  """Returns the frequency-weighted mean and variance of `x`.
+
+  Args:
+    x: A tensor.
+    axes: 1-d tensor of int32 values; these are the axes along which
+      to compute mean and variance.
+    frequency_weights: A tensor of positive weights which can be
+      broadcast with x.
+    name: Name used to scope the operation.
+    keep_dims: Produce moments with the same dimensionality as the input.
+
+  Returns:
+    Two tensors: `weighted_mean` and `weighted_variance`.
+  """
+  with ops.name_scope(name, "weighted_moments", [x, frequency_weights, axes]):
+    x = ops.convert_to_tensor(x, name="x")
+    frequency_weights = ops.convert_to_tensor(
+        frequency_weights, name="frequency_weights")
+
+    # Unlike moments(), this just uses a simpler two-pass method.
+
+    # See comment in moments() WRT precision; it applies here too.
+    needs_cast = x.dtype == dtypes.float16
+    if needs_cast:
+      x = math_ops.cast(x, dtypes.float32)
+
+    if frequency_weights.dtype != x.dtype:
+      frequency_weights = math_ops.cast(frequency_weights, x.dtype)
+
+    # Note that we use keep_dims=True for our reductions regardless of the arg;
+    # this is so that the results remain broadcast-compatible with the inputs.
+    weighted_input_sum = math_ops.reduce_sum(frequency_weights * x,
+                                             axes,
+                                             name="weighted_input_sum",
+                                             keep_dims=True)
+
+    # The shape of the weights isn't necessarily the same as x's
+    # shape, just broadcast-compatible with it -- so this expression
+    # performs broadcasting to give a per-item weight, with the same
+    # shape as (freqency_weights * x). This avoids having to reason
+    # through all the broadcast logic to compute a correct
+    # sum_of_weights.
+    broadcasted_weights = frequency_weights + array_ops.zeros_like(x)
+
+    sum_of_weights = math_ops.reduce_sum(
+        broadcasted_weights,
+        axes,
+        name="sum_of_weights",
+        keep_dims=True)
+
+    divisor = math_ops.inv(sum_of_weights, name="inv_weight_sum")
+
+    weighted_mean = math_ops.mul(weighted_input_sum, divisor)
+
+    # Have the weighted mean; now on to variance:
+    weighted_distsq = math_ops.reduce_sum(
+        frequency_weights * math_ops.squared_difference(x, weighted_mean),
+        axes,
+        name="weighted_distsq",
+        keep_dims=True)
+
+    weighted_variance = math_ops.mul(weighted_distsq, divisor)
+
+    if not keep_dims:
+      weighted_mean = array_ops.squeeze(weighted_mean, squeeze_dims=axes)
+      weighted_variance = array_ops.squeeze(weighted_variance,
+                                            squeeze_dims=axes)
+
+    if needs_cast:
+      weighted_mean = math_ops.cast(weighted_mean, dtypes.float16)
+      weighted_variance = math_ops.cast(weighted_variance, dtypes.float16)
+
+    return weighted_mean, weighted_variance
+
+
 def batch_normalization(x,
                         mean,
                         variance,
@@ -859,12 +934,13 @@ def batch_normalization(x,
 
   As described in http://arxiv.org/abs/1502.03167.
   Normalizes a tensor by `mean` and `variance`, and applies (optionally) a
-  `scale` \\\\(\gamma\\\\) to it, as well as an `offset` \\\\(\\beta\\\\):
+  `scale` \\(\gamma\\) to it, as well as an `offset` \\(\beta\\):
 
-  \\\\(\\frac{\gamma(x-\mu)}{\sigma}+\\beta\\\\)
+  \\(\frac{\gamma(x-\mu)}{\sigma}+\beta\\)
 
   `mean`, `variance`, `offset` and `scale` are all expected to be of one of two
   shapes:
+
     * In all generality, they can have the same number of dimensions as the
       input `x`, with identical sizes as `x` for the dimensions that are not
       normalized over (the 'depth' dimension(s)), and dimension 1 for the
@@ -886,9 +962,9 @@ def batch_normalization(x,
     x: Input `Tensor` of arbitrary dimensionality.
     mean: A mean `Tensor`.
     variance: A variance `Tensor`.
-    offset: An offset `Tensor`, often denoted \\\\(\\beta\\\\) in equations, or
+    offset: An offset `Tensor`, often denoted \\(\beta\\) in equations, or
       None. If present, will be added to the normalized tensor.
-    scale: A scale `Tensor`, often denoted \\\\(\gamma\\\\) in equations, or
+    scale: A scale `Tensor`, often denoted \\(\gamma\\) in equations, or
       `None`. If present, the scale is applied to the normalized tensor.
     variance_epsilon: A small float number to avoid dividing by 0.
     name: A name for this operation (optional).
@@ -896,12 +972,68 @@ def batch_normalization(x,
   Returns:
     the normalized, scaled, offset tensor.
   """
-  with ops.op_scope([x, mean, variance, scale, offset], name, "batchnorm"):
+  with ops.name_scope(name, "batchnorm", [x, mean, variance, scale, offset]):
     inv = math_ops.rsqrt(variance + variance_epsilon)
     if scale is not None:
       inv *= scale
     return x * inv + (offset - mean * inv
                       if offset is not None else -mean * inv)
+
+
+def fused_batch_norm(x, scale, offset,  # pylint: disable=invalid-name
+                     mean=None,
+                     variance=None,
+                     epsilon=0.001,
+                     data_format="NHWC",
+                     is_training=True,
+                     name=None):
+  r"""Batch normalization.
+
+  As described in http://arxiv.org/abs/1502.03167.
+
+  Args:
+    x: Input `Tensor` of 4 dimensions.
+    scale: A `Tensor` of 1 dimension for scaling.
+    offset: A `Tensor` of 1 dimension for bias.
+    mean: A `Tensor` of 1 dimension for population mean used for inference.
+    variance: A `Tensor` of 1 dimension for population variance
+              used for inference.
+    epsilon: A small float number added to the variance of x.
+    data_format: The data format for x. Either "NHWC" (default) or "NCHW".
+    is_training: A bool value to specify if the operation is used for
+                 training or inference.
+    name: A name for this operation (optional).
+
+  Returns:
+    y: A 4D Tensor for the normalized, scaled, offsetted x.
+    batch_mean: A 1D Tensor for the mean of x.
+    batch_var: A 1D Tensor for the variance of x.
+
+  Raises:
+    ValueError: If mean or variance is not None when is_training is True.
+  """
+  x = ops.convert_to_tensor(x, name="input")
+  scale = ops.convert_to_tensor(scale, name="scale")
+  offset = ops.convert_to_tensor(offset, name="offset")
+  if is_training:
+    if (mean is not None) or (variance is not None):
+      raise ValueError("Both 'mean' and 'variance' must be None "
+                       "if is_training is True.")
+  if mean is None:
+    mean = constant_op.constant([])
+  if variance is None:
+    variance = constant_op.constant([])
+  y, batch_mean, batch_var, _, _ = gen_nn_ops.fused_batch_norm(
+      x,
+      scale,
+      offset,
+      mean,
+      variance,
+      epsilon=epsilon,
+      data_format=data_format,
+      is_training=is_training,
+      name=name)
+  return y, batch_mean, batch_var
 
 
 def batch_norm_with_global_normalization(t,
@@ -1012,8 +1144,8 @@ def _compute_sampled_logits(weights,
   if not isinstance(weights, list):
     weights = [weights]
 
-  with ops.op_scope(weights + [biases, inputs, labels], name,
-                    "compute_sampled_logits"):
+  with ops.name_scope(name, "compute_sampled_logits",
+                      weights + [biases, inputs, labels]):
     if labels.dtype != dtypes.int64:
       labels = math_ops.cast(labels, dtypes.int64)
     labels_flat = array_ops.reshape(labels, [-1])
@@ -1137,6 +1269,11 @@ def nce_loss(weights,
   (http://www.jmlr.org/proceedings/papers/v9/gutmann10a/gutmann10a.pdf).
   Also see our [Candidate Sampling Algorithms Reference]
   (../../extras/candidate_sampling.pdf)
+
+  Note: By default this uses a log-uniform (Zipfian) distribution for sampling,
+  so your labels must be sorted in order of decreasing frequency to achieve
+  good results.  For more details, see
+  [log_uniform_candidate_sampler](#log_uniform_candidate_sampler).
 
   Note: In the case where `num_true` > 1, we assign to each target class
   the target probability 1 / `num_true` so that the target probabilities

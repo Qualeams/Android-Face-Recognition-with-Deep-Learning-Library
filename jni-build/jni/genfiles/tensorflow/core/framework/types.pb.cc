@@ -26,6 +26,7 @@ const ::google::protobuf::EnumDescriptor* DataType_descriptor_ = NULL;
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -38,11 +39,12 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
 }
@@ -52,12 +54,20 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n%tensorflow/core/framework/types.proto\022"
     "\ntensorflow*\234\005\n\010DataType\022\016\n\nDT_INVALID\020\000"
@@ -84,6 +94,11 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftypes_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftypes_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftypes_2eproto() {
@@ -95,7 +110,7 @@ const ::google::protobuf::EnumDescriptor* DataType_descriptor() {
   return DataType_descriptor_;
 }
 bool DataType_IsValid(int value) {
-  switch(value) {
+  switch (value) {
     case 0:
     case 1:
     case 2:

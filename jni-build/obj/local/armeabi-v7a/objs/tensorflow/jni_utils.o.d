@@ -43,6 +43,7 @@ obj/local/armeabi-v7a/objs/tensorflow/jni_utils.o: jni/jni_utils.cc \
  jni/include/google/protobuf/src/google/protobuf/message_lite.h \
  jni/include/tensorflow/core/platform/logging.h \
  jni/include/tensorflow/core/platform/default/logging.h \
+ /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/limits \
  jni/include/tensorflow/core/platform/macros.h \
  jni/limiting_file_input_stream.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm/usr/include/unistd.h \
@@ -137,6 +138,8 @@ jni/include/google/protobuf/src/google/protobuf/message_lite.h:
 jni/include/tensorflow/core/platform/logging.h:
 
 jni/include/tensorflow/core/platform/default/logging.h:
+
+/Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/limits:
 
 jni/include/tensorflow/core/platform/macros.h:
 

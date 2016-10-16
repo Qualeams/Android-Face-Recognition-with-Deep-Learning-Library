@@ -64,12 +64,14 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import argparse
 from datetime import datetime
 import glob
 import hashlib
 import os.path
 import random
 import re
+import struct
 import sys
 import tarfile
 
@@ -80,73 +82,17 @@ import tensorflow as tf
 from tensorflow.python.framework import graph_util
 from tensorflow.python.framework import tensor_shape
 from tensorflow.python.platform import gfile
+from tensorflow.python.util import compat
 
-
-FLAGS = tf.app.flags.FLAGS
+FLAGS = None
 
 # Input and output file flags.
-tf.app.flags.DEFINE_string('image_dir', '',
-                           """Path to folders of labeled images.""")
-tf.app.flags.DEFINE_string('output_graph', '/tmp/output_graph.pb',
-                           """Where to save the trained graph.""")
-tf.app.flags.DEFINE_string('output_labels', '/tmp/output_labels.txt',
-                           """Where to save the trained graph's labels.""")
-tf.app.flags.DEFINE_string('summaries_dir', '/tmp/retrain_logs',
-                          """Where to save summary logs for TensorBoard.""")
 
 # Details of the training configuration.
-tf.app.flags.DEFINE_integer('how_many_training_steps', 4000,
-                            """How many training steps to run before ending.""")
-tf.app.flags.DEFINE_float('learning_rate', 0.01,
-                          """How large a learning rate to use when training.""")
-tf.app.flags.DEFINE_integer(
-    'testing_percentage', 10,
-    """What percentage of images to use as a test set.""")
-tf.app.flags.DEFINE_integer(
-    'validation_percentage', 10,
-    """What percentage of images to use as a validation set.""")
-tf.app.flags.DEFINE_integer('eval_step_interval', 10,
-                            """How often to evaluate the training results.""")
-tf.app.flags.DEFINE_integer('train_batch_size', 100,
-                            """How many images to train on at a time.""")
-tf.app.flags.DEFINE_integer('test_batch_size', 500,
-                            """How many images to test on at a time. This"""
-                            """ test set is only used infrequently to verify"""
-                            """ the overall accuracy of the model.""")
-tf.app.flags.DEFINE_integer(
-    'validation_batch_size', 100,
-    """How many images to use in an evaluation batch. This validation set is"""
-    """ used much more often than the test set, and is an early indicator of"""
-    """ how accurate the model is during training.""")
 
 # File-system cache locations.
-tf.app.flags.DEFINE_string('model_dir', '/tmp/imagenet',
-                           """Path to classify_image_graph_def.pb, """
-                           """imagenet_synset_to_human_label_map.txt, and """
-                           """imagenet_2012_challenge_label_map_proto.pbtxt.""")
-tf.app.flags.DEFINE_string(
-    'bottleneck_dir', '/tmp/bottleneck',
-    """Path to cache bottleneck layer values as files.""")
-tf.app.flags.DEFINE_string('final_tensor_name', 'final_result',
-                           """The name of the output classification layer in"""
-                           """ the retrained graph.""")
 
 # Controls the distortions used during training.
-tf.app.flags.DEFINE_boolean(
-    'flip_left_right', False,
-    """Whether to randomly flip half of the training images horizontally.""")
-tf.app.flags.DEFINE_integer(
-    'random_crop', 0,
-    """A percentage determining how much of a margin to randomly crop off the"""
-    """ training images.""")
-tf.app.flags.DEFINE_integer(
-    'random_scale', 0,
-    """A percentage determining how much to randomly scale up the size of the"""
-    """ training images by.""")
-tf.app.flags.DEFINE_integer(
-    'random_brightness', 0,
-    """A percentage determining how much to randomly multiply the training"""
-    """ image input pixels up or down by.""")
 
 # These are all parameters that are tied to the particular model architecture
 # we're using for Inception v3. These include things like tensor names and their
@@ -162,6 +108,7 @@ MODEL_INPUT_HEIGHT = 299
 MODEL_INPUT_DEPTH = 3
 JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
 RESIZED_INPUT_TENSOR_NAME = 'ResizeBilinear:0'
+MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1  # ~134M
 
 
 def create_image_lists(image_dir, testing_percentage, validation_percentage):
@@ -205,6 +152,9 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
       continue
     if len(file_list) < 20:
       print('WARNING: Folder has less than 20 images, which may cause issues.')
+    elif len(file_list) > MAX_NUM_IMAGES_PER_CLASS:
+      print('WARNING: Folder {} has more than {} images. Some images will '
+            'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
     label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
     training_images = []
     testing_images = []
@@ -224,8 +174,10 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
       # To do that, we need a stable way of deciding based on just the file name
       # itself, so we do a hash of that and then use that to generate a
       # probability value that we use to assign it.
-      hash_name_hashed = hashlib.sha1(hash_name.encode('utf-8')).hexdigest()
-      percentage_hash = (int(hash_name_hashed, 16) % (65536)) * (100 / 65535.0)
+      hash_name_hashed = hashlib.sha1(compat.as_bytes(hash_name)).hexdigest()
+      percentage_hash = ((int(hash_name_hashed, 16) %
+                          (MAX_NUM_IMAGES_PER_CLASS + 1)) *
+                         (100.0 / MAX_NUM_IMAGES_PER_CLASS))
       if percentage_hash < validation_percentage:
         validation_images.append(base_name)
       elif percentage_hash < (testing_percentage + validation_percentage):
@@ -265,7 +217,8 @@ def get_image_path(image_lists, label_name, index, image_dir, category):
     tf.logging.fatal('Category does not exist %s.', category)
   category_list = label_lists[category]
   if not category_list:
-    tf.logging.fatal('Category has no images - %s.', category)
+    tf.logging.fatal('Label %s has no images in the category %s.',
+                     label_name, category)
   mod_index = index % len(category_list)
   base_name = category_list[mod_index]
   sub_dir = label_lists['dir']
@@ -319,7 +272,7 @@ def run_bottleneck_on_image(sess, image_data, image_data_tensor,
 
   Args:
     sess: Current active TensorFlow Session.
-    image_data: Numpy array of image data.
+    image_data: String of raw JPEG data.
     image_data_tensor: Input data layer in the graph.
     bottleneck_tensor: Layer before the final softmax.
 
@@ -369,6 +322,38 @@ def ensure_dir_exists(dir_name):
   """
   if not os.path.exists(dir_name):
     os.makedirs(dir_name)
+
+
+def write_list_of_floats_to_file(list_of_floats , file_path):
+  """Writes a given list of floats to a binary file.
+
+  Args:
+    list_of_floats: List of floats we want to write to a file.
+    file_path: Path to a file where list of floats will be stored.
+
+  """
+
+  s = struct.pack('d' * BOTTLENECK_TENSOR_SIZE, *list_of_floats)
+  with open(file_path, 'wb') as f:
+    f.write(s)
+
+
+def read_list_of_floats_from_file(file_path):
+  """Reads list of floats from a given file.
+
+  Args:
+    file_path: Path to a file where list of floats was stored.
+  Returns:
+    Array of bottleneck values (list of floats).
+
+  """
+
+  with open(file_path, 'rb') as f:
+    s = struct.unpack('d' * BOTTLENECK_TENSOR_SIZE, f.read())
+    return list(s)
+
+
+bottleneck_path_2_bottleneck_values = {}
 
 
 def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
@@ -489,7 +474,7 @@ def get_random_cached_bottlenecks(sess, image_lists, how_many, category,
   for unused_i in range(how_many):
     label_index = random.randrange(class_count)
     label_name = list(image_lists.keys())[label_index]
-    image_index = random.randrange(65536)
+    image_index = random.randrange(MAX_NUM_IMAGES_PER_CLASS + 1)
     bottleneck = get_or_create_bottleneck(sess, image_lists, label_name,
                                           image_index, image_dir, category,
                                           bottleneck_dir, jpeg_data_tensor,
@@ -534,7 +519,7 @@ def get_random_distorted_bottlenecks(
   for unused_i in range(how_many):
     label_index = random.randrange(class_count)
     label_name = list(image_lists.keys())[label_index]
-    image_index = random.randrange(65536)
+    image_index = random.randrange(MAX_NUM_IMAGES_PER_CLASS + 1)
     image_path = get_image_path(image_lists, label_name, image_index, image_dir,
                                 category)
     if not gfile.Exists(image_path):
@@ -669,7 +654,7 @@ def variable_summaries(var, name):
     tf.scalar_summary('mean/' + name, mean)
     with tf.name_scope('stddev'):
       stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
-    tf.scalar_summary('sttdev/' + name, stddev)
+    tf.scalar_summary('stddev/' + name, stddev)
     tf.scalar_summary('max/' + name, tf.reduce_max(var))
     tf.scalar_summary('min/' + name, tf.reduce_min(var))
     tf.histogram_summary(name, var)
@@ -818,7 +803,7 @@ def main(_):
 
   # Run the training for as many cycles as requested on the command line.
   for i in range(FLAGS.how_many_training_steps):
-    # Get a catch of input bottleneck values, either calculated fresh every time
+    # Get a batch of input bottleneck values, either calculated fresh every time
     # with distortions applied, or from the cache stored on disk.
     if do_distort_images:
       train_bottlenecks, train_ground_truth = get_random_distorted_bottlenecks(
@@ -885,4 +870,145 @@ def main(_):
 
 
 if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument(
+      '--image_dir',
+      type=str,
+      default='',
+      help='Path to folders of labeled images.'
+  )
+  parser.add_argument(
+      '--output_graph',
+      type=str,
+      default='/tmp/output_graph.pb',
+      help='Where to save the trained graph.'
+  )
+  parser.add_argument(
+      '--output_labels',
+      type=str,
+      default='/tmp/output_labels.txt',
+      help='Where to save the trained graph\'s labels.'
+  )
+  parser.add_argument(
+      '--summaries_dir',
+      type=str,
+      default='/tmp/retrain_logs',
+      help='Where to save summary logs for TensorBoard.'
+  )
+  parser.add_argument(
+      '--how_many_training_steps',
+      type=int,
+      default=4000,
+      help='How many training steps to run before ending.'
+  )
+  parser.add_argument(
+      '--learning_rate',
+      type=float,
+      default=0.01,
+      help='How large a learning rate to use when training.'
+  )
+  parser.add_argument(
+      '--testing_percentage',
+      type=int,
+      default=10,
+      help='What percentage of images to use as a test set.'
+  )
+  parser.add_argument(
+      '--validation_percentage',
+      type=int,
+      default=10,
+      help='What percentage of images to use as a validation set.'
+  )
+  parser.add_argument(
+      '--eval_step_interval',
+      type=int,
+      default=10,
+      help='How often to evaluate the training results.'
+  )
+  parser.add_argument(
+      '--train_batch_size',
+      type=int,
+      default=100,
+      help='How many images to train on at a time.'
+  )
+  parser.add_argument(
+      '--test_batch_size',
+      type=int,
+      default=500,
+      help="""\
+      How many images to test on at a time. This test set is only used
+      infrequently to verify the overall accuracy of the model.\
+      """
+  )
+  parser.add_argument(
+      '--validation_batch_size',
+      type=int,
+      default=100,
+      help="""\
+      How many images to use in an evaluation batch. This validation set is
+      used much more often than the test set, and is an early indicator of how
+      accurate the model is during training.\
+      """
+  )
+  parser.add_argument(
+      '--model_dir',
+      type=str,
+      default='/tmp/imagenet',
+      help="""\
+      Path to classify_image_graph_def.pb,
+      imagenet_synset_to_human_label_map.txt, and
+      imagenet_2012_challenge_label_map_proto.pbtxt.\
+      """
+  )
+  parser.add_argument(
+      '--bottleneck_dir',
+      type=str,
+      default='/tmp/bottleneck',
+      help='Path to cache bottleneck layer values as files.'
+  )
+  parser.add_argument(
+      '--final_tensor_name',
+      type=str,
+      default='final_result',
+      help="""\
+      The name of the output classification layer in the retrained graph.\
+      """
+  )
+  parser.add_argument(
+      '--flip_left_right',
+      default=False,
+      help="""\
+      Whether to randomly flip half of the training images horizontally.\
+      """,
+      action='store_true'
+  )
+  parser.add_argument(
+      '--random_crop',
+      type=int,
+      default=0,
+      help="""\
+      A percentage determining how much of a margin to randomly crop off the
+      training images.\
+      """
+  )
+  parser.add_argument(
+      '--random_scale',
+      type=int,
+      default=0,
+      help="""\
+      A percentage determining how much to randomly scale up the size of the
+      training images by.\
+      """
+  )
+  parser.add_argument(
+      '--random_brightness',
+      type=int,
+      default=0,
+      help="""\
+      A percentage determining how much to randomly multiply the training image
+      input pixels up or down by.\
+      """
+  )
+  FLAGS = parser.parse_args()
+
   tf.app.run()
