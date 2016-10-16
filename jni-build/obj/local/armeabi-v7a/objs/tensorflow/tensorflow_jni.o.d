@@ -92,6 +92,7 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/google/protobuf/src/google/protobuf/stubs/fastmem.h \
  jni/include/google/protobuf/src/google/protobuf/generated_message_util.h \
  jni/include/google/protobuf/src/google/protobuf/stubs/once.h \
+ jni/include/google/protobuf/src/google/protobuf/has_bits.h \
  jni/include/google/protobuf/src/google/protobuf/metadata.h \
  jni/include/google/protobuf/src/google/protobuf/unknown_field_set.h \
  jni/include/google/protobuf/src/google/protobuf/message.h \
@@ -133,9 +134,6 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NumTraits.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctions.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h \
- jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h \
- jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h \
- jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/TypeCasting.h \
@@ -303,38 +301,38 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/external/eigen_archive/Eigen/src/Core/util/ReenableStupidWarnings.h \
  jni/include/tensorflow/core/framework/allocator.h \
  jni/include/tensorflow/core/framework/numeric_types.h \
- jni/include/tensorflow/core/platform/types.h \
- jni/include/tensorflow/core/platform/platform.h \
- jni/include/tensorflow/core/platform/default/integral_types.h \
- jni/include/tensorflow/core/framework/type_traits.h \
- jni/include/tensorflow/core/framework/types.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/FixedPoint \
  jni/include/external/eigen_archive/Eigen/Core \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/FixedPointTypes.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream \
- jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatMatProductNEON.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatMatProduct.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatVecProduct.h \
- jni/include/tensorflow/core/framework/bfloat16.h \
- jni/include/tensorflow/core/lib/core/stringpiece.h \
- jni/include/tensorflow/core/lib/gtl/array_slice.h \
- jni/include/tensorflow/core/lib/gtl/array_slice_internal.h \
+ jni/include/tensorflow/core/platform/types.h \
+ jni/include/tensorflow/core/platform/platform.h \
+ jni/include/tensorflow/core/platform/default/integral_types.h \
+ jni/include/tensorflow/core/framework/type_traits.h \
  jni/include/tensorflow/core/platform/logging.h \
  jni/include/tensorflow/core/platform/default/logging.h \
  jni/include/tensorflow/core/platform/macros.h \
- jni/include/tensorflow/core/lib/gtl/inlined_vector.h \
- jni/include/tensorflow/core/lib/gtl/manual_constructor.h \
- jni/include/tensorflow/core/platform/mem.h \
- jni/include/tensorflow/core/platform/default/dynamic_annotations.h \
- jni/include/tensorflow/core/platform/host_info.h \
  jni/genfiles/tensorflow/core/framework/tensor.pb.h \
  jni/include/tensorflow/core/framework/tensor_shape.h \
  jni/include/tensorflow/core/lib/core/errors.h \
  jni/include/tensorflow/core/lib/core/status.h \
  jni/genfiles/tensorflow/core/lib/core/error_codes.pb.h \
+ jni/include/tensorflow/core/lib/core/stringpiece.h \
  jni/include/tensorflow/core/lib/strings/strcat.h \
  jni/include/tensorflow/core/lib/strings/numbers.h \
+ jni/include/tensorflow/core/lib/gtl/array_slice.h \
+ jni/include/tensorflow/core/lib/gtl/array_slice_internal.h \
+ jni/include/tensorflow/core/lib/gtl/inlined_vector.h \
+ jni/include/tensorflow/core/lib/gtl/manual_constructor.h \
+ jni/include/tensorflow/core/platform/mem.h \
+ jni/include/tensorflow/core/platform/dynamic_annotations.h \
+ jni/include/tensorflow/core/platform/default/dynamic_annotations.h \
+ jni/include/tensorflow/core/platform/cpu_info.h \
  jni/include/tensorflow/core/framework/tensor_types.h \
+ jni/include/tensorflow/core/framework/types.h \
+ jni/include/tensorflow/core/framework/bfloat16.h \
  jni/include/tensorflow/core/lib/core/refcount.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/atomic \
  jni/include/tensorflow/core/lib/strings/stringprintf.h \
@@ -343,6 +341,8 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/file_system.h \
  jni/include/tensorflow/core/platform/file_statistics.h \
  jni/include/tensorflow/core/platform/protobuf.h \
+ jni/include/google/protobuf/src/google/protobuf/any.pb.h \
+ jni/include/google/protobuf/src/google/protobuf/any.h \
  jni/include/tensorflow/core/platform/default/protobuf.h \
  jni/include/google/protobuf/src/google/protobuf/compiler/importer.h \
  jni/include/google/protobuf/src/google/protobuf/descriptor_database.h \
@@ -373,6 +373,7 @@ obj/local/armeabi-v7a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/default/thread_annotations.h \
  jni/include/tensorflow/core/public/session.h \
  jni/genfiles/tensorflow/core/framework/graph.pb.h \
+ jni/genfiles/tensorflow/core/framework/node_def.pb.h \
  jni/include/google/protobuf/src/google/protobuf/map_field_inl.h \
  jni/include/google/protobuf/src/google/protobuf/map_field.h \
  jni/include/google/protobuf/src/google/protobuf/generated_message_reflection.h \
@@ -575,6 +576,8 @@ jni/include/google/protobuf/src/google/protobuf/generated_message_util.h:
 
 jni/include/google/protobuf/src/google/protobuf/stubs/once.h:
 
+jni/include/google/protobuf/src/google/protobuf/has_bits.h:
+
 jni/include/google/protobuf/src/google/protobuf/metadata.h:
 
 jni/include/google/protobuf/src/google/protobuf/unknown_field_set.h:
@@ -656,12 +659,6 @@ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Co
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctions.h:
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h:
-
-jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h:
-
-jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h:
-
-jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h:
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h:
 
@@ -997,16 +994,6 @@ jni/include/tensorflow/core/framework/allocator.h:
 
 jni/include/tensorflow/core/framework/numeric_types.h:
 
-jni/include/tensorflow/core/platform/types.h:
-
-jni/include/tensorflow/core/platform/platform.h:
-
-jni/include/tensorflow/core/platform/default/integral_types.h:
-
-jni/include/tensorflow/core/framework/type_traits.h:
-
-jni/include/tensorflow/core/framework/types.h:
-
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/FixedPoint:
 
 jni/include/external/eigen_archive/Eigen/Core:
@@ -1015,35 +1002,23 @@ jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/FixedPoint
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/iostream:
 
-jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatMatProductNEON.h:
-
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatMatProduct.h:
 
 jni/include/third_party/eigen3/unsupported/Eigen/CXX11/src/FixedPoint/MatVecProduct.h:
 
-jni/include/tensorflow/core/framework/bfloat16.h:
+jni/include/tensorflow/core/platform/types.h:
 
-jni/include/tensorflow/core/lib/core/stringpiece.h:
+jni/include/tensorflow/core/platform/platform.h:
 
-jni/include/tensorflow/core/lib/gtl/array_slice.h:
+jni/include/tensorflow/core/platform/default/integral_types.h:
 
-jni/include/tensorflow/core/lib/gtl/array_slice_internal.h:
+jni/include/tensorflow/core/framework/type_traits.h:
 
 jni/include/tensorflow/core/platform/logging.h:
 
 jni/include/tensorflow/core/platform/default/logging.h:
 
 jni/include/tensorflow/core/platform/macros.h:
-
-jni/include/tensorflow/core/lib/gtl/inlined_vector.h:
-
-jni/include/tensorflow/core/lib/gtl/manual_constructor.h:
-
-jni/include/tensorflow/core/platform/mem.h:
-
-jni/include/tensorflow/core/platform/default/dynamic_annotations.h:
-
-jni/include/tensorflow/core/platform/host_info.h:
 
 jni/genfiles/tensorflow/core/framework/tensor.pb.h:
 
@@ -1055,11 +1030,33 @@ jni/include/tensorflow/core/lib/core/status.h:
 
 jni/genfiles/tensorflow/core/lib/core/error_codes.pb.h:
 
+jni/include/tensorflow/core/lib/core/stringpiece.h:
+
 jni/include/tensorflow/core/lib/strings/strcat.h:
 
 jni/include/tensorflow/core/lib/strings/numbers.h:
 
+jni/include/tensorflow/core/lib/gtl/array_slice.h:
+
+jni/include/tensorflow/core/lib/gtl/array_slice_internal.h:
+
+jni/include/tensorflow/core/lib/gtl/inlined_vector.h:
+
+jni/include/tensorflow/core/lib/gtl/manual_constructor.h:
+
+jni/include/tensorflow/core/platform/mem.h:
+
+jni/include/tensorflow/core/platform/dynamic_annotations.h:
+
+jni/include/tensorflow/core/platform/default/dynamic_annotations.h:
+
+jni/include/tensorflow/core/platform/cpu_info.h:
+
 jni/include/tensorflow/core/framework/tensor_types.h:
+
+jni/include/tensorflow/core/framework/types.h:
+
+jni/include/tensorflow/core/framework/bfloat16.h:
 
 jni/include/tensorflow/core/lib/core/refcount.h:
 
@@ -1076,6 +1073,10 @@ jni/include/tensorflow/core/platform/file_system.h:
 jni/include/tensorflow/core/platform/file_statistics.h:
 
 jni/include/tensorflow/core/platform/protobuf.h:
+
+jni/include/google/protobuf/src/google/protobuf/any.pb.h:
+
+jni/include/google/protobuf/src/google/protobuf/any.h:
 
 jni/include/tensorflow/core/platform/default/protobuf.h:
 
@@ -1136,6 +1137,8 @@ jni/include/tensorflow/core/platform/default/thread_annotations.h:
 jni/include/tensorflow/core/public/session.h:
 
 jni/genfiles/tensorflow/core/framework/graph.pb.h:
+
+jni/genfiles/tensorflow/core/framework/node_def.pb.h:
 
 jni/include/google/protobuf/src/google/protobuf/map_field_inl.h:
 

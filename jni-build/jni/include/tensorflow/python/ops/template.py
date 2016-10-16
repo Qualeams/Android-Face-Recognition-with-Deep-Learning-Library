@@ -44,7 +44,7 @@ def make_template(name_, func_, create_scope_now_=False, unique_name_=None,
      that are intended to be locals can be created by specifying
      `tf.Variable(..., trainable=false)`.
   * The function may use variable scopes and other templates internally to
-      create and reuse variables, but it shouldn't use `tf.get_variables` to
+      create and reuse variables, but it shouldn't use `tf.all_variables` to
       capture variables that are defined outside of the scope of the function.
   * Internal scopes and variable names should not depend on any arguments that
       are not supplied to `make_template`. In general you will get a ValueError
@@ -165,7 +165,7 @@ class Template(object):
     Args:
       name: A name for the scope created by this template. The
         name will be made unique by appending `_N` to the it (see how
-        `tf.variable_op_scope` treats the `default_name` for details).
+        `tf.variable_scope` treats the `default_name` for details).
       func: The function to apply each time.
       create_scope_now: Whether to create the scope at Template construction
         time, rather than first call. Defaults to false. Creating the scope at
@@ -190,8 +190,8 @@ class Template(object):
     if name is None:
       raise ValueError("name cannot be None.")
     if create_scope_now:
-      with variable_scope.variable_op_scope(
-          [], self._unique_name, self._name) as vs:
+      with variable_scope.variable_scope(
+          self._unique_name, self._name) as vs:
         self._var_scope = vs
     else:
       self._var_scope = None
@@ -261,8 +261,8 @@ class Template(object):
       # The scope was not created at construction time, so create it here.
       # Subsequent calls should reuse variables.
       self._variables_created = True
-      with variable_scope.variable_op_scope(
-          [], self._unique_name, self._name) as vs:
+      with variable_scope.variable_scope(
+          self._unique_name, self._name) as vs:
         self._var_scope = vs
         return self._call_func(args, kwargs, check_for_new_variables=False)
 
