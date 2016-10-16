@@ -1,4 +1,4 @@
-/* Copyright 2015 The TensorFlow Authors. All Rights Reserved.
+/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,11 +13,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "tensorflow/core/kernels/cwise_ops_common.h"
+%include "tensorflow/python/platform/base.i"
+%include "tensorflow/python/lib/core/strings.i"
 
-namespace tensorflow {
-REGISTER2(UnaryOp, CPU, "Asin", functor::asin, float, double);
-#if GOOGLE_CUDA
-REGISTER2(UnaryOp, GPU, "Asin", functor::asin, float, double);
-#endif
-}  // namespace tensorflow
+%{
+#include "tensorflow/python/framework/cpp_shape_inference.h"
+%}
+
+%ignoreall;
+%unignore tensorflow;
+%unignore tensorflow::swig;
+%unignore tensorflow::swig::RunCppShapeInference;
+%include "tensorflow/python/framework/cpp_shape_inference.h"
+
+%unignoreall
