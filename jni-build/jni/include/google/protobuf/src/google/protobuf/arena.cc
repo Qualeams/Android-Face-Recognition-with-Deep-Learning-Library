@@ -30,12 +30,17 @@
 
 #include <google/protobuf/arena.h>
 
+#include <algorithm>
+#include <limits>
+
+
 #ifdef ADDRESS_SANITIZER
 #include <sanitizer/asan_interface.h>
 #endif
 
 namespace google {
 namespace protobuf {
+
 
 google::protobuf::internal::SequenceNumber Arena::lifecycle_id_generator_;
 #if defined(GOOGLE_PROTOBUF_NO_THREADLOCAL)
@@ -123,20 +128,14 @@ Arena::Block* Arena::NewBlock(void* me, Block* my_last_block, size_t n,
   } else {
     size = start_block_size;
   }
-  if (n > size - kHeaderSize) {
-    // TODO(sanjay): Check if n + kHeaderSize would overflow
-    size = kHeaderSize + n;
-  }
+  // Verify that n + kHeaderSize won't overflow.
+  GOOGLE_CHECK_LE(n, std::numeric_limits<size_t>::max() - kHeaderSize);
+  size = std::max(size, kHeaderSize + n);
 
   Block* b = reinterpret_cast<Block*>(options_.block_alloc(size));
   b->pos = kHeaderSize + n;
   b->size = size;
-  if (b->avail() == 0) {
-    // Do not attempt to reuse this block.
-    b->owner = NULL;
-  } else {
-    b->owner = me;
-  }
+  b->owner = me;
 #ifdef ADDRESS_SANITIZER
   // Poison the rest of the block for ASAN. It was unpoisoned by the underlying
   // malloc but it's not yet usable until we return it as part of an allocation.
@@ -221,9 +220,7 @@ void* Arena::SlowAlloc(size_t n) {
   }
   b = NewBlock(me, b, n, options_.start_block_size, options_.max_block_size);
   AddBlock(b);
-  if (b->owner == me) {  // If this block can be reused (see NewBlock()).
-    SetThreadCacheBlock(b);
-  }
+  SetThreadCacheBlock(b);
   return reinterpret_cast<char*>(b) + kHeaderSize;
 }
 
@@ -245,6 +242,19 @@ uint64 Arena::SpaceUsed() const {
     b = b->next;
   }
   return space_used;
+}
+
+pair<uint64, uint64> Arena::SpaceAllocatedAndUsed() const {
+  uint64 allocated = 0;
+  uint64 used = 0;
+
+  Block* b = reinterpret_cast<Block*>(google::protobuf::internal::NoBarrier_Load(&blocks_));
+  while (b != NULL) {
+    allocated += b->size;
+    used += (b->pos - kHeaderSize);
+    b = b->next;
+  }
+  return std::make_pair(allocated, used);
 }
 
 uint64 Arena::FreeBlocks() {

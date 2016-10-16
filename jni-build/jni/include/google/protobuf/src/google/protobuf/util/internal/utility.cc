@@ -41,6 +41,8 @@
 #include <google/protobuf/stubs/map_util.h>
 #include <google/protobuf/stubs/mathlimits.h>
 
+#include <algorithm>
+
 namespace google {
 namespace protobuf {
 namespace util {
@@ -52,7 +54,7 @@ const StringPiece SkipWhiteSpace(StringPiece str) {
   for (i = 0; i < str.size() && isspace(str[i]); ++i) {
   }
   GOOGLE_DCHECK(i == str.size() || !isspace(str[i]));
-  return StringPiece(str, i);
+  return str.substr(i);
 }
 }  // namespace
 
@@ -128,8 +130,12 @@ string GetStringFromAny(const google::protobuf::Any& any) {
 }
 
 const StringPiece GetTypeWithoutUrl(StringPiece type_url) {
-  size_t idx = type_url.rfind('/');
-  return type_url.substr(idx + 1);
+  if (type_url.size() > kTypeUrlSize && type_url[kTypeUrlSize] == '/') {
+    return type_url.substr(kTypeUrlSize + 1);
+  } else {
+    size_t idx = type_url.rfind('/');
+    return type_url.substr(idx + 1);
+  }
 }
 
 const string GetFullTypeWithUrl(StringPiece simple_type) {
@@ -174,6 +180,19 @@ const google::protobuf::Field* FindJsonFieldInTypeOrNull(
   return NULL;
 }
 
+const google::protobuf::Field* FindFieldInTypeByNumberOrNull(
+    const google::protobuf::Type* type, int32 number) {
+  if (type != NULL) {
+    for (int i = 0; i < type->fields_size(); ++i) {
+      const google::protobuf::Field& field = type->fields(i);
+      if (field.number() == number) {
+        return &field;
+      }
+    }
+  }
+  return NULL;
+}
+
 const google::protobuf::EnumValue* FindEnumValueByNameOrNull(
     const google::protobuf::Enum* enum_type, StringPiece enum_name) {
   if (enum_type != NULL) {
@@ -193,6 +212,32 @@ const google::protobuf::EnumValue* FindEnumValueByNumberOrNull(
     for (int i = 0; i < enum_type->enumvalue_size(); ++i) {
       const google::protobuf::EnumValue& enum_value = enum_type->enumvalue(i);
       if (enum_value.number() == value) {
+        return &enum_value;
+      }
+    }
+  }
+  return NULL;
+}
+
+const google::protobuf::EnumValue* FindEnumValueByNameWithoutUnderscoreOrNull(
+    const google::protobuf::Enum* enum_type, StringPiece enum_name) {
+  if (enum_type != NULL) {
+    for (int i = 0; i < enum_type->enumvalue_size(); ++i) {
+      const google::protobuf::EnumValue& enum_value = enum_type->enumvalue(i);
+      string enum_name_without_underscore = enum_value.name();
+
+      // Remove underscore from the name.
+      enum_name_without_underscore.erase(
+          std::remove(enum_name_without_underscore.begin(),
+                      enum_name_without_underscore.end(), '_'),
+          enum_name_without_underscore.end());
+      // Make the name uppercase.
+      for (string::iterator it = enum_name_without_underscore.begin();
+           it != enum_name_without_underscore.end(); ++it) {
+        *it = ascii_toupper(*it);
+      }
+
+      if (enum_name_without_underscore == enum_name) {
         return &enum_value;
       }
     }
@@ -222,6 +267,7 @@ string ToCamelCase(const StringPiece input) {
       if (!result.empty() && is_cap &&
           (!was_cap || (i + 1 < input.size() && ascii_islower(input[i + 1])))) {
         first_word = false;
+        result.push_back(input[i]);
       } else {
         result.push_back(ascii_tolower(input[i]));
         continue;
@@ -231,9 +277,13 @@ string ToCamelCase(const StringPiece input) {
       if (ascii_islower(input[i])) {
         result.push_back(ascii_toupper(input[i]));
         continue;
+      } else {
+        result.push_back(input[i]);
+        continue;
       }
+    } else {
+      result.push_back(ascii_tolower(input[i]));
     }
-    result.push_back(input[i]);
   }
   return result;
 }

@@ -28,6 +28,7 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 }  // namespace
 
 
+void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
   protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -53,45 +54,56 @@ void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
   TensorProto_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       TensorProto_descriptor_,
-      TensorProto::default_instance_,
+      TensorProto::internal_default_instance(),
       TensorProto_offsets_,
       -1,
       -1,
       -1,
       sizeof(TensorProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorProto, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorProto, _is_default_instance_));
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorProto, _internal_metadata_));
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
-inline void protobuf_AssignDescriptorsOnce() {
+void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
                  &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TensorProto_descriptor_, &TensorProto::default_instance());
+      TensorProto_descriptor_, TensorProto::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
-  delete TensorProto::default_instance_;
+  TensorProto_default_instance_.Shutdown();
   delete TensorProto_reflection_;
 }
 
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto();
+  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto();
+  ::google::protobuf::internal::GetEmptyString();
+  TensorProto_default_instance_.DefaultConstruct();
+  TensorProto_default_instance_.get_mutable()->InitAsDefaultInstance();
+}
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto_once_);
+void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto_once_,
+                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto_impl);
+}
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto_impl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n&tensorflow/core/framework/tensor.proto"
     "\022\ntensorflow\032,tensorflow/core/framework/"
@@ -109,11 +121,16 @@ void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
     "eworkB\014TensorProtosP\001\370\001\001b\006proto3", 552);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/tensor.proto", &protobuf_RegisterTypes);
-  TensorProto::default_instance_ = new TensorProto();
-  TensorProto::default_instance_->InitAsDefaultInstance();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_2eproto);
 }
 
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto_once_);
+void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto_once_,
+                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto_impl);
+}
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_2eproto {
   StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_2eproto() {
@@ -123,9 +140,9 @@ struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_2eprot
 
 namespace {
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
 }
 
 }  // namespace
@@ -141,8 +158,7 @@ void TensorProto::_slow_mutable_tensor_shape() {
   if (tensor_shape_ == NULL) {
     return NULL;
   } else {
-    ::tensorflow::TensorShapeProto* temp = new ::tensorflow::TensorShapeProto;
-    temp->MergeFrom(*tensor_shape_);
+    ::tensorflow::TensorShapeProto* temp = new ::tensorflow::TensorShapeProto(*tensor_shape_);
     tensor_shape_ = NULL;
     return temp;
   }
@@ -199,10 +215,10 @@ const int TensorProto::kDcomplexValFieldNumber;
 
 TensorProto::TensorProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TensorProto)
 }
-
 TensorProto::TensorProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena),
@@ -215,32 +231,33 @@ TensorProto::TensorProto(::google::protobuf::Arena* arena)
   int64_val_(arena),
   bool_val_(arena),
   dcomplex_val_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.TensorProto)
 }
 
 void TensorProto::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  tensor_shape_ = const_cast< ::tensorflow::TensorShapeProto*>(&::tensorflow::TensorShapeProto::default_instance());
+  tensor_shape_ = const_cast< ::tensorflow::TensorShapeProto*>(
+      ::tensorflow::TensorShapeProto::internal_default_instance());
 }
 
 TensorProto::TensorProto(const TensorProto& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:tensorflow.TensorProto)
 }
 
 void TensorProto::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  dtype_ = 0;
-  tensor_shape_ = NULL;
-  version_number_ = 0;
   tensor_content_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  tensor_shape_ = NULL;
+  ::memset(&dtype_, 0, reinterpret_cast<char*>(&version_number_) -
+    reinterpret_cast<char*>(&dtype_) + sizeof(version_number_));
+  _cached_size_ = 0;
 }
 
 TensorProto::~TensorProto() {
@@ -249,12 +266,13 @@ TensorProto::~TensorProto() {
 }
 
 void TensorProto::SharedDtor() {
-  if (GetArenaNoVirtual() != NULL) {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
     return;
   }
 
-  tensor_content_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (this != default_instance_) {
+  tensor_content_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
+  if (this != &TensorProto_default_instance_.get()) {
     delete tensor_shape_;
   }
 }
@@ -276,11 +294,11 @@ const ::google::protobuf::Descriptor* TensorProto::descriptor() {
 }
 
 const TensorProto& TensorProto::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto();
-  return *default_instance_;
+  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
+  return *internal_default_instance();
 }
 
-TensorProto* TensorProto::default_instance_ = NULL;
+::google::protobuf::internal::ExplicitlyConstructed<TensorProto> TensorProto_default_instance_;
 
 TensorProto* TensorProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<TensorProto>(arena);
@@ -300,7 +318,7 @@ void TensorProto::Clear() {
 #endif
 
 #define ZR_(first, last) do {\
-  ::memset(&first, 0,\
+  ::memset(&(first), 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
@@ -365,10 +383,10 @@ bool TensorProto::MergePartialFromCodedStream(
       case 3: {
         if (tag == 24) {
          parse_version_number:
+
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &version_number_)));
-
         } else {
           goto handle_unusual;
         }
@@ -683,8 +701,9 @@ void TensorProto::SerializeWithCachedSizes(
   // @@protoc_insertion_point(serialize_end:tensorflow.TensorProto)
 }
 
-::google::protobuf::uint8* TensorProto::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+::google::protobuf::uint8* TensorProto::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorProto)
   // optional .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
@@ -695,8 +714,8 @@ void TensorProto::SerializeWithCachedSizes(
   // optional .tensorflow.TensorShapeProto tensor_shape = 2;
   if (this->has_tensor_shape()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->tensor_shape_, target);
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->tensor_shape_, false, target);
   }
 
   // optional int32 version_number = 3;
@@ -833,9 +852,9 @@ void TensorProto::SerializeWithCachedSizes(
   return target;
 }
 
-int TensorProto::ByteSize() const {
+size_t TensorProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorProto)
-  int total_size = 0;
+  size_t total_size = 0;
 
   // optional .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
@@ -866,8 +885,9 @@ int TensorProto::ByteSize() const {
 
   // repeated int32 half_val = 13 [packed = true];
   {
-    int data_size = 0;
-    for (int i = 0; i < this->half_val_size(); i++) {
+    size_t data_size = 0;
+    unsigned int count = this->half_val_size();
+    for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
         Int32Size(this->half_val(i));
     }
@@ -875,44 +895,50 @@ int TensorProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _half_val_cached_byte_size_ = data_size;
+    _half_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated float float_val = 5 [packed = true];
   {
-    int data_size = 0;
-    data_size = 4 * this->float_val_size();
+    size_t data_size = 0;
+    unsigned int count = this->float_val_size();
+    data_size = 4UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _float_val_cached_byte_size_ = data_size;
+    _float_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated double double_val = 6 [packed = true];
   {
-    int data_size = 0;
-    data_size = 8 * this->double_val_size();
+    size_t data_size = 0;
+    unsigned int count = this->double_val_size();
+    data_size = 8UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _double_val_cached_byte_size_ = data_size;
+    _double_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated int32 int_val = 7 [packed = true];
   {
-    int data_size = 0;
-    for (int i = 0; i < this->int_val_size(); i++) {
+    size_t data_size = 0;
+    unsigned int count = this->int_val_size();
+    for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
         Int32Size(this->int_val(i));
     }
@@ -920,14 +946,16 @@ int TensorProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _int_val_cached_byte_size_ = data_size;
+    _int_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated bytes string_val = 8;
-  total_size += 1 * this->string_val_size();
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->string_val_size());
   for (int i = 0; i < this->string_val_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::BytesSize(
       this->string_val(i));
@@ -935,22 +963,25 @@ int TensorProto::ByteSize() const {
 
   // repeated float scomplex_val = 9 [packed = true];
   {
-    int data_size = 0;
-    data_size = 4 * this->scomplex_val_size();
+    size_t data_size = 0;
+    unsigned int count = this->scomplex_val_size();
+    data_size = 4UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _scomplex_val_cached_byte_size_ = data_size;
+    _scomplex_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated int64 int64_val = 10 [packed = true];
   {
-    int data_size = 0;
-    for (int i = 0; i < this->int64_val_size(); i++) {
+    size_t data_size = 0;
+    unsigned int count = this->int64_val_size();
+    for (unsigned int i = 0; i < count; i++) {
       data_size += ::google::protobuf::internal::WireFormatLite::
         Int64Size(this->int64_val(i));
     }
@@ -958,42 +989,48 @@ int TensorProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _int64_val_cached_byte_size_ = data_size;
+    _int64_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated bool bool_val = 11 [packed = true];
   {
-    int data_size = 0;
-    data_size = 1 * this->bool_val_size();
+    size_t data_size = 0;
+    unsigned int count = this->bool_val_size();
+    data_size = 1UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _bool_val_cached_byte_size_ = data_size;
+    _bool_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
   // repeated double dcomplex_val = 12 [packed = true];
   {
-    int data_size = 0;
-    data_size = 8 * this->dcomplex_val_size();
+    size_t data_size = 0;
+    unsigned int count = this->dcomplex_val_size();
+    data_size = 8UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
     }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _dcomplex_val_cached_byte_size_ = data_size;
+    _dcomplex_val_cached_byte_size_ = cached_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
     total_size += data_size;
   }
 
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
+  _cached_size_ = cached_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
@@ -1001,7 +1038,7 @@ int TensorProto::ByteSize() const {
 void TensorProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorProto)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const TensorProto* source = 
+  const TensorProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const TensorProto>(
           &from);
   if (source == NULL) {
@@ -1009,22 +1046,30 @@ void TensorProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorProto)
-    MergeFrom(*source);
+    UnsafeMergeFrom(*source);
   }
 }
 
 void TensorProto::MergeFrom(const TensorProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  half_val_.MergeFrom(from.half_val_);
-  float_val_.MergeFrom(from.float_val_);
-  double_val_.MergeFrom(from.double_val_);
-  int_val_.MergeFrom(from.int_val_);
-  string_val_.MergeFrom(from.string_val_);
-  scomplex_val_.MergeFrom(from.scomplex_val_);
-  int64_val_.MergeFrom(from.int64_val_);
-  bool_val_.MergeFrom(from.bool_val_);
-  dcomplex_val_.MergeFrom(from.dcomplex_val_);
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void TensorProto::UnsafeMergeFrom(const TensorProto& from) {
+  GOOGLE_DCHECK(&from != this);
+  half_val_.UnsafeMergeFrom(from.half_val_);
+  float_val_.UnsafeMergeFrom(from.float_val_);
+  double_val_.UnsafeMergeFrom(from.double_val_);
+  int_val_.UnsafeMergeFrom(from.int_val_);
+  string_val_.UnsafeMergeFrom(from.string_val_);
+  scomplex_val_.UnsafeMergeFrom(from.scomplex_val_);
+  int64_val_.UnsafeMergeFrom(from.int64_val_);
+  bool_val_.UnsafeMergeFrom(from.bool_val_);
+  dcomplex_val_.UnsafeMergeFrom(from.dcomplex_val_);
   if (from.dtype() != 0) {
     set_dtype(from.dtype());
   }
@@ -1050,7 +1095,7 @@ void TensorProto::CopyFrom(const TensorProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorProto)
   if (&from == this) return;
   Clear();
-  MergeFrom(from);
+  UnsafeMergeFrom(from);
 }
 
 bool TensorProto::IsInitialized() const {
@@ -1064,7 +1109,7 @@ void TensorProto::Swap(TensorProto* other) {
     InternalSwap(other);
   } else {
     TensorProto temp;
-    temp.MergeFrom(*this);
+    temp.UnsafeMergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
@@ -1107,11 +1152,11 @@ void TensorProto::InternalSwap(TensorProto* other) {
 void TensorProto::clear_dtype() {
   dtype_ = 0;
 }
- ::tensorflow::DataType TensorProto::dtype() const {
+::tensorflow::DataType TensorProto::dtype() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.dtype)
   return static_cast< ::tensorflow::DataType >(dtype_);
 }
- void TensorProto::set_dtype(::tensorflow::DataType value) {
+void TensorProto::set_dtype(::tensorflow::DataType value) {
   
   dtype_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.dtype)
@@ -1119,7 +1164,7 @@ void TensorProto::clear_dtype() {
 
 // optional .tensorflow.TensorShapeProto tensor_shape = 2;
 bool TensorProto::has_tensor_shape() const {
-  return !_is_default_instance_ && tensor_shape_ != NULL;
+  return this != internal_default_instance() && tensor_shape_ != NULL;
 }
 void TensorProto::clear_tensor_shape() {
   if (GetArenaNoVirtual() == NULL && tensor_shape_ != NULL) delete tensor_shape_;
@@ -1127,7 +1172,8 @@ void TensorProto::clear_tensor_shape() {
 }
 const ::tensorflow::TensorShapeProto& TensorProto::tensor_shape() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.tensor_shape)
-  return tensor_shape_ != NULL ? *tensor_shape_ : *default_instance_->tensor_shape_;
+  return tensor_shape_ != NULL ? *tensor_shape_
+                         : *::tensorflow::TensorShapeProto::internal_default_instance();
 }
 ::tensorflow::TensorShapeProto* TensorProto::mutable_tensor_shape() {
   
@@ -1169,11 +1215,11 @@ const ::tensorflow::TensorShapeProto& TensorProto::tensor_shape() const {
 void TensorProto::clear_version_number() {
   version_number_ = 0;
 }
- ::google::protobuf::int32 TensorProto::version_number() const {
+::google::protobuf::int32 TensorProto::version_number() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.version_number)
   return version_number_;
 }
- void TensorProto::set_version_number(::google::protobuf::int32 value) {
+void TensorProto::set_version_number(::google::protobuf::int32 value) {
   
   version_number_ = value;
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.version_number)
@@ -1183,46 +1229,46 @@ void TensorProto::clear_version_number() {
 void TensorProto::clear_tensor_content() {
   tensor_content_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& TensorProto::tensor_content() const {
+const ::std::string& TensorProto::tensor_content() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.tensor_content)
   return tensor_content_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void TensorProto::set_tensor_content(const ::std::string& value) {
+void TensorProto::set_tensor_content(const ::std::string& value) {
   
   tensor_content_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.tensor_content)
 }
- void TensorProto::set_tensor_content(const char* value) {
+void TensorProto::set_tensor_content(const char* value) {
   
   tensor_content_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_char:tensorflow.TensorProto.tensor_content)
 }
- void TensorProto::set_tensor_content(const void* value,
+void TensorProto::set_tensor_content(const void* value,
     size_t size) {
   
   tensor_content_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_pointer:tensorflow.TensorProto.tensor_content)
 }
- ::std::string* TensorProto::mutable_tensor_content() {
+::std::string* TensorProto::mutable_tensor_content() {
   
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorProto.tensor_content)
   return tensor_content_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* TensorProto::release_tensor_content() {
+::std::string* TensorProto::release_tensor_content() {
   // @@protoc_insertion_point(field_release:tensorflow.TensorProto.tensor_content)
   
   return tensor_content_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* TensorProto::unsafe_arena_release_tensor_content() {
+::std::string* TensorProto::unsafe_arena_release_tensor_content() {
   // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.TensorProto.tensor_content)
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return tensor_content_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void TensorProto::set_allocated_tensor_content(::std::string* tensor_content) {
+void TensorProto::set_allocated_tensor_content(::std::string* tensor_content) {
   if (tensor_content != NULL) {
     
   } else {
@@ -1232,7 +1278,7 @@ void TensorProto::clear_tensor_content() {
       GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TensorProto.tensor_content)
 }
- void TensorProto::unsafe_arena_set_allocated_tensor_content(
+void TensorProto::unsafe_arena_set_allocated_tensor_content(
     ::std::string* tensor_content) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (tensor_content != NULL) {
@@ -1252,24 +1298,24 @@ int TensorProto::half_val_size() const {
 void TensorProto::clear_half_val() {
   half_val_.Clear();
 }
- ::google::protobuf::int32 TensorProto::half_val(int index) const {
+::google::protobuf::int32 TensorProto::half_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.half_val)
   return half_val_.Get(index);
 }
- void TensorProto::set_half_val(int index, ::google::protobuf::int32 value) {
+void TensorProto::set_half_val(int index, ::google::protobuf::int32 value) {
   half_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.half_val)
 }
- void TensorProto::add_half_val(::google::protobuf::int32 value) {
+void TensorProto::add_half_val(::google::protobuf::int32 value) {
   half_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.half_val)
 }
- const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 TensorProto::half_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.half_val)
   return half_val_;
 }
- ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 TensorProto::mutable_half_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.half_val)
   return &half_val_;
@@ -1282,24 +1328,24 @@ int TensorProto::float_val_size() const {
 void TensorProto::clear_float_val() {
   float_val_.Clear();
 }
- float TensorProto::float_val(int index) const {
+float TensorProto::float_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.float_val)
   return float_val_.Get(index);
 }
- void TensorProto::set_float_val(int index, float value) {
+void TensorProto::set_float_val(int index, float value) {
   float_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.float_val)
 }
- void TensorProto::add_float_val(float value) {
+void TensorProto::add_float_val(float value) {
   float_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.float_val)
 }
- const ::google::protobuf::RepeatedField< float >&
+const ::google::protobuf::RepeatedField< float >&
 TensorProto::float_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.float_val)
   return float_val_;
 }
- ::google::protobuf::RepeatedField< float >*
+::google::protobuf::RepeatedField< float >*
 TensorProto::mutable_float_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.float_val)
   return &float_val_;
@@ -1312,24 +1358,24 @@ int TensorProto::double_val_size() const {
 void TensorProto::clear_double_val() {
   double_val_.Clear();
 }
- double TensorProto::double_val(int index) const {
+double TensorProto::double_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.double_val)
   return double_val_.Get(index);
 }
- void TensorProto::set_double_val(int index, double value) {
+void TensorProto::set_double_val(int index, double value) {
   double_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.double_val)
 }
- void TensorProto::add_double_val(double value) {
+void TensorProto::add_double_val(double value) {
   double_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.double_val)
 }
- const ::google::protobuf::RepeatedField< double >&
+const ::google::protobuf::RepeatedField< double >&
 TensorProto::double_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.double_val)
   return double_val_;
 }
- ::google::protobuf::RepeatedField< double >*
+::google::protobuf::RepeatedField< double >*
 TensorProto::mutable_double_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.double_val)
   return &double_val_;
@@ -1342,24 +1388,24 @@ int TensorProto::int_val_size() const {
 void TensorProto::clear_int_val() {
   int_val_.Clear();
 }
- ::google::protobuf::int32 TensorProto::int_val(int index) const {
+::google::protobuf::int32 TensorProto::int_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.int_val)
   return int_val_.Get(index);
 }
- void TensorProto::set_int_val(int index, ::google::protobuf::int32 value) {
+void TensorProto::set_int_val(int index, ::google::protobuf::int32 value) {
   int_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.int_val)
 }
- void TensorProto::add_int_val(::google::protobuf::int32 value) {
+void TensorProto::add_int_val(::google::protobuf::int32 value) {
   int_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.int_val)
 }
- const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 TensorProto::int_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.int_val)
   return int_val_;
 }
- ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 TensorProto::mutable_int_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.int_val)
   return &int_val_;
@@ -1372,49 +1418,49 @@ int TensorProto::string_val_size() const {
 void TensorProto::clear_string_val() {
   string_val_.Clear();
 }
- const ::std::string& TensorProto::string_val(int index) const {
+const ::std::string& TensorProto::string_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.string_val)
   return string_val_.Get(index);
 }
- ::std::string* TensorProto::mutable_string_val(int index) {
+::std::string* TensorProto::mutable_string_val(int index) {
   // @@protoc_insertion_point(field_mutable:tensorflow.TensorProto.string_val)
   return string_val_.Mutable(index);
 }
- void TensorProto::set_string_val(int index, const ::std::string& value) {
+void TensorProto::set_string_val(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.string_val)
   string_val_.Mutable(index)->assign(value);
 }
- void TensorProto::set_string_val(int index, const char* value) {
+void TensorProto::set_string_val(int index, const char* value) {
   string_val_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.TensorProto.string_val)
 }
- void TensorProto::set_string_val(int index, const void* value, size_t size) {
+void TensorProto::set_string_val(int index, const void* value, size_t size) {
   string_val_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:tensorflow.TensorProto.string_val)
 }
- ::std::string* TensorProto::add_string_val() {
+::std::string* TensorProto::add_string_val() {
   // @@protoc_insertion_point(field_add_mutable:tensorflow.TensorProto.string_val)
   return string_val_.Add();
 }
- void TensorProto::add_string_val(const ::std::string& value) {
+void TensorProto::add_string_val(const ::std::string& value) {
   string_val_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.string_val)
 }
- void TensorProto::add_string_val(const char* value) {
+void TensorProto::add_string_val(const char* value) {
   string_val_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.TensorProto.string_val)
 }
- void TensorProto::add_string_val(const void* value, size_t size) {
+void TensorProto::add_string_val(const void* value, size_t size) {
   string_val_.Add()->assign(reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_add_pointer:tensorflow.TensorProto.string_val)
 }
- const ::google::protobuf::RepeatedPtrField< ::std::string>&
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
 TensorProto::string_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.string_val)
   return string_val_;
 }
- ::google::protobuf::RepeatedPtrField< ::std::string>*
+::google::protobuf::RepeatedPtrField< ::std::string>*
 TensorProto::mutable_string_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.string_val)
   return &string_val_;
@@ -1427,24 +1473,24 @@ int TensorProto::scomplex_val_size() const {
 void TensorProto::clear_scomplex_val() {
   scomplex_val_.Clear();
 }
- float TensorProto::scomplex_val(int index) const {
+float TensorProto::scomplex_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.scomplex_val)
   return scomplex_val_.Get(index);
 }
- void TensorProto::set_scomplex_val(int index, float value) {
+void TensorProto::set_scomplex_val(int index, float value) {
   scomplex_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.scomplex_val)
 }
- void TensorProto::add_scomplex_val(float value) {
+void TensorProto::add_scomplex_val(float value) {
   scomplex_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.scomplex_val)
 }
- const ::google::protobuf::RepeatedField< float >&
+const ::google::protobuf::RepeatedField< float >&
 TensorProto::scomplex_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.scomplex_val)
   return scomplex_val_;
 }
- ::google::protobuf::RepeatedField< float >*
+::google::protobuf::RepeatedField< float >*
 TensorProto::mutable_scomplex_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.scomplex_val)
   return &scomplex_val_;
@@ -1457,24 +1503,24 @@ int TensorProto::int64_val_size() const {
 void TensorProto::clear_int64_val() {
   int64_val_.Clear();
 }
- ::google::protobuf::int64 TensorProto::int64_val(int index) const {
+::google::protobuf::int64 TensorProto::int64_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.int64_val)
   return int64_val_.Get(index);
 }
- void TensorProto::set_int64_val(int index, ::google::protobuf::int64 value) {
+void TensorProto::set_int64_val(int index, ::google::protobuf::int64 value) {
   int64_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.int64_val)
 }
- void TensorProto::add_int64_val(::google::protobuf::int64 value) {
+void TensorProto::add_int64_val(::google::protobuf::int64 value) {
   int64_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.int64_val)
 }
- const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
 TensorProto::int64_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.int64_val)
   return int64_val_;
 }
- ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
 TensorProto::mutable_int64_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.int64_val)
   return &int64_val_;
@@ -1487,24 +1533,24 @@ int TensorProto::bool_val_size() const {
 void TensorProto::clear_bool_val() {
   bool_val_.Clear();
 }
- bool TensorProto::bool_val(int index) const {
+bool TensorProto::bool_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.bool_val)
   return bool_val_.Get(index);
 }
- void TensorProto::set_bool_val(int index, bool value) {
+void TensorProto::set_bool_val(int index, bool value) {
   bool_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.bool_val)
 }
- void TensorProto::add_bool_val(bool value) {
+void TensorProto::add_bool_val(bool value) {
   bool_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.bool_val)
 }
- const ::google::protobuf::RepeatedField< bool >&
+const ::google::protobuf::RepeatedField< bool >&
 TensorProto::bool_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.bool_val)
   return bool_val_;
 }
- ::google::protobuf::RepeatedField< bool >*
+::google::protobuf::RepeatedField< bool >*
 TensorProto::mutable_bool_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.bool_val)
   return &bool_val_;
@@ -1517,29 +1563,32 @@ int TensorProto::dcomplex_val_size() const {
 void TensorProto::clear_dcomplex_val() {
   dcomplex_val_.Clear();
 }
- double TensorProto::dcomplex_val(int index) const {
+double TensorProto::dcomplex_val(int index) const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorProto.dcomplex_val)
   return dcomplex_val_.Get(index);
 }
- void TensorProto::set_dcomplex_val(int index, double value) {
+void TensorProto::set_dcomplex_val(int index, double value) {
   dcomplex_val_.Set(index, value);
   // @@protoc_insertion_point(field_set:tensorflow.TensorProto.dcomplex_val)
 }
- void TensorProto::add_dcomplex_val(double value) {
+void TensorProto::add_dcomplex_val(double value) {
   dcomplex_val_.Add(value);
   // @@protoc_insertion_point(field_add:tensorflow.TensorProto.dcomplex_val)
 }
- const ::google::protobuf::RepeatedField< double >&
+const ::google::protobuf::RepeatedField< double >&
 TensorProto::dcomplex_val() const {
   // @@protoc_insertion_point(field_list:tensorflow.TensorProto.dcomplex_val)
   return dcomplex_val_;
 }
- ::google::protobuf::RepeatedField< double >*
+::google::protobuf::RepeatedField< double >*
 TensorProto::mutable_dcomplex_val() {
   // @@protoc_insertion_point(field_mutable_list:tensorflow.TensorProto.dcomplex_val)
   return &dcomplex_val_;
 }
 
+inline const TensorProto* TensorProto::internal_default_instance() {
+  return &TensorProto_default_instance_.get();
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

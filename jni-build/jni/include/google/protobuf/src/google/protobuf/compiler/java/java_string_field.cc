@@ -79,16 +79,17 @@ void SetPrimitiveVariables(const FieldDescriptor* descriptor,
       "    throw new NullPointerException();\n"
       "  }\n";
   (*variables)["writeString"] =
-      "com.google.protobuf.GeneratedMessage.writeString";
+      "com.google.protobuf.GeneratedMessage" + GeneratedCodeVersionSuffix() +
+      ".writeString";
   (*variables)["computeStringSize"] =
-      "com.google.protobuf.GeneratedMessage.computeStringSize";
+      "com.google.protobuf.GeneratedMessage" + GeneratedCodeVersionSuffix() +
+      ".computeStringSize";
 
   // TODO(birdo): Add @deprecated javadoc when generating javadoc is supported
   // by the proto compiler
   (*variables)["deprecation"] = descriptor->options().deprecated()
       ? "@java.lang.Deprecated " : "";
-  (*variables)["on_changed"] =
-      HasDescriptorMethods(descriptor->containing_type()) ? "onChanged();" : "";
+  (*variables)["on_changed"] = "onChanged();";
 
   if (SupportFieldPresence(descriptor->file())) {
     // For singular messages and builders, one bit is used for the hasField bit.
@@ -408,15 +409,6 @@ GenerateParsingCode(io::Printer* printer) const {
       "java.lang.String s = input.readStringRequireUtf8();\n"
       "$set_has_field_bit_message$\n"
       "$name$_ = s;\n");
-  } else if (!HasDescriptorMethods(descriptor_->file())) {
-    // Lite runtime should attempt to reduce allocations by attempting to
-    // construct the string directly from the input stream buffer. This avoids
-    // spurious intermediary ByteString allocations, cutting overall allocations
-    // in half.
-    printer->Print(variables_,
-      "java.lang.String s = input.readString();\n"
-      "$set_has_field_bit_message$\n"
-      "$name$_ = s;\n");
   } else {
     printer->Print(variables_,
       "com.google.protobuf.ByteString bs = input.readBytes();\n"
@@ -668,15 +660,6 @@ GenerateParsingCode(io::Printer* printer) const {
       "java.lang.String s = input.readStringRequireUtf8();\n"
       "$set_oneof_case_message$;\n"
       "$oneof_name$_ = s;\n");
-  } else if (!HasDescriptorMethods(descriptor_->file())) {
-    // Lite runtime should attempt to reduce allocations by attempting to
-    // construct the string directly from the input stream buffer. This avoids
-    // spurious intermediary ByteString allocations, cutting overall allocations
-    // in half.
-    printer->Print(variables_,
-      "java.lang.String s = input.readString();\n"
-      "$set_oneof_case_message$;\n"
-      "$oneof_name$_ = s;\n");
   } else {
     printer->Print(variables_,
       "com.google.protobuf.ByteString bs = input.readBytes();\n"
@@ -731,7 +714,13 @@ void RepeatedImmutableStringFieldGenerator::
 GenerateInterfaceMembers(io::Printer* printer) const {
   WriteFieldDocComment(printer, descriptor_);
   printer->Print(variables_,
-    "$deprecation$com.google.protobuf.ProtocolStringList\n"
+    // NOTE: the same method in the implementation class actually returns
+    // com.google.protobuf.ProtocolStringList (a subclass of List). It's
+    // changed between protobuf 2.5.0 release and protobuf 2.6.1 release.
+    // To retain binary compatibility with both 2.5.0 and 2.6.1 generated
+    // code, we make this interface method return List so both methods
+    // with different return types exist in the compiled byte code.
+    "$deprecation$java.util.List<java.lang.String>\n"
     "    get$capitalized_name$List();\n");
   WriteFieldDocComment(printer, descriptor_);
   printer->Print(variables_,
@@ -934,13 +923,6 @@ GenerateParsingCode(io::Printer* printer) const {
   if (CheckUtf8(descriptor_)) {
     printer->Print(variables_,
     "java.lang.String s = input.readStringRequireUtf8();\n");
-  } else if (!HasDescriptorMethods(descriptor_->file())) {
-    // Lite runtime should attempt to reduce allocations by attempting to
-    // construct the string directly from the input stream buffer. This avoids
-    // spurious intermediary ByteString allocations, cutting overall allocations
-    // in half.
-    printer->Print(variables_,
-    "java.lang.String s = input.readString();\n");
   } else {
     printer->Print(variables_,
     "com.google.protobuf.ByteString bs = input.readBytes();\n");
@@ -950,7 +932,7 @@ GenerateParsingCode(io::Printer* printer) const {
     "  $name$_ = new com.google.protobuf.LazyStringArrayList();\n"
     "  $set_mutable_bit_parser$;\n"
     "}\n");
-  if (CheckUtf8(descriptor_) || !HasDescriptorMethods(descriptor_->file())) {
+  if (CheckUtf8(descriptor_)) {
     printer->Print(variables_,
       "$name$_.add(s);\n");
   } else {

@@ -91,7 +91,10 @@ inline bool GetAnyFieldDescriptors(const Message& message,
 string Message::DebugString() const {
   string debug_string;
 
-  TextFormat::PrintToString(*this, &debug_string);
+  TextFormat::Printer printer;
+  printer.SetExpandAny(true);
+
+  printer.PrintToString(*this, &debug_string);
 
   return debug_string;
 }
@@ -101,6 +104,7 @@ string Message::ShortDebugString() const {
 
   TextFormat::Printer printer;
   printer.SetSingleLineMode(true);
+  printer.SetExpandAny(true);
 
   printer.PrintToString(*this, &debug_string);
   // Single line mode currently might have an extra space at the end.
@@ -117,6 +121,7 @@ string Message::Utf8DebugString() const {
 
   TextFormat::Printer printer;
   printer.SetUseUtf8StringEscaping(true);
+  printer.SetExpandAny(true);
 
   printer.PrintToString(*this, &debug_string);
 
@@ -229,7 +234,8 @@ class TextFormat::Parser::ParserImpl {
              bool allow_unknown_field,
              bool allow_unknown_enum,
              bool allow_field_number,
-             bool allow_relaxed_whitespace)
+             bool allow_relaxed_whitespace,
+             bool allow_partial)
     : error_collector_(error_collector),
       finder_(finder),
       parse_info_tree_(parse_info_tree),
@@ -241,6 +247,7 @@ class TextFormat::Parser::ParserImpl {
       allow_unknown_field_(allow_unknown_field),
       allow_unknown_enum_(allow_unknown_enum),
       allow_field_number_(allow_field_number),
+      allow_partial_(allow_partial),
       had_errors_(false) {
     // For backwards-compatibility with proto1, we need to allow the 'f' suffix
     // for floats.
@@ -386,6 +393,16 @@ class TextFormat::Parser::ParserImpl {
       DO(ConsumeAnyValue(full_type_name,
                          message->GetDescriptor()->file()->pool(),
                          &serialized_value));
+      if (singular_overwrite_policy_ == FORBID_SINGULAR_OVERWRITES) {
+        // Fail if any_type_url_field has already been specified.
+        if ((!any_type_url_field->is_repeated() &&
+             reflection->HasField(*message, any_type_url_field)) ||
+            (!any_value_field->is_repeated() &&
+             reflection->HasField(*message, any_value_field))) {
+          ReportError("Non-repeated Any specified multiple times.");
+          return false;
+        }
+      }
       reflection->SetString(
           message, any_type_url_field,
           string(prefix + full_type_name));
@@ -508,18 +525,21 @@ class TextFormat::Parser::ParserImpl {
     }
 
     if (field->is_repeated() && TryConsume("[")) {
-      // Short repeated format, e.g.  "foo: [1, 2, 3]"
-      while (true) {
-        if (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE) {
-          // Perform special handling for embedded message types.
-          DO(ConsumeFieldMessage(message, reflection, field));
-        } else {
-          DO(ConsumeFieldValue(message, reflection, field));
+      // Short repeated format, e.g.  "foo: [1, 2, 3]".
+      if (!TryConsume("]")) {
+        // "foo: []" is treated as empty.
+        while (true) {
+          if (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE) {
+            // Perform special handling for embedded message types.
+            DO(ConsumeFieldMessage(message, reflection, field));
+          } else {
+            DO(ConsumeFieldValue(message, reflection, field));
+          }
+          if (TryConsume("]")) {
+            break;
+          }
+          DO(Consume(","));
         }
-        if (TryConsume("]")) {
-          break;
-        }
-        DO(Consume(","));
       }
     } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE) {
       DO(ConsumeFieldMessage(message, reflection, field));
@@ -713,7 +733,8 @@ class TextFormat::Parser::ParserImpl {
           value = SimpleItoa(int_value);        // for error reporting
           enum_value = enum_type->FindValueByNumber(int_value);
         } else {
-          ReportError("Expected integer or identifier.");
+          ReportError("Expected integer or identifier, got: " +
+                      tokenizer_.current().text);
           return false;
         }
 
@@ -748,6 +769,20 @@ class TextFormat::Parser::ParserImpl {
     if (LookingAtType(io::Tokenizer::TYPE_STRING)) {
       while (LookingAtType(io::Tokenizer::TYPE_STRING)) {
         tokenizer_.Next();
+      }
+      return true;
+    }
+    if (TryConsume("[")) {
+      while (true) {
+        if (!LookingAt("{") && !LookingAt("<")) {
+          DO(SkipFieldValue());
+        } else {
+          DO(SkipFieldMessage());
+        }
+        if (TryConsume("]")) {
+          break;
+        }
+        DO(Consume(","));
       }
       return true;
     }
@@ -826,7 +861,7 @@ class TextFormat::Parser::ParserImpl {
       return true;
     }
 
-    ReportError("Expected identifier.");
+    ReportError("Expected identifier, got: " + tokenizer_.current().text);
     return false;
   }
 
@@ -846,7 +881,7 @@ class TextFormat::Parser::ParserImpl {
   // Returns false if the token is not of type STRING.
   bool ConsumeString(string* text) {
     if (!LookingAtType(io::Tokenizer::TYPE_STRING)) {
-      ReportError("Expected string.");
+      ReportError("Expected string, got: " + tokenizer_.current().text);
       return false;
     }
 
@@ -864,13 +899,13 @@ class TextFormat::Parser::ParserImpl {
   // Returns false if the token is not of type INTEGER.
   bool ConsumeUnsignedInteger(uint64* value, uint64 max_value) {
     if (!LookingAtType(io::Tokenizer::TYPE_INTEGER)) {
-      ReportError("Expected integer.");
+      ReportError("Expected integer, got: " + tokenizer_.current().text);
       return false;
     }
 
     if (!io::Tokenizer::ParseInteger(tokenizer_.current().text,
                                      max_value, value)) {
-      ReportError("Integer out of range.");
+      ReportError("Integer out of range (" + tokenizer_.current().text + ")");
       return false;
     }
 
@@ -897,10 +932,14 @@ class TextFormat::Parser::ParserImpl {
 
     DO(ConsumeUnsignedInteger(&unsigned_value, max_value));
 
-    *value = static_cast<int64>(unsigned_value);
-
     if (negative) {
-      *value = -*value;
+      if ((static_cast<uint64>(kint64max) + 1) == unsigned_value) {
+        *value = kint64min;
+      } else {
+        *value = -static_cast<int64>(unsigned_value);
+      }
+    } else {
+      *value = static_cast<int64>(unsigned_value);
     }
 
     return true;
@@ -910,18 +949,18 @@ class TextFormat::Parser::ParserImpl {
   // Accepts decimal numbers only, rejects hex or oct numbers.
   bool ConsumeUnsignedDecimalInteger(uint64* value, uint64 max_value) {
     if (!LookingAtType(io::Tokenizer::TYPE_INTEGER)) {
-      ReportError("Expected integer.");
+      ReportError("Expected integer, got: " + tokenizer_.current().text);
       return false;
     }
 
     const string& text = tokenizer_.current().text;
     if (IsHexNumber(text) || IsOctNumber(text)) {
-      ReportError("Expect a decimal number.");
+      ReportError("Expect a decimal number, got: " + text);
       return false;
     }
 
     if (!io::Tokenizer::ParseInteger(text, max_value, value)) {
-      ReportError("Integer out of range.");
+      ReportError("Integer out of range (" + text + ")");
       return false;
     }
 
@@ -966,11 +1005,11 @@ class TextFormat::Parser::ParserImpl {
         *value = std::numeric_limits<double>::quiet_NaN();
         tokenizer_.Next();
       } else {
-        ReportError("Expected double.");
+        ReportError("Expected double, got: " + text);
         return false;
       }
     } else {
-      ReportError("Expected double.");
+      ReportError("Expected double, got: " + tokenizer_.current().text);
       return false;
     }
 
@@ -1028,7 +1067,17 @@ class TextFormat::Parser::ParserImpl {
     DO(ConsumeMessageDelimiter(&sub_delimiter));
     DO(ConsumeMessage(value.get(), sub_delimiter));
 
-    value->AppendToString(serialized_value);
+    if (allow_partial_) {
+      value->AppendPartialToString(serialized_value);
+    } else {
+      if (!value->IsInitialized()) {
+        ReportError(
+            "Value of type \"" + full_type_name +
+            "\" stored in google.protobuf.Any has missing required fields");
+        return false;
+      }
+      value->AppendToString(serialized_value);
+    }
     return true;
   }
 
@@ -1093,6 +1142,7 @@ class TextFormat::Parser::ParserImpl {
   const bool allow_unknown_field_;
   const bool allow_unknown_enum_;
   const bool allow_field_number_;
+  const bool allow_partial_;
   bool had_errors_;
 };
 
@@ -1153,10 +1203,10 @@ class TextFormat::Printer::TextGenerator {
   }
 
   // Print text to the output stream.
-  void Print(const char* text, int size) {
-    int pos = 0;  // The number of bytes we've written so far.
+  void Print(const char* text, size_t size) {
+    size_t pos = 0;  // The number of bytes we've written so far.
 
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
       if (text[i] == '\n') {
         // Saw newline.  If there is more text, we may need to insert an indent
         // here.  So, write what we have so far, including the '\n'.
@@ -1181,7 +1231,7 @@ class TextFormat::Printer::TextGenerator {
  private:
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(TextGenerator);
 
-  void Write(const char* data, int size) {
+  void Write(const char* data, size_t size) {
     if (failed_) return;
     if (size == 0) return;
 
@@ -1254,7 +1304,7 @@ bool TextFormat::Parser::Parse(io::ZeroCopyInputStream* input,
                     overwrites_policy,
                     allow_case_insensitive_field_, allow_unknown_field_,
                     allow_unknown_enum_, allow_field_number_,
-                    allow_relaxed_whitespace_);
+                    allow_relaxed_whitespace_, allow_partial_);
   return MergeUsingImpl(input, output, &parser);
 }
 
@@ -1271,7 +1321,7 @@ bool TextFormat::Parser::Merge(io::ZeroCopyInputStream* input,
                     ParserImpl::ALLOW_SINGULAR_OVERWRITES,
                     allow_case_insensitive_field_, allow_unknown_field_,
                     allow_unknown_enum_, allow_field_number_,
-                    allow_relaxed_whitespace_);
+                    allow_relaxed_whitespace_, allow_partial_);
   return MergeUsingImpl(input, output, &parser);
 }
 
@@ -1305,7 +1355,7 @@ bool TextFormat::Parser::ParseFieldValueFromString(
                     ParserImpl::ALLOW_SINGULAR_OVERWRITES,
                     allow_case_insensitive_field_, allow_unknown_field_,
                     allow_unknown_enum_, allow_field_number_,
-                    allow_relaxed_whitespace_);
+                    allow_relaxed_whitespace_, allow_partial_);
   return parser.ParseField(field, output);
 }
 
@@ -1780,14 +1830,12 @@ void TextFormat::Printer::PrintFieldValue(
           ? reflection->GetRepeatedStringReference(
               message, field, index, &scratch)
           : reflection->GetStringReference(message, field, &scratch);
-      int64 size = value.size();
-      if (truncate_string_field_longer_than_ > 0) {
-        size = std::min(truncate_string_field_longer_than_,
-                        static_cast<int64>(value.size()));
-      }
-      string truncated_value(value.substr(0, size) + "...<truncated>...");
       const string* value_to_print = &value;
-      if (size < value.size()) {
+      string truncated_value;
+      if (truncate_string_field_longer_than_ > 0 &&
+          truncate_string_field_longer_than_ < value.size()) {
+        truncated_value = value.substr(0, truncate_string_field_longer_than_) +
+                          "...<truncated>...";
         value_to_print = &truncated_value;
       }
       if (field->type() == FieldDescriptor::TYPE_STRING) {

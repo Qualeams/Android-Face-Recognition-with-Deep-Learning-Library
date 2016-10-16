@@ -54,6 +54,7 @@
 #include <google/protobuf/stubs/substitute.h>
 
 #include <google/protobuf/testing/file.h>
+#include <google/protobuf/testing/file.h>
 #include <google/protobuf/testing/googletest.h>
 #include <gtest/gtest.h>
 
@@ -98,7 +99,6 @@ class MockGeneratorContext : public GeneratorContext {
                           &actual_contents, true));
     EXPECT_TRUE(actual_contents == *expected_contents)
       << physical_filename << " needs to be regenerated.  Please run "
-         "google/protobuf/compiler/release_compiler.sh and "
          "generate_descriptor_proto.sh. Then add this file "
          "to your CL.";
   }

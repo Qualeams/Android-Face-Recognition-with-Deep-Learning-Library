@@ -19,33 +19,30 @@ from __future__ import print_function
 
 import collections
 
-from six.moves import range  # pylint: disable=redefined-builtin
 
-from tensorflow.contrib.linear_optimizer.ops import gen_sdca_ops
+from six.moves import range
+
 from tensorflow.contrib.lookup import lookup_ops
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops
 from tensorflow.python.framework.load_library import load_op_library
 from tensorflow.python.framework.ops import convert_to_tensor
 from tensorflow.python.framework.ops import name_scope
-from tensorflow.python.framework.ops import op_scope
 from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import data_flow_ops
+from tensorflow.python.ops import logging_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import nn_ops
 from tensorflow.python.ops import state_ops
 from tensorflow.python.ops import string_ops
 from tensorflow.python.ops import variables as var_ops
 from tensorflow.python.ops.nn import sigmoid_cross_entropy_with_logits
-from tensorflow.python.platform import resource_loader
+from tensorflow.python.ops.sdca_ops import sdca_fprint
+from tensorflow.python.ops.sdca_ops import sdca_optimizer
+from tensorflow.python.ops.sdca_ops import sdca_shrink_l1
 
 __all__ = ['SdcaModel']
-
-_sdca_ops = load_op_library(resource_loader.get_path_to_datafile(
-    '_sdca_ops.so'))
-assert _sdca_ops, 'Could not load _sdca_ops.so'
-
 
 class _ShardedMutableHashTable(lookup_ops.LookupInterface):
   """A sharded version of MutableHashTable.
@@ -68,18 +65,17 @@ class _ShardedMutableHashTable(lookup_ops.LookupInterface):
                value_dtype,
                default_value,
                num_shards=1,
-               name=None):
-    with ops.op_scope([], name, 'sharded_mutable_hash_table') as scope:
+               name='ShardedMutableHashTable'):
+    with ops.name_scope(name, 'sharded_mutable_hash_table') as scope:
       super(_ShardedMutableHashTable, self).__init__(key_dtype, value_dtype,
                                                      scope)
       table_shards = []
-      for _ in range(num_shards):
-        # TODO(andreasst): add placement hints once bug 30002625 is fixed.
+      for i in range(num_shards):
         table_shards.append(lookup_ops.MutableHashTable(
             key_dtype=key_dtype,
             value_dtype=value_dtype,
             default_value=default_value,
-            name=name))
+            name='%s-%d-of-%d' % (name, i + 1, num_shards)))
       self._table_shards = table_shards
       # TODO(andreasst): add a value_shape() method to LookupInterface
       # pylint: disable=protected-access
@@ -95,7 +91,7 @@ class _ShardedMutableHashTable(lookup_ops.LookupInterface):
     return self._table_shards
 
   def size(self, name=None):
-    with ops.op_scope([], name, 'sharded_mutable_hash_table_size'):
+    with ops.name_scope(name, 'sharded_mutable_hash_table_size'):
       sizes = [
           self._table_shards[i].size() for i in range(self._num_shards)
       ]
@@ -151,23 +147,20 @@ class _ShardedMutableHashTable(lookup_ops.LookupInterface):
 
     return control_flow_ops.group(*return_values)
 
-  def values_reduce_sum(self, name=None):
-    """Computes reduce_sum reducing dimension 0 across all values in all shards.
-
-    Args:
-      name: A name for the operation (optional).
+  def export_sharded(self, name=None):
+    """Returns lists of the keys and values tensors in the sharded table.
 
     Returns:
-      A tensor with the sum across all values in the same shape as the table's
-      value shape.
+      A pair of lists with the first list containing the key tensors and the
+        second list containing the value tensors from each shard.
     """
-    # TODO(andreasst): consider replacing with something like export_sharded
-    # and doing the sum in SdcaModel.
-    sums = []
+    keys_list = []
+    values_list = []
     for table_shard in self._table_shards:
-      _, exported_values = table_shard.export(name=name)
-      sums.append(math_ops.reduce_sum(exported_values, 0))
-    return math_ops.add_n(sums)
+      exported_keys, exported_values = table_shard.export(name=name)
+      keys_list.append(exported_keys)
+      values_list.append(exported_values)
+    return keys_list, values_list
 
 
 class SparseFeatureColumn(object):
@@ -221,8 +214,8 @@ class SparseFeatureColumn(object):
     Returns:
       A `SparseFeatureColumn`
     """
-    with op_scope([example_indices, feature_indices], None,
-                  'SparseFeatureColumn'):
+    with name_scope(None, 'SparseFeatureColumn',
+                    [example_indices, feature_indices]):
       self._example_indices = convert_to_tensor(example_indices,
                                                 name='example_indices',
                                                 dtype=dtypes.int64)
@@ -231,7 +224,7 @@ class SparseFeatureColumn(object):
                                                 dtype=dtypes.int64)
     self._feature_values = None
     if feature_values is not None:
-      with op_scope([feature_values], None, 'SparseFeatureColumn'):
+      with name_scope(None, 'SparseFeatureColumn', [feature_values]):
         self._feature_values = convert_to_tensor(feature_values,
                                                  name='feature_values',
                                                  dtype=dtypes.float32)
@@ -239,6 +232,7 @@ class SparseFeatureColumn(object):
   @property
   def example_indices(self):
     """The example indices represented as a dense tensor.
+
     Returns:
       A 1-D Tensor of int64 with shape `[N]`.
     """
@@ -247,6 +241,7 @@ class SparseFeatureColumn(object):
   @property
   def feature_indices(self):
     """The feature indices represented as a dense tensor.
+
     Returns:
       A 1-D Tensor of int64 with shape `[N]`.
     """
@@ -255,13 +250,14 @@ class SparseFeatureColumn(object):
   @property
   def feature_values(self):
     """The feature values represented as a dense tensor.
+
     Returns:
       May return None, or a 1-D Tensor of float32 with shape `[N]`.
     """
     return self._feature_values
 
 
-# TODO(sibyl-Aix6ihai): add op_scope to appropriate methods.
+# TODO(sibyl-Aix6ihai): add name_scope to appropriate methods.
 class SdcaModel(object):
   """Stochastic dual coordinate ascent solver for linear models.
 
@@ -269,9 +265,11 @@ class SdcaModel(object):
     implementation. We expect the weights and duals to fit in a single machine.
 
     Loss functions supported:
+
      * Binary logistic loss
      * Squared loss
      * Hinge loss
+     * Smooth hinge loss
 
     This class defines an optimizer API to train a linear model.
 
@@ -279,8 +277,7 @@ class SdcaModel(object):
 
     ```python
     # Create a solver with the desired parameters.
-    lr = tf.contrib.linear_optimizer.SdcaModel(
-        container, examples, variables, options)
+    lr = tf.contrib.linear_optimizer.SdcaModel(examples, variables, options)
     opt_op = lr.minimize()
 
     predictions = lr.predictions(examples)
@@ -289,9 +286,6 @@ class SdcaModel(object):
     # Primal loss only
     unregularized_loss = lr.unregularized_loss(examples)
 
-    container: Name of the container (eg a hex-encoded UUID) where internal
-      state of the optimizer can be stored. The container can be safely shared
-      across many models.
     examples: {
       sparse_features: list of SparseFeatureColumn.
       dense_features: list of dense tensors of type float32.
@@ -301,12 +295,18 @@ class SdcaModel(object):
     }
     variables: {
       sparse_features_weights: list of tensors of shape [vocab size]
-      dense_features_weights: list of tensors of shape [1]
+      dense_features_weights: list of tensors of shape [dense_feature_dimension]
     }
     options: {
       symmetric_l1_regularization: 0.0
       symmetric_l2_regularization: 1.0
       loss_type: "logistic_loss"
+      num_loss_partitions: 1 (Optional, with default value of 1. Number of
+      partitions of the global loss function, 1 means single machine solver,
+      and >1 when we have more than one optimizer working concurrently.)
+      num_table_shards: 1 (Optional, with default value of 1. Number of shards
+      of the internal state table, typically set to match the number of
+      parameter servers for large data sets.
     }
     ```
 
@@ -324,18 +324,16 @@ class SdcaModel(object):
   """
 
   def __init__(self,
-               container,
                examples,
                variables,
-               options,
-               num_table_shards=None):  # pylint: disable=unused-argument
+               options):
     """Create a new sdca optimizer."""
-    # TODO(andreasst): get rid of obsolete container parameter
 
     if not examples or not variables or not options:
       raise ValueError('examples, variables and options must all be specified.')
 
-    supported_losses = ('logistic_loss', 'squared_loss', 'hinge_loss')
+    supported_losses = ('logistic_loss', 'squared_loss', 'hinge_loss',
+                        'smooth_hinge_loss')
     if options['loss_type'] not in supported_losses:
       raise ValueError('Unsupported loss_type: ', options['loss_type'])
 
@@ -357,10 +355,6 @@ class SdcaModel(object):
         raise ValueError('%s should be non-negative. Found (%f)' %
                          (name, value))
 
-    # TODO(andreasst): set num_table_shards automatically based on the number of
-    # parameter servers
-    if num_table_shards is None:
-      num_table_shards = 1
     self._examples = examples
     self._variables = variables
     self._options = options
@@ -368,12 +362,33 @@ class SdcaModel(object):
     self._hashtable = _ShardedMutableHashTable(
         key_dtype=dtypes.string,
         value_dtype=dtypes.float32,
-        num_shards=num_table_shards,
+        num_shards=self._num_table_shards(),
         default_value=[0.0, 0.0, 0.0, 0.0])
+
+    logging_ops.scalar_summary('approximate_duality_gap',
+                               self.approximate_duality_gap())
+    logging_ops.scalar_summary('examples_seen', self._hashtable.size())
+
+  def _symmetric_l1_regularization(self):
+    return self._options['symmetric_l1_regularization']
 
   def _symmetric_l2_regularization(self):
     # Algorithmic requirement (for now) is to have minimal l2 of 1.0.
     return max(self._options['symmetric_l2_regularization'], 1.0)
+
+  def _num_loss_partitions(self):
+    # Number of partitions of the global objective.
+    # TODO(andreasst): set num_loss_partitions automatically based on the number
+    # of workers
+    return self._options.get('num_loss_partitions', 1)
+
+  def _num_table_shards(self):
+    # Number of hash table shards.
+    # Return 1 if not specified or if the value is 'None'
+    # TODO(andreasst): set num_table_shards automatically based on the number
+    # of parameter servers
+    num_shards = self._options.get('num_table_shards')
+    return 1 if num_shards is None else num_shards
 
   # TODO(sibyl-Aix6ihai): Use optimizer interface to make use of slot creation logic.
   def _create_slots(self):
@@ -382,8 +397,12 @@ class SdcaModel(object):
     self._slots = collections.defaultdict(list)
     for name in ['sparse_features_weights', 'dense_features_weights']:
       for var in self._variables[name]:
-        self._slots['unshrinked_' + name].append(var_ops.Variable(
-            array_ops.zeros_like(var.initialized_value(), dtypes.float32)))
+        with ops.device(var.device):
+          # TODO(andreasst): remove SDCAOptimizer suffix once bug 30843109 is
+          # fixed
+          self._slots['unshrinked_' + name].append(var_ops.Variable(
+              array_ops.zeros_like(var.initialized_value(), dtypes.float32),
+              name=var.op.name + '_unshrinked/SDCAOptimizer'))
 
   def _assertSpecified(self, items, check_in):
     for x in items:
@@ -397,21 +416,29 @@ class SdcaModel(object):
 
   def _l1_loss(self):
     """Computes the (un-normalized) l1 loss of the model."""
-    with name_scope('l1_loss'):
-      sum = 0.0
+    with name_scope('sdca/l1_loss'):
+      sums = []
       for name in ['sparse_features_weights', 'dense_features_weights']:
         for weights in self._convert_n_to_tensor(self._variables[name]):
-          sum += math_ops.reduce_sum(math_ops.abs(weights))
+          with ops.device(weights.device):
+            sums.append(
+                math_ops.reduce_sum(
+                    math_ops.abs(math_ops.cast(weights, dtypes.float64))))
+      sum = math_ops.add_n(sums)
       # SDCA L1 regularization cost is: l1 * sum(|weights|)
       return self._options['symmetric_l1_regularization'] * sum
 
   def _l2_loss(self, l2):
     """Computes the (un-normalized) l2 loss of the model."""
-    with name_scope('l2_loss'):
-      sum = 0.0
+    with name_scope('sdca/l2_loss'):
+      sums = []
       for name in ['sparse_features_weights', 'dense_features_weights']:
         for weights in self._convert_n_to_tensor(self._variables[name]):
-          sum += math_ops.reduce_sum(math_ops.square(weights))
+          with ops.device(weights.device):
+            sums.append(
+                math_ops.reduce_sum(
+                    math_ops.square(math_ops.cast(weights, dtypes.float64))))
+      sum = math_ops.add_n(sums)
       # SDCA L2 regularization cost is: l2 * sum(weights^2) / 2
       return l2 * sum / 2.0
 
@@ -436,7 +463,8 @@ class SdcaModel(object):
           'dense_features_weights'])
 
       for i in range(len(dense_variables)):
-        result += dense_features[i] * dense_variables[i]
+        result += math_ops.matmul(dense_features[i], array_ops.expand_dims(
+            dense_variables[i], -1))
 
     # Reshaping to allow shape inference at graph construction time.
     return array_ops.reshape(result, [-1])
@@ -480,7 +508,7 @@ class SdcaModel(object):
     """
     # Technically, the op depends on a lot more than the variables,
     # but we'll keep the list short.
-    with op_scope([], name, 'sdca/minimize'):
+    with name_scope(name, 'sdca/minimize'):
       sparse_example_indices = []
       sparse_feature_indices = []
       sparse_features_values = []
@@ -491,44 +519,51 @@ class SdcaModel(object):
         if sf.feature_values is not None:
           sparse_features_values.append(sf.feature_values)
 
-      example_ids_hashed = _sdca_ops.sdca_fprint(convert_to_tensor(
-          self._examples['example_ids']))
+      example_ids_hashed = sdca_fprint(
+          convert_to_tensor(self._examples['example_ids']))
       example_state_data = self._hashtable.lookup(example_ids_hashed)
       # Solver returns example_state_update, new delta sparse_feature_weights
       # and delta dense_feature_weights.
-      esu, sfw, dfw = _sdca_ops.distributed_sdca_large_batch_solver(
+
+      weights_tensor = self._convert_n_to_tensor(self._slots[
+          'unshrinked_sparse_features_weights'])
+      sparse_weights = []
+      sparse_indices = []
+      for w, i in zip(weights_tensor, sparse_feature_indices):
+        # Find the feature ids to lookup in the variables.
+        with ops.device(w.device):
+          sparse_indices.append(
+              math_ops.cast(
+                  array_ops.unique(math_ops.cast(i, dtypes.int32))[0],
+                  dtypes.int64))
+          sparse_weights.append(array_ops.gather(w, sparse_indices[-1]))
+
+      esu, sfw, dfw = sdca_optimizer(
           sparse_example_indices,
           sparse_feature_indices,
           sparse_features_values,
           self._convert_n_to_tensor(self._examples['dense_features']),
           convert_to_tensor(self._examples['example_weights']),
           convert_to_tensor(self._examples['example_labels']),
-          self._convert_n_to_tensor(self._slots[
-              'unshrinked_sparse_features_weights']),
+          sparse_indices,
+          sparse_weights,
           self._convert_n_to_tensor(self._slots[
               'unshrinked_dense_features_weights']),
           example_state_data,
           loss_type=self._options['loss_type'],
           l1=self._options['symmetric_l1_regularization'],
           l2=self._symmetric_l2_regularization(),
-          num_partitions=1,
-          # TODO(sibyl-Aix6ihai): Provide empirical evidence for this. It is better
-          # to run more than one iteration on single mini-batch as we want to
-          # spend more time in compute. SDCA works better with larger
-          # mini-batches and there is also recent work that shows its better to
-          # reuse old samples than train on new samples.
-          # See: http://arxiv.org/abs/1602.02136.
-          num_inner_iterations=2)
+          num_loss_partitions=self._num_loss_partitions(),
+          num_inner_iterations=1)
 
-      out_fws = [sfw, dfw]
       with ops.control_dependencies([esu]):
         update_ops = [self._hashtable.insert(example_ids_hashed, esu)]
         # Update the weights before the proximal step.
-        for i, name in enumerate(
-            ['sparse_features_weights', 'dense_features_weights']):
-          for slot_var, out_fw in zip(self._slots['unshrinked_' + name],
-                                      out_fws[i]):
-            update_ops.append(slot_var.assign_add(out_fw))
+        for w, i, u in zip(self._slots['unshrinked_sparse_features_weights'],
+                           sparse_indices, sfw):
+          update_ops.append(state_ops.scatter_add(w, i, u))
+        for w, u in zip(self._slots['unshrinked_dense_features_weights'], dfw):
+          update_ops.append(w.assign_add(u))
 
         with ops.control_dependencies(update_ops):
           update_ops = []
@@ -543,15 +578,17 @@ class SdcaModel(object):
 
           # Apply proximal step.
           with ops.control_dependencies([update_group]):
-            shrink_l1 = _sdca_ops.sdca_shrink_l1(
-                self._convert_n_to_tensor(
-                    self._variables['sparse_features_weights'],
-                    as_ref=True),
-                self._convert_n_to_tensor(
-                    self._variables['dense_features_weights'],
-                    as_ref=True),
-                l1=self._options['symmetric_l1_regularization'],
-                l2=self._symmetric_l2_regularization())
+            shrink_ops = []
+            for name in ['sparse_features_weights', 'dense_features_weights']:
+              for var in self._variables[name]:
+                with ops.device(var.device):
+                  shrink_ops.append(
+                      sdca_shrink_l1(
+                          self._convert_n_to_tensor(
+                              [var], as_ref=True),
+                          l1=self._symmetric_l1_regularization(),
+                          l2=self._symmetric_l2_regularization()))
+            shrink_l1 = control_flow_ops.group(*shrink_ops)
       if not global_step:
         return shrink_l1
       with ops.control_dependencies([shrink_l1]):
@@ -564,16 +601,23 @@ class SdcaModel(object):
       An Operation that computes the approximate duality gap over all
       examples.
     """
-    summed_values = self._hashtable.values_reduce_sum()
-    primal_loss = summed_values[1]
-    dual_loss = summed_values[2]
-    example_weights = summed_values[3]
-    # TODO(andreasst): what about handle examples_weights == 0?
-    return (
-        primal_loss + dual_loss + math_ops.to_float(self._l1_loss()) +
-        (2.0 *
-         math_ops.to_float(self._l2_loss(self._symmetric_l2_regularization())))
-    ) / example_weights
+    with name_scope('sdca/approximate_duality_gap'):
+      _, values_list = self._hashtable.export_sharded()
+      shard_sums = []
+      for values in values_list:
+        with ops.device(values.device):
+          shard_sums.append(
+              math_ops.reduce_sum(math_ops.cast(values, dtypes.float64), 0))
+      summed_values = math_ops.add_n(shard_sums)
+
+      primal_loss = summed_values[1]
+      dual_loss = summed_values[2]
+      example_weights = summed_values[3]
+      # Note: we return NaN if there are no weights or all weights are 0, e.g.
+      # if no examples have been processed
+      return (primal_loss + dual_loss + self._l1_loss() +
+              (2.0 * self._l2_loss(self._symmetric_l2_regularization()))
+             ) / example_weights
 
   def unregularized_loss(self, examples):
     """Add operations to compute the loss (without the regularization loss).
@@ -592,16 +636,19 @@ class SdcaModel(object):
                            'sparse_features', 'dense_features'], examples)
     self._assertList(['sparse_features', 'dense_features'], examples)
     with name_scope('sdca/unregularized_loss'):
-      predictions = self._linear_predictions(examples)
-      labels = convert_to_tensor(examples['example_labels'])
-      weights = convert_to_tensor(examples['example_weights'])
+      predictions = math_ops.cast(
+          self._linear_predictions(examples), dtypes.float64)
+      labels = math_ops.cast(
+          convert_to_tensor(examples['example_labels']), dtypes.float64)
+      weights = math_ops.cast(
+          convert_to_tensor(examples['example_weights']), dtypes.float64)
 
       if self._options['loss_type'] == 'logistic_loss':
         return math_ops.reduce_sum(math_ops.mul(
             sigmoid_cross_entropy_with_logits(predictions, labels),
             weights)) / math_ops.reduce_sum(weights)
 
-      if self._options['loss_type'] == 'hinge_loss':
+      if self._options['loss_type'] in ['hinge_loss', 'smooth_hinge_loss']:
         # hinge_loss = max{0, 1 - y_i w*x} where y_i \in {-1, 1}. So, we need to
         # first convert 0/1 labels into -1/1 labels.
         all_ones = array_ops.ones_like(predictions)
@@ -645,4 +692,5 @@ class SdcaModel(object):
           # (as specified by the user) and *not*
           # self._symmetric_l2_regularization().
           self._l2_loss(self._options['symmetric_l2_regularization'])) /
-              math_ops.reduce_sum(weights) + self.unregularized_loss(examples))
+              math_ops.reduce_sum(math_ops.cast(weights, dtypes.float64)) +
+              self.unregularized_loss(examples))

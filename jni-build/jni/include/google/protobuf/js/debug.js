@@ -68,7 +68,7 @@ jspb.debug.dump = function(message) {
  * Recursively introspects a message and the values its getters return to
  * make a best effort in creating a human readable representation of the
  * message.
- * @param {*} thing A jspb.Message, Array or primitive type to dump.
+ * @param {?} thing A jspb.Message, Array or primitive type to dump.
  * @return {*}
  * @private
  */
@@ -94,8 +94,9 @@ jspb.debug.dump_ = function(thing) {
     var match = /^get([A-Z]\w*)/.exec(name);
     if (match && name != 'getExtension' &&
         name != 'getJsPbMessageId') {
-      var val = thing[name]();
-      if (val != null) {
+      var has = 'has' + match[1];
+      if (!thing[has] || thing[has]()) {
+        var val = thing[name]();
         object[jspb.debug.formatFieldName_(match[1])] = jspb.debug.dump_(val);
       }
     }

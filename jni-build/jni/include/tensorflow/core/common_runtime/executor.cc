@@ -462,8 +462,6 @@ class ExecutorState {
   void RunAsync(Executor::DoneCallback done);
 
  private:
-  typedef ExecutorState ME;
-
   // Either a tensor pointer (pass-by-reference) or a tensor (pass-by-value).
   // TODO(yuanbyu): A better way to do "has_value"?
   struct Entry {
@@ -742,6 +740,8 @@ class ExecutorState {
   Rendezvous* rendezvous_;
   SessionState* session_state_;
   TensorStore* tensor_store_;
+  // Step-local resource manager.
+  ResourceMgr* step_resource_manager_;
   StepStatsCollector* stats_collector_;
   // QUESTION: Make it a checkpoint::TensorSliceReaderCacheWrapper
   // instead of a pointer?  (avoids having to delete).
@@ -752,9 +752,6 @@ class ExecutorState {
   Executor::Args::Runner runner_;
 
   // Owned.
-
-  // Step-local resource manager.
-  ResourceMgr step_resource_manager_;
 
   // A flag that is set on error after the frame state has been
   // dumped for diagnostic purposes.
@@ -801,11 +798,12 @@ class ExecutorState {
 
   // Get the output frame/iter of a node. Create new frame/iteration if
   // needed. If there are dead roots for the new iteration, we need to
-  // "execute" them so ad them to the ready queue. Returns true if
+  // "execute" them so add them to the ready queue. Returns true if
   // we need to check for the completion of output frame/iter.
-  bool SetOutputFrameIter(const TaggedNode& tagged_node,
-                          const EntryVector& outputs, FrameState** frame,
-                          int64* iter, TaggedNodeSeq* ready)
+  void FindOrCreateOutputFrameIter(const TaggedNode& tagged_node,
+                                   const EntryVector& outputs,
+                                   FrameState** frame, int64* iter,
+                                   TaggedNodeSeq* ready)
       EXCLUSIVE_LOCKS_REQUIRED(mu_);
 
   // Cleanup frames and iterations
@@ -892,6 +890,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
       rendezvous_(args.rendezvous),
       session_state_(args.session_state),
       tensor_store_(args.tensor_store),
+      step_resource_manager_(args.step_resource_manager),
       stats_collector_(args.stats_collector),
       slice_reader_cache_(new checkpoint::TensorSliceReaderCacheWrapper),
       call_frame_(args.call_frame),
@@ -912,7 +911,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
 
   if (vlog_) VLOG(2) << "Create frame: " << root_frame_->frame_name;
 
-  // Initialize the iteration.
+  // Initialize the first iteration.
   IterationState* iter_state = new IterationState(impl);
   root_frame_->iterations[0] = iter_state;
 
@@ -1046,8 +1045,6 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
   params.step_id = step_id_;
   Device* device = impl_->params_.device;
   params.device = device;
-  // track allocations if and only if we are collecting statistics
-  params.track_allocations = (stats_collector_ != nullptr);
   params.log_memory = log_memory_;
   params.record_tensor_accesses = impl_->device_record_tensor_accesses_;
   params.rendezvous = rendezvous_;
@@ -1057,7 +1054,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
   params.call_frame = call_frame_;
   params.function_library = impl_->params_.function_library;
   params.resource_manager = device->resource_manager();
-  params.step_resource_manager = &step_resource_manager_;
+  params.step_resource_manager = step_resource_manager_;
   params.slice_reader_cache = slice_reader_cache_;
   params.inputs = &inputs;
   params.input_device_contexts = &input_device_contexts;
@@ -1082,7 +1079,6 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
     // add better optional debugging support.
     if (vlog_ && VLOG_IS_ON(1)) {
       mutex_lock l(mu_);
-
       IterationState* iter_state = input_frame->GetIteration(input_iter);
       iter_state->mark_started(id);
     }
@@ -1092,7 +1088,11 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       params.op_device_context = device_context_map_[node->id()];
     }
 
-    if (stats_collector_) {
+    params.track_allocations = false;
+    stats = nullptr;
+    if (stats_collector_ && !tagged_node.is_dead) {
+      // track allocations if and only if we are collecting statistics
+      params.track_allocations = true;
       stats = new NodeExecStats;
       stats->set_node_name(node->name());
       nodestats::SetScheduled(stats, scheduled_usec);
@@ -1156,7 +1156,6 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
             new AsyncState(params, tagged_node, item, first_input, stats);
 
         auto done = [this, state]() {
-
           Device* device = impl_->params_.device;
           NodeExecStats* stats = state->stats;      // Shorthand
           Entry* first_input = state->first_input;  // Shorthand
@@ -1165,10 +1164,10 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
             VLOG(2) << this << " Async kernel done: "
                     << SummarizeNodeDef(state->item.node->def());
           }
-          if (stats_collector_) nodestats::SetOpEnd(stats);
+          if (stats) nodestats::SetOpEnd(stats);
           EntryVector outputs;
           Status s = ProcessOutputs(state->item, &state->ctx, &outputs, stats);
-          if (stats_collector_) nodestats::SetMemory(stats, &state->ctx);
+          if (stats) nodestats::SetMemory(stats, &state->ctx);
           // Clears inputs.
           const int num_inputs = state->item.num_inputs;
           for (int i = 0; i < num_inputs; ++i) {
@@ -1191,8 +1190,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
             // Get the list of all tensors accessed during the execution
             TensorReferenceVector accessed;
             state->ctx.retrieve_accessed_tensors(&accessed);
-            if (stats_collector_)
-              nodestats::SetReferencedTensors(stats, accessed);
+            if (stats) nodestats::SetReferencedTensors(stats, accessed);
             // callee takes ownership of the vector
             device->ConsumeListOfAccessedTensors(state->ctx.op_device_context(),
                                                  accessed);
@@ -1201,12 +1199,12 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           delete state;
           if (completed) Finish();
         };
-        if (stats_collector_) nodestats::SetOpStart(stats);
+        if (stats) nodestats::SetOpStart(stats);
         device->ComputeAsync(async, &state->ctx, done);
       } else {
         // Synchronous computes.
         OpKernelContext ctx(&params, item.num_outputs);
-        if (stats_collector_) nodestats::SetOpStart(stats);
+        if (stats) nodestats::SetOpStart(stats);
         device->Compute(CHECK_NOTNULL(op_kernel), &ctx);
         // The final node in the step is always a Sink node. Block
         // this Op from completing until the device has finished all
@@ -1217,7 +1215,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         if (node->IsSink() && ctx.status().ok()) {
           ctx.SetStatus(device->Sync());
         }
-        if (stats_collector_) nodestats::SetOpEnd(stats);
+        if (stats) nodestats::SetOpEnd(stats);
 
         s = ProcessOutputs(item, &ctx, &outputs, stats);
         if (s.ok() && impl_->device_record_tensor_accesses_) {
@@ -1225,7 +1223,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           ctx.retrieve_accessed_tensors(&accessed_tensors);
           device_context = ctx.op_device_context();
         }
-        if (stats_collector_) nodestats::SetMemory(stats, &ctx);
+        if (stats) nodestats::SetMemory(stats, &ctx);
       }
     }
 
@@ -1248,12 +1246,11 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       }
       outputs.clear();
       if (!accessed_tensors.empty()) {
-        if (stats_collector_)
-          nodestats::SetReferencedTensors(stats, accessed_tensors);
+        if (stats) nodestats::SetReferencedTensors(stats, accessed_tensors);
         // device_context is set above in synchronous computes
         device->ConsumeListOfAccessedTensors(device_context, accessed_tensors);
       }
-      if (stats_collector_) {
+      if (stats) {
         scheduled_usec = nodestats::NowInUsec();
       }
       // Postprocess.
@@ -1395,7 +1392,7 @@ Status ExecutorState::ProcessOutputs(const NodeItem& item, OpKernelContext* ctx,
       DataType dtype = val->dtype();
       if (val.is_ref()) dtype = MakeRefType(dtype);
       if (dtype == item.output_type(i)) {
-        if (stats_collector_ && val.tensor->IsInitialized()) {
+        if (stats && val.tensor->IsInitialized()) {
           nodestats::SetOutput(stats, i, val.tensor);
         }
         if (val.is_ref()) {
@@ -1462,16 +1459,16 @@ void ExecutorState::PropagateOutputs(const TaggedNode& tagged_node,
   // Propagates outputs along out edges, and puts newly ready nodes
   // into the ready queue.
   ready->clear();
+  FrameState* output_frame = input_frame;
+  int64 output_iter = input_iter;
   {
-    FrameState* output_frame = input_frame;
-    int64 output_iter = input_iter;
-
     mutex_lock l(mu_);
     // Sets the output_frame and output_iter of node.
-    bool maybe_completed = SetOutputFrameIter(
-        tagged_node, outputs, &output_frame, &output_iter, ready);
+    FindOrCreateOutputFrameIter(tagged_node, outputs, &output_frame,
+                                &output_iter, ready);
+
+    // Continue to process the out nodes:
     if (output_frame != nullptr) {
-      // Continue to process the out nodes:
       ActivateNode(tagged_node.node, tagged_node.is_dead, output_frame,
                    output_iter, outputs, ready);
     }
@@ -1479,14 +1476,6 @@ void ExecutorState::PropagateOutputs(const TaggedNode& tagged_node,
     // At this point, this node is completely done.
     input_frame->GetIteration(input_iter)->outstanding_ops--;
     CleanupFramesIterations(input_frame, input_iter, ready);
-
-    // The execution of a node such as Enter may cause the completion of
-    // output_frame:output_iter, so perform cleanup if
-    // output_frame:output_iter
-    // is indeed completed.
-    if (maybe_completed) {
-      CleanupFramesIterations(output_frame, output_iter, ready);
-    }
   }
 }
 
@@ -1509,8 +1498,7 @@ void ExecutorState::ActivateNode(const Node* node, const bool is_dead,
     bool dst_need_input = !e->IsControlEdge();
     if (IsMerge(dst_node)) {
       // A merge node is ready if all control inputs have arrived and either
-      // a) a live data input becomes available or b) all data inputs are
-      // dead.
+      // a) a live data input becomes available or b) all data inputs are dead.
       // For Merge, pending's LSB is set iff a live data input has arrived.
       if (e->IsControlEdge()) {
         output_iter_state->decrement_pending(dst_id, 2);
@@ -1532,10 +1520,13 @@ void ExecutorState::ActivateNode(const Node* node, const bool is_dead,
           dst_ready = (count == 1);
           dst_need_input = ((count & 0x1) == 1);
         } else {
-          // This is a dead data input.
+          // This is a dead data input. Note that dst_node is dead if node is
+          // a dead enter. We need this to handle properly a while loop on
+          // the untaken branch of a conditional.
+          // TODO(yuanbyu): This is a bit hacky, but a good solution for now.
           output_iter_state->increment_dead_count(dst_id);
-          dst_dead =
-              (output_iter_state->dead_count(dst_id) == dst_node->num_inputs());
+          const int dead_cnt = output_iter_state->dead_count(dst_id);
+          dst_dead = (dead_cnt == dst_node->num_inputs()) || IsEnter(node);
           dst_ready = (output_iter_state->pending(dst_id) == 1) && dst_dead;
           dst_need_input = false;
         }
@@ -1607,9 +1598,8 @@ void ExecutorState::AddLoopInv(FrameState* frame, const Node* node,
 bool ExecutorState::NodeDone(const Status& s, const Node* node,
                              const TaggedNodeSeq& ready, NodeExecStats* stats,
                              TaggedNodeReadyQueue* inline_ready) {
-  if (stats_collector_) {
+  if (stats) {
     nodestats::SetAllEnd(stats);
-    stats_collector_->UpdateCostModelNode(stats, impl_->graph_, node);
     if (!SetTimelineLabel(node, stats)) {
       // Only record non-transfer nodes.
       stats_collector_->Save(impl_->params_.device->name(), stats);
@@ -1662,7 +1652,7 @@ void ExecutorState::ScheduleReady(const TaggedNodeSeq& ready,
   if (inline_ready == nullptr) {
     // Schedule to run all the ready ops in thread pool.
     for (auto& tagged_node : ready) {
-      runner_(std::bind(&ME::Process, this, tagged_node, scheduled_usec));
+      runner_([=]() { Process(tagged_node, scheduled_usec); });
     }
     return;
   }
@@ -1677,7 +1667,7 @@ void ExecutorState::ScheduleReady(const TaggedNodeSeq& ready,
       if (curr_expensive_node) {
         // Dispatch to another thread since there is plenty of work to
         // do for this thread.
-        runner_(std::bind(&ME::Process, this, *curr_expensive_node,
+        runner_(std::bind(&ExecutorState::Process, this, *curr_expensive_node,
                           scheduled_usec));
       }
       curr_expensive_node = &tagged_node;
@@ -1690,8 +1680,8 @@ void ExecutorState::ScheduleReady(const TaggedNodeSeq& ready,
     } else {
       // There are inline nodes to run already. We dispatch this expensive
       // node to other thread.
-      runner_(
-          std::bind(&ME::Process, this, *curr_expensive_node, scheduled_usec));
+      runner_(std::bind(&ExecutorState::Process, this, *curr_expensive_node,
+                        scheduled_usec));
     }
   }
 }
@@ -1797,8 +1787,7 @@ void ExecutorState::DumpIterationState(IterationState* iteration) {
                    << strings::StrCat("Tensor<type: ",
                                       DataTypeString(tensor->dtype()),
                                       " shape: ", tensor->shape().DebugString(),
-                                      ", bytes: ", tensor->TotalBytes(),
-                                      ", hash: ", tensor->BufferHash(), ">");
+                                      ", bytes: ", tensor->TotalBytes(), ">");
       total_bytes += tensor->TotalBytes();
     }
   }
@@ -1824,12 +1813,12 @@ void ExecutorState::DumpState() {
 void ExecutorState::Finish() {
   mu_.lock();
   auto status = status_;
-  auto done_cb = done_cb_;
-  auto runner = runner_;
+  auto done_cb = std::move(done_cb_);
+  auto runner = std::move(runner_);
   mu_.unlock();
   delete this;
   CHECK(done_cb != nullptr);
-  runner([done_cb, status]() { done_cb(status); });
+  runner([=]() { done_cb(status); });
 }
 
 bool ExecutorState::IsFrameDone(FrameState* frame) {
@@ -1880,6 +1869,7 @@ void ExecutorState::FindOrCreateChildFrame(FrameState* frame, int64 iter,
     CHECK(s.ok()) << s;
     // 'iterations' is a fixed-length circular buffer.
     temp->iterations.resize(temp->max_parallel_iterations + 1);
+    // Initialize the first iteration.
     IterationState* iter_state = new IterationState(impl_);
     temp->iterations[0] = iter_state;
 
@@ -1904,6 +1894,7 @@ void ExecutorState::IncrementIteration(FrameState* frame,
             << "]";
   }
 
+  // Initialize the next iteration.
   IterationState* iter_state = new IterationState(impl_);
   frame->SetIteration(next_iter, iter_state);
   frame->num_outstanding_iterations++;
@@ -1916,42 +1907,19 @@ void ExecutorState::IncrementIteration(FrameState* frame,
   ActivateLoopInvs(frame, next_iter, ready);
 }
 
-bool ExecutorState::SetOutputFrameIter(const TaggedNode& tagged_node,
-                                       const EntryVector& outputs,
-                                       FrameState** output_frame,
-                                       int64* output_iter,
-                                       TaggedNodeSeq* ready) {
+void ExecutorState::FindOrCreateOutputFrameIter(const TaggedNode& tagged_node,
+                                                const EntryVector& outputs,
+                                                FrameState** output_frame,
+                                                int64* output_iter,
+                                                TaggedNodeSeq* ready) {
   const Node* node = tagged_node.node;
   FrameState* input_frame = tagged_node.input_frame;
   int64 input_iter = tagged_node.input_iter;
   bool is_dead = tagged_node.is_dead;
-  bool is_enter = IsEnter(node);
 
-  if (is_enter) {
-    FindOrCreateChildFrame(input_frame, input_iter, node, output_frame);
-    // Propagate if this is a loop invariant.
-    bool is_constant;
-    Status s = GetNodeAttr(node->def(), "is_constant", &is_constant);
-    CHECK(s.ok()) << s;
-    if (is_constant) {
-      AddLoopInv(*output_frame, node, outputs[0], ready);
-    }
-    --(*output_frame)->num_pending_inputs;
-    *output_iter = 0;
-  } else if (IsExit(node)) {
+  if (IsNextIteration(node)) {
     if (is_dead) {
-      // Stop and remember this node if it is a dead exit.
-      if (input_iter == input_frame->iteration_count) {
-        input_frame->dead_exits.push_back(node);
-      }
-      *output_frame = nullptr;
-    } else {
-      *output_frame = input_frame->parent_frame;
-      *output_iter = input_frame->parent_iter;
-    }
-  } else if (IsNextIteration(node)) {
-    if (is_dead) {
-      // Stop the deadness propagation
+      // Stop the deadness propagation.
       *output_frame = nullptr;
     } else {
       if (input_iter == input_frame->iteration_count &&
@@ -1968,8 +1936,29 @@ bool ExecutorState::SetOutputFrameIter(const TaggedNode& tagged_node,
         *output_iter = input_iter + 1;
       }
     }
+  } else if (IsExit(node)) {
+    if (is_dead) {
+      // Stop and remember this node if it is a dead exit.
+      if (input_iter == input_frame->iteration_count) {
+        input_frame->dead_exits.push_back(node);
+      }
+      *output_frame = nullptr;
+    } else {
+      *output_frame = input_frame->parent_frame;
+      *output_iter = input_frame->parent_iter;
+    }
+  } else if (IsEnter(node)) {
+    FindOrCreateChildFrame(input_frame, input_iter, node, output_frame);
+    // Propagate if this is a loop invariant.
+    bool is_constant;
+    Status s = GetNodeAttr(node->def(), "is_constant", &is_constant);
+    CHECK(s.ok()) << s;
+    if (is_constant) {
+      AddLoopInv(*output_frame, node, outputs[0], ready);
+    }
+    --(*output_frame)->num_pending_inputs;
+    *output_iter = 0;
   }
-  return is_enter;
 }
 
 void ExecutorState::CleanupFramesIterations(FrameState* frame, int64 iter,
@@ -1977,7 +1966,7 @@ void ExecutorState::CleanupFramesIterations(FrameState* frame, int64 iter,
   int64 curr_iter = iter;
   while (curr_iter <= frame->iteration_count &&
          IsIterationDone(frame, curr_iter)) {
-    // Delete the iteration curr_iter
+    // Delete the iteration curr_iter.
     if (vlog_) {
       VLOG(2) << "Delete iteration [" << frame->frame_name << ", " << curr_iter
               << "].";
@@ -2008,7 +1997,7 @@ void ExecutorState::CleanupFramesIterations(FrameState* frame, int64 iter,
 
         bool dst_dead = true;
         bool dst_ready = false;
-        // We know this is a dead input to dst
+        // We know this is a dead input to dst.
         if (dst_item->is_merge) {
           if (e->IsControlEdge()) {
             parent_iter_state->decrement_pending(dst_id, 2);
@@ -2078,21 +2067,5 @@ Status CreateNonCachedKernel(Device* device, FunctionLibraryRuntime* flib,
 }
 
 void DeleteNonCachedKernel(OpKernel* kernel) { delete kernel; }
-
-Status CreateCachedKernel(Device* device, const string& session,
-                          FunctionLibraryRuntime* flib, const NodeDef& ndef,
-                          int graph_def_version, OpKernel** kernel) {
-  auto op_seg = device->op_segment();
-  auto create_fn = [device, flib, &ndef, graph_def_version](OpKernel** kernel) {
-    return CreateNonCachedKernel(device, flib, ndef, graph_def_version, kernel);
-  };
-  return op_seg->FindOrCreate(session, ndef.name(), kernel, create_fn);
-}
-
-// Deletes "kernel".
-void DeleteCachedKernel(Device* device, const string& session,
-                        OpKernel* kernel) {
-  // Do nothing.
-}
 
 }  // end namespace tensorflow

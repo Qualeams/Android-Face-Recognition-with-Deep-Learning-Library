@@ -30,6 +30,10 @@
 
 #include <google/protobuf/util/field_mask_util.h>
 
+#include <algorithm>
+
+#include <google/protobuf/stubs/logging.h>
+#include <google/protobuf/stubs/common.h>
 #include <google/protobuf/field_mask.pb.h>
 #include <google/protobuf/unittest.pb.h>
 #include <google/protobuf/test_util.h>
@@ -38,7 +42,76 @@
 namespace google {
 namespace protobuf {
 namespace util {
+
+class SnakeCaseCamelCaseTest : public ::testing::Test {
+ protected:
+  string SnakeCaseToCamelCase(const string& input) {
+    string output;
+    if (FieldMaskUtil::SnakeCaseToCamelCase(input, &output)) {
+      return output;
+    } else {
+      return "#FAIL#";
+    }
+  }
+
+  string CamelCaseToSnakeCase(const string& input) {
+    string output;
+    if (FieldMaskUtil::CamelCaseToSnakeCase(input, &output)) {
+      return output;
+    } else {
+      return "#FAIL#";
+    }
+  }
+};
+
 namespace {
+
+TEST_F(SnakeCaseCamelCaseTest, SnakeToCamel) {
+  EXPECT_EQ("fooBar", SnakeCaseToCamelCase("foo_bar"));
+  EXPECT_EQ("FooBar", SnakeCaseToCamelCase("_foo_bar"));
+  EXPECT_EQ("foo3Bar", SnakeCaseToCamelCase("foo3_bar"));
+  // No uppercase letter is allowed.
+  EXPECT_EQ("#FAIL#", SnakeCaseToCamelCase("Foo"));
+  // Any character after a "_" must be a lowercase letter.
+  //   1. "_" cannot be followed by another "_".
+  //   2. "_" cannot be followed by a digit.
+  //   3. "_" cannot appear as the last character.
+  EXPECT_EQ("#FAIL#", SnakeCaseToCamelCase("foo__bar"));
+  EXPECT_EQ("#FAIL#", SnakeCaseToCamelCase("foo_3bar"));
+  EXPECT_EQ("#FAIL#", SnakeCaseToCamelCase("foo_bar_"));
+}
+
+TEST_F(SnakeCaseCamelCaseTest, CamelToSnake) {
+  EXPECT_EQ("foo_bar", CamelCaseToSnakeCase("fooBar"));
+  EXPECT_EQ("_foo_bar", CamelCaseToSnakeCase("FooBar"));
+  EXPECT_EQ("foo3_bar", CamelCaseToSnakeCase("foo3Bar"));
+  // "_"s are not allowed.
+  EXPECT_EQ("#FAIL#", CamelCaseToSnakeCase("foo_bar"));
+}
+
+TEST_F(SnakeCaseCamelCaseTest, RoundTripTest) {
+  // Enumerates all possible snake_case names and test that converting it to
+  // camelCase and then to snake_case again will yield the original name.
+  string name = "___abc123";
+  std::sort(name.begin(), name.end());
+  do {
+    string camelName = SnakeCaseToCamelCase(name);
+    if (camelName != "#FAIL#") {
+      EXPECT_EQ(name, CamelCaseToSnakeCase(camelName));
+    }
+  } while (std::next_permutation(name.begin(), name.end()));
+
+  // Enumerates all possible camelCase names and test that converting it to
+  // snake_case and then to camelCase again will yield the original name.
+  name = "abcABC123";
+  std::sort(name.begin(), name.end());
+  do {
+    string camelName = CamelCaseToSnakeCase(name);
+    if (camelName != "#FAIL#") {
+      EXPECT_EQ(name, SnakeCaseToCamelCase(camelName));
+    }
+  } while (std::next_permutation(name.begin(), name.end()));
+}
 
 using protobuf_unittest::TestAllTypes;
 using protobuf_unittest::NestedTestAllTypes;
@@ -47,20 +120,43 @@ using google::protobuf::FieldMask;
 TEST(FieldMaskUtilTest, StringFormat) {
   FieldMask mask;
   EXPECT_EQ("", FieldMaskUtil::ToString(mask));
-  mask.add_paths("foo");
-  EXPECT_EQ("foo", FieldMaskUtil::ToString(mask));
-  mask.add_paths("bar");
-  EXPECT_EQ("foo,bar", FieldMaskUtil::ToString(mask));
+  mask.add_paths("foo_bar");
+  EXPECT_EQ("foo_bar", FieldMaskUtil::ToString(mask));
+  mask.add_paths("baz_quz");
+  EXPECT_EQ("foo_bar,baz_quz", FieldMaskUtil::ToString(mask));
 
   FieldMaskUtil::FromString("", &mask);
   EXPECT_EQ(0, mask.paths_size());
-  FieldMaskUtil::FromString("foo", &mask);
+  FieldMaskUtil::FromString("fooBar", &mask);
   EXPECT_EQ(1, mask.paths_size());
-  EXPECT_EQ("foo", mask.paths(0));
-  FieldMaskUtil::FromString("foo,bar", &mask);
+  EXPECT_EQ("fooBar", mask.paths(0));
+  FieldMaskUtil::FromString("fooBar,bazQuz", &mask);
   EXPECT_EQ(2, mask.paths_size());
-  EXPECT_EQ("foo", mask.paths(0));
-  EXPECT_EQ("bar", mask.paths(1));
+  EXPECT_EQ("fooBar", mask.paths(0));
+  EXPECT_EQ("bazQuz", mask.paths(1));
+}
+
+TEST(FieldMaskUtilTest, JsonStringFormat) {
+  FieldMask mask;
+  string value;
+  EXPECT_TRUE(FieldMaskUtil::ToJsonString(mask, &value));
+  EXPECT_EQ("", value);
+  mask.add_paths("foo_bar");
+  EXPECT_TRUE(FieldMaskUtil::ToJsonString(mask, &value));
+  EXPECT_EQ("fooBar", value);
+  mask.add_paths("bar_quz");
+  EXPECT_TRUE(FieldMaskUtil::ToJsonString(mask, &value));
+  EXPECT_EQ("fooBar,barQuz", value);
+
+  FieldMaskUtil::FromJsonString("", &mask);
+  EXPECT_EQ(0, mask.paths_size());
+  FieldMaskUtil::FromJsonString("fooBar", &mask);
+  EXPECT_EQ(1, mask.paths_size());
+  EXPECT_EQ("foo_bar", mask.paths(0));
+  FieldMaskUtil::FromJsonString("fooBar,bazQuz", &mask);
+  EXPECT_EQ(2, mask.paths_size());
+  EXPECT_EQ("foo_bar", mask.paths(0));
+  EXPECT_EQ("baz_quz", mask.paths(1));
 }
 
 TEST(FieldMaskUtilTest, TestIsVaildPath) {
@@ -253,6 +349,10 @@ TEST(FieldMaskUtilTest, MergeMessage) {
     dst.Clear();                                             \
     FieldMaskUtil::MergeMessageTo(src, mask, options, &dst); \
     EXPECT_EQ(tmp.DebugString(), dst.DebugString());         \
+    src.clear_##field_name();                                \
+    tmp.clear_##field_name();                                \
+    FieldMaskUtil::MergeMessageTo(src, mask, options, &dst); \
+    EXPECT_EQ(tmp.DebugString(), dst.DebugString());         \
   }
   TEST_MERGE_ONE_PRIMITIVE_FIELD(optional_int32)
   TEST_MERGE_ONE_PRIMITIVE_FIELD(optional_int64)
@@ -386,6 +486,117 @@ TEST(FieldMaskUtilTest, MergeMessage) {
   FieldMaskUtil::MergeMessageTo(nested_src, mask, options, &nested_dst);
   ASSERT_EQ(1, nested_dst.payload().repeated_int32_size());
   EXPECT_EQ(1234, nested_dst.payload().repeated_int32(0));
+}
+
+TEST(FieldMaskUtilTest, TrimMessage) {
+#define TEST_TRIM_ONE_PRIMITIVE_FIELD(field_name)    \
+  {                                                  \
+    TestAllTypes msg;                                \
+    TestUtil::SetAllFields(&msg);                    \
+    TestAllTypes tmp;                                \
+    tmp.set_##field_name(msg.field_name());          \
+    FieldMask mask;                                  \
+    mask.add_paths(#field_name);                     \
+    FieldMaskUtil::TrimMessage(mask, &msg);          \
+    EXPECT_EQ(tmp.DebugString(), msg.DebugString()); \
+  }
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_int32)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_int64)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_uint32)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_uint64)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_sint32)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_sint64)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_fixed32)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_fixed64)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_sfixed32)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_sfixed64)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_float)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_double)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_bool)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_string)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_bytes)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_nested_enum)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_foreign_enum)
+  TEST_TRIM_ONE_PRIMITIVE_FIELD(optional_import_enum)
+#undef TEST_TRIM_ONE_PRIMITIVE_FIELD
+
+#define TEST_TRIM_ONE_FIELD(field_name)              \
+  {                                                  \
+    TestAllTypes msg;                                \
+    TestUtil::SetAllFields(&msg);                    \
+    TestAllTypes tmp;                                \
+    *tmp.mutable_##field_name() = msg.field_name();  \
+    FieldMask mask;                                  \
+    mask.add_paths(#field_name);                     \
+    FieldMaskUtil::TrimMessage(mask, &msg);          \
+    EXPECT_EQ(tmp.DebugString(), msg.DebugString()); \
+  }
+  TEST_TRIM_ONE_FIELD(optional_nested_message)
+  TEST_TRIM_ONE_FIELD(optional_foreign_message)
+  TEST_TRIM_ONE_FIELD(optional_import_message)
+
+  TEST_TRIM_ONE_FIELD(repeated_int32)
+  TEST_TRIM_ONE_FIELD(repeated_int64)
+  TEST_TRIM_ONE_FIELD(repeated_uint32)
+  TEST_TRIM_ONE_FIELD(repeated_uint64)
+  TEST_TRIM_ONE_FIELD(repeated_sint32)
+  TEST_TRIM_ONE_FIELD(repeated_sint64)
+  TEST_TRIM_ONE_FIELD(repeated_fixed32)
+  TEST_TRIM_ONE_FIELD(repeated_fixed64)
+  TEST_TRIM_ONE_FIELD(repeated_sfixed32)
+  TEST_TRIM_ONE_FIELD(repeated_sfixed64)
+  TEST_TRIM_ONE_FIELD(repeated_float)
+  TEST_TRIM_ONE_FIELD(repeated_double)
+  TEST_TRIM_ONE_FIELD(repeated_bool)
+  TEST_TRIM_ONE_FIELD(repeated_string)
+  TEST_TRIM_ONE_FIELD(repeated_bytes)
+  TEST_TRIM_ONE_FIELD(repeated_nested_message)
+  TEST_TRIM_ONE_FIELD(repeated_foreign_message)
+  TEST_TRIM_ONE_FIELD(repeated_import_message)
+  TEST_TRIM_ONE_FIELD(repeated_nested_enum)
+  TEST_TRIM_ONE_FIELD(repeated_foreign_enum)
+  TEST_TRIM_ONE_FIELD(repeated_import_enum)
+#undef TEST_TRIM_ONE_FIELD
+
+  // Test trim nested fields.
+  NestedTestAllTypes nested_msg;
+  nested_msg.mutable_child()->mutable_payload()->set_optional_int32(1234);
+  nested_msg.mutable_child()
+      ->mutable_child()
+      ->mutable_payload()
+      ->set_optional_int32(5678);
+  NestedTestAllTypes trimmed_msg(nested_msg);
+  FieldMask mask;
+  FieldMaskUtil::FromString("child.payload", &mask);
+  FieldMaskUtil::TrimMessage(mask, &trimmed_msg);
+  EXPECT_EQ(1234, trimmed_msg.child().payload().optional_int32());
+  EXPECT_EQ(0, trimmed_msg.child().child().payload().optional_int32());
+
+  trimmed_msg = nested_msg;
+  FieldMaskUtil::FromString("child.child.payload", &mask);
+  FieldMaskUtil::TrimMessage(mask, &trimmed_msg);
+  EXPECT_EQ(0, trimmed_msg.child().payload().optional_int32());
+  EXPECT_EQ(5678, trimmed_msg.child().child().payload().optional_int32());
+
+  trimmed_msg = nested_msg;
+  FieldMaskUtil::FromString("child", &mask);
+  FieldMaskUtil::TrimMessage(mask, &trimmed_msg);
+  EXPECT_EQ(1234, trimmed_msg.child().payload().optional_int32());
+  EXPECT_EQ(5678, trimmed_msg.child().child().payload().optional_int32());
+
+  trimmed_msg = nested_msg;
+  FieldMaskUtil::FromString("child.child", &mask);
+  FieldMaskUtil::TrimMessage(mask, &trimmed_msg);
+  EXPECT_EQ(0, trimmed_msg.child().payload().optional_int32());
+  EXPECT_EQ(5678, trimmed_msg.child().child().payload().optional_int32());
+
+  // Verify than an empty FieldMask trims nothing
+  TestAllTypes all_types_msg;
+  TestUtil::SetAllFields(&all_types_msg);
+  TestAllTypes trimmed_all_types(all_types_msg);
+  FieldMask empty_mask;
+  FieldMaskUtil::TrimMessage(empty_mask, &trimmed_all_types);
+  EXPECT_EQ(trimmed_all_types.DebugString(), all_types_msg.DebugString());
 }
 
 

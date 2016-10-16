@@ -70,6 +70,9 @@ using util::Status;
 using util::StatusOr;
 
 namespace {
+
+static int kDefaultMaxRecursionDepth = 64;
+
 // Finds a field with the given number. NULL if none found.
 const google::protobuf::Field* FindFieldByNumber(
     const google::protobuf::Type& type, int number);
@@ -83,6 +86,29 @@ const google::protobuf::EnumValue* FindEnumValueByNumber(
 
 // Utility function to format nanos.
 const string FormatNanos(uint32 nanos);
+
+StatusOr<string> MapKeyDefaultValueAsString(
+    const google::protobuf::Field& field) {
+  switch (field.kind()) {
+    case google::protobuf::Field_Kind_TYPE_BOOL:
+      return string("false");
+    case google::protobuf::Field_Kind_TYPE_INT32:
+    case google::protobuf::Field_Kind_TYPE_INT64:
+    case google::protobuf::Field_Kind_TYPE_UINT32:
+    case google::protobuf::Field_Kind_TYPE_UINT64:
+    case google::protobuf::Field_Kind_TYPE_SINT32:
+    case google::protobuf::Field_Kind_TYPE_SINT64:
+    case google::protobuf::Field_Kind_TYPE_SFIXED32:
+    case google::protobuf::Field_Kind_TYPE_SFIXED64:
+    case google::protobuf::Field_Kind_TYPE_FIXED32:
+    case google::protobuf::Field_Kind_TYPE_FIXED64:
+      return string("0");
+    case google::protobuf::Field_Kind_TYPE_STRING:
+      return string();
+    default:
+      return Status(util::error::INTERNAL, "Invalid map key type.");
+  }
+}
 }  // namespace
 
 
@@ -92,14 +118,25 @@ ProtoStreamObjectSource::ProtoStreamObjectSource(
     : stream_(stream),
       typeinfo_(TypeInfo::NewTypeInfo(type_resolver)),
       own_typeinfo_(true),
-      type_(type) {
+      type_(type),
+      use_lower_camel_for_enums_(false),
+      recursion_depth_(0),
+      max_recursion_depth_(kDefaultMaxRecursionDepth),
+      render_unknown_fields_(false) {
   GOOGLE_LOG_IF(DFATAL, stream == NULL) << "Input stream is NULL.";
 }
 
 ProtoStreamObjectSource::ProtoStreamObjectSource(
     google::protobuf::io::CodedInputStream* stream, const TypeInfo* typeinfo,
     const google::protobuf::Type& type)
-    : stream_(stream), typeinfo_(typeinfo), own_typeinfo_(false), type_(type) {
+    : stream_(stream),
+      typeinfo_(typeinfo),
+      own_typeinfo_(false),
+      type_(type),
+      use_lower_camel_for_enums_(false),
+      recursion_depth_(0),
+      max_recursion_depth_(kDefaultMaxRecursionDepth),
+      render_unknown_fields_(false) {
   GOOGLE_LOG_IF(DFATAL, stream == NULL) << "Input stream is NULL.";
 }
 
@@ -149,6 +186,7 @@ Status ProtoStreamObjectSource::WriteMessage(const google::protobuf::Type& type,
   string field_name;
   // last_tag set to dummy value that is different from tag.
   uint32 tag = stream_->ReadTag(), last_tag = tag + 1;
+  google::protobuf::UnknownFieldSet unknown_fields;
 
   if (include_start_and_end) {
     ow->StartObject(name);
@@ -164,7 +202,8 @@ Status ProtoStreamObjectSource::WriteMessage(const google::protobuf::Type& type,
     if (field == NULL) {
       // If we didn't find a field, skip this unknown tag.
       // TODO(wpoon): Check return boolean value.
-      WireFormat::SkipField(stream_, tag, NULL);
+      WireFormat::SkipField(stream_, tag,
+                            render_unknown_fields_ ? &unknown_fields : NULL);
       tag = stream_->ReadTag();
       continue;
     }
@@ -186,6 +225,8 @@ Status ProtoStreamObjectSource::WriteMessage(const google::protobuf::Type& type,
       tag = stream_->ReadTag();
     }
   }
+
+
   if (include_start_and_end) {
     ow->EndObject();
   }
@@ -238,9 +279,23 @@ StatusOr<uint32> ProtoStreamObjectSource::RenderMap(
         map_key = ReadFieldValueAsString(*field);
       } else if (field->number() == 2) {
         if (map_key.empty()) {
-          return Status(util::error::INTERNAL, "Map key must be non-empty");
+          // An absent map key is treated as the default.
+          const google::protobuf::Field* key_field =
+              FindFieldByNumber(*field_type, 1);
+          if (key_field == NULL) {
+            // The Type info for this map entry is incorrect. It should always
+            // have a field named "key" and with field number 1.
+            return Status(util::error::INTERNAL, "Invalid map entry.");
+          }
+          ASSIGN_OR_RETURN(map_key, MapKeyDefaultValueAsString(*key_field));
+          // Key is empty, force it to render as empty (for string values).
+          ow->empty_name_ok_for_next_key();
         }
         RETURN_IF_ERROR(RenderField(field, map_key, ow));
+      } else {
+        // The Type info for this map entry is incorrect. It should contain
+        // exactly two fields with field number 1 and 2.
+        return Status(util::error::INTERNAL, "Invalid map entry.");
       }
     }
     stream_->PopLimit(old_limit);
@@ -266,7 +321,7 @@ Status ProtoStreamObjectSource::RenderTimestamp(
   pair<int64, int32> p = os->ReadSecondsAndNanos(type);
   int64 seconds = p.first;
   int32 nanos = p.second;
-  if (seconds > kMaxSeconds || seconds < kMinSeconds) {
+  if (seconds > kTimestampMaxSeconds || seconds < kTimestampMinSeconds) {
     return Status(
         util::error::INTERNAL,
         StrCat("Timestamp seconds exceeds limit for field: ", field_name));
@@ -290,7 +345,7 @@ Status ProtoStreamObjectSource::RenderDuration(
   pair<int64, int32> p = os->ReadSecondsAndNanos(type);
   int64 seconds = p.first;
   int32 nanos = p.second;
-  if (seconds > kMaxSeconds || seconds < kMinSeconds) {
+  if (seconds > kDurationMaxSeconds || seconds < kDurationMinSeconds) {
     return Status(
         util::error::INTERNAL,
         StrCat("Duration seconds exceeds limit for field: ", field_name));
@@ -701,7 +756,9 @@ Status ProtoStreamObjectSource::RenderField(
     if (use_type_renderer) {
       RETURN_IF_ERROR((*type_renderer)(this, *type, field_name, ow));
     } else {
+      RETURN_IF_ERROR(IncrementRecursionDepth(type->name(), field_name));
       RETURN_IF_ERROR(WriteMessage(*type, field_name, 0, true, ow));
+      --recursion_depth_;
     }
     if (!stream_->ConsumedEntireMessage()) {
       return Status(util::error::INVALID_ARGUMENT,
@@ -802,15 +859,21 @@ Status ProtoStreamObjectSource::RenderNonMessageField(
       // up.
       const google::protobuf::Enum* en =
           typeinfo_->GetEnumByTypeUrl(field->type_url());
-      // Lookup the name of the enum, and render that. Skips unknown enums.
+      // Lookup the name of the enum, and render that. Unknown enum values
+      // are printed as integers.
       if (en != NULL) {
         const google::protobuf::EnumValue* enum_value =
             FindEnumValueByNumber(*en, buffer32);
         if (enum_value != NULL) {
-          ow->RenderString(field_name, enum_value->name());
+          if (use_lower_camel_for_enums_)
+            ow->RenderString(field_name, ToCamelCase(enum_value->name()));
+          else
+            ow->RenderString(field_name, enum_value->name());
+        } else {
+          ow->RenderInt32(field_name, buffer32);
         }
       } else {
-        GOOGLE_LOG(INFO) << "Unknown enum skipped: " << field->type_url();
+        ow->RenderInt32(field_name, buffer32);
       }
       break;
     }
@@ -994,6 +1057,17 @@ std::pair<int64, int32> ProtoStreamObjectSource::ReadSecondsAndNanos(
   return std::pair<int64, int32>(signed_seconds, signed_nanos);
 }
 
+Status ProtoStreamObjectSource::IncrementRecursionDepth(
+    StringPiece type_name, StringPiece field_name) const {
+  if (++recursion_depth_ > max_recursion_depth_) {
+    return Status(
+        util::error::INVALID_ARGUMENT,
+        StrCat("Message too deep. Max recursion depth reached for type '",
+               type_name, "', field '", field_name, "'"));
+  }
+  return Status::OK;
+}
+
 namespace {
 // TODO(skarvaje): Speed this up by not doing a linear scan.
 const google::protobuf::Field* FindFieldByNumber(
@@ -1030,6 +1104,8 @@ const google::protobuf::EnumValue* FindEnumValueByNumber(
 // TODO(skarvaje): Look into optimizing this by not doing computation on
 // double.
 const string FormatNanos(uint32 nanos) {
+  if (nanos == 0) return "";
+
   const char* format =
       (nanos % 1000 != 0) ? "%.9f" : (nanos % 1000000 != 0) ? "%.6f" : "%.3f";
   string formatted =

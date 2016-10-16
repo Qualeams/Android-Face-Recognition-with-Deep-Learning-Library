@@ -20,6 +20,7 @@ from __future__ import print_function
 
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops
+from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import math_ops
 
 # TODO(nsilberman): move into metrics/python/ops/
@@ -51,9 +52,12 @@ def accuracy(predictions, labels, weights=None):
     raise ValueError('Dtypes of predictions and labels should match. '
                      'Given: predictions (%r) and labels (%r)' %
                      (predictions.dtype, labels.dtype))
-  with ops.op_scope([predictions, labels], 'accuracy'):
+  with ops.name_scope('accuracy', values=[predictions, labels]):
     is_correct = math_ops.cast(
         math_ops.equal(predictions, labels), dtypes.float32)
     if weights is not None:
       is_correct = math_ops.mul(is_correct, weights)
+      num_values = math_ops.mul(weights, array_ops.ones_like(is_correct))
+      return math_ops.div(math_ops.reduce_sum(is_correct),
+                          math_ops.reduce_sum(num_values))
     return math_ops.reduce_mean(is_correct)

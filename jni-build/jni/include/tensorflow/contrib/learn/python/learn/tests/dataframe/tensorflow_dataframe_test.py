@@ -60,7 +60,8 @@ def _assert_df_equals_dict(expected_df, actual_dict):
 
 
 def _make_test_csv():
-  f = tempfile.NamedTemporaryFile(delete=False, mode="w")
+  f = tempfile.NamedTemporaryFile(
+      dir=tf.test.get_temp_dir(), delete=False, mode="w")
   w = csv.writer(f)
   w.writerow(["int", "float", "bool", "string"])
   for _ in range(100):
@@ -76,7 +77,8 @@ def _make_test_csv():
 
 
 def _make_test_csv_sparse():
-  f = tempfile.NamedTemporaryFile(delete=False, mode="w")
+  f = tempfile.NamedTemporaryFile(
+      dir=tf.test.get_temp_dir(), delete=False, mode="w")
   w = csv.writer(f)
   w.writerow(["int", "float", "bool", "string"])
   for _ in range(100):
@@ -94,7 +96,7 @@ def _make_test_csv_sparse():
 
 
 def _make_test_tfrecord():
-  f = tempfile.NamedTemporaryFile(delete=False)
+  f = tempfile.NamedTemporaryFile(dir=tf.test.get_temp_dir(), delete=False)
   w = tf.python_io.TFRecordWriter(f.name)
   for i in range(100):
     ex = example_pb2.Example()
@@ -131,7 +133,7 @@ class TensorFlowDataFrameTestCase(tf.test.TestCase):
                                                        batch_size=10,
                                                        shuffle=False)
 
-    batch = tensorflow_df.run_once()
+    batch = tensorflow_df.run_one_batch()
 
     np.testing.assert_array_equal(pandas_df.index.values, batch["index"],
                                   "Expected index {}; got {}".format(
@@ -153,8 +155,8 @@ class TensorFlowDataFrameTestCase(tf.test.TestCase):
     tensorflow_df = df.TensorFlowDataFrame.from_pandas(pandas_df, shuffle=False)
 
     # Rebatch `df` into the following sizes successively.
-    batch_sizes = [8, 4, 7]
-    num_batches = 10
+    batch_sizes = [4, 7]
+    num_batches = 3
 
     final_batch_size = batch_sizes[-1]
 
@@ -239,7 +241,7 @@ class TensorFlowDataFrameTestCase(tf.test.TestCase):
     s = pandas_df["string"]
     for i in range(0, len(s)):
       if isinstance(s[i], float) and math.isnan(s[i]):
-        s[i] = ""
+        pandas_df.set_value(i, "string", "")
     tensorflow_df = df.TensorFlowDataFrame.from_csv_with_feature_spec(
         [data_path],
         batch_size=batch_size,

@@ -60,8 +60,10 @@
 #include <google/protobuf/stubs/strutil.h>
 #include <google/protobuf/stubs/substitute.h>
 
+#include <google/protobuf/testing/file.h>
 #include <google/protobuf/testing/googletest.h>
 #include <gtest/gtest.h>
+
 
 namespace google {
 namespace protobuf {
@@ -376,7 +378,9 @@ void CommandLineInterfaceTest::CreateTempFile(
 
   // Write file.
   string full_name = temp_directory_ + "/" + name;
-  GOOGLE_CHECK_OK(File::SetContents(full_name, contents, true));
+  GOOGLE_CHECK_OK(File::SetContents(
+      full_name, StringReplace(contents, "$tmpdir", temp_directory_, true),
+      true));
 }
 
 void CommandLineInterfaceTest::CreateTempDir(const string& name) {
@@ -715,6 +719,11 @@ TEST_F(CommandLineInterfaceTest, TrailingBackslash) {
   ExpectGenerated("test_generator", "", "foo.proto", "Foo");
 }
 
+TEST_F(CommandLineInterfaceTest, Win32ErrorMessage) {
+  EXPECT_EQ("The system cannot find the file specified.\r\n",
+    Subprocess::Win32ErrorMessage(ERROR_FILE_NOT_FOUND));
+}
+
 #endif  // defined(_WIN32) || defined(__CYGWIN__)
 
 TEST_F(CommandLineInterfaceTest, PathLookup) {
@@ -782,6 +791,21 @@ TEST_F(CommandLineInterfaceTest, NonRootMapping) {
   ExpectGenerated("test_generator", "", "bar/foo.proto", "Foo");
 }
 
+TEST_F(CommandLineInterfaceTest, PathWithEqualsSign) {
+  // Test setting up a search path which happens to have '=' in it.
+
+  CreateTempDir("with=sign");
+  CreateTempFile("with=sign/foo.proto",
+    "syntax = \"proto2\";\n"
+    "message Foo {}\n");
+
+  Run("protocol_compiler --test_out=$tmpdir "
+      "--proto_path=$tmpdir/with=sign foo.proto");
+
+  ExpectNoErrors();
+  ExpectGenerated("test_generator", "", "foo.proto", "Foo");
+}
+
 TEST_F(CommandLineInterfaceTest, MultipleGenerators) {
   // Test that we can have multiple generators and use both in one invocation,
   // each with a different output directory.
@@ -845,6 +869,92 @@ TEST_F(CommandLineInterfaceTest, AllowServicesHasService) {
 
   ExpectNoErrors();
   ExpectGenerated("test_generator", "", "foo.proto", "Foo");
+}
+
+TEST_F(CommandLineInterfaceTest, DirectDependencies_Missing_EmptyList) {
+  CreateTempFile("foo.proto",
+                 "syntax = \"proto2\";\n"
+                 "import \"bar.proto\";\n"
+                 "message Foo { optional Bar bar = 1; }");
+  CreateTempFile("bar.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bar { optional string text = 1; }");
+
+  Run("protocol_compiler --test_out=$tmpdir --proto_path=$tmpdir "
+      "--direct_dependencies= foo.proto");
+
+  ExpectErrorText(
+      "foo.proto: File is imported but not declared in --direct_dependencies: "
+      "bar.proto\n");
+}
+
+TEST_F(CommandLineInterfaceTest, DirectDependencies_Missing) {
+  CreateTempFile("foo.proto",
+                 "syntax = \"proto2\";\n"
+                 "import \"bar.proto\";\n"
+                 "import \"bla.proto\";\n"
+                 "message Foo { optional Bar bar = 1; optional Bla bla = 2; }");
+  CreateTempFile("bar.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bar { optional string text = 1; }");
+  CreateTempFile("bla.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bla { optional int64 number = 1; }");
+
+  Run("protocol_compiler --test_out=$tmpdir --proto_path=$tmpdir "
+      "--direct_dependencies=bla.proto foo.proto");
+
+  ExpectErrorText(
+      "foo.proto: File is imported but not declared in --direct_dependencies: "
+      "bar.proto\n");
+}
+
+TEST_F(CommandLineInterfaceTest, DirectDependencies_NoViolation) {
+  CreateTempFile("foo.proto",
+                 "syntax = \"proto2\";\n"
+                 "import \"bar.proto\";\n"
+                 "message Foo { optional Bar bar = 1; }");
+  CreateTempFile("bar.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bar { optional string text = 1; }");
+
+  Run("protocol_compiler --test_out=$tmpdir --proto_path=$tmpdir "
+      "--direct_dependencies=bar.proto foo.proto");
+
+  ExpectNoErrors();
+}
+
+TEST_F(CommandLineInterfaceTest, DirectDependencies_NoViolation_MultiImports) {
+  CreateTempFile("foo.proto",
+                 "syntax = \"proto2\";\n"
+                 "import \"bar.proto\";\n"
+                 "import \"bla.proto\";\n"
+                 "message Foo { optional Bar bar = 1; optional Bla bla = 2; }");
+  CreateTempFile("bar.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bar { optional string text = 1; }");
+  CreateTempFile("bla.proto",
+                 "syntax = \"proto2\";\n"
+                 "message Bla { optional int64 number = 1; }");
+
+  Run("protocol_compiler --test_out=$tmpdir --proto_path=$tmpdir "
+      "--direct_dependencies=bar.proto:bla.proto foo.proto");
+
+  ExpectNoErrors();
+}
+
+TEST_F(CommandLineInterfaceTest, DirectDependencies_ProvidedMultipleTimes) {
+  CreateTempFile("foo.proto",
+                 "syntax = \"proto2\";\n");
+
+  Run("protocol_compiler --test_out=$tmpdir --proto_path=$tmpdir "
+      "--direct_dependencies=bar.proto --direct_dependencies=bla.proto "
+      "foo.proto");
+
+  ExpectErrorText(
+      "--direct_dependencies may only be passed once. To specify multiple "
+      "direct dependencies, pass them all as a single parameter separated by "
+      "':'.\n");
 }
 
 TEST_F(CommandLineInterfaceTest, CwdRelativeInputs) {
@@ -1089,6 +1199,7 @@ TEST_F(CommandLineInterfaceTest, WriteDependencyManifestFileForAbsolutePath) {
                     "$tmpdir/foo.proto\\\n $tmpdir/bar.proto");
 }
 #endif  // !_WIN32
+
 
 // -------------------------------------------------------------------
 

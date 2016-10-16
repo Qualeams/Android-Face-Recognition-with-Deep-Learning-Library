@@ -59,6 +59,7 @@ namespace cpp {
 
 FileGenerator::FileGenerator(const FileDescriptor* file, const Options& options)
     : file_(file),
+      options_(options),
       message_generators_(
           new google::protobuf::scoped_ptr<MessageGenerator>[file->message_type_count()]),
       enum_generators_(
@@ -66,8 +67,7 @@ FileGenerator::FileGenerator(const FileDescriptor* file, const Options& options)
       service_generators_(
           new google::protobuf::scoped_ptr<ServiceGenerator>[file->service_count()]),
       extension_generators_(
-          new google::protobuf::scoped_ptr<ExtensionGenerator>[file->extension_count()]),
-      options_(options) {
+          new google::protobuf::scoped_ptr<ExtensionGenerator>[file->extension_count()]) {
 
   for (int i = 0; i < file->message_type_count(); i++) {
     message_generators_[i].reset(
@@ -89,12 +89,13 @@ FileGenerator::FileGenerator(const FileDescriptor* file, const Options& options)
       new ExtensionGenerator(file->extension(i), options));
   }
 
-  SplitStringUsing(file_->package(), ".", &package_parts_);
+  package_parts_ = Split(file_->package(), ".", true);
 }
 
 FileGenerator::~FileGenerator() {}
 
-void FileGenerator::GenerateProtoHeader(io::Printer* printer) {
+void FileGenerator::GenerateProtoHeader(io::Printer* printer,
+                                        const string& info_path) {
   if (!options_.proto_h) {
     return;
   }
@@ -113,6 +114,8 @@ void FileGenerator::GenerateProtoHeader(io::Printer* printer) {
       "#include \"$dependency$\"  // IWYU pragma: export\n",
       "dependency", dependency);
   }
+
+  GenerateMetadataPragma(printer, info_path);
 
   printer->Print(
     "// @@protoc_insertion_point(includes)\n");
@@ -167,7 +170,8 @@ void FileGenerator::GenerateProtoHeader(io::Printer* printer) {
   GenerateBottomHeaderGuard(printer, filename_identifier);
 }
 
-void FileGenerator::GeneratePBHeader(io::Printer* printer) {
+void FileGenerator::GeneratePBHeader(io::Printer* printer,
+                                     const string& info_path) {
   string filename_identifier =
       FilenameIdentifier(file_->name() + (options_.proto_h ? ".pb.h" : ""));
   GenerateTopHeaderGuard(printer, filename_identifier);
@@ -179,6 +183,7 @@ void FileGenerator::GeneratePBHeader(io::Printer* printer) {
     GenerateLibraryIncludes(printer);
   }
   GenerateDependencyIncludes(printer);
+  GenerateMetadataPragma(printer, info_path);
 
   printer->Print(
     "// @@protoc_insertion_point(includes)\n");
@@ -237,7 +242,7 @@ void FileGenerator::GeneratePBHeader(io::Printer* printer) {
 }
 
 void FileGenerator::GenerateSource(io::Printer* printer) {
-  bool well_known = IsWellKnownMessage(file_);
+  const bool use_system_include = IsWellKnownMessage(file_);
   string header =
       StripProto(file_->name()) + (options_.proto_h ? ".proto.h" : ".pb.h");
   printer->Print(
@@ -258,16 +263,16 @@ void FileGenerator::GenerateSource(io::Printer* printer) {
     "#include <google/protobuf/wire_format_lite_inl.h>\n",
     "filename", file_->name(),
     "header", header,
-    "left", well_known ? "<" : "\"",
-    "right", well_known ? ">" : "\"");
+    "left", use_system_include ? "<" : "\"",
+    "right", use_system_include ? ">" : "\"");
 
   // Unknown fields implementation in lite mode uses StringOutputStream
-  if (!UseUnknownFieldSet(file_) && file_->message_type_count() > 0) {
+  if (!UseUnknownFieldSet(file_, options_) && file_->message_type_count() > 0) {
     printer->Print(
       "#include <google/protobuf/io/zero_copy_stream_impl_lite.h>\n");
   }
 
-  if (HasDescriptorMethods(file_)) {
+  if (HasDescriptorMethods(file_, options_)) {
     printer->Print(
       "#include <google/protobuf/descriptor.h>\n"
       "#include <google/protobuf/generated_message_reflection.h>\n"
@@ -292,7 +297,7 @@ void FileGenerator::GenerateSource(io::Printer* printer) {
 
   GenerateNamespaceOpeners(printer);
 
-  if (HasDescriptorMethods(file_)) {
+  if (HasDescriptorMethods(file_, options_)) {
     printer->Print(
       "\n"
       "namespace {\n"
@@ -306,7 +311,7 @@ void FileGenerator::GenerateSource(io::Printer* printer) {
         "name", ClassName(file_->enum_type(i), false));
     }
 
-    if (HasGenericServices(file_)) {
+    if (HasGenericServices(file_, options_)) {
       for (int i = 0; i < file_->service_count(); i++) {
         printer->Print(
           "const ::google::protobuf::ServiceDescriptor* $name$_descriptor_ = NULL;\n",
@@ -331,18 +336,19 @@ void FileGenerator::GenerateSource(io::Printer* printer) {
 
   // Generate classes.
   for (int i = 0; i < file_->message_type_count(); i++) {
-    if (i == 0 && HasGeneratedMethods(file_)) {
+    if (i == 0 && HasGeneratedMethods(file_, options_)) {
       printer->Print(
-          "\n"
-          "namespace {\n"
-          "\n"
-          "static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;\n"
-          "static void MergeFromFail(int line) {\n"
-          "  GOOGLE_CHECK(false) << __FILE__ << \":\" << line;\n"
-          "}\n"
-          "\n"
-          "}  // namespace\n"
-          "\n");
+        "\n"
+        "namespace {\n"
+        "\n"
+        "static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD"
+        " GOOGLE_ATTRIBUTE_NORETURN;\n"
+        "static void MergeFromFail(int line) {\n"
+        "  ::google::protobuf::internal::MergeFromFail(__FILE__, line);\n"
+        "}\n"
+        "\n"
+        "}  // namespace\n"
+        "\n");
     }
     printer->Print("\n");
     printer->Print(kThickSeparator);
@@ -356,7 +362,7 @@ void FileGenerator::GenerateSource(io::Printer* printer) {
     printer->Print("#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS\n");
   }
 
-  if (HasGenericServices(file_)) {
+  if (HasGenericServices(file_, options_)) {
     // Generate services.
     for (int i = 0; i < file_->service_count(); i++) {
       if (i == 0) printer->Print("\n");
@@ -401,20 +407,24 @@ class FileGenerator::ForwardDeclarations {
     return ns;
   }
 
-  set<string>& classes() { return classes_; }
-  set<string>& enums() { return enums_; }
+  map<string, const Descriptor*>& classes() { return classes_; }
+  map<string, const EnumDescriptor*>& enums() { return enums_; }
 
   void Print(io::Printer* printer) const {
-    for (set<string>::const_iterator it = enums_.begin(), end = enums_.end();
+    for (map<string, const EnumDescriptor *>::const_iterator
+             it = enums_.begin(),
+             end = enums_.end();
          it != end; ++it) {
-      printer->Print("enum $enumname$ : int;\n"
-                     "bool $enumname$_IsValid(int value);\n",
-                     "enumname", it->c_str());
+      printer->Print("enum $enumname$ : int;\n", "enumname", it->first);
+      printer->Annotate("enumname", it->second);
+      printer->Print("bool $enumname$_IsValid(int value);\n", "enumname",
+                     it->first);
     }
-    for (set<string>::const_iterator it = classes_.begin(),
-                                     end = classes_.end();
+    for (map<string, const Descriptor *>::const_iterator it = classes_.begin(),
+                                                         end = classes_.end();
          it != end; ++it) {
-      printer->Print("class $classname$;\n", "classname", it->c_str());
+      printer->Print("class $classname$;\n", "classname", it->first);
+      printer->Annotate("classname", it->second);
     }
     for (map<string, ForwardDeclarations *>::const_iterator
              it = namespaces_.begin(),
@@ -431,8 +441,8 @@ class FileGenerator::ForwardDeclarations {
 
  private:
   map<string, ForwardDeclarations*> namespaces_;
-  set<string> classes_;
-  set<string> enums_;
+  map<string, const Descriptor*> classes_;
+  map<string, const EnumDescriptor*> enums_;
 };
 
 void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
@@ -453,11 +463,13 @@ void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
 
   // In optimize_for = LITE_RUNTIME mode, we don't generate AssignDescriptors()
   // and we only use AddDescriptors() to allocate default instances.
-  if (HasDescriptorMethods(file_)) {
+
+  if (HasDescriptorMethods(file_, options_)) {
     printer->Print(
-      "\n"
-      "void $assigndescriptorsname$() {\n",
-      "assigndescriptorsname", GlobalAssignDescriptorsName(file_->name()));
+        "\n"
+        "void $assigndescriptorsname$() GOOGLE_ATTRIBUTE_COLD;\n"
+        "void $assigndescriptorsname$() {\n",
+        "assigndescriptorsname", GlobalAssignDescriptorsName(file_->name()));
     printer->Indent();
 
     // Make sure the file has found its way into the pool.  If a descriptor
@@ -486,7 +498,7 @@ void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
     for (int i = 0; i < file_->enum_type_count(); i++) {
       enum_generators_[i]->GenerateDescriptorInitializer(printer, i);
     }
-    if (HasGenericServices(file_)) {
+    if (HasGenericServices(file_, options_)) {
       for (int i = 0; i < file_->service_count(); i++) {
         service_generators_[i]->GenerateDescriptorInitializer(printer, i);
       }
@@ -503,21 +515,22 @@ void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
     // AssignDescriptors().  All later times, waits for the first call to
     // complete and then returns.
     printer->Print(
-      "namespace {\n"
-      "\n"
-      "GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);\n"
-      "inline void protobuf_AssignDescriptorsOnce() {\n"
-      "  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,\n"
-      "                 &$assigndescriptorsname$);\n"
-      "}\n"
-      "\n",
-      "assigndescriptorsname", GlobalAssignDescriptorsName(file_->name()));
+        "namespace {\n"
+        "\n"
+        "GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);\n"
+        "void protobuf_AssignDescriptorsOnce() {\n"
+        "  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,\n"
+        "                 &$assigndescriptorsname$);\n"
+        "}\n"
+        "\n",
+        "assigndescriptorsname", GlobalAssignDescriptorsName(file_->name()));
 
     // protobuf_RegisterTypes():  Calls
     // MessageFactory::InternalRegisterGeneratedType() for each message type.
     printer->Print(
-      "void protobuf_RegisterTypes(const ::std::string&) {\n"
-      "  protobuf_AssignDescriptorsOnce();\n");
+        "void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;\n"
+        "void protobuf_RegisterTypes(const ::std::string&) {\n"
+        "  protobuf_AssignDescriptorsOnce();\n");
     printer->Indent();
 
     for (int i = 0; i < file_->message_type_count(); i++) {
@@ -550,42 +563,68 @@ void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
 
   // -----------------------------------------------------------------
 
-  // Now generate the AddDescriptors() function.
-  PrintHandlingOptionalStaticInitializers(
-    file_, printer,
-    // With static initializers.
-    // Note that we don't need any special synchronization in the following code
-    // because it is called at static init time before any threads exist.
-    "void $adddescriptorsname$() {\n"
-    "  static bool already_here = false;\n"
-    "  if (already_here) return;\n"
-    "  already_here = true;\n"
-    "  GOOGLE_PROTOBUF_VERIFY_VERSION;\n"
-    "\n",
-    // Without.
-    "void $adddescriptorsname$_impl() {\n"
-    "  GOOGLE_PROTOBUF_VERIFY_VERSION;\n"
-    "\n",
-    // Vars.
-    "adddescriptorsname", GlobalAddDescriptorsName(file_->name()));
+  // Now generate the InitDefaults() function.
+  printer->Print(
+      "void $initdefaultsname$_impl() {\n"
+      "  GOOGLE_PROTOBUF_VERIFY_VERSION;\n"
+      "\n",
+      // Vars.
+      "initdefaultsname", GlobalInitDefaultsName(file_->name()));
 
   printer->Indent();
 
-  // Call the AddDescriptors() methods for all of our dependencies, to make
+  // Call the InitDefaults() methods for all of our dependencies, to make
   // sure they get added first.
   for (int i = 0; i < file_->dependency_count(); i++) {
     const FileDescriptor* dependency = file_->dependency(i);
     // Print the namespace prefix for the dependency.
     string add_desc_name = QualifiedFileLevelSymbol(
-        dependency->package(), GlobalAddDescriptorsName(dependency->name()));
+        dependency->package(), GlobalInitDefaultsName(dependency->name()));
     // Call its AddDescriptors function.
     printer->Print(
       "$name$();\n",
       "name", add_desc_name);
   }
 
-  if (HasDescriptorMethods(file_)) {
-    // Embed the descriptor.  We simply serialize the entire FileDescriptorProto
+  // Allocate and initialize default instances.  This can't be done lazily
+  // since default instances are returned by simple accessors and are used with
+  // extensions.  Speaking of which, we also register extensions at this time.
+  for (int i = 0; i < file_->message_type_count(); i++) {
+    message_generators_[i]->GenerateDefaultInstanceAllocator(printer);
+  }
+  for (int i = 0; i < file_->extension_count(); i++) {
+    extension_generators_[i]->GenerateRegistration(printer);
+  }
+  for (int i = 0; i < file_->message_type_count(); i++) {
+    message_generators_[i]->GenerateDefaultInstanceInitializer(printer);
+  }
+  printer->Outdent();
+  printer->Print(
+      "}\n"
+      "\n"
+      "GOOGLE_PROTOBUF_DECLARE_ONCE($initdefaultsname$_once_);\n"
+      "void $initdefaultsname$() {\n"
+      "  ::google::protobuf::GoogleOnceInit(&$initdefaultsname$_once_,\n"
+      "                 &$initdefaultsname$_impl);\n"
+      "}\n",
+      "initdefaultsname", GlobalInitDefaultsName(file_->name()));
+
+  // -----------------------------------------------------------------
+
+  // Now generate the AddDescriptors() function.
+  printer->Print(
+      "void $adddescriptorsname$_impl() {\n"
+      "  GOOGLE_PROTOBUF_VERIFY_VERSION;\n"
+      "\n"
+      "  $initdefaultsname$();\n",
+      // Vars.
+      "adddescriptorsname", GlobalAddDescriptorsName(file_->name()),
+      "initdefaultsname", GlobalInitDefaultsName(file_->name()));
+
+  printer->Indent();
+  if (HasDescriptorMethods(file_, options_)) {
+    // Embed the descriptor.  We simply serialize the entire
+    // FileDescriptorProto
     // and embed it as a string literal, which is parsed and built into real
     // descriptors at initialization time.
     FileDescriptorProto file_proto;
@@ -655,46 +694,50 @@ void FileGenerator::GenerateBuildDescriptors(io::Printer* printer) {
       "filename", file_->name());
   }
 
-  // Allocate and initialize default instances.  This can't be done lazily
-  // since default instances are returned by simple accessors and are used with
-  // extensions.  Speaking of which, we also register extensions at this time.
-  for (int i = 0; i < file_->message_type_count(); i++) {
-    message_generators_[i]->GenerateDefaultInstanceAllocator(printer);
-  }
-  for (int i = 0; i < file_->extension_count(); i++) {
-    extension_generators_[i]->GenerateRegistration(printer);
-  }
-  for (int i = 0; i < file_->message_type_count(); i++) {
-    message_generators_[i]->GenerateDefaultInstanceInitializer(printer);
+  // Call the AddDescriptors() methods for all of our dependencies, to make
+  // sure they get added first.
+  for (int i = 0; i < file_->dependency_count(); i++) {
+    const FileDescriptor* dependency = file_->dependency(i);
+    // Print the namespace prefix for the dependency.
+    string add_desc_name = QualifiedFileLevelSymbol(
+        dependency->package(), GlobalAddDescriptorsName(dependency->name()));
+    // Call its AddDescriptors function.
+    printer->Print("$adddescriptorsname$();\n", "adddescriptorsname",
+                   add_desc_name);
   }
 
   printer->Print(
-    "::google::protobuf::internal::OnShutdown(&$shutdownfilename$);\n",
-    "shutdownfilename", GlobalShutdownFileName(file_->name()));
+      "::google::protobuf::internal::OnShutdown(&$shutdownfilename$);\n",
+      "shutdownfilename", GlobalShutdownFileName(file_->name()));
 
   printer->Outdent();
   printer->Print(
-    "}\n"
-    "\n");
+      "}\n"
+      "\n"
+      "GOOGLE_PROTOBUF_DECLARE_ONCE($adddescriptorsname$_once_);\n"
+      "void $adddescriptorsname$() {\n"
+      "  ::google::protobuf::GoogleOnceInit(&$adddescriptorsname$_once_,\n"
+      "                 &$adddescriptorsname$_impl);\n"
+      "}\n",
+      "adddescriptorsname", GlobalAddDescriptorsName(file_->name()));
 
-  PrintHandlingOptionalStaticInitializers(
-    file_, printer,
-    // With static initializers.
-    "// Force AddDescriptors() to be called at static initialization time.\n"
-    "struct StaticDescriptorInitializer_$filename$ {\n"
-    "  StaticDescriptorInitializer_$filename$() {\n"
-    "    $adddescriptorsname$();\n"
-    "  }\n"
-    "} static_descriptor_initializer_$filename$_;\n",
-    // Without.
-    "GOOGLE_PROTOBUF_DECLARE_ONCE($adddescriptorsname$_once_);\n"
-    "void $adddescriptorsname$() {\n"
-    "  ::google::protobuf::GoogleOnceInit(&$adddescriptorsname$_once_,\n"
-    "                 &$adddescriptorsname$_impl);\n"
-    "}\n",
-    // Vars.
-    "adddescriptorsname", GlobalAddDescriptorsName(file_->name()),
-    "filename", FilenameIdentifier(file_->name()));
+  if (!StaticInitializersForced(file_, options_)) {
+    printer->Print("#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER\n");
+  }
+  printer->Print(
+      // With static initializers.
+      "// Force AddDescriptors() to be called at static initialization time.\n"
+      "struct StaticDescriptorInitializer_$filename$ {\n"
+      "  StaticDescriptorInitializer_$filename$() {\n"
+      "    $adddescriptorsname$();\n"
+      "  }\n"
+      "} static_descriptor_initializer_$filename$_;\n",
+      // Vars.
+      "adddescriptorsname", GlobalAddDescriptorsName(file_->name()), "filename",
+      FilenameIdentifier(file_->name()));
+  if (!StaticInitializersForced(file_, options_)) {
+    printer->Print("#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER\n");
+  }
 }
 
 void FileGenerator::GenerateNamespaceOpeners(io::Printer* printer) {
@@ -751,16 +794,15 @@ void FileGenerator::GenerateTopHeaderGuard(io::Printer* printer,
                                            const string& filename_identifier) {
   // Generate top of header.
   printer->Print(
-    "// Generated by the protocol buffer compiler.  DO NOT EDIT!\n"
-    "// source: $filename$\n"
-    "\n"
-    "#ifndef PROTOBUF_$filename_identifier$__INCLUDED\n"
-    "#define PROTOBUF_$filename_identifier$__INCLUDED\n"
-    "\n"
-    "#include <string>\n"
-    "\n",
-    "filename", file_->name(),
-    "filename_identifier", filename_identifier);
+      "// Generated by the protocol buffer compiler.  DO NOT EDIT!\n"
+      "// source: $filename$\n"
+      "\n"
+      "#ifndef PROTOBUF_$filename_identifier$__INCLUDED\n"
+      "#define PROTOBUF_$filename_identifier$__INCLUDED\n"
+      "\n"
+      "#include <string>\n",
+      "filename", file_->name(), "filename_identifier", filename_identifier);
+  printer->Print("\n");
 }
 
 void FileGenerator::GenerateBottomHeaderGuard(
@@ -799,12 +841,12 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* printer) {
     "#include <google/protobuf/arena.h>\n"
     "#include <google/protobuf/arenastring.h>\n"
     "#include <google/protobuf/generated_message_util.h>\n");
-  if (UseUnknownFieldSet(file_)) {
+  if (UseUnknownFieldSet(file_, options_)) {
     printer->Print(
       "#include <google/protobuf/metadata.h>\n");
   }
   if (file_->message_type_count() > 0) {
-    if (HasDescriptorMethods(file_)) {
+    if (HasDescriptorMethods(file_, options_)) {
       printer->Print(
         "#include <google/protobuf/message.h>\n");
     } else {
@@ -818,7 +860,7 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* printer) {
   if (HasMapFields(file_)) {
     printer->Print(
         "#include <google/protobuf/map.h>\n");
-    if (HasDescriptorMethods(file_)) {
+    if (HasDescriptorMethods(file_, options_)) {
       printer->Print(
           "#include <google/protobuf/map_field_inl.h>\n");
     } else {
@@ -828,7 +870,7 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* printer) {
   }
 
   if (HasEnumDefinitions(file_)) {
-    if (HasDescriptorMethods(file_)) {
+    if (HasDescriptorMethods(file_, options_)) {
       printer->Print(
           "#include <google/protobuf/generated_enum_reflection.h>\n");
     } else {
@@ -837,12 +879,12 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* printer) {
     }
   }
 
-  if (HasGenericServices(file_)) {
+  if (HasGenericServices(file_, options_)) {
     printer->Print(
       "#include <google/protobuf/service.h>\n");
   }
 
-  if (UseUnknownFieldSet(file_) && file_->message_type_count() > 0) {
+  if (UseUnknownFieldSet(file_, options_) && file_->message_type_count() > 0) {
     printer->Print(
       "#include <google/protobuf/unknown_field_set.h>\n");
   }
@@ -854,6 +896,19 @@ void FileGenerator::GenerateLibraryIncludes(io::Printer* printer) {
   }
 }
 
+void FileGenerator::GenerateMetadataPragma(io::Printer* printer,
+                                           const string& info_path) {
+  if (!info_path.empty() && !options_.annotation_pragma_name.empty() &&
+      !options_.annotation_guard_name.empty()) {
+    printer->Print(
+        "#ifdef $guard$\n"
+        "#pragma $pragma$ \"$info_path$\"\n"
+        "#endif  // $guard$\n",
+        "guard", options_.annotation_guard_name, "pragma",
+        options_.annotation_pragma_name, "info_path", info_path);
+  }
+}
+
 void FileGenerator::GenerateDependencyIncludes(io::Printer* printer) {
   set<string> public_import_names;
   for (int i = 0; i < file_->public_dependency_count(); i++) {
@@ -861,16 +916,17 @@ void FileGenerator::GenerateDependencyIncludes(io::Printer* printer) {
   }
 
   for (int i = 0; i < file_->dependency_count(); i++) {
-    bool well_known = IsWellKnownMessage(file_->dependency(i));
+    const bool use_system_include = IsWellKnownMessage(file_->dependency(i));
     const string& name = file_->dependency(i)->name();
     bool public_import = (public_import_names.count(name) != 0);
+
 
     printer->Print(
       "#include $left$$dependency$.pb.h$right$$iwyu$\n",
       "dependency", StripProto(name),
       "iwyu", (public_import) ? "  // IWYU pragma: export" : "",
-      "left", well_known ? "<" : "\"",
-      "right", well_known ? ">" : "\"");
+      "left", use_system_include ? "<" : "\"",
+      "right", use_system_include ? ">" : "\"");
   }
 }
 
@@ -879,12 +935,14 @@ void FileGenerator::GenerateGlobalStateFunctionDeclarations(
   // Forward-declare the AddDescriptors, AssignDescriptors, and ShutdownFile
   // functions, so that we can declare them to be friends of each class.
   printer->Print(
-    "\n"
-    "// Internal implementation detail -- do not call these.\n"
-    "void $dllexport_decl$$adddescriptorsname$();\n",
-    "adddescriptorsname", GlobalAddDescriptorsName(file_->name()),
-    "dllexport_decl",
-    options_.dllexport_decl.empty() ? "" : options_.dllexport_decl + " ");
+      "\n"
+      "// Internal implementation detail -- do not call these.\n"
+      "void $dllexport_decl$$adddescriptorsname$();\n"
+      "void $dllexport_decl$$initdefaultsname$();\n",
+      "initdefaultsname", GlobalInitDefaultsName(file_->name()),
+      "adddescriptorsname", GlobalAddDescriptorsName(file_->name()),
+      "dllexport_decl",
+      options_.dllexport_decl.empty() ? "" : options_.dllexport_decl + " ");
 
   printer->Print(
     // Note that we don't put dllexport_decl on these because they are only
@@ -897,13 +955,15 @@ void FileGenerator::GenerateGlobalStateFunctionDeclarations(
 }
 
 void FileGenerator::GenerateMessageForwardDeclarations(io::Printer* printer) {
-  set<string> classes;
+  map<string, const Descriptor*> classes;
   for (int i = 0; i < file_->message_type_count(); i++) {
     message_generators_[i]->FillMessageForwardDeclarations(&classes);
   }
-  for (set<string>::const_iterator it = classes.begin(), end = classes.end();
+  for (map<string, const Descriptor *>::const_iterator it = classes.begin(),
+                                                       end = classes.end();
        it != end; ++it) {
-    printer->Print("class $classname$;\n", "classname", it->c_str());
+    printer->Print("class $classname$;\n", "classname", it->first);
+    printer->Annotate("classname", it->second);
   }
 }
 
@@ -930,7 +990,7 @@ void FileGenerator::GenerateEnumDefinitions(io::Printer* printer) {
 }
 
 void FileGenerator::GenerateServiceDefinitions(io::Printer* printer) {
-  if (HasGenericServices(file_)) {
+  if (HasGenericServices(file_, options_)) {
     // Generate service definitions.
     for (int i = 0; i < file_->service_count(); i++) {
       if (i > 0) {

@@ -1,4 +1,4 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
+# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ class SumTestCase(tf.test.TestCase):
     frame["a+b"] = frame["a"] + frame["b"]
 
     expected_sum = pandas_df["a"] + pandas_df["b"]
-    actual_sum = frame.run_once()["a+b"]
+    actual_sum = frame.run_one_batch()["a+b"]
     np.testing.assert_array_equal(expected_sum, actual_sum)
 
 
@@ -70,7 +70,7 @@ class DifferenceTestCase(tf.test.TestCase):
     frame["a-b"] = frame["a"] - frame["b"]
 
     expected_diff = pandas_df["a"] - pandas_df["b"]
-    actual_diff = frame.run_once()["a-b"]
+    actual_diff = frame.run_one_batch()["a-b"]
     np.testing.assert_array_equal(expected_diff, actual_diff)
 
 

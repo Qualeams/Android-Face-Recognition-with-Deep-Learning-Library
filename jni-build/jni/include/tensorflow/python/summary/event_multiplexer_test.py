@@ -32,7 +32,8 @@ def _AddEvents(path):
   if not gfile.IsDirectory(path):
     gfile.MakeDirs(path)
   fpath = os.path.join(path, 'hypothetical.tfevents.out')
-  with gfile.GFile(fpath, 'w'):
+  with gfile.GFile(fpath, 'w') as f:
+    f.write('')
     return fpath
 
 
@@ -282,7 +283,7 @@ class EventMultiplexerTest(test_util.TensorFlowTestCase):
 
 class EventMultiplexerWithRealAccumulatorTest(test_util.TensorFlowTestCase):
 
-  def testDeletingDirectoryDoesntThrowException(self):
+  def testDeletingDirectoryRemovesRun(self):
     x = event_multiplexer.EventMultiplexer()
     tmpdir = self.get_temp_dir()
     join = os.path.join
@@ -301,8 +302,8 @@ class EventMultiplexerWithRealAccumulatorTest(test_util.TensorFlowTestCase):
 
     # Delete the directory, then reload.
     shutil.rmtree(run2_dir)
-
     x.Reload()
+    self.assertNotIn('run2', x.Runs().keys())
 
 
 if __name__ == '__main__':

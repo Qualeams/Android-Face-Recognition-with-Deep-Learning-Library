@@ -36,9 +36,11 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
 from google.protobuf import text_format
+from tensorflow.contrib.tensorboard.plugins.projector.projector_config_pb2 import ProjectorConfig
 from tensorflow.python.platform import resource_loader
 from tensorflow.python.summary import event_multiplexer
 from tensorflow.tensorboard.backend import server
+from tensorflow.tensorboard.plugins import REGISTERED_PLUGINS
 
 
 class TensorboardServerTest(tf.test.TestCase):
@@ -52,7 +54,8 @@ class TensorboardServerTest(tf.test.TestCase):
         size_guidance=server.TENSORBOARD_SIZE_GUIDANCE)
     server.ReloadMultiplexer(self._multiplexer, {self.get_temp_dir(): None})
     # 0 to pick an unused port.
-    self._server = server.BuildServer(self._multiplexer, 'localhost', 0)
+    self._server = server.BuildServer(
+        self._multiplexer, 'localhost', 0, '/foo/logdir/argument')
     self._server_thread = threading.Thread(target=self._server.serve_forever)
     self._server_thread.daemon = True
     self._server_thread.start()
@@ -74,7 +77,10 @@ class TensorboardServerTest(tf.test.TestCase):
     self._connection.request('GET', path)
     response = self._connection.getresponse()
     self.assertEqual(response.status, 200)
-    return json.loads(response.read().decode('utf-8'))
+    data = response.read()
+    if response.getheader('Content-Encoding') == 'gzip':
+      data = gzip.GzipFile('', 'rb', 9, BytesIO(data)).read()
+    return json.loads(data.decode('utf-8'))
 
   def testBasicStartup(self):
     """Start the server up and then shut it down immediately."""
@@ -93,7 +99,13 @@ class TensorboardServerTest(tf.test.TestCase):
   def testDirectoryTraversal(self):
     """Attempt a directory traversal attack."""
     response = self._get('/..' * 30 + '/etc/passwd')
-    self.assertEqual(response.status, 404)
+    self.assertEqual(response.status, 400)
+
+  def testLogdir(self):
+    """Test the status code and content of the data/logdir endpoint."""
+    response = self._get('/data/logdir')
+    self.assertEqual(response.status, 200)
+    self.assertEqual(response.read().decode('utf-8'), '/foo/logdir/argument')
 
   def testRuns(self):
     """Test the format of the /data/runs endpoint."""
@@ -110,6 +122,37 @@ class TensorboardServerTest(tf.test.TestCase):
                                          'audio': ['audio'],
                                          'graph': True,
                                          'run_metadata': ['test run']}})
+
+  def testApplicationPaths_getCached(self):
+    """Test the format of the /data/runs endpoint."""
+    for path in ('/',):  # TODO(jart): '/app.js' in open source
+      connection = http_client.HTTPConnection(
+          'localhost', self._server.server_address[1])
+      connection.request('GET', path)
+      response = connection.getresponse()
+      self.assertEqual(response.status, 200, msg=path)
+      self.assertEqual(response.getheader('Cache-Control'),
+                       'private, max-age=3600', msg=path)
+      connection.close()
+
+  def testDataPaths_disableAllCaching(self):
+    """Test the format of the /data/runs endpoint."""
+    for path in ('/data/runs',
+                 '/data/logdir',
+                 '/data/scalars?run=run1&tag=simple_values',
+                 '/data/scalars?run=run1&tag=simple_values&format=csv',
+                 '/data/images?run=run1&tag=image',
+                 '/data/individualImage?run=run1&tag=image&index=0',
+                 '/data/audio?run=run1&tag=audio',
+                 '/data/run_metadata?run=run1&tag=test%20run'):
+      connection = http_client.HTTPConnection(
+          'localhost', self._server.server_address[1])
+      connection.request('GET', path)
+      response = connection.getresponse()
+      self.assertEqual(response.status, 200, msg=path)
+      self.assertEqual(response.getheader('Expires'), '0', msg=path)
+      response.read()
+      connection.close()
 
   def testHistograms(self):
     """Test the format of /data/histograms."""
@@ -181,6 +224,48 @@ class TensorboardServerTest(tf.test.TestCase):
     self.assertEqual(graph.node[1].attr['_very_large_attrs'].list.s,
                      [b'very_large_attr'])
 
+  def testProjectorRunsWithEmbeddings(self):
+    """Test the format of /runs endpoint in projector."""
+    if 'projector' not in REGISTERED_PLUGINS:
+      return
+
+    run_json = self._getJson('/data/plugin/projector/runs')
+
+    self.assertEqual(run_json, ['run1'])
+
+  def testProjectorInfo(self):
+    """Test the format of /info endpoint in projector."""
+    if 'projector' not in REGISTERED_PLUGINS:
+      return
+
+    info_json = self._getJson('/data/plugin/projector/info?run=run1')
+    self.assertEqual(info_json['tensors'], {
+        'var1': {
+            'shape': [1, 2],
+            'name': 'var1',
+            'metadataFile': None
+        },
+        'var2': {
+            'shape': [10, 10],
+            'name': 'var2',
+            'metadataFile': None
+        },
+        'var3': {
+            'shape': [100, 100],
+            'name': 'var3',
+            'metadataFile': None
+        }
+    })
+
+  def testProjectorTensor(self):
+    """Test the format of /tensor endpoint in projector."""
+    if 'projector' not in REGISTERED_PLUGINS:
+      return
+
+    tensor_tsv = (self._get('/data/plugin/projector/tensor?run=run1&name=var1')
+                  .read())
+    self.assertEqual(tensor_tsv, b'6.0\t6.0')
+
   def testAcceptGzip_compressesResponse(self):
     response = self._get('/data/graph?run=run1&limit_attr_size=1024'
                          '&large_attrs_key=_very_large_attrs',
@@ -209,6 +294,12 @@ class TensorboardServerTest(tf.test.TestCase):
     self.assertIsNone(response.getheader('Content-Encoding'))
     graph = text_format.Parse(response.read(), tf.GraphDef())
     self.assertEqual(len(graph.node), 2)
+
+  def testAcceptGzip_doesNotCompressImage(self):
+    response = self._get('/data/individualImage?run=run1&tag=image&index=0',
+                         {'Accept-Encoding': 'gzip'})
+    self.assertEqual(response.status, 200)
+    self.assertEqual(response.getheader('Content-Encoding'), None)
 
   def testRunMetadata(self):
     """Test retrieving the run metadata information."""
@@ -294,6 +385,29 @@ class TensorboardServerTest(tf.test.TestCase):
                                                      simple_value=i)])))
     writer.flush()
     writer.close()
+
+    if 'projector' in REGISTERED_PLUGINS:
+      self._GenerateProjectorTestData(run1_path)
+
+  def _GenerateProjectorTestData(self, run_path):
+    # Write a projector config file in run1.
+    config_path = os.path.join(run_path, 'projector_config.pbtxt')
+    config = ProjectorConfig()
+    config_pbtxt = text_format.MessageToString(config)
+    with tf.gfile.GFile(config_path, 'w') as f:
+      f.write(config_pbtxt)
+
+    # Write a checkpoint with some dummy variables.
+    with tf.Graph().as_default():
+      sess = tf.Session()
+      checkpoint_path = os.path.join(run_path, 'model')
+      tf.get_variable(
+          'var1', [1, 2], initializer=tf.constant_initializer(6.0))
+      tf.get_variable('var2', [10, 10])
+      tf.get_variable('var3', [100, 100])
+      sess.run(tf.initialize_all_variables())
+      saver = tf.train.Saver()
+      saver.save(sess, checkpoint_path)
 
 
 class ParseEventFilesSpecTest(tf.test.TestCase):

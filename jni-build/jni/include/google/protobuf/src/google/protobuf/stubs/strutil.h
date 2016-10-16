@@ -147,7 +147,7 @@ inline string StripSuffixString(const string& str, const string& suffix) {
 }
 
 // ----------------------------------------------------------------------
-// StripString
+// ReplaceCharacters
 //    Replaces any occurrence of the character 'remove' (or the characters
 //    in 'remove') with the character 'replacewith'.
 //    Good for keeping html characters or protocol characters (\t) out
@@ -155,6 +155,8 @@ inline string StripSuffixString(const string& str, const string& suffix) {
 // StripWhitespace
 //    Removes whitespaces from both ends of the given string.
 // ----------------------------------------------------------------------
+LIBPROTOBUF_EXPORT void ReplaceCharacters(string* s, const char* remove,
+                                          char replacewith);
 LIBPROTOBUF_EXPORT void StripString(string* s, const char* remove,
                                     char replacewith);
 
@@ -648,6 +650,9 @@ struct LIBPROTOBUF_EXPORT AlphaNum {
   AlphaNum(StringPiece str)
       : piece_data_(str.data()), piece_size_(str.size()) {}
 
+  AlphaNum(internal::StringPiecePod str)
+      : piece_data_(str.data()), piece_size_(str.size()) {}
+
   size_t size() const { return piece_size_; }
   const char *data() const { return piece_data_; }
 
@@ -846,6 +851,11 @@ LIBPROTOBUF_EXPORT void Base64Escape(const unsigned char* src, int szsrc,
                                      string* dest, bool do_padding);
 LIBPROTOBUF_EXPORT void WebSafeBase64Escape(const unsigned char* src, int szsrc,
                                             string* dest, bool do_padding);
+
+inline bool IsValidCodePoint(uint32 code_point) {
+  return code_point < 0xD800 ||
+         (code_point >= 0xE000 && code_point <= 0x10FFFF);
+}
 
 static const int UTFmax = 4;
 // ----------------------------------------------------------------------

@@ -55,6 +55,11 @@ class FileDescriptor;        // descriptor.h
 class FileDescriptorProto;   // descriptor.pb.h
 template<typename T> class RepeatedPtrField;  // repeated_field.h
 
+}  // namespace protobuf
+}  // namespace google
+
+namespace google {
+namespace protobuf {
 namespace compiler {
 
 class CodeGenerator;        // code_generator.h
@@ -212,6 +217,7 @@ class LIBPROTOC_EXPORT CommandLineInterface {
   // Parse all command-line arguments.
   ParseArgumentStatus ParseArguments(int argc, const char* const argv[]);
 
+
   // Parses a command-line argument into a name/value pair.  Returns
   // true if the next argument in the argv should be used as the value,
   // false otherwise.
@@ -345,6 +351,11 @@ class LIBPROTOC_EXPORT CommandLineInterface {
 
   vector<pair<string, string> > proto_path_;  // Search path for proto files.
   vector<string> input_files_;                // Names of the input proto files.
+
+  // Names of proto files which are allowed to be imported. Used by build
+  // systems to enforce depend-on-what-you-import.
+  set<string> direct_dependencies_;
+  bool direct_dependencies_explicitly_set_;
 
   // output_directives_ lists all the files we are supposed to output and what
   // generator to use for each.

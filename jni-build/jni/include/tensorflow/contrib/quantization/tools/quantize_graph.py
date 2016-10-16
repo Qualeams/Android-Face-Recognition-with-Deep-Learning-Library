@@ -66,12 +66,12 @@ flags.DEFINE_boolean("load_quantization_so", True,
 
 def print_input_nodes(current_node, nodes_map, indent, already_visited):
   print(" " * indent + current_node.op + ":" + current_node.name)
+  already_visited[current_node.name] = True
   for input_node_name in current_node.input:
     if input_node_name in already_visited:
       continue
     input_node = nodes_map[input_node_name]
     print_input_nodes(input_node, nodes_map, indent + 1, already_visited)
-  already_visited[current_node.name] = True
 
 
 def create_node(op, name, inputs):
@@ -213,7 +213,7 @@ def quantize_weight_rounded(input_node):
   # Currently, the parameter FLAGS.bitdepth is used to compute the
   # number of buckets as 1 << FLAGS.bitdepth, meaning the number of
   # buckets can only be a power of 2.
-  # This could be fixed by intorducing a new parameter, num_buckets,
+  # This could be fixed by introducing a new parameter, num_buckets,
   # which would allow for more flexibility in chosing the right model
   # size/accuracy tradeoff. But I didn't want to add more parameters
   # to this script than absolutely necessary.
@@ -327,7 +327,9 @@ class GraphRewriter(object):
       for output_node in output_nodes:
         self.quantize_nodes_recursively(output_node)
     elif self.mode == "eightbit":
-      self.set_input_graph(self.remove_unneeded_nodes(self.input_graph))
+      self.set_input_graph(graph_util.remove_training_nodes(self.input_graph))
+      output_nodes = [self.nodes_map[output_node_name]
+                      for output_node_name in output_node_names]
       self.already_visited = {}
       self.layers_eightbitized = []
       for output_node in output_nodes:
@@ -350,13 +352,13 @@ class GraphRewriter(object):
 
   def round_nodes_recursively(self, current_node):
     """The entry point for simple rounding quantization."""
+    if self.already_visited[current_node.name]:
+      return
+    self.already_visited[current_node.name] = True
     for input_node_name in current_node.input:
       input_node_name = node_name_from_input(input_node_name)
-      if input_node_name in self.already_visited:
-        continue
       input_node = self.nodes_map[input_node_name]
       self.round_nodes_recursively(input_node)
-    self.already_visited[current_node.name] = True
     nodes_to_quantize = ["Conv2D", "BiasAdd", "MatMul"]
     if any(current_node.op in s for s in nodes_to_quantize):
       new_node = tf.NodeDef()
@@ -381,13 +383,13 @@ class GraphRewriter(object):
 
   def quantize_nodes_recursively(self, current_node):
     """The entry point for quantizing nodes to eight bit and back."""
+    if self.already_visited[current_node.name]:
+      return
+    self.already_visited[current_node.name] = True
     for input_node_name in current_node.input:
       input_node_name = node_name_from_input(input_node_name)
-      if input_node_name in self.already_visited:
-        continue
       input_node = self.nodes_map[input_node_name]
       self.quantize_nodes_recursively(input_node)
-    self.already_visited[current_node.name] = True
     nodes_to_quantize = ["Conv2D", "BiasAdd", "MatMul"]
     if any(current_node.op in s for s in nodes_to_quantize):
       for input_name in current_node.input:
@@ -448,13 +450,13 @@ class GraphRewriter(object):
 
   def eightbitize_nodes_recursively(self, current_node):
     """The entry point for transforming a graph into full eight bit."""
+    self.already_visited[current_node.name] = True
     for input_node_name in current_node.input:
       input_node_name = node_name_from_input(input_node_name)
       if input_node_name in self.already_visited:
         continue
       input_node = self.nodes_map[input_node_name]
       self.eightbitize_nodes_recursively(input_node)
-    self.already_visited[current_node.name] = True
     if current_node.op == "MatMul":
       self.eightbitize_mat_mul_node(current_node)
     elif current_node.op == "Conv2D":
@@ -963,78 +965,6 @@ class GraphRewriter(object):
         output_graph.node.extend([output_node])
     return output_graph
 
-  def remove_unneeded_nodes(self, input_graph):
-    """Prunes out nodes that aren't needed for inference.
-
-    There are nodes like Identity and CheckNumerics that are only useful
-    during training, and can be removed in graphs that will be used for
-    nothing but inference. Here we identify and remove them, returning an
-    equivalent graph.
-
-    Args:
-      input_graph: Model to analyze and prune.
-
-    Returns:
-    A list of nodes with the unnecessary ones removed.
-    """
-
-    types_to_remove = {"CheckNumerics": True}
-
-    input_nodes = input_graph.node
-    names_to_remove = {}
-    for node in input_nodes:
-      if node.op in types_to_remove:
-        names_to_remove[node.name] = True
-
-    nodes_after_removal = []
-    for node in input_nodes:
-      if node.name in names_to_remove:
-        continue
-      new_node = tf.NodeDef()
-      new_node.CopyFrom(node)
-      input_before_removal = node.input
-      del new_node.input[:]
-      for full_input_name in input_before_removal:
-        input_name = re.sub(r"^\^", "", full_input_name)
-        if input_name in names_to_remove:
-          continue
-        new_node.input.append(full_input_name)
-      nodes_after_removal.append(new_node)
-
-    types_to_splice = {"Identity": True}
-    names_to_splice = {}
-    for node in nodes_after_removal:
-      if node.op in types_to_splice:
-        # We don't want to remove nodes that have control edge inputs, because
-        # they might be involved in subtle dependency issues that removing them
-        # will jeopardize.
-        has_control_edge = False
-        for input_name in node.input:
-          if re.match(r"^\^", input_name):
-            has_control_edge = True
-        if not has_control_edge:
-          names_to_splice[node.name] = node.input[0]
-
-    nodes_after_splicing = []
-    for node in nodes_after_removal:
-      if node.name in names_to_splice:
-        continue
-      new_node = tf.NodeDef()
-      new_node.CopyFrom(node)
-      input_before_removal = node.input
-      del new_node.input[:]
-      for full_input_name in input_before_removal:
-        input_name = re.sub(r"^\^", "", full_input_name)
-        if input_name in names_to_splice:
-          new_node.input.append(names_to_splice[input_name])
-        else:
-          new_node.input.append(full_input_name)
-      nodes_after_splicing.append(new_node)
-
-    output_graph = tf.GraphDef()
-    output_graph.node.extend(nodes_after_splicing)
-    return output_graph
-
   def set_input_graph(self, new_input_graph):
     self.input_graph = new_input_graph
     self.nodes_map = self.create_nodes_map(self.input_graph)
@@ -1053,7 +983,7 @@ def main(unused_args):
     return -1
 
   tf_graph = tf.GraphDef()
-  with tf.gfile.Open(FLAGS.input, "r") as f:
+  with tf.gfile.Open(FLAGS.input, "rb") as f:
     data = f.read()
     tf_graph.ParseFromString(data)
 
@@ -1065,7 +995,7 @@ def main(unused_args):
 
   output_graph = rewriter.rewrite(FLAGS.output_node_names.split(","))
 
-  f = tf.gfile.FastGFile(FLAGS.output, "w")
+  f = tf.gfile.FastGFile(FLAGS.output, "wb")
   f.write(output_graph.SerializeToString())
 
   return 0

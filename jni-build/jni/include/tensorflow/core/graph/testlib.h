@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-// DEPRECATED: Use GraphDefBuilder instead.
+// DEPRECATED: Use the C++ API defined in tensorflow/cc instead.
 
 #ifndef TENSORFLOW_GRAPH_TESTLIB_H_
 #define TENSORFLOW_GRAPH_TESTLIB_H_
@@ -76,6 +76,9 @@ Node* Reduce(Graph* g, const string& reduce, Node* data, Node* axes,
 // Adds a Matmul node in g doing in0.contract(in1).
 Node* Matmul(Graph* g, Node* in0, Node* in1, bool transpose_a,
              bool transpose_b);
+
+// Adds a Matmul node in g doing in0.contract(in1).
+Node* BatchMatmul(Graph* g, Node* in0, Node* in1, bool adj_x, bool adj_y);
 
 // Adds a Quantize node into g that quantize floats into QUINT8. The range of
 // the input float tensor is assumed to be [-1, 1].
@@ -161,7 +164,7 @@ Node* Select(Graph* g, Node* c, Node* inx, Node* iny);
 // Casts "in" into data type "dst".
 Node* Cast(Graph* g, Node* in, DataType dst);
 
-// Perform gather op on params "in0" with indicies "in1".
+// Perform gather op on params "in0" with indices "in1".
 Node* Gather(Graph* g, Node* in0, Node* in1);
 
 // Computes the args needed broadcast gradient function.

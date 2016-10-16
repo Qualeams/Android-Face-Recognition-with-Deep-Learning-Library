@@ -24,6 +24,7 @@ import time
 from tensorflow.core.framework.summary_pb2 import Summary
 from tensorflow.core.util.event_pb2 import SessionLog
 from tensorflow.python.framework import dtypes
+from tensorflow.python.framework import meta_graph
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import data_flow_ops
@@ -106,8 +107,8 @@ class Supervisor(object):
 
   In the *chief* task, the `Supervisor` works exactly as in the first example
   above.  In the other tasks `sv.managed_session()` waits for the Model to have
-  been intialized before returning a session to the training code.  The
-  non-chief tasks depend on the chief taks for initializing the model.
+  been initialized before returning a session to the training code.  The
+  non-chief tasks depend on the chief task for initializing the model.
 
   If one of the tasks crashes and restarts, `managed_session()`
   checks if the Model is initialized.  If yes, it just creates a session and
@@ -210,14 +211,26 @@ class Supervisor(object):
   # the default behavior should be used.
   USE_DEFAULT = 0
 
-  def __init__(self, graph=None, ready_op=USE_DEFAULT, is_chief=True,
-               init_op=USE_DEFAULT, init_feed_dict=None,
-               local_init_op=USE_DEFAULT, logdir=None,
-               summary_op=USE_DEFAULT, saver=USE_DEFAULT,
-               global_step=USE_DEFAULT, save_summaries_secs=120,
-               save_model_secs=600, recovery_wait_secs=30, stop_grace_secs=120,
-               checkpoint_basename="model.ckpt", session_manager=None,
-               summary_writer=USE_DEFAULT, init_fn=None):
+  def __init__(self,
+               graph=None,
+               ready_op=USE_DEFAULT,
+               ready_for_local_init_op=USE_DEFAULT,
+               is_chief=True,
+               init_op=USE_DEFAULT,
+               init_feed_dict=None,
+               local_init_op=USE_DEFAULT,
+               logdir=None,
+               summary_op=USE_DEFAULT,
+               saver=USE_DEFAULT,
+               global_step=USE_DEFAULT,
+               save_summaries_secs=120,
+               save_model_secs=600,
+               recovery_wait_secs=30,
+               stop_grace_secs=120,
+               checkpoint_basename="model.ckpt",
+               session_manager=None,
+               summary_writer=USE_DEFAULT,
+               init_fn=None):
     """Create a `Supervisor`.
 
     Args:
@@ -230,6 +243,13 @@ class Supervisor(object):
         The model is considered ready if it returns an empty array.  Defaults to
         the tensor returned from `tf.report_uninitialized_variables()`  If
         `None`, the model is not checked for readiness.
+      ready_for_local_init_op: 1-D string `Tensor`.  This tensor is evaluated by
+        supervisors in `prepare_or_wait_for_session()` to check if the model is
+        ready to run the local_init_op.
+        The model is considered ready if it returns an empty array.  Defaults to
+        the tensor returned from
+        `tf.report_uninitialized_variables(tf.all_variables())`. If `None`, the
+        model is not checked for readiness before running local_init_op.
       is_chief: If True, create a chief supervisor in charge of initializing
         and restoring the model.  If False, create a supervisor that relies
         on a chief supervisor for inits and restore.
@@ -257,7 +277,7 @@ class Supervisor(object):
       global_step: An integer Tensor of size 1 that counts steps.  The value
         from 'global_step' is used in summaries and checkpoint filenames.
         Default to the op named 'global_step' in the graph if it exists, is of
-        rank 1, size 1, and of type tf.int32 ot tf.int64.  If `None` the global
+        rank 1, size 1, and of type tf.int32 or tf.int64.  If `None` the global
         step is not recorded in summaries and checkpoint files.  Used by chief
         supervisors if a `logdir` was specified.
       save_summaries_secs: Number of seconds between the computation of
@@ -287,13 +307,17 @@ class Supervisor(object):
     if graph is None:
       graph = ops.get_default_graph()
     with graph.as_default():
-      self._init_ready_op(ready_op=ready_op)
+      self._init_ready_op(
+          ready_op=ready_op, ready_for_local_init_op=ready_for_local_init_op)
       self._init_init_op(init_op=init_op, init_feed_dict=init_feed_dict)
       self._init_local_init_op(local_init_op=local_init_op)
       self._init_saver(saver=saver)
       self._init_summary_op(summary_op=summary_op)
       self._init_global_step(global_step=global_step)
     self._graph = graph
+    self._meta_graph_def = meta_graph.create_meta_graph_def(
+        graph_def=graph.as_graph_def(add_shapes=True),
+        saver_def=self._saver.saver_def if self._saver else None)
     self._is_chief = is_chief
     self._coord = coordinator.Coordinator()
     self._recovery_wait_secs = recovery_wait_secs
@@ -331,7 +355,9 @@ class Supervisor(object):
     if session_manager is None:
       self._session_manager = session_manager_mod.SessionManager(
           local_init_op=self._local_init_op,
-          ready_op=self._ready_op, graph=self._graph,
+          ready_op=self._ready_op,
+          ready_for_local_init_op=self._ready_for_local_init_op,
+          graph=self._graph,
           recovery_wait_secs=self._recovery_wait_secs)
     else:
       self._session_manager = session_manager
@@ -357,13 +383,19 @@ class Supervisor(object):
 
     return None
 
-  def _init_ready_op(self, ready_op=USE_DEFAULT):
+  def _init_ready_op(self,
+                     ready_op=USE_DEFAULT,
+                     ready_for_local_init_op=USE_DEFAULT):
     """Initializes ready_op.
 
     Args:
       ready_op: `Tensor` to check if the model is initialized.
         If it's set to USE_DEFAULT, creates an op that checks all
         the variables are initialized.
+      ready_for_local_init_op: `Tensor` to check if the model is ready to run
+        local_init_op.
+        If it's set to USE_DEFAULT, creates an op that checks all
+        the global variables are initialized.
     """
     if ready_op is Supervisor.USE_DEFAULT:
       ready_op = self._get_first_op_from_collection(ops.GraphKeys.READY_OP)
@@ -371,6 +403,12 @@ class Supervisor(object):
         ready_op = variables.report_uninitialized_variables()
         ops.add_to_collection(ops.GraphKeys.READY_OP, ready_op)
     self._ready_op = ready_op
+
+    # ready_for_local_init_op defaults to None for backward compatibility
+    if ready_for_local_init_op is Supervisor.USE_DEFAULT:
+      ready_for_local_init_op = self._get_first_op_from_collection(
+          ops.GraphKeys.READY_FOR_LOCAL_INIT_OP)
+    self._ready_for_local_init_op = ready_for_local_init_op
 
   def _init_init_op(self, init_op=USE_DEFAULT, init_feed_dict=None):
     """Initializes init_op.
@@ -424,7 +462,7 @@ class Supervisor(object):
     self._saver = saver
 
   def _init_summary_op(self, summary_op=USE_DEFAULT):
-    """Initilizes summary_op.
+    """Initializes summary_op.
 
     Args:
       summary_op: An Operation that returns a Summary for the event logs.
@@ -512,6 +550,10 @@ class Supervisor(object):
     return self._ready_op
 
   @property
+  def ready_for_local_init_op(self):
+    return self._ready_for_local_init_op
+
+  @property
   def summary_writer(self):
     """Return the SummaryWriter used by the chief supervisor.
 
@@ -582,6 +624,7 @@ class Supervisor(object):
                                 self._logdir, "graph.pbtxt")
     if self._summary_writer and not self._graph_added_to_summary:
       self._summary_writer.add_graph(self._graph)
+      self._summary_writer.add_meta_graph(self._meta_graph_def)
       self._graph_added_to_summary = True
 
   def start_standard_services(self, sess):
@@ -692,7 +735,7 @@ class Supervisor(object):
     Note that the queue runners collected in the graph key `QUEUE_RUNNERS`
     are already started automatically when you create a session with the
     supervisor, so unless you have non-collected queue runners to start
-    you do not need to call this explicitely.
+    you do not need to call this explicitly.
 
     Args:
       sess: A `Session`.

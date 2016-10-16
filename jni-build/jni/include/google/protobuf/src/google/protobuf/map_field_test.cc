@@ -47,8 +47,8 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <gtest/gtest.h>
-
 namespace google {
+
 namespace protobuf {
 
 namespace internal {
@@ -78,7 +78,7 @@ class MapFieldBaseStub : public MapFieldBase {
   bool ContainsMapKey(const MapKey& map_key) const {
     return false;
   }
-  bool InsertMapValue(const MapKey& map_key, MapValueRef* val) {
+  bool InsertOrLookupMapValue(const MapKey& map_key, MapValueRef* val) {
     return false;
   }
   bool DeleteMapValue(const MapKey& map_key) {

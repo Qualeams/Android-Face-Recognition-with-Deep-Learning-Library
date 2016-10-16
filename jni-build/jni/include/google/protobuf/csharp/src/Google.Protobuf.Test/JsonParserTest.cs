@@ -133,17 +133,20 @@ namespace Google.Protobuf
         }
 
         [Test]
+        [TestCase(typeof(BoolValue), "true", true)]
         [TestCase(typeof(Int32Value), "32", 32)]
         [TestCase(typeof(Int64Value), "32", 32L)]
+        [TestCase(typeof(Int64Value), "\"32\"", 32L)]
         [TestCase(typeof(UInt32Value), "32", 32U)]
+        [TestCase(typeof(UInt64Value), "\"32\"", 32UL)]
         [TestCase(typeof(UInt64Value), "32", 32UL)]
         [TestCase(typeof(StringValue), "\"foo\"", "foo")]
         [TestCase(typeof(FloatValue), "1.5", 1.5f)]
         [TestCase(typeof(DoubleValue), "1.5", 1.5d)]
         public void Wrappers_Standalone(System.Type wrapperType, string json, object expectedValue)
         {
-            IMessage parsed = (IMessage) Activator.CreateInstance(wrapperType);
-            IMessage expected = (IMessage) Activator.CreateInstance(wrapperType);
+            IMessage parsed = (IMessage)Activator.CreateInstance(wrapperType);
+            IMessage expected = (IMessage)Activator.CreateInstance(wrapperType);
             JsonParser.Default.Merge(parsed, "null");
             Assert.AreEqual(expected, parsed);
 
@@ -640,7 +643,7 @@ namespace Google.Protobuf
             var parsed = Timestamp.Parser.ParseJson(json);
             Assert.AreEqual(WrapInQuotes(expectedFormatted), parsed.ToString());
         }
-        
+
         [Test]
         [TestCase("2015-10-09 14:46:23.123456789Z", Description = "No T between date and time")]
         [TestCase("2015/10/09T14:46:23.123456789Z", Description = "Wrong date separators")]
@@ -811,6 +814,17 @@ namespace Google.Protobuf
         }
 
         [Test]
+        public void Any_CustomPrefix()
+        {
+            var registry = TypeRegistry.FromMessages(TestAllTypes.Descriptor);
+            var message = new TestAllTypes { SingleInt32 = 10 };
+            var original = Any.Pack(message, "custom.prefix/middle-part");
+            var parser = new JsonParser(new JsonParser.Settings(10, registry));
+            string json = "{ \"@type\": \"custom.prefix/middle-part/protobuf_unittest.TestAllTypes\", \"singleInt32\": 10 }";
+            Assert.AreEqual(original, parser.Parse<Any>(json));
+        }
+
+        [Test]
         public void Any_UnknownType()
         {
             string json = "{ \"@type\": \"type.googleapis.com/bogus\" }";
@@ -886,9 +900,9 @@ namespace Google.Protobuf
         }
 
         [Test]
-        [TestCase("\"FOREIGN_BAR\"", ForeignEnum.FOREIGN_BAR)]
-        [TestCase("5", ForeignEnum.FOREIGN_BAR)]
-        [TestCase("100", (ForeignEnum) 100)]
+        [TestCase("\"FOREIGN_BAR\"", ForeignEnum.ForeignBar)]
+        [TestCase("5", ForeignEnum.ForeignBar)]
+        [TestCase("100", (ForeignEnum)100)]
         public void EnumValid(string value, ForeignEnum expectedValue)
         {
             string json = "{ \"singleForeignEnum\": " + value + " }";

@@ -30,6 +30,7 @@
 
 package com.google.protobuf;
 
+import com.google.protobuf.Descriptors.Descriptor;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.TextFormat.Parser.SingularOverwritePolicy;
 import protobuf_unittest.UnittestMset.TestMessageSetExtension1;
@@ -41,10 +42,9 @@ import protobuf_unittest.UnittestProto.TestAllTypes.NestedMessage;
 import protobuf_unittest.UnittestProto.TestEmptyMessage;
 import protobuf_unittest.UnittestProto.TestOneof2;
 import proto2_wireformat_unittest.UnittestMsetWireFormat.TestMessageSet;
-
-import junit.framework.TestCase;
-
 import java.io.StringReader;
+import java.util.List;
+import junit.framework.TestCase;
 
 /**
  * Test case for {@link TextFormat}.
@@ -520,15 +520,16 @@ public class TextFormatTest extends TestCase {
       "optional_string: \"ueoauaoe\n" +
       "optional_int32: 123");
     assertParseError(
-      "1:2: Extension \"nosuchext\" not found in the ExtensionRegistry.",
+      "1:2: Input contains unknown fields and/or extensions:\n" +
+      "1:2:\tprotobuf_unittest.TestAllTypes.[nosuchext]",
       "[nosuchext]: 123");
     assertParseError(
       "1:20: Extension \"protobuf_unittest.optional_int32_extension\" does " +
         "not extend message type \"protobuf_unittest.TestAllTypes\".",
       "[protobuf_unittest.optional_int32_extension]: 123");
     assertParseError(
-      "1:1: Message type \"protobuf_unittest.TestAllTypes\" has no field " +
-        "named \"nosuchfield\".",
+      "1:1: Input contains unknown fields and/or extensions:\n" +
+      "1:1:\tprotobuf_unittest.TestAllTypes.nosuchfield",
       "nosuchfield: 123");
     assertParseError(
       "1:21: Expected \">\".",
@@ -567,6 +568,16 @@ public class TextFormatTest extends TestCase {
       TextFormat.escapeText(kEscapeTestString));
     assertEquals(kEscapeTestString,
       TextFormat.unescapeText(kEscapeTestStringEscaped));
+
+    // Invariant
+    assertEquals("hello",
+        TextFormat.escapeBytes(bytes("hello")));
+    assertEquals("hello",
+        TextFormat.escapeText("hello"));
+    assertEquals(bytes("hello"),
+        TextFormat.unescapeBytes("hello"));
+    assertEquals("hello",
+        TextFormat.unescapeText("hello"));
 
     // Unicode handling.
     assertEquals("\\341\\210\\264", TextFormat.escapeText("\u1234"));
@@ -763,10 +774,13 @@ public class TextFormatTest extends TestCase {
   public void testParseBoolean() throws Exception {
     String goodText =
         "repeated_bool: t  repeated_bool : 0\n" +
-        "repeated_bool :f repeated_bool:1";
+        "repeated_bool :f repeated_bool:1\n" +
+        "repeated_bool: False repeated_bool: True";
     String goodTextCanonical =
         "repeated_bool: true\n" +
         "repeated_bool: false\n" +
+        "repeated_bool: false\n" +
+        "repeated_bool: true\n" +
         "repeated_bool: false\n" +
         "repeated_bool: true\n";
     TestAllTypes.Builder builder = TestAllTypes.newBuilder();
@@ -811,7 +825,6 @@ public class TextFormatTest extends TestCase {
 
   private void assertPrintFieldValue(String expect, Object value,
       String fieldName) throws Exception {
-    TestAllTypes.Builder builder = TestAllTypes.newBuilder();
     StringBuilder sb = new StringBuilder();
     TextFormat.printFieldValue(
         TestAllTypes.getDescriptor().findFieldByName(fieldName),
@@ -977,10 +990,35 @@ public class TextFormatTest extends TestCase {
     assertParseSuccessWithOverwriteForbidden("repeated_nested_message [{ bb: 1 }, { bb: 2 }]\n");
   }
 
+  public void testParseShortRepeatedFormOfEmptyRepeatedFields() throws Exception {
+    assertParseSuccessWithOverwriteForbidden("repeated_foreign_enum: []");
+    assertParseSuccessWithOverwriteForbidden("repeated_int32: []\n");
+    assertParseSuccessWithOverwriteForbidden("RepeatedGroup []\n");
+    assertParseSuccessWithOverwriteForbidden("repeated_nested_message []\n");
+  }
+
+  public void testParseShortRepeatedFormWithTrailingComma() throws Exception {
+    assertParseErrorWithOverwriteForbidden(
+        "1:38: Expected identifier. Found \']\'",
+        "repeated_foreign_enum: [FOREIGN_FOO, ]\n");
+    assertParseErrorWithOverwriteForbidden(
+        "1:22: Couldn't parse integer: For input string: \"]\"",
+        "repeated_int32: [ 1, ]\n");
+    assertParseErrorWithOverwriteForbidden(
+        "1:25: Expected \"{\".",
+        "RepeatedGroup [{ a: 1 },]\n");
+    assertParseErrorWithOverwriteForbidden(
+        "1:37: Expected \"{\".",
+        "repeated_nested_message [{ bb: 1 }, ]\n");
+  }
+
   public void testParseShortRepeatedFormOfNonRepeatedFields() throws Exception {
     assertParseErrorWithOverwriteForbidden(
         "1:17: Couldn't parse integer: For input string: \"[\"",
         "optional_int32: [1]\n");
+    assertParseErrorWithOverwriteForbidden(
+        "1:17: Couldn't parse integer: For input string: \"[\"",
+        "optional_int32: []\n");
   }
 
   // =======================================================================
@@ -1017,5 +1055,99 @@ public class TextFormatTest extends TestCase {
     TestOneof2 oneof = builder.build();
     assertFalse(oneof.hasFooString());
     assertTrue(oneof.hasFooInt());
+  }
+
+  // =======================================================================
+  // test location information
+
+  public void testParseInfoTreeBuilding() throws Exception {
+    TestAllTypes.Builder builder = TestAllTypes.newBuilder();
+
+    Descriptor descriptor = TestAllTypes.getDescriptor();
+    TextFormatParseInfoTree.Builder treeBuilder = TextFormatParseInfoTree.builder();
+    // Set to allow unknown fields
+    TextFormat.Parser parser =
+        TextFormat.Parser.newBuilder()
+            .setParseInfoTreeBuilder(treeBuilder)
+            .build();
+
+    final String stringData =
+        "optional_int32: 1\n"
+        + "optional_int64: 2\n"
+        + "  optional_double: 2.4\n"
+        + "repeated_int32: 5\n"
+        + "repeated_int32: 10\n"
+        + "optional_nested_message <\n"
+        + "  bb: 78\n"
+        + ">\n"
+        + "repeated_nested_message <\n"
+        + "  bb: 79\n"
+        + ">\n"
+        + "repeated_nested_message <\n"
+        + "  bb: 80\n"
+        + ">";
+
+    parser.merge(stringData, builder);
+    TextFormatParseInfoTree tree = treeBuilder.build();
+
+    // Verify that the tree has the correct positions.
+    assertLocation(tree, descriptor, "optional_int32", 0, 0, 0);
+    assertLocation(tree, descriptor, "optional_int64", 0, 1, 0);
+    assertLocation(tree, descriptor, "optional_double", 0, 2, 2);
+
+    assertLocation(tree, descriptor, "repeated_int32", 0, 3, 0);
+    assertLocation(tree, descriptor, "repeated_int32", 1, 4, 0);
+
+    assertLocation(tree, descriptor, "optional_nested_message", 0, 5, 0);
+    assertLocation(tree, descriptor, "repeated_nested_message", 0, 8, 0);
+    assertLocation(tree, descriptor, "repeated_nested_message", 1, 11, 0);
+
+    // Check for fields not set. For an invalid field, the location returned should be -1, -1.
+    assertLocation(tree, descriptor, "repeated_int64", 0, -1, -1);
+    assertLocation(tree, descriptor, "repeated_int32", 6, -1, -1);
+
+    // Verify inside the nested message.
+    FieldDescriptor nestedField = descriptor.findFieldByName("optional_nested_message");
+
+    TextFormatParseInfoTree nestedTree = tree.getNestedTrees(nestedField).get(0);
+    assertLocation(nestedTree, nestedField.getMessageType(), "bb", 0, 6, 2);
+
+    // Verify inside another nested message.
+    nestedField = descriptor.findFieldByName("repeated_nested_message");
+    nestedTree = tree.getNestedTrees(nestedField).get(0);
+    assertLocation(nestedTree, nestedField.getMessageType(), "bb", 0, 9, 2);
+
+    nestedTree = tree.getNestedTrees(nestedField).get(1);
+    assertLocation(nestedTree, nestedField.getMessageType(), "bb", 0, 12, 2);
+
+    // Verify a NULL tree for an unknown nested field.
+    try {
+      tree.getNestedTree(nestedField, 2);
+      fail("unknown nested field should throw");
+    } catch (IllegalArgumentException unused) {
+      // pass
+    }
+  }
+
+  private void assertLocation(
+      TextFormatParseInfoTree tree,
+      final Descriptor descriptor,
+      final String fieldName,
+      int index,
+      int line,
+      int column) {
+    List<TextFormatParseLocation> locs = tree.getLocations(descriptor.findFieldByName(fieldName));
+    if (index < locs.size()) {
+      TextFormatParseLocation location = locs.get(index);
+      TextFormatParseLocation expected = TextFormatParseLocation.create(line, column);
+      assertEquals(expected, location);
+    } else if (line != -1 && column != -1) {
+      fail(
+          String.format(
+              "Tree/descriptor/fieldname did not contain index %d, line %d column %d expected",
+              index,
+              line,
+              column));
+    }
   }
 }

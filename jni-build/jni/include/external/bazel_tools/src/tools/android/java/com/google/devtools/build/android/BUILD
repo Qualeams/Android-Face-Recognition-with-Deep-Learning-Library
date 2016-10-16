@@ -1,0 +1,46 @@
+package(default_visibility = ["//visibility:public"])
+
+java_import(
+    name = "classes",
+    jars = [":classes_deploy.jar"],
+)
+
+java_binary(
+    name = "AarGeneratorAction",
+    main_class = "com.google.devtools.build.android.AarGeneratorAction",
+    runtime_deps = [
+        ":classes",
+    ],
+)
+
+java_binary(
+    name = "AndroidResourceProcessingAction",
+    main_class = "com.google.devtools.build.android.AndroidResourceProcessingAction",
+    runtime_deps = [
+        ":classes",
+    ],
+)
+
+java_binary(
+    name = "ManifestMergerAction",
+    main_class = "com.google.devtools.build.android.ManifestMergerAction",
+    runtime_deps = [
+        ":classes",
+    ],
+)
+
+java_binary(
+    name = "RClassGeneratorAction",
+    main_class = "com.google.devtools.build.android.RClassGeneratorAction",
+    runtime_deps = [
+        ":classes",
+    ],
+)
+
+java_binary(
+    name = "ResourceShrinkerAction",
+    main_class = "com.google.devtools.build.android.ResourceShrinkerAction",
+    runtime_deps = [
+        ":classes",
+    ],
+)

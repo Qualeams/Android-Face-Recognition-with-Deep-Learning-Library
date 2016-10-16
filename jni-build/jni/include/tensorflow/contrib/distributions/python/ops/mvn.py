@@ -21,6 +21,7 @@ from __future__ import print_function
 import math
 
 from tensorflow.contrib.distributions.python.ops import distribution
+from tensorflow.contrib.distributions.python.ops import distribution_util
 from tensorflow.contrib.distributions.python.ops import kullback_leibler
 from tensorflow.contrib.distributions.python.ops import operator_pd_cholesky
 from tensorflow.contrib.distributions.python.ops import operator_pd_diag
@@ -29,24 +30,39 @@ from tensorflow.contrib.distributions.python.ops import operator_pd_vdvt_update
 from tensorflow.contrib.framework.python.framework import tensor_util as contrib_tensor_util
 from tensorflow.python.framework import constant_op
 from tensorflow.python.framework import ops
-from tensorflow.python.framework import tensor_shape
-from tensorflow.python.framework import tensor_util
 from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import check_ops
 from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import math_ops
+from tensorflow.python.ops import nn
 from tensorflow.python.ops import random_ops
 
 
 __all__ = [
     "MultivariateNormalDiag",
+    "MultivariateNormalDiagWithSoftplusStDev",
     "MultivariateNormalCholesky",
     "MultivariateNormalFull",
     "MultivariateNormalDiagPlusVDVT",
 ]
 
+_mvn_prob_note = """
+`x` is a batch vector with compatible shape if `x` is a `Tensor` whose
+shape can be broadcast up to either:
 
-class MultivariateNormalOperatorPD(distribution.Distribution):
+```
+self.batch_shape + self.event_shape
+```
+
+or
+
+```
+[M1,...,Mm] + self.batch_shape + self.event_shape
+```
+"""
+
+
+class _MultivariateNormalOperatorPD(distribution.Distribution):
   """The multivariate normal distribution on `R^k`.
 
   This distribution is defined by a 1-D mean `mu` and an instance of
@@ -74,7 +90,7 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
   mu = [1, 2, 3]
   chol = [[1, 0, 0.], [1, 3, 0], [1, 2, 3]]
   cov = tf.contrib.distributions.OperatorPDCholesky(chol)
-  dist = tf.contrib.distributions.MultivariateNormalOperatorPD(mu, cov)
+  dist = tf.contrib.distributions._MultivariateNormalOperatorPD(mu, cov)
 
   # Evaluate this on an observation in R^3, returning a scalar.
   dist.pdf([-1, 0, 1.])
@@ -83,7 +99,7 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
   mu = [[1, 2, 3], [11, 22, 33.]]
   chol = ...  # shape 2 x 3 x 3, lower triangular, positive diagonal.
   cov = tf.contrib.distributions.OperatorPDCholesky(chol)
-  dist = tf.contrib.distributions.MultivariateNormalOperatorPD(mu, cov)
+  dist = tf.contrib.distributions._MultivariateNormalOperatorPD(mu, cov)
 
   # Evaluate this on a two observations, each in R^3, returning a length two
   # tensor.
@@ -96,8 +112,8 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
   def __init__(self,
                mu,
                cov,
-               validate_args=True,
-               allow_nan_stats=False,
+               validate_args=False,
+               allow_nan_stats=True,
                name="MultivariateNormalCov"):
     """Multivariate Normal distributions on `R^k`.
 
@@ -108,10 +124,10 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
       mu: Floating point tensor with shape `[N1,...,Nb, k]`, `b >= 0`.
       cov: Instance of `OperatorPDBase` with same `dtype` as `mu` and shape
         `[N1,...,Nb, k, k]`.
-      validate_args: Whether to validate input with asserts.  If `validate_args`
-        is `False`, and the inputs are invalid, correct behavior is not
-        guaranteed.
-      allow_nan_stats:  `Boolean`, default `False`.  If `False`, raise an
+      validate_args: `Boolean`, default `False`.  Whether to validate input
+        with asserts.  If `validate_args` is `False`, and the inputs are
+        invalid, correct behavior is not guaranteed.
+      allow_nan_stats: `Boolean`, default `True`.  If `False`, raise an
         exception if a statistic (e.g. mean/mode/etc...) is undefined for any
         batch member If `True`, batch members with valid parameters leading to
         undefined statistics will return NaN for this statistic.
@@ -120,24 +136,28 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
     Raises:
       TypeError: If `mu` and `cov` are different dtypes.
     """
-    self._allow_nan_stats = allow_nan_stats
-    self._validate_args = validate_args
-    with ops.name_scope(name):
-      with ops.op_scope([mu] + cov.inputs, "init"):
+    with ops.name_scope(name) as ns:
+      with ops.name_scope("init", values=[mu] + cov.inputs):
+        self._mu = array_ops.identity(mu, name="mu")
         self._cov = cov
-        self._mu = self._check_mu(mu)
-        self._name = name
+        self._validate_args = validate_args  # Needed by _assert_valid_mu.
+        self._mu = self._assert_valid_mu(self._mu)
+        super(_MultivariateNormalOperatorPD, self).__init__(
+            dtype=self._mu.dtype,
+            parameters={"mu": self._mu, "cov": self._cov},
+            is_reparameterized=True,
+            is_continuous=True,
+            validate_args=validate_args,
+            allow_nan_stats=allow_nan_stats,
+            name=ns)
 
-  def _check_mu(self, mu):
+  def _assert_valid_mu(self, mu):
     """Return `mu` after validity checks and possibly with assertations."""
-    mu = ops.convert_to_tensor(mu)
     cov = self._cov
-
     if mu.dtype != cov.dtype:
       raise TypeError(
           "mu and cov must have the same dtype.  Found mu.dtype = %s, "
-          "cov.dtype = %s"
-          % (mu.dtype, cov.dtype))
+          "cov.dtype = %s" % (mu.dtype, cov.dtype))
 
     # Try to validate with static checks.
     mu_shape = mu.get_shape()
@@ -171,44 +191,6 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
         return control_flow_ops.with_dependencies([assert_same_shape], mu)
 
   @property
-  def validate_args(self):
-    """`Boolean` describing behavior on invalid input."""
-    return self._validate_args
-
-  @property
-  def allow_nan_stats(self):
-    """`Boolean` describing behavior when stats are undefined."""
-    return self._allow_nan_stats
-
-  @property
-  def dtype(self):
-    return self._mu.dtype
-
-  def get_event_shape(self):
-    """`TensorShape` available at graph construction time."""
-    # Recall _check_mu ensures mu and self._cov have same batch shape.
-    return self._cov.get_shape()[-1:]
-
-  def event_shape(self, name="event_shape"):
-    """Shape of a sample from a single distribution as a 1-D int32 `Tensor`."""
-    # Recall _check_mu ensures mu and self._cov have same batch shape.
-    with ops.name_scope(self.name):
-      with ops.op_scope(self._cov.inputs, name):
-        return array_ops.pack([self._cov.vector_space_dimension()])
-
-  def batch_shape(self, name="batch_shape"):
-    """Batch dimensions of this instance as a 1-D int32 `Tensor`."""
-    # Recall _check_mu ensures mu and self._cov have same batch shape.
-    with ops.name_scope(self.name):
-      with ops.op_scope(self._cov.inputs, name):
-        return self._cov.batch_shape()
-
-  def get_batch_shape(self):
-    """`TensorShape` available at graph construction time."""
-    # Recall _check_mu ensures mu and self._cov have same batch shape.
-    return self._cov.get_batch_shape()
-
-  @property
   def mu(self):
     return self._mu
 
@@ -218,192 +200,111 @@ class MultivariateNormalOperatorPD(distribution.Distribution):
     with ops.name_scope(self.name):
       return self._cov.to_dense()
 
-  def mean(self, name="mean"):
-    """Mean of each batch member."""
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu], name):
-        return array_ops.identity(self._mu)
-
-  def mode(self, name="mode"):
-    """Mode of each batch member."""
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu], name):
-        return array_ops.identity(self._mu)
-
-  def variance(self, name="variance"):
-    """Variance of each batch member."""
-    with ops.name_scope(self.name):
-      return self.sigma
-
   def log_sigma_det(self, name="log_sigma_det"):
     """Log of determinant of covariance matrix."""
     with ops.name_scope(self.name):
-      with ops.op_scope(self._cov.inputs, name):
+      with ops.name_scope(name, values=self._cov.inputs):
         return self._cov.log_det()
 
   def sigma_det(self, name="sigma_det"):
     """Determinant of covariance matrix."""
     with ops.name_scope(self.name):
-      with ops.op_scope(self._cov.inputs, name):
+      with ops.name_scope(name, values=self._cov.inputs):
         return math_ops.exp(self._cov.log_det())
 
-  def log_prob(self, x, name="log_prob"):
-    """Log prob of observations `x` given these Multivariate Normals.
+  def _batch_shape(self):
+    return self._cov.batch_shape()
 
-    `x` is a batch vector with compatible shape if `x` is a `Tensor` whose
-    shape can be broadcast up to either:
+  def _get_batch_shape(self):
+    return self._cov.get_batch_shape()
 
-    ````
-    self.batch_shape + self.event_shape
-    OR
-    [M1,...,Mm] + self.batch_shape + self.event_shape
-    ```
+  def _event_shape(self):
+    return array_ops.pack([self._cov.vector_space_dimension()])
 
-    Args:
-      x: Compatible batch vector with same `dtype` as this distribution.
-      name: The name to give this op.
+  def _get_event_shape(self):
+    return self._cov.get_shape()[-1:]
 
-    Returns:
-      log_prob: tensor of dtype `dtype`, the log-PDFs of `x`.
-    """
+  def _sample_n(self, n, seed=None):
+    # Recall _assert_valid_mu ensures mu and self._cov have same batch shape.
+    shape = array_ops.concat(0, [self._cov.vector_shape(), [n]])
+    white_samples = random_ops.random_normal(shape=shape,
+                                             mean=0,
+                                             stddev=1,
+                                             dtype=self.dtype,
+                                             seed=seed)
+
+    correlated_samples = self._cov.sqrt_matmul(white_samples)
+
+    # Move the last dimension to the front
+    perm = array_ops.concat(0, (
+        array_ops.pack([array_ops.rank(correlated_samples) - 1]),
+        math_ops.range(0, array_ops.rank(correlated_samples) - 1)))
+
+    # TODO(ebrevdo): Once we get a proper tensor contraction op,
+    # perform the inner product using that instead of batch_matmul
+    # and this slow transpose can go away!
+    correlated_samples = array_ops.transpose(correlated_samples, perm)
+    samples = correlated_samples + self.mu
+    return samples
+
+  @distribution_util.AppendDocstring(_mvn_prob_note)
+  def _log_prob(self, x):
     # Q:  Why are shape requirements as stated above?
     # A:  The compatible shapes are precisely the ones that will broadcast to
     #     a shape compatible with self._cov.
     # See Operator base class for notes about shapes compatible with self._cov.
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu, x] + self._cov.inputs, name):
-        x = ops.convert_to_tensor(x)
-        contrib_tensor_util.assert_same_float_dtype((self._mu, x))
+    x = ops.convert_to_tensor(x)
+    contrib_tensor_util.assert_same_float_dtype((self._mu, x))
 
-        # _check_mu asserts that self.mu has same batch shape as self.cov.
-        # so batch shape of self.mu = that of self._cov and self, and the
-        # batch shape of x_centered is a broadcast version of these.  If this
-        # broadcast results in a shape like
-        # [M1,...,Mm] + self.batch_shape + self.event_shape
-        # OR
-        # self.batch_shape + self.event_shape
-        # then subsequent operator calls are guaranteed to work.
-        x_centered = x - self.mu
+    # _assert_valid_mu asserts that self.mu has same batch shape as self.cov.
+    # so batch shape of self.mu = that of self._cov and self, and the
+    # batch shape of x_centered is a broadcast version of these.  If this
+    # broadcast results in a shape like
+    # [M1,...,Mm] + self.batch_shape + self.event_shape
+    # OR
+    # self.batch_shape + self.event_shape
+    # then subsequent operator calls are guaranteed to work.
+    x_centered = x - self.mu
 
-        # Compute the term x^{-1} sigma^{-1} x which appears in the exponent of
-        # the pdf.
-        x_whitened_norm = self._cov.inv_quadratic_form_on_vectors(x_centered)
+    # Compute the term x^{-1} sigma^{-1} x which appears in the exponent of
+    # the pdf.
+    x_whitened_norm = self._cov.inv_quadratic_form_on_vectors(x_centered)
 
-        log_sigma_det = self.log_sigma_det()
+    k = math_ops.cast(self._cov.vector_space_dimension(), self.dtype)
+    log_prob_value = -0.5 * (self.log_sigma_det() +
+                             k * math.log(2. * math.pi) +
+                             x_whitened_norm)
 
-        log_two_pi = constant_op.constant(
-            math.log(2 * math.pi), dtype=self.dtype)
-        k = math_ops.cast(self._cov.vector_space_dimension(), self.dtype)
-        log_prob_value = -(log_sigma_det + k * log_two_pi + x_whitened_norm) / 2
+    output_static_shape = x_centered.get_shape()[:-1]
+    log_prob_value.set_shape(output_static_shape)
+    return log_prob_value
 
-        output_static_shape = x_centered.get_shape()[:-1]
-        log_prob_value.set_shape(output_static_shape)
-        return log_prob_value
+  @distribution_util.AppendDocstring(_mvn_prob_note)
+  def _prob(self, x):
+    return math_ops.exp(self.log_prob(x))
 
-  def prob(self, x, name="prob"):
-    """The PDF of observations `x` under these Multivariate Normals.
+  def _entropy(self):
+    log_sigma_det = self.log_sigma_det()
+    one_plus_log_two_pi = constant_op.constant(1 + math.log(2 * math.pi),
+                                               dtype=self.dtype)
 
-    `x` is a batch vector with compatible shape if `x` is a `Tensor` whose
-    shape can be broadcast up to either:
+    # Use broadcasting rules to calculate the full broadcast sigma.
+    k = math_ops.cast(self._cov.vector_space_dimension(), dtype=self.dtype)
+    entropy_value = (k * one_plus_log_two_pi + log_sigma_det) / 2
+    entropy_value.set_shape(log_sigma_det.get_shape())
+    return entropy_value
 
-    ````
-    self.batch_shape + self.event_shape
-    OR
-    [M1,...,Mm] + self.batch_shape + self.event_shape
-    ```
+  def _mean(self):
+    return array_ops.identity(self._mu)
 
-    Args:
-      x: Compatible batch vector with same `dtype` as this distribution.
-      name: The name to give this op.
+  def _variance(self):
+    return self.sigma
 
-    Returns:
-      prob: tensor of dtype `dtype`, the prob values of `x`.
-    """
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu, x] + self._cov.inputs, name):
-        return math_ops.exp(self.log_prob(x))
-
-  def entropy(self, name="entropy"):
-    """The entropies of these Multivariate Normals.
-
-    Args:
-      name: The name to give this op.
-
-    Returns:
-      entropy: tensor of dtype `dtype`, the entropies.
-    """
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu] + self._cov.inputs, name):
-        log_sigma_det = self.log_sigma_det()
-        one_plus_log_two_pi = constant_op.constant(1 + math.log(2 * math.pi),
-                                                   dtype=self.dtype)
-
-        # Use broadcasting rules to calculate the full broadcast sigma.
-        k = math_ops.cast(self._cov.vector_space_dimension(), dtype=self.dtype)
-        entropy_value = (k * one_plus_log_two_pi + log_sigma_det) / 2
-        entropy_value.set_shape(log_sigma_det.get_shape())
-        return entropy_value
-
-  def sample_n(self, n, seed=None, name="sample_n"):
-    """Sample `n` observations from the Multivariate Normal Distributions.
-
-    Args:
-      n: `Scalar`, type int32, the number of observations to sample.
-      seed: Python integer, the random seed.
-      name: The name to give this op.
-
-    Returns:
-      samples: `[n, ...]`, a `Tensor` of `n` samples for each
-        of the distributions determined by broadcasting the hyperparameters.
-    """
-    with ops.name_scope(self.name):
-      with ops.op_scope([self._mu, n] + self._cov.inputs, name):
-        # Recall _check_mu ensures mu and self._cov have same batch shape.
-        broadcast_shape = self.mu.get_shape()
-        n = ops.convert_to_tensor(n)
-
-        shape = array_ops.concat(0, [self._cov.vector_shape(), [n]])
-        white_samples = random_ops.random_normal(shape=shape,
-                                                 mean=0,
-                                                 stddev=1,
-                                                 dtype=self.dtype,
-                                                 seed=seed)
-
-        correlated_samples = self._cov.sqrt_matmul(white_samples)
-
-        # Move the last dimension to the front
-        perm = array_ops.concat(0, (
-            array_ops.pack([array_ops.rank(correlated_samples) - 1]),
-            math_ops.range(0, array_ops.rank(correlated_samples) - 1)))
-
-        # TODO(ebrevdo): Once we get a proper tensor contraction op,
-        # perform the inner product using that instead of batch_matmul
-        # and this slow transpose can go away!
-        correlated_samples = array_ops.transpose(correlated_samples, perm)
-
-        samples = correlated_samples + self.mu
-
-        # Provide some hints to shape inference
-        n_val = tensor_util.constant_value(n)
-        final_shape = tensor_shape.vector(n_val).concatenate(broadcast_shape)
-        samples.set_shape(final_shape)
-
-        return samples
-
-  @property
-  def is_reparameterized(self):
-    return True
-
-  @property
-  def name(self):
-    return self._name
-
-  @property
-  def is_continuous(self):
-    return True
+  def _mode(self):
+    return array_ops.identity(self._mu)
 
 
-class MultivariateNormalDiag(MultivariateNormalOperatorPD):
+class MultivariateNormalDiag(_MultivariateNormalOperatorPD):
   """The multivariate normal distribution on `R^k`.
 
   This distribution is defined by a 1-D mean `mu` and a 1-D diagonal
@@ -455,8 +356,8 @@ class MultivariateNormalDiag(MultivariateNormalOperatorPD):
       self,
       mu,
       diag_stdev,
-      validate_args=True,
-      allow_nan_stats=False,
+      validate_args=False,
+      allow_nan_stats=True,
       name="MultivariateNormalDiag"):
     """Multivariate Normal distributions on `R^k`.
 
@@ -470,10 +371,10 @@ class MultivariateNormalDiag(MultivariateNormalOperatorPD):
         `b >= 0`.
       diag_stdev: Rank `N + 1` `Tensor` with same `dtype` and shape as `mu`,
         representing the standard deviations.  Must be positive.
-      validate_args: Whether to validate input with asserts.  If `validate_args`
-        is `False`,
+      validate_args: `Boolean`, default `False`.  Whether to validate
+        input with asserts.  If `validate_args` is `False`,
         and the inputs are invalid, correct behavior is not guaranteed.
-      allow_nan_stats:  `Boolean`, default `False`.  If `False`, raise an
+      allow_nan_stats: `Boolean`, default `True`.  If `False`, raise an
         exception if a statistic (e.g. mean/mode/etc...) is undefined for any
         batch member If `True`, batch members with valid parameters leading to
         undefined statistics will return NaN for this statistic.
@@ -489,7 +390,25 @@ class MultivariateNormalDiag(MultivariateNormalOperatorPD):
         name=name)
 
 
-class MultivariateNormalDiagPlusVDVT(MultivariateNormalOperatorPD):
+class MultivariateNormalDiagWithSoftplusStDev(MultivariateNormalDiag):
+  """MultivariateNormalDiag with `diag_stddev = softplus(diag_stddev)`."""
+
+  def __init__(self,
+               mu,
+               diag_stdev,
+               validate_args=False,
+               allow_nan_stats=True,
+               name="MultivariateNormalDiagWithSoftplusStdDev"):
+    with ops.name_scope(name, values=[mu, diag_stdev]) as ns:
+      super(MultivariateNormalDiagWithSoftplusStDev, self).__init__(
+          mu=mu,
+          diag_stdev=nn.softplus(diag_stdev),
+          validate_args=validate_args,
+          allow_nan_stats=allow_nan_stats,
+          name=ns)
+
+
+class MultivariateNormalDiagPlusVDVT(_MultivariateNormalOperatorPD):
   """The multivariate normal distribution on `R^k`.
 
   Every batch member of this distribution is defined by a mean and a lightweight
@@ -561,8 +480,8 @@ class MultivariateNormalDiagPlusVDVT(MultivariateNormalOperatorPD):
       diag_large,
       v,
       diag_small=None,
-      validate_args=True,
-      allow_nan_stats=False,
+      validate_args=False,
+      allow_nan_stats=True,
       name="MultivariateNormalDiagPlusVDVT"):
     """Multivariate Normal distributions on `R^k`.
 
@@ -590,10 +509,10 @@ class MultivariateNormalDiagPlusVDVT(MultivariateNormalOperatorPD):
       diag_small:  Rank `n + 1` floating point tensor, shape
         `[N1,...,Nn, k]` `n >= 0`.  Defines the diagonal matrix `D`.  Default
         is `None`, which means `D` will be the identity matrix.
-      validate_args: Whether to validate input with asserts.  If `validate_args`
-        is `False`,
+      validate_args: `Boolean`, default `False`.  Whether to validate input
+        with asserts.  If `validate_args` is `False`,
         and the inputs are invalid, correct behavior is not guaranteed.
-      allow_nan_stats:  `Boolean`, default `False`.  If `False`, raise an
+      allow_nan_stats: `Boolean`, default `True`.  If `False`, raise an
         exception if a statistic (e.g. mean/mode/etc...) is undefined for any
         batch member If `True`, batch members with valid parameters leading to
         undefined statistics will return NaN for this statistic.
@@ -608,7 +527,7 @@ class MultivariateNormalDiagPlusVDVT(MultivariateNormalOperatorPD):
         name=name)
 
 
-class MultivariateNormalCholesky(MultivariateNormalOperatorPD):
+class MultivariateNormalCholesky(_MultivariateNormalOperatorPD):
   """The multivariate normal distribution on `R^k`.
 
   This distribution is defined by a 1-D mean `mu` and a Cholesky factor `chol`.
@@ -653,16 +572,16 @@ class MultivariateNormalCholesky(MultivariateNormalOperatorPD):
   dist.pdf(x)
   ```
 
-  Trainable (batch) Choesky matrices can be created with
-  `tf.contrib.distributions.batch_matrix_diag_transform()`
+  Trainable (batch) Cholesky matrices can be created with
+  `tf.contrib.distributions.matrix_diag_transform()`
 
   """
 
   def __init__(self,
                mu,
                chol,
-               validate_args=True,
-               allow_nan_stats=False,
+               validate_args=False,
+               allow_nan_stats=True,
                name="MultivariateNormalCholesky"):
     """Multivariate Normal distributions on `R^k`.
 
@@ -675,10 +594,10 @@ class MultivariateNormalCholesky(MultivariateNormalOperatorPD):
       chol: `(N+2)-D` `Tensor` with same `dtype` as `mu` and shape
         `[N1,...,Nb, k, k]`.  The upper triangular part is ignored (treated as
         though it is zero), and the diagonal must be positive.
-      validate_args: Whether to validate input with asserts.  If `validate_args`
-        is `False`, and the inputs are invalid, correct behavior is not
-        guaranteed.
-      allow_nan_stats:  `Boolean`, default `False`.  If `False`, raise an
+      validate_args: `Boolean`, default `False`.  Whether to validate input
+        with asserts.  If `validate_args` is `False`, and the inputs are
+        invalid, correct behavior is not guaranteed.
+      allow_nan_stats: `Boolean`, default `True`.  If `False`, raise an
         exception if a statistic (e.g. mean/mode/etc...) is undefined for any
         batch member If `True`, batch members with valid parameters leading to
         undefined statistics will return NaN for this statistic.
@@ -696,7 +615,7 @@ class MultivariateNormalCholesky(MultivariateNormalOperatorPD):
         name=name)
 
 
-class MultivariateNormalFull(MultivariateNormalOperatorPD):
+class MultivariateNormalFull(_MultivariateNormalOperatorPD):
   """The multivariate normal distribution on `R^k`.
 
   This distribution is defined by a 1-D mean `mu` and covariance matrix `sigma`.
@@ -742,8 +661,8 @@ class MultivariateNormalFull(MultivariateNormalOperatorPD):
   def __init__(self,
                mu,
                sigma,
-               validate_args=True,
-               allow_nan_stats=False,
+               validate_args=False,
+               allow_nan_stats=True,
                name="MultivariateNormalFull"):
     """Multivariate Normal distributions on `R^k`.
 
@@ -754,10 +673,10 @@ class MultivariateNormalFull(MultivariateNormalOperatorPD):
         `b >= 0`.
       sigma: `(N+2)-D` `Tensor` with same `dtype` as `mu` and shape
         `[N1,...,Nb, k, k]`.  Each batch member must be positive definite.
-      validate_args: Whether to validate input with asserts.  If `validate_args`
-        is `False`, and the inputs are invalid, correct behavior is not
-        guaranteed.
-      allow_nan_stats:  `Boolean`, default `False`.  If `False`, raise an
+      validate_args: `Boolean`, default `False`.  Whether to validate input
+        with asserts.  If `validate_args` is `False`, and the inputs are
+        invalid, correct behavior is not guaranteed.
+      allow_nan_stats: `Boolean`, default `True`.  If `False`, raise an
         exception if a statistic (e.g. mean/mode/etc...) is undefined for any
         batch member If `True`, batch members with valid parameters leading to
         undefined statistics will return NaN for this statistic.
@@ -795,8 +714,8 @@ def _kl_mvn_mvn_brute_force(mvn_a, mvn_b, name=None):
   and `y`.
 
   Args:
-    mvn_a:  Instance of subclass of `MultivariateNormalOperatorPD`.
-    mvn_b:  Instance of subclass of `MultivariateNormalOperatorPD`.
+    mvn_a:  Instance of subclass of `_MultivariateNormalOperatorPD`.
+    mvn_b:  Instance of subclass of `_MultivariateNormalOperatorPD`.
     name:  (optional) name to use for created ops.  Default "kl_mvn_mvn".
 
   Returns:
@@ -809,7 +728,7 @@ def _kl_mvn_mvn_brute_force(mvn_a, mvn_b, name=None):
   mu_b = mvn_b.mu
   inputs = [mu_a, mu_b] + cov_a.inputs + cov_b.inputs
 
-  with ops.op_scope(inputs, name, "kl_mvn_mvn"):
+  with ops.name_scope(name, "kl_mvn_mvn", inputs):
     # If Ca = AA', Cb = BB', then
     # tr[inv(Cb) Ca] = tr[inv(B)' inv(B) A A']
     #                = tr[inv(B) A A' inv(B)']

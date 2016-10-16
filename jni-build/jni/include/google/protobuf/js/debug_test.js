@@ -41,6 +41,7 @@ goog.require('proto.jspb.test.IsExtension');
 goog.require('proto.jspb.test.Simple1');
 
 
+
 describe('debugTest', function() {
   it('testSimple1', function() {
     if (COMPILED) {
@@ -64,7 +65,7 @@ describe('debugTest', function() {
       'aBoolean': true
     }, jspb.debug.dump(message));
 
-    message.setAString(undefined);
+    message.clearAString();
 
     assertObjectEquals({
       $name: 'proto.jspb.test.Simple1',

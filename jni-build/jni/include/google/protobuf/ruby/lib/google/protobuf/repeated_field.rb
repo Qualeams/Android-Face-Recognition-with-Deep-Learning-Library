@@ -69,8 +69,8 @@ module Google
       #        relationship explicit instead of implicit
       def_delegators :to_ary,
         :&, :*, :-, :'<=>',
-        :assoc, :bsearch, :combination, :compact, :count, :cycle,
-        :drop, :drop_while, :eql?, :fetch, :find_index, :flatten,
+        :assoc, :bsearch, :bsearch_index, :combination, :compact, :count,
+        :cycle, :dig, :drop, :drop_while, :eql?, :fetch, :find_index, :flatten,
         :include?, :index, :inspect, :join,
         :pack, :permutation, :product, :pretty_print, :pretty_print_cycle,
         :rassoc, :repeated_combination, :repeated_permutation, :reverse,
@@ -173,7 +173,7 @@ module Google
           external_enumerator.each_with_index do |val, i|
             result = yield(val)
             results << result
-            #nil means no change occured from yield; usually occurs when #to_a is called
+            #nil means no change occurred from yield; usually occurs when #to_a is called
             if result
               repeated_field[i] = result if result != val
             end

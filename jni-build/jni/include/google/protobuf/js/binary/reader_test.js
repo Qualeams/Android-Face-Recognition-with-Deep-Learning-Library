@@ -52,9 +52,8 @@ goog.require('jspb.BinaryWriter');
 describe('binaryReaderTest', function() {
   /**
    * Tests the reader instance cache.
-   * @suppress {visibility}
    */
-  it('testInstanceCaches', function() {
+  it('testInstanceCaches', /** @suppress {visibility} */ function() {
     var writer = new jspb.BinaryWriter();
     var dummyMessage = /** @type {!jspb.BinaryMessage} */({});
     writer.writeMessage(1, dummyMessage, goog.nullFunction);
@@ -131,9 +130,8 @@ describe('binaryReaderTest', function() {
 
   /**
    * Verifies that misuse of the reader class triggers assertions.
-   * @suppress {checkTypes|visibility}
    */
-  it('testReadErrors', function() {
+  it('testReadErrors', /** @suppress {checkTypes|visibility} */ function() {
     // Calling readMessage on a non-delimited field should trigger an
     // assertion.
     var reader = jspb.BinaryReader.alloc([8, 1]);
@@ -200,7 +198,7 @@ describe('binaryReaderTest', function() {
    * @private
    * @suppress {missingProperties}
    */
-  function doTestUnsignedField_(readField,
+  var doTestUnsignedField_ = function(readField,
       writeField, epsilon, upperLimit, filter) {
     assertNotNull(readField);
     assertNotNull(writeField);
@@ -252,7 +250,7 @@ describe('binaryReaderTest', function() {
    * @private
    * @suppress {missingProperties}
    */
-  function doTestSignedField_(readField,
+  var doTestSignedField_ = function(readField,
       writeField, epsilon, lowerLimit, upperLimit, filter) {
     var writer = new jspb.BinaryWriter();
 
@@ -321,12 +319,12 @@ describe('binaryReaderTest', function() {
    * Tests fields that use varint encoding.
    */
   it('testVarintFields', function() {
-    assertNotNull(jspb.BinaryReader.prototype.readUint32);
-    assertNotNull(jspb.BinaryReader.prototype.writeUint32);
-    assertNotNull(jspb.BinaryReader.prototype.readUint64);
-    assertNotNull(jspb.BinaryReader.prototype.writeUint64);
-    assertNotNull(jspb.BinaryReader.prototype.readBool);
-    assertNotNull(jspb.BinaryReader.prototype.writeBool);
+    assertNotUndefined(jspb.BinaryReader.prototype.readUint32);
+    assertNotUndefined(jspb.BinaryWriter.prototype.writeUint32);
+    assertNotUndefined(jspb.BinaryReader.prototype.readUint64);
+    assertNotUndefined(jspb.BinaryWriter.prototype.writeUint64);
+    assertNotUndefined(jspb.BinaryReader.prototype.readBool);
+    assertNotUndefined(jspb.BinaryWriter.prototype.writeBool);
     doTestUnsignedField_(
         jspb.BinaryReader.prototype.readUint32,
         jspb.BinaryWriter.prototype.writeUint32,
@@ -360,34 +358,85 @@ describe('binaryReaderTest', function() {
 
 
   /**
+   * Tests reading a field from hexadecimal string (format: '08 BE EF').
+   * @param {Function} readField
+   * @param {number} expected
+   * @param {string} hexString
+   */
+  function doTestHexStringVarint_(readField, expected, hexString) {
+    var bytesCount = (hexString.length + 1) / 3;
+    var bytes = new Uint8Array(bytesCount);
+    for (var i = 0; i < bytesCount; i++) {
+      bytes[i] = parseInt(hexString.substring(i * 3, i * 3 + 2), 16);
+    }
+    var reader = jspb.BinaryReader.alloc(bytes);
+    reader.nextField();
+    assertEquals(expected, readField.call(reader));
+  }
+
+
+  /**
+   * Tests non-canonical redundant varint decoding.
+   */
+  it('testRedundantVarintFields', function() {
+    assertNotNull(jspb.BinaryReader.prototype.readUint32);
+    assertNotNull(jspb.BinaryReader.prototype.readUint64);
+    assertNotNull(jspb.BinaryReader.prototype.readSint32);
+    assertNotNull(jspb.BinaryReader.prototype.readSint64);
+
+    // uint32 and sint32 take no more than 5 bytes
+    // 08 - field prefix (type = 0 means varint)
+    doTestHexStringVarint_(
+      jspb.BinaryReader.prototype.readUint32,
+      12, '08 8C 80 80 80 00');
+
+    // 11 stands for -6 in zigzag encoding
+    doTestHexStringVarint_(
+      jspb.BinaryReader.prototype.readSint32,
+      -6, '08 8B 80 80 80 00');
+
+    // uint64 and sint64 take no more than 10 bytes
+    // 08 - field prefix (type = 0 means varint)
+    doTestHexStringVarint_(
+      jspb.BinaryReader.prototype.readUint64,
+      12, '08 8C 80 80 80 80 80 80 80 80 00');
+
+    // 11 stands for -6 in zigzag encoding
+    doTestHexStringVarint_(
+      jspb.BinaryReader.prototype.readSint64,
+      -6, '08 8B 80 80 80 80 80 80 80 80 00');
+  });
+
+
+  /**
    * Tests 64-bit fields that are handled as strings.
    */
   it('testStringInt64Fields', function() {
     var writer = new jspb.BinaryWriter();
 
     var testSignedData = [
-        '2730538252207801776',
-        '-2688470994844604560',
-        '3398529779486536359',
-        '3568577411627971000',
-        '272477188847484900',
-        '-6649058714086158188',
-        '-7695254765712060806',
-        '-4525541438037104029',
-        '-4993706538836508568',
-        '4990160321893729138'
+      '2730538252207801776',
+      '-2688470994844604560',
+      '3398529779486536359',
+      '3568577411627971000',
+      '272477188847484900',
+      '-6649058714086158188',
+      '-7695254765712060806',
+      '-4525541438037104029',
+      '-4993706538836508568',
+      '4990160321893729138'
     ];
     var testUnsignedData = [
-        '7822732630241694882',
-        '6753602971916687352',
-        '2399935075244442116',
-        '8724292567325338867',
-        '16948784802625696584',
-        '4136275908516066934',
-        '3575388346793700364',
-        '5167142028379259461',
-        '1557573948689737699',
-        '17100725280812548567'
+      '7822732630241694882',
+      '6753602971916687352',
+      '2399935075244442116',
+      '8724292567325338867',
+      '16948784802625696584',
+      '4136275908516066934',
+      '3575388346793700364',
+      '5167142028379259461',
+      '1557573948689737699',
+      '17100725280812548567'
     ];
 
     for (var i = 0; i < testSignedData.length; i++) {
@@ -535,7 +584,7 @@ describe('binaryReaderTest', function() {
    */
   it('testNesting', function() {
     var writer = new jspb.BinaryWriter();
-  var dummyMessage = /** @type {!jspb.BinaryMessage} */({});
+    var dummyMessage = /** @type {!jspb.BinaryMessage} */({});
 
     writer.writeInt32(1, 100);
 
@@ -626,31 +675,15 @@ describe('binaryReaderTest', function() {
     writer.writeBytes(4, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     writer.writeString(4, 'The quick brown fox jumps over the lazy dog');
 
-    // Write a group with a nested group inside. We use the internal
-    // .rawWriteVarint() to ensure the tested wire data is what we want,
-    // independently of any serialization logic.
+    // Write a group with a nested group inside.
     writer.writeInt32(5, sentinel);
-    // Start group, field 5.
-    writer.rawWriteVarint(
-        (5 << 3) + jspb.BinaryConstants.WireType.START_GROUP);
-    // Varint, field 42.
-    writer.rawWriteVarint(
-        (42 << 3) + jspb.BinaryConstants.WireType.VARINT);
-    // Varint data.
-    writer.rawWriteVarint(42);
-    // Start group, field 6.
-    writer.rawWriteVarint(
-        (6 << 3) + jspb.BinaryConstants.WireType.START_GROUP);
-    // Varint, field 84.
-    writer.rawWriteVarint(
-        (84 << 3) + jspb.BinaryConstants.WireType.VARINT);
-    writer.rawWriteVarint(42);
-    // End group, field 6.
-    writer.rawWriteVarint(
-        (6 << 3) + jspb.BinaryConstants.WireType.END_GROUP);
-    // End group, field 5.
-    writer.rawWriteVarint(
-        (5 << 3) + jspb.BinaryConstants.WireType.END_GROUP);
+    var dummyMessage = /** @type {!jspb.BinaryMessage} */({});
+    writer.writeGroup(5, dummyMessage, function() {
+      writer.writeInt64(42, 42);
+      writer.writeGroup(6, dummyMessage, function() {
+        writer.writeInt64(84, 42);
+      });
+    });
 
     // Write final sentinel.
     writer.writeInt32(6, sentinel);

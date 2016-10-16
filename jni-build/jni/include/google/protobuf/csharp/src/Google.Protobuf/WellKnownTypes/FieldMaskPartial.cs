@@ -33,6 +33,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -57,19 +58,24 @@ namespace Google.Protobuf.WellKnownTypes
             var firstInvalid = paths.FirstOrDefault(p => !ValidatePath(p));
             if (firstInvalid == null)
             {
-                var builder = new StringBuilder();
-                JsonFormatter.WriteString(builder, string.Join(",", paths.Select(JsonFormatter.ToCamelCase)));
-                return builder.ToString();
+                var writer = new StringWriter();
+#if DOTNET35
+                var query = paths.Select(JsonFormatter.ToCamelCase);
+                JsonFormatter.WriteString(writer, string.Join(",", query.ToArray()));
+#else
+                JsonFormatter.WriteString(writer, string.Join(",", paths.Select(JsonFormatter.ToCamelCase)));
+#endif
+                return writer.ToString();
             }
             else
             {
                 if (diagnosticOnly)
                 {
-                    var builder = new StringBuilder();
-                    builder.Append("{ \"@warning\": \"Invalid FieldMask\", \"paths\": ");
-                    JsonFormatter.Default.WriteList(builder, (IList) paths);
-                    builder.Append(" }");
-                    return builder.ToString();
+                    var writer = new StringWriter();
+                    writer.Write("{ \"@warning\": \"Invalid FieldMask\", \"paths\": ");
+                    JsonFormatter.Default.WriteList(writer, (IList)paths);
+                    writer.Write(" }");
+                    return writer.ToString();
                 }
                 else
                 {

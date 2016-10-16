@@ -47,6 +47,7 @@ using google::protobuf::EnumDescriptor;
 using google::protobuf::EnumValueDescriptor;
 ;
 ;
+;
 using util::error::Code;
 using util::Status;
 using util::StatusOr;
@@ -248,11 +249,8 @@ StatusOr<string> DataPiece::ToBytes() const {
   if (type_ == TYPE_BYTES) return str_.ToString();
   if (type_ == TYPE_STRING) {
     string decoded;
-    if (!WebSafeBase64Unescape(str_, &decoded)) {
-      if (!Base64Unescape(str_, &decoded)) {
-        return InvalidArgument(
-            ValueAsStringOrDefault("Invalid data in input."));
-      }
+    if (!DecodeBase64(str_, &decoded)) {
+      return InvalidArgument(ValueAsStringOrDefault("Invalid data in input."));
     }
     return decoded;
   } else {
@@ -261,7 +259,8 @@ StatusOr<string> DataPiece::ToBytes() const {
   }
 }
 
-StatusOr<int> DataPiece::ToEnum(const google::protobuf::Enum* enum_type) const {
+StatusOr<int> DataPiece::ToEnum(const google::protobuf::Enum* enum_type,
+                                bool use_lower_camel_for_enums) const {
   if (type_ == TYPE_NULL) return google::protobuf::NULL_VALUE;
 
   if (type_ == TYPE_STRING) {
@@ -270,20 +269,34 @@ StatusOr<int> DataPiece::ToEnum(const google::protobuf::Enum* enum_type) const {
     const google::protobuf::EnumValue* value =
         FindEnumValueByNameOrNull(enum_type, enum_name);
     if (value != NULL) return value->number();
+
+    // Check if int version of enum is sent as string.
+    StatusOr<int32> int_value = ToInt32();
+    if (int_value.ok()) {
+      if (const google::protobuf::EnumValue* enum_value =
+              FindEnumValueByNumberOrNull(enum_type, int_value.ValueOrDie())) {
+        return enum_value->number();
+      }
+    }
+
     // Next try a normalized name.
     for (string::iterator it = enum_name.begin(); it != enum_name.end(); ++it) {
       *it = *it == '-' ? '_' : ascii_toupper(*it);
     }
     value = FindEnumValueByNameOrNull(enum_type, enum_name);
     if (value != NULL) return value->number();
-  } else {
-    StatusOr<int32> value = ToInt32();
-    if (value.ok()) {
-      if (const google::protobuf::EnumValue* enum_value =
-              FindEnumValueByNumberOrNull(enum_type, value.ValueOrDie())) {
-        return enum_value->number();
-      }
+
+    // If use_lower_camel_for_enums is true try with enum name without
+    // underscore. This will also accept camel case names as the enum_name has
+    // been normalized before.
+    if (use_lower_camel_for_enums) {
+      value = FindEnumValueByNameWithoutUnderscoreOrNull(enum_type, enum_name);
+      if (value != NULL) return value->number();
     }
+  } else {
+    // We don't need to check whether the value is actually declared in the
+    // enum because we preserve unknown enum values as well.
+    return ToInt32();
   }
   return InvalidArgument(
       ValueAsStringOrDefault("Cannot find enum with given value."));
@@ -313,9 +326,66 @@ StatusOr<To> DataPiece::GenericConvert() const {
 
 template <typename To>
 StatusOr<To> DataPiece::StringToNumber(bool (*func)(StringPiece, To*)) const {
+  if (str_.size() > 0 && (str_[0] == ' ' || str_[str_.size() - 1] == ' ')) {
+    return InvalidArgument(StrCat("\"", str_, "\""));
+  }
   To result;
   if (func(str_, &result)) return result;
   return InvalidArgument(StrCat("\"", str_.ToString(), "\""));
+}
+
+bool DataPiece::DecodeBase64(StringPiece src, string* dest) const {
+  // Try web-safe decode first, if it fails, try the non-web-safe decode.
+  if (WebSafeBase64Unescape(src, dest)) {
+    if (use_strict_base64_decoding_) {
+      // In strict mode, check if the escaped version gives us the same value as
+      // unescaped.
+      string encoded;
+      // WebSafeBase64Escape does no padding by default.
+      WebSafeBase64Escape(*dest, &encoded);
+      // Remove trailing padding '=' characters before comparison.
+      StringPiece src_no_padding = StringPiece(src).substr(
+          0, src.ends_with("=") ? src.find_last_not_of('=') + 1 : src.length());
+      return encoded == src_no_padding;
+    }
+    return true;
+  }
+
+  if (Base64Unescape(src, dest)) {
+    if (use_strict_base64_decoding_) {
+      string encoded;
+      Base64Escape(
+          reinterpret_cast<const unsigned char*>(dest->data()), dest->length(),
+          &encoded, false);
+      StringPiece src_no_padding = StringPiece(src).substr(
+          0, src.ends_with("=") ? src.find_last_not_of('=') + 1 : src.length());
+      return encoded == src_no_padding;
+    }
+    return true;
+  }
+
+  return false;
+}
+
+void DataPiece::InternalCopy(const DataPiece& other) {
+  type_ = other.type_;
+  use_strict_base64_decoding_ = other.use_strict_base64_decoding_;
+  switch (type_) {
+    case TYPE_INT32:
+    case TYPE_INT64:
+    case TYPE_UINT32:
+    case TYPE_UINT64:
+    case TYPE_DOUBLE:
+    case TYPE_FLOAT:
+    case TYPE_BOOL:
+    case TYPE_ENUM:
+    case TYPE_NULL:
+    case TYPE_BYTES:
+    case TYPE_STRING: {
+      str_ = other.str_;
+      break;
+    }
+  }
 }
 
 }  // namespace converter

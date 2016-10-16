@@ -28,6 +28,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+// Defines utilities for the FieldMask well known type.
+
 #ifndef GOOGLE_PROTOBUF_UTIL_FIELD_MASK_UTIL_H__
 #define GOOGLE_PROTOBUF_UTIL_FIELD_MASK_UTIL_H__
 
@@ -45,10 +47,17 @@ class LIBPROTOBUF_EXPORT FieldMaskUtil {
   typedef google::protobuf::FieldMask FieldMask;
 
  public:
-  // Converts FieldMask to/from string, formatted according to proto3 JSON
-  // spec for FieldMask (e.g., "foo,bar,baz.quz").
+  // Converts FieldMask to/from string, formatted by separating each path
+  // with a comma (e.g., "foo_bar,baz.quz").
   static string ToString(const FieldMask& mask);
   static void FromString(StringPiece str, FieldMask* out);
+
+  // Converts FieldMask to/from string, formatted according to proto3 JSON
+  // spec for FieldMask (e.g., "fooBar,baz.quz"). If the field name is not
+  // style conforming (i.e., not snake_case when converted to string, or not
+  // camelCase when converted from string), the conversion will fail.
+  static bool ToJsonString(const FieldMask& mask, string* out);
+  static bool FromJsonString(StringPiece str, FieldMask* out);
 
   // Checks whether the given path is valid for type T.
   template <typename T>
@@ -100,11 +109,46 @@ class LIBPROTOBUF_EXPORT FieldMaskUtil {
   static bool IsPathInFieldMask(StringPiece path, const FieldMask& mask);
 
   class MergeOptions;
-  // Merges fields specified in a FieldMask into another message.
+  // Merges fields specified in a FieldMask into another message. See the
+  // comments in MergeOptions regarding compatibility with
+  // google/protobuf/field_mask.proto
   static void MergeMessageTo(const Message& source, const FieldMask& mask,
                              const MergeOptions& options, Message* destination);
 
+  // Removes from 'message' any field that is not represented in the given
+  // FieldMask. If the FieldMask is empty, does nothing.
+  static void TrimMessage(const FieldMask& mask, Message* message);
+
  private:
+  friend class SnakeCaseCamelCaseTest;
+  // Converts a field name from snake_case to camelCase:
+  //   1. Every character after "_" will be converted to uppercase.
+  //   2. All "_"s are removed.
+  // The conversion will fail if:
+  //   1. The field name contains uppercase letters.
+  //   2. Any character after a "_" is not a lowercase letter.
+  // If the conversion succeeds, it's guaranteed that the resulted
+  // camelCase name will yield the original snake_case name when
+  // converted using CamelCaseToSnakeCase().
+  //
+  // Note that the input can contain characters not allowed in C identifiers.
+  // For example, "foo_bar,baz_quz" will be converted to "fooBar,bazQuz"
+  // successfully.
+  static bool SnakeCaseToCamelCase(StringPiece input, string* output);
+  // Converts a field name from camelCase to snake_case:
+  //   1. Every uppercase letter is converted to lowercase with a additional
+  //      preceding "-".
+  // The conversion will fail if:
+  //   1. The field name contains "_"s.
+  // If the conversion succeeds, it's guaranteed that the resulted
+  // snake_case name will yield the original camelCase name when
+  // converted using SnakeCaseToCamelCase().
+  //
+  // Note that the input can contain characters not allowed in C identifiers.
+  // For example, "fooBar,bazQuz" will be converted to "foo_bar,baz_quz"
+  // successfully.
+  static bool CamelCaseToSnakeCase(StringPiece input, string* output);
+
   static bool InternalIsValidPath(const Descriptor* descriptor,
                                   StringPiece path);
 
@@ -112,6 +156,10 @@ class LIBPROTOBUF_EXPORT FieldMaskUtil {
                                                FieldMask* out);
 };
 
+// Note that for compatibility with the defined behaviour for FieldMask in
+// google/protobuf/field_mask.proto, set replace_message_fields and
+// replace_repeated_fields to 'true'. The default options are not compatible
+// with google/protobuf/field_mask.proto.
 class LIBPROTOBUF_EXPORT FieldMaskUtil::MergeOptions {
  public:
   MergeOptions()
