@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/sladomic/StudioProjects/Android-Face-Recognition-with-Deep-Learning-Test-Framework/facerecognitionlibrary/openCVLibrary310/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl
+ * Original file: /Users/sladomic/StudioProjects/literacyapp-android/libraries/facerecognitionlibrary/openCVLibrary310/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl
  */
 package org.opencv.engine;
 /**
