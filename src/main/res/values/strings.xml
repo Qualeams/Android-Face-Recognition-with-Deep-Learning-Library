@@ -27,4 +27,13 @@
 
     <string name="gamma">0.2</string>
     <string name="sigmas">0.25, 4</string>
+
+    <string name="haarcascade_default">haarcascade_frontalface_default</string>
+    <string name="haarcascade_alt">haarcascade_frontalface_alt</string>
+    <string name="haarcascade_alt2">haarcascade_frontalface_alt2</string>
+    <string name="lbpcascade">lbpcascade_frontalface</string>
+
+    <string name="haarcascade_eye">haarcascade_eye</string>
+    <string name="haarcascade_lefteye">haarcascade_lefteye_2splits</string>
+    <string name="haarcascade_righteye">haarcascade_righteye_2splits</string>
 </resources>

@@ -48,6 +48,7 @@ public class PreProcessorFactory {
     private List<Mat> images;
     public CommandFactory commandFactory;
     private FaceDetection faceDetection;
+    private boolean eyeDetectionEnabled;
 
     public PreProcessorFactory(Context context, int N) {
         this.context = context;
@@ -78,6 +79,8 @@ public class PreProcessorFactory {
     public PreProcessorFactory(Context context){
         this.context = context;
         this.faceDetection = new FaceDetection(context);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
+        eyeDetectionEnabled = sharedPref.getBoolean("key_eye_detection", true);
         commandFactory = new CommandFactory();
         Resources res = context.getResources();
         commandFactory.addCommand(res.getString(R.string.crop), new Crop());
@@ -93,10 +96,12 @@ public class PreProcessorFactory {
         try {
             Resources res = context.getResources();
             preProcessor = commandFactory.executeCommand(res.getString(R.string.crop), preProcessor);
-            preProcessor.setEyes();
-            Eyes[] eyes = preProcessor.getEyes();
-            if (eyes == null || eyes[0] == null){
-                return null;
+            if (eyeDetectionEnabled) {
+                preProcessor.setEyes();
+                Eyes[] eyes = preProcessor.getEyes();
+                if (eyes == null || eyes[0] == null){
+                    return null;
+                }
             }
             result = preProcessor.getImages();
         } catch (NullPointerException e){

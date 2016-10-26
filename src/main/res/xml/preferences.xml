@@ -43,6 +43,33 @@
             android:key="key_timerDiff"/>
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="Face detection">
+        <ch.zhaw.facerecognition.Helpers.SwitchPreference
+            android:title="Eye Detection"
+            android:key="key_eye_detection"
+            android:defaultValue="true"
+            android:switchTextOn="Enabled"
+            android:switchTextOff="Disabled"/>
+        <ch.zhaw.facerecognition.Helpers.ListPreference
+            android:title="Face cascade file"
+            android:entries="@array/face_cascade_file"
+            android:entryValues="@array/face_cascade_file"
+            android:key="key_face_cascade_file"
+            android:defaultValue="@string/haarcascade_alt2"/>
+        <ch.zhaw.facerecognition.Helpers.ListPreference
+            android:title="Lefteye cascade file"
+            android:entries="@array/lefteye_cascade_file"
+            android:entryValues="@array/lefteye_cascade_file"
+            android:key="key_lefteye_cascade_file"
+            android:defaultValue="@string/haarcascade_lefteye"/>
+        <ch.zhaw.facerecognition.Helpers.ListPreference
+            android:title="Righteye cascade file"
+            android:entries="@array/righteye_cascade_file"
+            android:entryValues="@array/righteye_cascade_file"
+            android:key="key_righteye_cascade_file"
+            android:defaultValue="@string/haarcascade_righteye"/>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="Preprocessing">
         <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
             android:title="Standard Preprocessing"

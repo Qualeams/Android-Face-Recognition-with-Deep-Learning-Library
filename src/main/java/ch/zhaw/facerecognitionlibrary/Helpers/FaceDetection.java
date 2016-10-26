@@ -16,6 +16,10 @@ limitations under the License.
 package ch.zhaw.facerecognitionlibrary.Helpers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.opencv.core.Core;
@@ -46,34 +50,33 @@ public class FaceDetection {
         // load cascade file from application resources
         File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
 
-        InputStream is = context.getResources().openRawResource(R.raw.haarcascade_frontalface_default);
-        File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
-        String path = getClassifierPath(mCascadeFile,is);
-        faceDetector = new CascadeClassifier(path);
-        if (faceDetector.empty()) {
-            Log.e(TAG, "Failed to load face classifier");
-            faceDetector = null;
-        }
+        AssetManager assetManager = context.getAssets();
+        Resources res = context.getResources();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
 
-        is = context.getResources().openRawResource(R.raw.haarcascade_lefteye_2splits);
-        mCascadeFile = new File(cascadeDir, "haarcascade_lefteye_2splits.xml");
-        path = getClassifierPath(mCascadeFile, is);
-        leftEyeDetector = new CascadeClassifier(path);
-        if (leftEyeDetector.empty()) {
-            Log.e(TAG, "Failed to load leftEye classifier");
-            leftEyeDetector = null;
-        }
-
-        is = context.getResources().openRawResource(R.raw.haarcascade_righteye_2splits);
-        mCascadeFile = new File(cascadeDir, "haarcascade_righteye_2splits.xml");
-        path = getClassifierPath(mCascadeFile, is);
-        rightEyeDetector = new CascadeClassifier(path);
-        if (rightEyeDetector.empty()) {
-            Log.e(TAG, "Failed to load rightEye classifier");
-            rightEyeDetector = null;
-        }
+        faceDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_face_cascade_file", res.getString(R.string.haarcascade_alt2)));
+        leftEyeDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_lefteye_cascade_file", res.getString(R.string.haarcascade_lefteye)));
+        rightEyeDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_righteye_cascade_file", res.getString(R.string.haarcascade_righteye)));
 
         cascadeDir.delete();
+    }
+
+    private CascadeClassifier setCascadeClassifier(AssetManager assetManager, File cascadeDir, String name){
+        CascadeClassifier cascadeClassifier;
+        try {
+            InputStream is = assetManager.open(name + ".xml");
+            File mCascadeFile = new File(cascadeDir, name + ".xml");
+            String path = getClassifierPath(mCascadeFile,is);
+            cascadeClassifier = new CascadeClassifier(path);
+        } catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+        if (cascadeClassifier.empty()) {
+            Log.e(TAG, "Failed to load classifier: " + name);
+            cascadeClassifier = null;
+        }
+        return cascadeClassifier;
     }
 
     public Rect[] getFaces(Mat img) {
