@@ -15,11 +15,8 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.CaffeMobile;
 
 import org.opencv.core.Mat;
@@ -30,7 +27,8 @@ import java.util.List;
 
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
-import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
+
 
 /***************************************************************************************
  *    Title: caffe-android-demo
@@ -52,34 +50,24 @@ public class Caffe implements Recognition {
         System.loadLibrary("caffe_jni");
     }
 
-    public Caffe(Context context, int method) {
+    public Caffe(int method) {
         fh = new FileHelper();
         String dataPath = fh.CAFFE_PATH;
+        String modelFile = PreferencesHelper.getCaffeModelFile();
+        String weightsFile = PreferencesHelper.getCaffeWeightsFile();
+        layer = PreferencesHelper.getCaffeOutputLayer();
+        float[] meanValues = PreferencesHelper.getCaffeMeanValues();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
-        Resources res = context.getResources();
-        String modelFile = sharedPref.getString("key_modelFileCaffe", res.getString(R.string.modelFileCaffe));
-        String weightsFile = sharedPref.getString("key_weightsFileCaffe", res.getString(R.string.weightsFileCaffe));
-        layer = sharedPref.getString("key_outputLayerCaffe", res.getString(R.string.weightsFileCaffe));
-        String[] meanValuesString = sharedPref.getString("key_meanValuesCaffe", res.getString(R.string.meanValuesCaffe)).split(",");
-        if(meanValuesString.length != 3){
-            meanValuesString = res.getString(R.string.meanValuesCaffe).split(",");
-        }
-        float[] meanValues = new float[3];
-        for(int i=0; i<3; i++){
-            meanValues[i] = Float.parseFloat(meanValuesString[i]);
-        }
-
-        Boolean classificationMethod = sharedPref.getBoolean("key_classificationMethodTFCaffe", true);
+        Boolean classificationMethod = PreferencesHelper.getClassificationMethodTFCaffe();
 
         caffe = new CaffeMobile();
         caffe.setNumThreads(4);
         caffe.loadModel(dataPath + modelFile, dataPath + weightsFile);
         caffe.setMean(meanValues);
         if(classificationMethod){
-            rec = new SupportVectorMachine(context, method);
+            rec = new SupportVectorMachine(method);
         } else {
-            rec = new KNearestNeighbor(context, method);
+            rec = new KNearestNeighbor(method);
         }
 
     }

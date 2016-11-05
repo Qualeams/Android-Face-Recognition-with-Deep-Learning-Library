@@ -16,10 +16,7 @@ limitations under the License.
 package ch.zhaw.facerecognitionlibrary.Helpers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.opencv.core.Core;
@@ -36,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.R;
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 
 public class FaceDetection {
     private Mat img;
@@ -45,18 +42,20 @@ public class FaceDetection {
     private CascadeClassifier faceDetector;
     private CascadeClassifier leftEyeDetector;
     private CascadeClassifier rightEyeDetector;
+    private double scaleFactor;
+    private int minNeighbors;
+    private int flags;
 
-    public FaceDetection(Context context) {
+    public FaceDetection() {
         // load cascade file from application resources
-        File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
+        File cascadeDir = FaceRecognitionLibrary.context.getDir("cascade", Context.MODE_PRIVATE);
 
-        AssetManager assetManager = context.getAssets();
-        Resources res = context.getResources();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
-
-        faceDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_face_cascade_file", res.getString(R.string.haarcascade_alt2)));
-        leftEyeDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_lefteye_cascade_file", res.getString(R.string.haarcascade_lefteye)));
-        rightEyeDetector = setCascadeClassifier(assetManager, cascadeDir, sharedPref.getString("key_righteye_cascade_file", res.getString(R.string.haarcascade_righteye)));
+        faceDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getFaceCascadeFile());
+        leftEyeDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getLefteyeCascadeFile());
+        rightEyeDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getRighteyeCascadeFile());
+        scaleFactor = PreferencesHelper.getDetectionScaleFactor();
+        minNeighbors = PreferencesHelper.getDetectionMinNeighbors();
+        flags = PreferencesHelper.getDetectionFlags();
 
         cascadeDir.delete();
     }
@@ -79,6 +78,7 @@ public class FaceDetection {
         return cascadeClassifier;
     }
 
+
     public Rect[] getFaces(Mat img) {
         MatOfRect faces = new MatOfRect();
         List<Rect> facesList = null;
@@ -92,7 +92,7 @@ public class FaceDetection {
                 if (Math.round(height * mRelativeFaceSize) > 0) {
                     mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
                 }
-                faceDetector.detectMultiScale(img, faces, 1.1 ,2, 2, new Size(mAbsoluteFaceSize,mAbsoluteFaceSize), new Size());
+                faceDetector.detectMultiScale(img, faces, scaleFactor , minNeighbors, flags, new Size(mAbsoluteFaceSize,mAbsoluteFaceSize), new Size());
                 // Rotate by 90°
                 if(faces.empty()){
                     angle = 90 * i;

@@ -29,7 +29,7 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.Command;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessor;
 
 public class GammaCorrection implements Command {
-    private double gamma = 0.2;
+    private double gamma;
     private static final Scalar INT_MAX = new Scalar(255);
 
     public GammaCorrection(double gamma) {

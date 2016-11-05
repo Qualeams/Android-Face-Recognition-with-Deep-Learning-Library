@@ -85,8 +85,7 @@ inline static int64 CurrentThreadTimeUs() {
 JNIEXPORT jint JNICALL
 TENSORFLOW_METHOD(initializeTensorflow)(
     JNIEnv* env, jobject thiz, jobject java_asset_manager,
-    jstring model,
-    jint num_classes, jint mognet_input_size, jint image_mean) {
+    jstring model, jint mognet_input_size, jint image_mean) {
   g_num_runs = 0;
   g_timing_total_us = 0;
   g_frequency_start.Reset();

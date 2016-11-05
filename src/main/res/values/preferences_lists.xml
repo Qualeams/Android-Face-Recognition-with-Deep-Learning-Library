@@ -15,6 +15,12 @@
  limitations under the License.
 -->
 <resources>
+    <string-array name="detection_standard_pre">
+        <item>@string/grayscale</item>
+    </string-array>
+    <string-array name="detection_standard_pre_default">
+        <item>@string/grayscale</item>
+    </string-array>
     <string-array name="standard_pre">
         <item>@string/grayscale</item>
         <item>@string/crop</item>

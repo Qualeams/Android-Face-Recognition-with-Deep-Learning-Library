@@ -15,21 +15,16 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.PreProcessor;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
-
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.Eyes;
 import ch.zhaw.facerecognitionlibrary.Helpers.FaceDetection;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.BrightnessCorrection.GammaCorrection;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.Contours.DifferenceOfGaussian;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.Contours.LocalBinaryPattern;
@@ -42,68 +37,47 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.StandardPreprocessing.GraySca
 import ch.zhaw.facerecognitionlibrary.R;
 
 public class PreProcessorFactory {
-    private Context context;
-    private int N;
-    private PreProcessor preProcessor;
+    private PreProcessor preProcessorRecognition;
+    private PreProcessor preProcessorDetection;
     private List<Mat> images;
     public CommandFactory commandFactory;
     private FaceDetection faceDetection;
     private boolean eyeDetectionEnabled;
 
-    public PreProcessorFactory(Context context, int N) {
-        this.context = context;
-        this.N = N;
-        this.faceDetection = new FaceDetection(context);
-        Resources res = context.getResources();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
+    public PreProcessorFactory() {
+        this.faceDetection = new FaceDetection();
+        eyeDetectionEnabled = PreferencesHelper.getEyeDetectionEnabled();
         commandFactory = new CommandFactory();
-        commandFactory.addCommand(res.getString(R.string.grayscale), new GrayScale());
-        commandFactory.addCommand(res.getString(R.string.eyeAlignment), new EyeAlignment());
-        commandFactory.addCommand(res.getString(R.string.crop), new Crop());
-        commandFactory.addCommand(res.getString(R.string.gammaCorrection), new GammaCorrection(Float.valueOf(sharedPref.getString("key_gamma", res.getString(R.string.gamma)))));
-        String[] sigmasString = sharedPref.getString("key_sigmas", res.getString(R.string.sigmas)).split(",");
-        if(sigmasString.length != 2){
-            sigmasString = res.getString(R.string.sigmas).split(",");
-        }
-        double[] sigmas = new double[3];
-        for(int i=0; i<2; i++){
-            sigmas[i] = Double.parseDouble(sigmasString[i]);
-        }
-        commandFactory.addCommand(res.getString(R.string.doG), new DifferenceOfGaussian(sigmas));
-        commandFactory.addCommand(res.getString(R.string.masking), new Masking());
-        commandFactory.addCommand(res.getString(R.string.histogrammEqualization), new HistogrammEqualization());
-        commandFactory.addCommand(res.getString(R.string.resize), new Resize());
-        commandFactory.addCommand(res.getString(R.string.lbp), new LocalBinaryPattern());
-    }
-
-    public PreProcessorFactory(Context context){
-        this.context = context;
-        this.faceDetection = new FaceDetection(context);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
-        eyeDetectionEnabled = sharedPref.getBoolean("key_eye_detection", true);
-        commandFactory = new CommandFactory();
-        Resources res = context.getResources();
-        commandFactory.addCommand(res.getString(R.string.crop), new Crop());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.grayscale), new GrayScale());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.eyeAlignment), new EyeAlignment());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.crop), new Crop());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.gammaCorrection), new GammaCorrection(PreferencesHelper.getGamma()));
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.doG), new DifferenceOfGaussian(PreferencesHelper.getSigmas()));
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.masking), new Masking());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.histogrammEqualization), new HistogrammEqualization());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.resize), new Resize());
+        commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.lbp), new LocalBinaryPattern());
     }
 
     public Mat getCroppedImage(Mat img){
-        preProcessor = new PreProcessor(context, faceDetection);
+        preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img));
+        List<String> preprocessingsDetection = getPreprocessings(PreferencesHelper.Usage.DETECTION);
         images = new ArrayList<Mat>();
         images.add(img);
-        preProcessor.setImages(images);
-        preProcessor.setFaces();
+        preProcessorRecognition = new PreProcessor(faceDetection, images);
         List<Mat> result = null;
         try {
-            Resources res = context.getResources();
-            preProcessor = commandFactory.executeCommand(res.getString(R.string.crop), preProcessor);
+            preprocess(preProcessorDetection, preprocessingsDetection);
+            preProcessorRecognition.setFaces();
+            preProcessorRecognition = commandFactory.executeCommand(FaceRecognitionLibrary.resources.getString(R.string.crop), preProcessorRecognition);
             if (eyeDetectionEnabled) {
-                preProcessor.setEyes();
-                Eyes[] eyes = preProcessor.getEyes();
+                preProcessorRecognition.setEyes();
+                Eyes[] eyes = preProcessorRecognition.getEyes();
                 if (eyes == null || eyes[0] == null){
                     return null;
                 }
             }
-            result = preProcessor.getImages();
+            result = preProcessorRecognition.getImages();
         } catch (NullPointerException e){
             e.printStackTrace();
         }
@@ -115,70 +89,69 @@ public class PreProcessorFactory {
     }
 
     public List<Mat> getProcessedImage(Mat img) throws NullPointerException {
-        preProcessor = new PreProcessor(context, N, faceDetection);
+
+        preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img));
+
         images = new ArrayList<Mat>();
         images.add(img);
-        preProcessor.setImages(images);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        Set<String> standard_pre_set = sharedPref.getStringSet("key_standard_pre", null);
-        Set<String> brightness_set = sharedPref.getStringSet("key_brightness", null);
-        Set<String> contours_set = sharedPref.getStringSet("key_contours", null);
-        Set<String> contrast_set = sharedPref.getStringSet("key_contrast", null);
-        Set<String> standard_post_set = sharedPref.getStringSet("key_standard_post", null);
-        ArrayList<String> preprocessings = new ArrayList<String>();
-        ArrayList<String> standard_pre;
-        ArrayList<String> brightness;
-        ArrayList<String> contours;
-        ArrayList<String> contrast;
-        ArrayList<String> standard_post;
-        if(standard_pre_set != null) {
-            standard_pre = new ArrayList<String>(standard_pre_set);
-            Collections.sort(standard_pre);
-            preprocessings.addAll(standard_pre);
-        }
-        if(brightness_set != null) {
-            brightness = new ArrayList<String>(brightness_set);
-            Collections.sort(brightness);
-            preprocessings.addAll(brightness);
-        }
-        if(contours_set != null){
-            contours = new ArrayList<String>(contours_set);
-            Collections.sort(contours);
-            preprocessings.addAll(contours);
-        }
-        if(contrast_set != null){
-            contrast = new ArrayList<String>(contrast_set);
-            Collections.sort(contrast);
-            preprocessings.addAll(contrast);
-        }
-        if(standard_post_set != null) {
-            standard_post = new ArrayList<String>(standard_post_set);
-            Collections.sort(standard_post);
-            preprocessings.addAll(standard_post);
-        }
-        try {
-            preProcessor.setFaces();
+        preProcessorRecognition = new PreProcessor(faceDetection, images);
 
-            for (String name : preprocessings){
-                preProcessor = commandFactory.executeCommand(name, preProcessor);
+        try {
+            preprocess(preProcessorDetection, getPreprocessings(PreferencesHelper.Usage.DETECTION));
+
+            preProcessorDetection.setFaces();
+            preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
+
+            preprocess(preProcessorRecognition, getPreprocessings(PreferencesHelper.Usage.RECOGNITION));
+
+            if (eyeDetectionEnabled) {
+                preProcessorRecognition.setEyes();
+                Eyes[] eyes = preProcessorRecognition.getEyes();
+                if (eyes == null || eyes[0] == null){
+                    return null;
+                }
             }
 
         } catch (NullPointerException e){
             e.printStackTrace();
             return null;
         }
-        return preProcessor.getImages();
+        return preProcessorRecognition.getImages();
+    }
+
+    private List<String> getPreprocessings(PreferencesHelper.Usage usage){
+        ArrayList<String> preprocessings = new ArrayList<String>();
+        preprocessings.addAll(PreferencesHelper.getStandardPreprocessing(usage));
+        preprocessings.addAll(PreferencesHelper.getBrightnessPreprocessing(usage));
+        preprocessings.addAll(PreferencesHelper.getContoursPreprocessing(usage));
+        preprocessings.addAll(PreferencesHelper.getContrastPreprocessing(usage));
+        preprocessings.addAll(PreferencesHelper.getStandardPostrocessing(usage));
+        return preprocessings;
+    }
+
+    private void preprocess(PreProcessor preProcessor, List<String> preprocessings){
+        for (String name : preprocessings){
+            preProcessor = commandFactory.executeCommand(name, preProcessor);
+        }
     }
 
     public Rect[] getFacesForRecognition() {
-        if(preProcessor != null){
-            return preProcessor.getFaces();
+        if(preProcessorRecognition != null){
+            return preProcessorRecognition.getFaces();
         } else {
             return null;
         }
     }
 
+    private List<Mat> getCopiedImageList(Mat img){
+        List<Mat> images = new ArrayList<Mat>();
+        Mat imgCopy = new Mat();
+        img.copyTo(imgCopy);
+        images.add(imgCopy);
+        return images;
+    }
+
     public int getAngleForRecognition(){
-        return preProcessor.getAngle();
+        return preProcessorRecognition.getAngle();
     }
 }

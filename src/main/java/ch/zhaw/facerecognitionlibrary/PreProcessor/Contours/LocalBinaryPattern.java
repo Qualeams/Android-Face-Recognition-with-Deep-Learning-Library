@@ -25,6 +25,7 @@ import java.util.List;
 
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.Command;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessor;
 
@@ -35,7 +36,7 @@ public class LocalBinaryPattern implements Command {
         List<Mat> processed = new ArrayList<Mat>();
         for(Mat img : images){
             // Resize for Performance enhancement
-            Size size = new Size(preProcessor.getN(), preProcessor.getN());
+            Size size = new Size(PreferencesHelper.getN(), PreferencesHelper.getN());
             Imgproc.resize(img, img, size);
             Mat lbp = new Mat(img.rows()-2, img.cols()-2, img.type());
             for (int i=1; i<img.rows()-1; i++){

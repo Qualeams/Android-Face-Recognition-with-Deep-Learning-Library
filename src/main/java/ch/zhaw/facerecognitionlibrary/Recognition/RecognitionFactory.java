@@ -15,23 +15,20 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
-import android.content.Context;
-import android.content.res.Resources;
-
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.R;
 
 public class RecognitionFactory {
-    public static Recognition getRecognitionAlgorithm(Context context, int method, String algorithm) {
-        Resources res = context.getResources();
-        if (algorithm.equals(res.getString(R.string.eigenfaces))){
-            return new Eigenfaces(context, method);
-        } else if (algorithm.equals(res.getString(R.string.imageReshaping))){
-            return new SupportVectorMachine(context, method);
+    public static Recognition getRecognitionAlgorithm(int method, String algorithm) {
+        if (algorithm.equals(FaceRecognitionLibrary.resources.getString(R.string.eigenfaces))){
+            return new Eigenfaces(method);
+        } else if (algorithm.equals(FaceRecognitionLibrary.resources.getString(R.string.imageReshaping))){
+            return new SupportVectorMachine(method);
         }
-        else if (algorithm.equals(res.getString(R.string.tensorflow))){
-            return new TensorFlow(context, method);
-        } else if (algorithm.equals(res.getString(R.string.caffe))) {
-            return new Caffe(context, method);
+        else if (algorithm.equals(FaceRecognitionLibrary.resources.getString(R.string.tensorflow))){
+            return new TensorFlow(method);
+        } else if (algorithm.equals(FaceRecognitionLibrary.resources.getString(R.string.caffe))) {
+            return new Caffe( method);
         } else {
             return null;
         }

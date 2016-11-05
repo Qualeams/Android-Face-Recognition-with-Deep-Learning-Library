@@ -15,10 +15,6 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import org.opencv.core.Mat;
 
 import java.io.BufferedReader;
@@ -30,8 +26,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.OneToOneMap;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 /***************************************************************************************
  *    Title: AndroidLibSvm
@@ -43,7 +41,6 @@ import ch.zhaw.facerecognitionlibrary.Helpers.OneToOneMap;
  ***************************************************************************************/
 
 public class SupportVectorMachine implements Recognition {
-    private Context context;
     private FileHelper fh;
     private File trainingFile;
     private File predictionFile;
@@ -54,8 +51,7 @@ public class SupportVectorMachine implements Recognition {
     private OneToOneMap<String, Integer> labelMapTest;
     private int method;
 
-    public SupportVectorMachine(Context context, int method) {
-        this.context = context;
+    public SupportVectorMachine(int method) {
         fh = new FileHelper();
         trainingFile = fh.createSvmTrainingFile();
         predictionFile = fh.createSvmPredictionFile();
@@ -85,8 +81,7 @@ public class SupportVectorMachine implements Recognition {
         fh.saveStringList(trainingList, trainingFile);
 
         // linear kernel -t 0
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
-        String svmTrainOptions = sharedPref.getString("key_svmTrainOptions", "-t 0 ");
+        String svmTrainOptions = PreferencesHelper.getSvmTrainOptions();
         String training = trainingFile.getAbsolutePath();
         String model = trainingFile.getAbsolutePath() + "_model";
         jniSvmTrain(svmTrainOptions + " " + training + " " + model);

@@ -68,9 +68,63 @@
             android:entryValues="@array/righteye_cascade_file"
             android:key="key_righteye_cascade_file"
             android:defaultValue="@string/haarcascade_righteye"/>
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="scaleFactor for OpenCV detectmultiscale"
+            android:key="key_scaleFactor"
+            android:defaultValue="1.1"
+            />
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="minNeighbors for OpenCV detectmultiscale"
+            android:key="key_minNeighbors"
+            android:defaultValue="3"
+            android:numeric="integer"
+            />
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="flags for OpenCV detectmultiscale"
+            android:key="key_flags"
+            android:defaultValue="2"
+            android:numeric="integer"
+            />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Preprocessing">
+        android:title="Preprocessing Detection">
+        <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
+            android:title="Standard Preprocessing"
+            android:entries="@array/detection_standard_pre"
+            android:entryValues="@array/detection_standard_pre"
+            android:key="key_detection_standard_pre"
+            android:defaultValue="@array/detection_standard_pre_default"/>
+        <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
+            android:title="Brightness Correction"
+            android:entries="@array/brightness"
+            android:entryValues="@array/brightness"
+            android:key="key_detection_brightness"
+            android:defaultValue="@array/brightness_default"/>
+        <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
+            android:title="Contours"
+            android:entries="@array/contours"
+            android:entryValues="@array/contours"
+            android:key="key_detection_contours"
+            android:defaultValue="@array/empty_array"/>
+        <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
+            android:title="Contrast Adjustment"
+            android:entries="@array/contrast"
+            android:entryValues="@array/contrast"
+            android:key="key_detection_contrast"
+            android:defaultValue="@array/contrast_default"/>
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="gamma (Gamma Correction)"
+            android:defaultValue="@string/gamma"
+            android:numeric="decimal"
+            android:maxLength="4"
+            android:key="key_detection_gamma"/>
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="sigmas (comma separated - Difference of Gaussians)"
+            android:defaultValue="@string/sigmas"
+            android:key="key_detection_sigmas"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Preprocessing Recognition">
         <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
             android:title="Standard Preprocessing"
             android:entries="@array/standard_pre"
@@ -119,7 +173,7 @@
             android:key="key_N"/>
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Algorithms General">
+        android:title="Recognition Algorithms General">
         <ch.zhaw.facerecognition.Helpers.ListPreference
             android:title="Feature extraction and classification method"
             android:entries="@array/classification_method"
@@ -152,11 +206,6 @@
     <PreferenceCategory
         android:title="TensorFlow">
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
-            android:title="Number of classes"
-            android:defaultValue="1001"
-            android:numeric="integer"
-            android:key="key_numClasses"/>
-        <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Input Size"
             android:defaultValue="224"
             android:numeric="integer"
@@ -168,20 +217,20 @@
             android:key="key_imageMean"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Output size"
-            android:defaultValue="1024"
+            android:defaultValue="4096"
             android:numeric="integer"
             android:key="key_outputSize"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Input layer"
-            android:defaultValue="input"
+            android:defaultValue="Placeholder"
             android:key="key_inputLayer"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Output layer"
-            android:defaultValue="avgpool0"
+            android:defaultValue="fc7/fc7"
             android:key="key_outputLayer"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Model file"
-            android:defaultValue="tensorflow_inception_graph.pb"
+            android:defaultValue="vgg_faces.pb"
             android:key="key_modelFileTensorFlow"/>
     </PreferenceCategory>
     <PreferenceCategory

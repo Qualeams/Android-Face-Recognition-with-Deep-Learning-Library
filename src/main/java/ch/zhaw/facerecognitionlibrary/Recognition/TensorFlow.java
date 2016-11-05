@@ -15,11 +15,8 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
@@ -30,7 +27,9 @@ import org.opencv.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 /***************************************************************************************
  *    Title: TensorFlowAndroidDemo
@@ -52,26 +51,23 @@ public class TensorFlow implements Recognition {
 
     Recognition rec;
 
-    public TensorFlow(Context context, int method) {
+    public TensorFlow(int method) {
         String dataPath = FileHelper.TENSORFLOW_PATH;
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences((context.getApplicationContext()));
-        int numClasses = Integer.valueOf(sharedPref.getString("key_numClasses", "1001"));
-        inputSize = Integer.valueOf(sharedPref.getString("key_inputSize", "224"));
-        int imageMean = Integer.valueOf(sharedPref.getString("key_imageMean", "128"));
-        outputSize = Integer.valueOf(sharedPref.getString("key_outputSize", "1024"));
-        inputLayer = sharedPref.getString("key_inputLayer", "input");
-        outputLayer = sharedPref.getString("key_outputLayer", "avgpool0");
-        String modelFile = sharedPref.getString("key_modelFileTensorFlow", "tensorflow_inception_graph.pb");
-        Boolean classificationMethod = sharedPref.getBoolean("key_classificationMethodTFCaffe", true);
+        inputSize = PreferencesHelper.getTensorFlowInputSize();
+        int imageMean = PreferencesHelper.getTensorFlowImageMean();
+        outputSize = PreferencesHelper.getTensorFlowOutputSize();
+        inputLayer = PreferencesHelper.getTensorFlowInputLayer();
+        outputLayer = PreferencesHelper.getTensorFlowOutputLayer();
+        String modelFile = PreferencesHelper.getTensorFlowModelFile();
+        Boolean classificationMethod = PreferencesHelper.getClassificationMethodTFCaffe();
 
-        final AssetManager assetManager = context.getAssets();
-        initializeTensorflow(assetManager, dataPath + modelFile, numClasses, inputSize, imageMean);
+        initializeTensorflow(FaceRecognitionLibrary.assets, dataPath + modelFile, inputSize, imageMean);
 
         if(classificationMethod){
-            rec = new SupportVectorMachine(context, method);
+            rec = new SupportVectorMachine(method);
         }
         else {
-            rec = new KNearestNeighbor(context, method);
+            rec = new KNearestNeighbor(method);
         }
     }
 
@@ -83,7 +79,6 @@ public class TensorFlow implements Recognition {
     // connect the native functions
     private native int initializeTensorflow(AssetManager assetManager,
                                              String model,
-                                             int numClasses,
                                              int inputSize,
                                              int imageMean);
     private native String classifyImageBmp(String inputLayer, String outputLayer, int outputSize, Bitmap bitmap);

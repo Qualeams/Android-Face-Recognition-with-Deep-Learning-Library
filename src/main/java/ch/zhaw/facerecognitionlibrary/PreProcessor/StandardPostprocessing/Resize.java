@@ -22,6 +22,8 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.Command;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessor;
 
@@ -31,7 +33,7 @@ public class Resize implements Command {
         List<Mat> images = preProcessor.getImages();
         List<Mat> processed = new ArrayList<Mat>();
         for (Mat img : images){
-            Size size = new Size(preProcessor.getN(), preProcessor.getN());
+            Size size = new Size(PreferencesHelper.getN(), PreferencesHelper.getN());
             Imgproc.resize(img, img, size);
             processed.add(img);
         }
