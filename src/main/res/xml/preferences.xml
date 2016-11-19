@@ -18,11 +18,23 @@
     <PreferenceCategory
         android:title="General">
         <ch.zhaw.facerecognition.Helpers.SwitchPreference
-            android:title="Camera"
-            android:key="key_front_camera"
-            android:defaultValue="true"
-            android:switchTextOn="Front"
-            android:switchTextOff="Back"/>
+        android:title="Camera"
+        android:key="key_front_camera"
+        android:defaultValue="true"
+        android:switchTextOn="Front"
+        android:switchTextOff="Back"/>
+        <ch.zhaw.facerecognition.Helpers.SwitchPreference
+            android:title="Night Portrait Mode"
+            android:key="key_night_portrait"
+            android:defaultValue="false"
+            android:switchTextOn="On"
+            android:switchTextOff="Off"/>
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="Exposure Compensation (between 0 - 100)"
+            android:key="key_exposure_compensation"
+            android:defaultValue="50"
+            android:numeric="integer"
+            />
         <Preference
             android:title="Default Settings"
             android:key="key_default_button"
