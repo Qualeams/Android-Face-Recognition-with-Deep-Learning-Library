@@ -192,4 +192,8 @@ public class PreferencesHelper {
     public static int getDetectionFlags(){
         return Integer.parseInt(FaceRecognitionLibrary.sharedPreferences.getString("key_flags", "2"));
     }
+
+    public static boolean getDetectionMethod(){
+        return FaceRecognitionLibrary.sharedPreferences.getBoolean("key_detection_method", true);
+    }
 }

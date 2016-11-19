@@ -57,13 +57,19 @@
     <PreferenceCategory
         android:title="Face detection">
         <ch.zhaw.facerecognition.Helpers.SwitchPreference
+            android:title="Method"
+            android:key="key_detection_method"
+            android:defaultValue="true"
+            android:switchTextOn="OpenCV detectMultiScale"
+            android:switchTextOff="Android FaceDetector"/>
+        <ch.zhaw.facerecognition.Helpers.SwitchPreference
             android:title="Eye Detection"
             android:key="key_eye_detection"
             android:defaultValue="true"
             android:switchTextOn="Enabled"
             android:switchTextOff="Disabled"/>
         <ch.zhaw.facerecognition.Helpers.ListPreference
-            android:title="Face cascade file"
+            android:title="OpenCV face cascade file"
             android:entries="@array/face_cascade_file"
             android:entryValues="@array/face_cascade_file"
             android:key="key_face_cascade_file"

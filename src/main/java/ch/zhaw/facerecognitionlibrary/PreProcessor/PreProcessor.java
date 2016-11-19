@@ -15,15 +15,24 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.PreProcessor;
 
+import android.graphics.Bitmap;
+import android.graphics.PointF;
+import android.media.FaceDetector;
+
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.utils.Converters;
 
 import java.util.List;
 
 import ch.zhaw.facerecognitionlibrary.Helpers.Eyes;
 import ch.zhaw.facerecognitionlibrary.Helpers.FaceDetection;
+import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 public class PreProcessor {
     private int angle;
@@ -40,14 +49,38 @@ public class PreProcessor {
 
     public PreProcessor(){}
 
-    public void setFaces() {
+    public void setFaces(PreProcessorFactory.PreprocessingMode preprocessingMode) {
         List<Mat> images = getImages();
-        faces = faceDetection.getFaces(images.get(0));
-        angle = faceDetection.getAngle();
-        // Change also the rotation of the image
-        images.remove(0);
-        images.add(faceDetection.getImg());
-        setImages(images);
+
+        if (PreferencesHelper.getDetectionMethod()){
+            faces = faceDetection.getFaces(images.get(0));
+            angle = faceDetection.getAngle();
+        } else {
+            Mat img = images.get(0);
+            FaceDetector faceDetector = new FaceDetector(img.cols(), img.rows(), 1);
+            Bitmap bmp = Bitmap.createBitmap(img.cols(), img.rows(), Bitmap.Config.RGB_565);
+            Utils.matToBitmap(img, bmp);
+            FaceDetector.Face[] facesAndroid = new FaceDetector.Face[1];
+            if (faceDetector.findFaces(bmp, facesAndroid) > 0){
+                faces = new Rect[facesAndroid.length];
+                for (int i=0; i<facesAndroid.length; i++){
+                    PointF pointF = new PointF();
+                    facesAndroid[i].getMidPoint(pointF);
+                    int xWidth = (int) (1.34 * facesAndroid[i].eyesDistance());
+                    int yWidth = (int) (1.12 * facesAndroid[i].eyesDistance());
+                    int dist = (int) (2.77 * facesAndroid[i].eyesDistance());
+                    Rect face = new Rect((int) pointF.x - xWidth, (int) pointF.y - yWidth, dist, dist);
+                    faces[i] = face;
+                }
+            }
+        }
+
+        if (preprocessingMode == PreProcessorFactory.PreprocessingMode.RECOGNITION){
+            // Change also the rotation of the image
+            images.remove(0);
+            images.add(faceDetection.getImg());
+            setImages(images);
+        }
     }
 
     public void setFaces(Rect[] faces){

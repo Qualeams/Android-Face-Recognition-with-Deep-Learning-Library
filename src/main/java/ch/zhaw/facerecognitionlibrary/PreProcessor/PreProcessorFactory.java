@@ -39,6 +39,7 @@ import ch.zhaw.facerecognitionlibrary.PreProcessor.StandardPreprocessing.GraySca
 import ch.zhaw.facerecognitionlibrary.R;
 
 public class PreProcessorFactory {
+    public enum PreprocessingMode {DETECTION, RECOGNITION};
     private PreProcessor preProcessorRecognition;
     private PreProcessor preProcessorDetection;
     private List<Mat> images;
@@ -70,7 +71,7 @@ public class PreProcessorFactory {
 
         try {
             preprocess(preProcessorDetection, preprocessingsDetection);
-            preProcessorRecognition.setFaces();
+            preProcessorRecognition.setFaces(PreprocessingMode.RECOGNITION);
             preProcessorRecognition = commandFactory.executeCommand(FaceRecognitionLibrary.resources.getString(R.string.crop), preProcessorRecognition);
             if (eyeDetectionEnabled) {
                 preProcessorRecognition.setEyes();
@@ -86,7 +87,7 @@ public class PreProcessorFactory {
         return preProcessorRecognition.getImages();
     }
 
-    public List<Mat> getProcessedImage(Mat img) throws NullPointerException {
+    public List<Mat> getProcessedImage(Mat img, PreprocessingMode preprocessingMode) throws NullPointerException {
 
         preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img));
 
@@ -97,10 +98,12 @@ public class PreProcessorFactory {
         try {
             preprocess(preProcessorDetection, getPreprocessings(PreferencesHelper.Usage.DETECTION));
 
-            preProcessorDetection.setFaces();
+            preProcessorDetection.setFaces(preprocessingMode);
             preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
 
-            preprocess(preProcessorRecognition, getPreprocessings(PreferencesHelper.Usage.RECOGNITION));
+            if (preprocessingMode == PreprocessingMode.RECOGNITION){
+                preprocess(preProcessorRecognition, getPreprocessings(PreferencesHelper.Usage.RECOGNITION));
+            }
 
             if (eyeDetectionEnabled) {
                 preProcessorRecognition.setEyes();
@@ -114,7 +117,11 @@ public class PreProcessorFactory {
             Log.d("getProcessedImage", "No face detected");
             return null;
         }
-        return preProcessorRecognition.getImages();
+        if (preprocessingMode == PreprocessingMode.RECOGNITION){
+            return preProcessorRecognition.getImages();
+        } else {
+            return preProcessorDetection.getImages();
+        }
     }
 
     private List<String> getPreprocessings(PreferencesHelper.Usage usage){
