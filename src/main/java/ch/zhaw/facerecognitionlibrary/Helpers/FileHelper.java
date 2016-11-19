@@ -48,6 +48,7 @@ public class FileHelper {
     private static final String FOLDER_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/facerecognition";
     public static final String TRAINING_PATH = FOLDER_PATH + "/training/";
     public static final String TEST_PATH = FOLDER_PATH + "/test/";
+    public static final String DETECTION_TEST_PATH = FOLDER_PATH + "/detection_test/";
     public static final String DATA_PATH = FOLDER_PATH + "/data/";
     public static final String RESULTS_PATH = FOLDER_PATH + "/results/";
     public static final String EIGENFACES_PATH = DATA_PATH + "Eigenfaces/";
@@ -115,6 +116,10 @@ public class FileHelper {
         return getListOfFiles(TEST_PATH);
     }
 
+    public File[] getDetectionTestList() {
+        return getListOfFiles(DETECTION_TEST_PATH);
+    }
+
     public void saveMatListToXml(List<MatName> matList, String path, String filename){
         createFolderIfNotExisting(path);
         MatXml matXml = new MatXml();
@@ -140,6 +145,8 @@ public class FileHelper {
     }
 
     public String saveMatToImage(MatName m, String path){
+        // Create folder if not already existing
+        new File(path).mkdirs();
         String fullpath = path + m.getName() + ".png";
         Mat mat = m.getMat();
         Bitmap bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
@@ -233,6 +240,26 @@ public class FileHelper {
         }
     }
 
+    public void saveResultsToFile(Map<String, ?> map, double accuracy, int duration, List<String> results){
+        String timestamp = new SimpleDateFormat("ddMMyyyyHHmm").format(new java.util.Date());
+        createFolderIfNotExisting(RESULTS_PATH);
+        String filepath = RESULTS_PATH + "Accuracy_" + String.format("%.2f", accuracy * 100) + "_" + timestamp + ".txt";
+        try {
+            FileWriter fw = new FileWriter(filepath);
+            for (Map.Entry entry : map.entrySet()){
+                fw.append(entry.getKey() + ": " + entry.getValue() + "\n");
+            }
+            fw.append("Accuracy: " + accuracy * 100 + "%\n");
+            fw.append("Duration per image: " + duration + "ms\n");
+            for (String result : results){
+                fw.append(result + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public OneToOneMap<String, Integer> getLabelMapFromFile(String path){
         String filepath = path + "labelMap_train";
         OneToOneMap<String, Integer> labelMap = new OneToOneMap<>();
@@ -313,20 +340,5 @@ public class FileHelper {
             e.printStackTrace();
         }
         return list;
-    }
-
-    public void saveCroppedImage(Mat img, PreProcessorFactory ppF, File file, String name, int number){
-        // Save cropped image if not already existing
-        File croppedFile = new File(file.getParentFile().getAbsolutePath() + "/cropped/" + name + "_" + number);
-        if(!croppedFile.exists()) {
-            // Create folder if not existing
-            File croppedFolder = new File(file.getParentFile().getAbsolutePath() + "/cropped");
-            croppedFolder.mkdir();
-            Mat copy = new Mat();
-            img.copyTo(copy);
-            copy = ppF.getCroppedImage(copy);
-            MatName mat = new MatName(name + "_" + number, copy);
-            saveMatToImage(mat, file.getParentFile().getAbsolutePath() + "/cropped/");
-        }
     }
 }

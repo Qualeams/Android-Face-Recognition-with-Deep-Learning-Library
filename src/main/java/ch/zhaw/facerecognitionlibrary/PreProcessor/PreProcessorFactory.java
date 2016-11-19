@@ -15,6 +15,8 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.PreProcessor;
 
+import android.util.Log;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 
@@ -59,13 +61,13 @@ public class PreProcessorFactory {
         commandFactory.addCommand(FaceRecognitionLibrary.resources.getString(R.string.lbp), new LocalBinaryPattern());
     }
 
-    public Mat getCroppedImage(Mat img){
+    public List<Mat> getCroppedImage(Mat img){
         preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img));
         List<String> preprocessingsDetection = getPreprocessings(PreferencesHelper.Usage.DETECTION);
         images = new ArrayList<Mat>();
         images.add(img);
         preProcessorRecognition = new PreProcessor(faceDetection, images);
-        List<Mat> result = null;
+
         try {
             preprocess(preProcessorDetection, preprocessingsDetection);
             preProcessorRecognition.setFaces();
@@ -77,15 +79,11 @@ public class PreProcessorFactory {
                     return null;
                 }
             }
-            result = preProcessorRecognition.getImages();
         } catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        if((result != null) && (result.size() == 1)){
-            return result.get(0);
-        } else {
+            Log.d("getCroppedImage", "No face detected");
             return null;
         }
+        return preProcessorRecognition.getImages();
     }
 
     public List<Mat> getProcessedImage(Mat img) throws NullPointerException {
@@ -113,7 +111,7 @@ public class PreProcessorFactory {
             }
 
         } catch (NullPointerException e){
-            e.printStackTrace();
+            Log.d("getProcessedImage", "No face detected");
             return null;
         }
         return preProcessorRecognition.getImages();
