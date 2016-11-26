@@ -153,7 +153,7 @@ public class SupportVectorMachine implements Recognition {
         return img.reshape(1,1);
     }
 
-    private String imageToSvmString(Mat img, String label){
+    public String imageToSvmString(Mat img, String label){
         int iLabel = 0;
         if(method == TRAINING){
             if (labelMap.containsKey(label)) {
