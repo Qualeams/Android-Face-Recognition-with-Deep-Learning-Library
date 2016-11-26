@@ -72,7 +72,7 @@ public class TensorFlow implements Recognition {
         }
     }
 
-    public TensorFlow(Context context, String dataPath, int inputSize, int imageMean, int outputSize, String inputLayer, String outputLayer, String modelFile){
+    public TensorFlow(Context context, int inputSize, int imageMean, int outputSize, String inputLayer, String outputLayer, String modelFile){
         this.inputSize = inputSize;
         this.outputSize = outputSize;
         this.inputLayer = inputLayer;
