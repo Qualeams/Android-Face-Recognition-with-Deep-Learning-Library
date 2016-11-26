@@ -15,6 +15,7 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 
@@ -69,6 +70,15 @@ public class TensorFlow implements Recognition {
         else {
             rec = new KNearestNeighbor(method);
         }
+    }
+
+    public TensorFlow(Context context, String dataPath, int inputSize, int imageMean, int outputSize, String inputLayer, String outputLayer, String modelFile){
+        this.inputSize = inputSize;
+        this.outputSize = outputSize;
+        this.inputLayer = inputLayer;
+        this.outputLayer = outputLayer;
+
+        initializeTensorflow(context.getAssets(), modelFile, inputSize, imageMean);
     }
 
     // link jni library
