@@ -93,7 +93,7 @@ public class PreProcessor {
         this.faces = faces;
     }
 
-    public void setEyes() {
+    public Eyes[] setEyes() {
         List<Mat> images = getImages();
         eyes = new Eyes[images.size()];
         for (int i=0; i<images.size(); i++){
@@ -101,6 +101,7 @@ public class PreProcessor {
             normalize0255(img);
             eyes[i] = faceDetection.getEyes(img);
         }
+        return eyes;
     }
 
     public Eyes[] getEyes() {

@@ -82,8 +82,7 @@ public class PreProcessorFactory {
             preProcessorRecognition.setFaces(PreprocessingMode.RECOGNITION);
             preProcessorRecognition = commandFactory.executeCommand(resources.getString(R.string.crop), preProcessorRecognition);
             if (eyeDetectionEnabled) {
-                preProcessorRecognition.setEyes();
-                Eyes[] eyes = preProcessorRecognition.getEyes();
+                Eyes[] eyes = preProcessorRecognition.setEyes();
                 if (eyes == null || eyes[0] == null){
                     return null;
                 }
@@ -110,26 +109,25 @@ public class PreProcessorFactory {
             preProcessorDetection.setFaces(preprocessingMode);
             preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
 
-            if (preprocessingMode == PreprocessingMode.RECOGNITION){
-                preprocess(preProcessorRecognition, getPreprocessings(PreferencesHelper.Usage.RECOGNITION));
-            }
-
             if (eyeDetectionEnabled) {
-                preProcessorRecognition.setEyes();
-                Eyes[] eyes = preProcessorRecognition.getEyes();
+                Eyes[] eyes = preProcessorRecognition.setEyes();
                 if (eyes == null || eyes[0] == null){
                     return null;
                 }
+            }
+
+            if (preprocessingMode == PreprocessingMode.RECOGNITION){
+                preprocess(preProcessorRecognition, getPreprocessings(PreferencesHelper.Usage.RECOGNITION));
             }
 
         } catch (NullPointerException e){
             Log.d("getProcessedImage", "No face detected");
             return null;
         }
-        if (preprocessingMode == PreprocessingMode.RECOGNITION){
-            return preProcessorRecognition.getImages();
-        } else {
+        if (preprocessingMode == PreprocessingMode.DETECTION){
             return preProcessorDetection.getImages();
+        } else {
+            return preProcessorRecognition.getImages();
         }
     }
 

@@ -36,8 +36,7 @@ public class EyeAlignment implements Command {
     public PreProcessor preprocessImage(PreProcessor preProcessor) {
         List<Mat> images = preProcessor.getImages();
         List<Mat> processed = new ArrayList<Mat>();
-        preProcessor.setEyes();
-        Eyes[] eyes = preProcessor.getEyes();
+        Eyes[] eyes = preProcessor.setEyes();
         if (eyes == null || eyes[0] == null){
             return null;
         }
