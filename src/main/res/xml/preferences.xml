@@ -53,6 +53,11 @@
             android:defaultValue="500"
             android:numeric="integer"
             android:key="key_timerDiff"/>
+        <ch.zhaw.facerecognition.Helpers.EditTextPreference
+            android:title="Face size: N (Resize to N x N)"
+            android:defaultValue="224"
+            android:numeric="integer"
+            android:key="key_faceSize"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Face detection">
@@ -117,7 +122,7 @@
             android:entries="@array/brightness"
             android:entryValues="@array/brightness"
             android:key="key_detection_brightness"
-            android:defaultValue="@array/brightness_default"/>
+            android:defaultValue="@array/empty_array"/>
         <ch.zhaw.facerecognition.Helpers.MultiSelectListPreference
             android:title="Contours"
             android:entries="@array/contours"
@@ -129,7 +134,7 @@
             android:entries="@array/contrast"
             android:entryValues="@array/contrast"
             android:key="key_detection_contrast"
-            android:defaultValue="@array/contrast_default"/>
+            android:defaultValue="@array/empty_array"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="gamma (Gamma Correction)"
             android:defaultValue="@string/gamma"
@@ -187,7 +192,6 @@
             android:title="N (Resize to N x N)"
             android:defaultValue="25"
             android:numeric="integer"
-            android:maxLength="3"
             android:key="key_N"/>
     </PreferenceCategory>
     <PreferenceCategory

@@ -15,6 +15,8 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
+import android.content.Context;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.ml.KNearest;
@@ -22,13 +24,13 @@ import org.opencv.ml.KNearest;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
 import ch.zhaw.facerecognitionlibrary.Helpers.OneToOneMap;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 public class KNearestNeighbor implements Recognition{
+    private Context context;
     private FileHelper fh;
     private Mat trainingList;
     private Mat testList;
@@ -44,7 +46,8 @@ public class KNearestNeighbor implements Recognition{
     private int method;
 
 
-   public KNearestNeighbor(int method)  {
+   public KNearestNeighbor(Context context, int method)  {
+       this.context = context;
        fh = new FileHelper();
        k = 20;
        trainingList = new Mat();
@@ -127,7 +130,8 @@ public class KNearestNeighbor implements Recognition{
         }
 
         labels.convertTo(labels, CvType.CV_32F);
-        k = PreferencesHelper.getK();
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        k = preferencesHelper.getK();
 
         knn = KNearest.create();
         knn.setIsClassifier(true);

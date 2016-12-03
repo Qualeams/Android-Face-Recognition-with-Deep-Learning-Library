@@ -16,7 +16,9 @@ limitations under the License.
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
+import android.content.Context;
+import android.os.ParcelFormatException;
+
 import ch.zhaw.facerecognitionlibrary.Helpers.CaffeMobile;
 
 import org.opencv.core.Mat;
@@ -50,24 +52,25 @@ public class Caffe implements Recognition {
         System.loadLibrary("caffe_jni");
     }
 
-    public Caffe(int method) {
+    public Caffe(Context context, int method) {
         fh = new FileHelper();
         String dataPath = fh.CAFFE_PATH;
-        String modelFile = PreferencesHelper.getCaffeModelFile();
-        String weightsFile = PreferencesHelper.getCaffeWeightsFile();
-        layer = PreferencesHelper.getCaffeOutputLayer();
-        float[] meanValues = PreferencesHelper.getCaffeMeanValues();
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        String modelFile = preferencesHelper.getCaffeModelFile();
+        String weightsFile = preferencesHelper.getCaffeWeightsFile();
+        layer = preferencesHelper.getCaffeOutputLayer();
+        float[] meanValues = preferencesHelper.getCaffeMeanValues();
 
-        Boolean classificationMethod = PreferencesHelper.getClassificationMethodTFCaffe();
+        Boolean classificationMethod = preferencesHelper.getClassificationMethodTFCaffe();
 
         caffe = new CaffeMobile();
         caffe.setNumThreads(4);
         caffe.loadModel(dataPath + modelFile, dataPath + weightsFile);
         caffe.setMean(meanValues);
         if(classificationMethod){
-            rec = new SupportVectorMachine(method);
+            rec = new SupportVectorMachine(context, method);
         } else {
-            rec = new KNearestNeighbor(method);
+            rec = new KNearestNeighbor(context, method);
         }
 
     }

@@ -36,7 +36,8 @@ public class LocalBinaryPattern implements Command {
         List<Mat> processed = new ArrayList<Mat>();
         for(Mat img : images){
             // Resize for Performance enhancement
-            Size size = new Size(PreferencesHelper.getN(), PreferencesHelper.getN());
+            PreferencesHelper preferencesHelper = new PreferencesHelper(preProcessor.getContext());
+            Size size = new Size(preferencesHelper.getN(), preferencesHelper.getN());
             Imgproc.resize(img, img, size);
             Mat lbp = new Mat(img.rows()-2, img.cols()-2, img.type());
             for (int i=1; i<img.rows()-1; i++){

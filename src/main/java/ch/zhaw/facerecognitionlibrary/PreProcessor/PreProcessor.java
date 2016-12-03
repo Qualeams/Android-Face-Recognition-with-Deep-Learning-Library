@@ -15,6 +15,7 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.PreProcessor;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.media.FaceDetector;
@@ -35,6 +36,7 @@ import ch.zhaw.facerecognitionlibrary.Helpers.FaceDetection;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 public class PreProcessor {
+    private Context context;
     private int angle;
     private Mat img;
     private List<Mat> images;
@@ -42,17 +44,21 @@ public class PreProcessor {
     private Eyes[] eyes;
     private FaceDetection faceDetection;
 
-    public PreProcessor(FaceDetection faceDetection, List<Mat> images){
-        this.faceDetection = faceDetection;
-        this.images = images;
+    public Context getContext(){
+        return context;
     }
 
-    public PreProcessor(){}
+    public PreProcessor(FaceDetection faceDetection, List<Mat> images, Context context){
+        this.faceDetection = faceDetection;
+        this.images = images;
+        this.context = context;
+    }
 
     public void setFaces(PreProcessorFactory.PreprocessingMode preprocessingMode) {
         List<Mat> images = getImages();
 
-        if (PreferencesHelper.getDetectionMethod()){
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        if (preferencesHelper.getDetectionMethod()){
             faces = faceDetection.getFaces(images.get(0));
             angle = faceDetection.getAngle();
         } else {
@@ -75,8 +81,8 @@ public class PreProcessor {
             }
         }
 
-        if (preprocessingMode == PreProcessorFactory.PreprocessingMode.RECOGNITION){
-            // Change also the rotation of the image
+        if (preprocessingMode == PreProcessorFactory.PreprocessingMode.RECOGNITION && preferencesHelper.getDetectionMethod()){
+            // Change the image rotation to the angle where the face was detected
             images.remove(0);
             images.add(faceDetection.getImg());
             setImages(images);

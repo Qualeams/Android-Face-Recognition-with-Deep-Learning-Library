@@ -33,8 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
-
 public class FaceDetection {
     private Mat img;
     private int angle;
@@ -46,16 +44,17 @@ public class FaceDetection {
     private int minNeighbors;
     private int flags;
 
-    public FaceDetection() {
+    public FaceDetection(Context context) {
         // load cascade file from application resources
-        File cascadeDir = FaceRecognitionLibrary.context.getDir("cascade", Context.MODE_PRIVATE);
+        File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
 
-        faceDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getFaceCascadeFile());
-        leftEyeDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getLefteyeCascadeFile());
-        rightEyeDetector = setCascadeClassifier(FaceRecognitionLibrary.assets, cascadeDir, PreferencesHelper.getRighteyeCascadeFile());
-        scaleFactor = PreferencesHelper.getDetectionScaleFactor();
-        minNeighbors = PreferencesHelper.getDetectionMinNeighbors();
-        flags = PreferencesHelper.getDetectionFlags();
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        faceDetector = setCascadeClassifier(context.getAssets(), cascadeDir, preferencesHelper.getFaceCascadeFile());
+        leftEyeDetector = setCascadeClassifier(context.getAssets(), cascadeDir, preferencesHelper.getLefteyeCascadeFile());
+        rightEyeDetector = setCascadeClassifier(context.getAssets(), cascadeDir, preferencesHelper.getRighteyeCascadeFile());
+        scaleFactor = preferencesHelper.getDetectionScaleFactor();
+        minNeighbors = preferencesHelper.getDetectionMinNeighbors();
+        flags = preferencesHelper.getDetectionFlags();
 
         cascadeDir.delete();
     }

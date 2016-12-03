@@ -1,11 +1,15 @@
 package ch.zhaw.facerecognitionlibrary.Helpers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.R;
 
 /**
@@ -14,23 +18,31 @@ import ch.zhaw.facerecognitionlibrary.R;
 
 public class PreferencesHelper {
     public enum Usage {RECOGNITION, DETECTION};
+    SharedPreferences sharedPreferences;
+    Resources resources;
+    
+    public PreferencesHelper(Context context){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        resources = context.getResources();
+    }
+    
 
-    public static String getClassificationMethod(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_classification_method", FaceRecognitionLibrary.resources.getString(R.string.eigenfaces));
+    public String getClassificationMethod(){
+        return sharedPreferences.getString("key_classification_method", resources.getString(R.string.eigenfaces));
     }
 
-    public static boolean getClassificationMethodTFCaffe(){
-        return FaceRecognitionLibrary.sharedPreferences.getBoolean("key_classificationMethodTFCaffe", true);
+    public boolean getClassificationMethodTFCaffe(){
+        return sharedPreferences.getBoolean("key_classificationMethodTFCaffe", true);
     }
 
-    public static float getGamma(){
-        return Float.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_gamma", FaceRecognitionLibrary.resources.getString(R.string.gamma)));
+    public float getGamma(){
+        return Float.valueOf(sharedPreferences.getString("key_gamma", resources.getString(R.string.gamma)));
     }
 
-    public static  double[] getSigmas(){
-        String[] sigmasString = FaceRecognitionLibrary.sharedPreferences.getString("key_sigmas", FaceRecognitionLibrary.resources.getString(R.string.sigmas)).split(",");
+    public  double[] getSigmas(){
+        String[] sigmasString = sharedPreferences.getString("key_sigmas", resources.getString(R.string.sigmas)).split(",");
         if(sigmasString.length != 2){
-            sigmasString = FaceRecognitionLibrary.resources.getString(R.string.sigmas).split(",");
+            sigmasString = resources.getString(R.string.sigmas).split(",");
         }
         double[] sigmas = new double[3];
         for(int i=0; i<2; i++){
@@ -39,11 +51,11 @@ public class PreferencesHelper {
         return sigmas;
     }
 
-    public static boolean getEyeDetectionEnabled(){
-        return FaceRecognitionLibrary.sharedPreferences.getBoolean("key_eye_detection", true);
+    public boolean getEyeDetectionEnabled(){
+        return sharedPreferences.getBoolean("key_eye_detection", true);
     }
 
-    public static List<String> getStandardPreprocessing(Usage usage){
+    public List<String> getStandardPreprocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_standard_pre");
         } else if (usage == Usage.DETECTION){
@@ -53,7 +65,7 @@ public class PreferencesHelper {
         }
     }
 
-    public static List<String> getBrightnessPreprocessing(Usage usage){
+    public List<String> getBrightnessPreprocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_brightness");
         } else if (usage == Usage.DETECTION){
@@ -63,7 +75,7 @@ public class PreferencesHelper {
         }
     }
 
-    public static List<String> getContoursPreprocessing(Usage usage){
+    public List<String> getContoursPreprocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_contours");
         } else if (usage == Usage.DETECTION){
@@ -73,7 +85,7 @@ public class PreferencesHelper {
         }
     }
 
-    public static List<String> getContrastPreprocessing(Usage usage){
+    public List<String> getContrastPreprocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_contrast");
         } else if (usage == Usage.DETECTION){
@@ -83,7 +95,7 @@ public class PreferencesHelper {
         }
     }
 
-    public static List<String> getStandardPostrocessing(Usage usage){
+    public List<String> getStandardPostrocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_standard_post");
         } else if (usage == Usage.DETECTION){
@@ -93,8 +105,8 @@ public class PreferencesHelper {
         }
     }
 
-    private static List<String> getPreferenceList(String key){
-        Set<String> set = FaceRecognitionLibrary.sharedPreferences.getStringSet(key, null);
+    private List<String> getPreferenceList(String key){
+        Set<String> set = sharedPreferences.getStringSet(key, null);
         ArrayList<String> list;
         if(set != null) {
             list = new ArrayList<String>(set);
@@ -105,22 +117,22 @@ public class PreferencesHelper {
         }
     }
 
-    public static String getCaffeModelFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_modelFileCaffe", FaceRecognitionLibrary.resources.getString(R.string.modelFileCaffe));
+    public String getCaffeModelFile(){
+        return sharedPreferences.getString("key_modelFileCaffe", resources.getString(R.string.modelFileCaffe));
     }
 
-    public static String getCaffeWeightsFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_weightsFileCaffe", FaceRecognitionLibrary.resources.getString(R.string.weightsFileCaffe));
+    public String getCaffeWeightsFile(){
+        return sharedPreferences.getString("key_weightsFileCaffe", resources.getString(R.string.weightsFileCaffe));
     }
 
-    public static String getCaffeOutputLayer(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_outputLayerCaffe", FaceRecognitionLibrary.resources.getString(R.string.weightsFileCaffe));
+    public String getCaffeOutputLayer(){
+        return sharedPreferences.getString("key_outputLayerCaffe", resources.getString(R.string.weightsFileCaffe));
     }
 
-    public static float[] getCaffeMeanValues(){
-        String[] meanValuesString = FaceRecognitionLibrary.sharedPreferences.getString("key_meanValuesCaffe", FaceRecognitionLibrary.resources.getString(R.string.meanValuesCaffe)).split(",");
+    public float[] getCaffeMeanValues(){
+        String[] meanValuesString = sharedPreferences.getString("key_meanValuesCaffe", resources.getString(R.string.meanValuesCaffe)).split(",");
         if(meanValuesString.length != 3){
-            meanValuesString = FaceRecognitionLibrary.resources.getString(R.string.meanValuesCaffe).split(",");
+            meanValuesString = resources.getString(R.string.meanValuesCaffe).split(",");
         }
         float[] meanValues = new float[3];
         for(int i=0; i<3; i++){
@@ -129,71 +141,75 @@ public class PreferencesHelper {
         return meanValues;
     }
 
-    public static String getSvmTrainOptions(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_svmTrainOptions", "-t 0 ");
+    public String getSvmTrainOptions(){
+        return sharedPreferences.getString("key_svmTrainOptions", "-t 0 ");
     }
 
-    public static int getK(){
-        return Integer.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_K", "20"));
+    public int getK(){
+        return Integer.valueOf(sharedPreferences.getString("key_K", "20"));
     }
 
-    public static int getN(){
-        return Integer.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_N", "25"));
+    public int getN(){
+        return Integer.valueOf(sharedPreferences.getString("key_N", "25"));
     }
 
-    public static int getTensorFlowInputSize(){
-        return Integer.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_inputSize", "224"));
+    public int getFaceSize(){
+        return Integer.valueOf(sharedPreferences.getString("key_faceSize", "224"));
     }
 
-    public static int getTensorFlowImageMean(){
-        return Integer.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_imageMean", "128"));
+    public int getTensorFlowInputSize(){
+        return Integer.valueOf(sharedPreferences.getString("key_inputSize", "224"));
     }
 
-    public static int getTensorFlowOutputSize(){
-        return Integer.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_outputSize", "1024"));
+    public int getTensorFlowImageMean(){
+        return Integer.valueOf(sharedPreferences.getString("key_imageMean", "128"));
     }
 
-    public static String getTensorFlowInputLayer(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_inputLayer", "input");
+    public int getTensorFlowOutputSize(){
+        return Integer.valueOf(sharedPreferences.getString("key_outputSize", "1024"));
     }
 
-    public static String getTensorFlowOutputLayer(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_outputLayer", "avgpool0");
+    public String getTensorFlowInputLayer(){
+        return sharedPreferences.getString("key_inputLayer", "input");
     }
 
-    public static String getTensorFlowModelFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_modelFileTensorFlow", "tensorflow_inception_graph.pb");
+    public String getTensorFlowOutputLayer(){
+        return sharedPreferences.getString("key_outputLayer", "avgpool0");
     }
 
-    public static float getPCAThreshold(){
-        return Float.valueOf(FaceRecognitionLibrary.sharedPreferences.getString("key_pca_threshold", "0.98f"));
+    public String getTensorFlowModelFile(){
+        return sharedPreferences.getString("key_modelFileTensorFlow", "tensorflow_inception_graph.pb");
     }
 
-    public static String getFaceCascadeFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_face_cascade_file", FaceRecognitionLibrary.resources.getString(R.string.haarcascade_alt2));
+    public float getPCAThreshold(){
+        return Float.valueOf(sharedPreferences.getString("key_pca_threshold", "0.98f"));
     }
 
-    public static String getLefteyeCascadeFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_lefteye_cascade_file", FaceRecognitionLibrary.resources.getString(R.string.haarcascade_lefteye));
+    public String getFaceCascadeFile(){
+        return sharedPreferences.getString("key_face_cascade_file", resources.getString(R.string.haarcascade_alt2));
     }
 
-    public static String getRighteyeCascadeFile(){
-        return FaceRecognitionLibrary.sharedPreferences.getString("key_righteye_cascade_file", FaceRecognitionLibrary.resources.getString(R.string.haarcascade_righteye));
+    public String getLefteyeCascadeFile(){
+        return sharedPreferences.getString("key_lefteye_cascade_file", resources.getString(R.string.haarcascade_lefteye));
     }
 
-    public static double getDetectionScaleFactor(){
-        return Double.parseDouble(FaceRecognitionLibrary.sharedPreferences.getString("key_scaleFactor", "1.1"));
+    public String getRighteyeCascadeFile(){
+        return sharedPreferences.getString("key_righteye_cascade_file", resources.getString(R.string.haarcascade_righteye));
     }
 
-    public static int getDetectionMinNeighbors(){
-        return Integer.parseInt(FaceRecognitionLibrary.sharedPreferences.getString("key_minNeighbors", "3"));
+    public double getDetectionScaleFactor(){
+        return Double.parseDouble(sharedPreferences.getString("key_scaleFactor", "1.1"));
     }
 
-    public static int getDetectionFlags(){
-        return Integer.parseInt(FaceRecognitionLibrary.sharedPreferences.getString("key_flags", "2"));
+    public int getDetectionMinNeighbors(){
+        return Integer.parseInt(sharedPreferences.getString("key_minNeighbors", "3"));
     }
 
-    public static boolean getDetectionMethod(){
-        return FaceRecognitionLibrary.sharedPreferences.getBoolean("key_detection_method", true);
+    public int getDetectionFlags(){
+        return Integer.parseInt(sharedPreferences.getString("key_flags", "2"));
+    }
+
+    public boolean getDetectionMethod(){
+        return sharedPreferences.getBoolean("key_detection_method", true);
     }
 }

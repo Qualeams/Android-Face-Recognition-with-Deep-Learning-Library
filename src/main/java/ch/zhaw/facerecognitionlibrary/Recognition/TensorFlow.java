@@ -28,7 +28,6 @@ import org.opencv.utils.Converters;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
@@ -52,23 +51,24 @@ public class TensorFlow implements Recognition {
 
     Recognition rec;
 
-    public TensorFlow(int method) {
+    public TensorFlow(Context context, int method) {
         String dataPath = FileHelper.TENSORFLOW_PATH;
-        inputSize = PreferencesHelper.getTensorFlowInputSize();
-        int imageMean = PreferencesHelper.getTensorFlowImageMean();
-        outputSize = PreferencesHelper.getTensorFlowOutputSize();
-        inputLayer = PreferencesHelper.getTensorFlowInputLayer();
-        outputLayer = PreferencesHelper.getTensorFlowOutputLayer();
-        String modelFile = PreferencesHelper.getTensorFlowModelFile();
-        Boolean classificationMethod = PreferencesHelper.getClassificationMethodTFCaffe();
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        inputSize = preferencesHelper.getTensorFlowInputSize();
+        int imageMean = preferencesHelper.getTensorFlowImageMean();
+        outputSize = preferencesHelper.getTensorFlowOutputSize();
+        inputLayer = preferencesHelper.getTensorFlowInputLayer();
+        outputLayer = preferencesHelper.getTensorFlowOutputLayer();
+        String modelFile = preferencesHelper.getTensorFlowModelFile();
+        Boolean classificationMethod = preferencesHelper.getClassificationMethodTFCaffe();
 
-        initializeTensorflow(FaceRecognitionLibrary.assets, dataPath + modelFile, inputSize, imageMean);
+        initializeTensorflow(context.getAssets(), dataPath + modelFile, inputSize, imageMean);
 
         if(classificationMethod){
-            rec = new SupportVectorMachine(method);
+            rec = new SupportVectorMachine(context, method);
         }
         else {
-            rec = new KNearestNeighbor(method);
+            rec = new KNearestNeighbor(context, method);
         }
     }
 

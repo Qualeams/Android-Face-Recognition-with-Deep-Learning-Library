@@ -15,6 +15,8 @@ limitations under the License.
 
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
+import android.content.Context;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -22,13 +24,13 @@ import org.opencv.core.Mat;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zhaw.facerecognitionlibrary.FaceRecognitionLibrary;
 import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognitionlibrary.Helpers.MatName;
 import ch.zhaw.facerecognitionlibrary.Helpers.OneToOneMap;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 public class Eigenfaces implements Recognition {
+    private Context context;
     private Mat Gamma = new Mat();
     private Mat Psi = new Mat();
     private Mat Phi = new Mat();
@@ -42,7 +44,8 @@ public class Eigenfaces implements Recognition {
     private String filename = "eigenfaces.xml";
     private int method;
 
-    public Eigenfaces(int method) {
+    public Eigenfaces(Context context, int method) {
+        this.context = context;
         this.labelList = new ArrayList<>();
         this.labelListTest = new ArrayList<>();
         this.labelMap = new OneToOneMap<String, Integer>();
@@ -101,7 +104,8 @@ public class Eigenfaces implements Recognition {
     }
 
     private void computeEigVectors(){
-        float pca_threshold = PreferencesHelper.getPCAThreshold();
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        float pca_threshold = preferencesHelper.getPCAThreshold();
         Core.PCACompute(Phi, Psi, eigVectors, pca_threshold);
     }
 
