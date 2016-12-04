@@ -174,15 +174,15 @@ public class SupportVectorMachine implements Recognition {
             }
         }
         String result = String.valueOf(iLabel);
-        return getSvmString(img, result);
+        return result + " " + getSvmString(img);
     }
 
-    public String getSvmString(Mat img, String label){
+    public String getSvmString(Mat img){
         img = getFeatureVector(img);
+        String result = "";
         for (int i=0; i<img.cols(); i++){
-            label = label + " " + i + ":" + img.get(0,i)[0];
+            result = result + i + ":" + img.get(0,i)[0];
         }
-        label += "\n";
-        return label;
+        return result;
     }
 }

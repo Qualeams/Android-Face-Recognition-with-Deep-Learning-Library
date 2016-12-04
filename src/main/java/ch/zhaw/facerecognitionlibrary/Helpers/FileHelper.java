@@ -284,7 +284,7 @@ public class FileHelper {
         try {
             FileWriter fw = new FileWriter(file, false);
             for (String line : list){
-                fw.append(line);
+                fw.append(line + "\n");
             }
             fw.close();
         } catch (IOException e) {
