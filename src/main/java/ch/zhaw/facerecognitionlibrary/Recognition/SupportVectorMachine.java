@@ -231,7 +231,7 @@ public class SupportVectorMachine implements Recognition {
         img = getFeatureVector(img);
         String result = "";
         for (int i=0; i<img.cols(); i++){
-            result = result + i + ":" + img.get(0,i)[0];
+            result = result + " " + i + ":" + img.get(0,i)[0];
         }
         return result;
     }
