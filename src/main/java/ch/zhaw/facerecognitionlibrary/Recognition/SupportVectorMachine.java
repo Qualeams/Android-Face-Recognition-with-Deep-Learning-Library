@@ -71,6 +71,7 @@ public class SupportVectorMachine implements Recognition {
     }
 
     public SupportVectorMachine(File trainingFile, File predictionFile){
+        fh = new FileHelper();
         this.trainingFile = trainingFile;
         this.predictionFile = predictionFile;
         trainingList = new ArrayList<>();
