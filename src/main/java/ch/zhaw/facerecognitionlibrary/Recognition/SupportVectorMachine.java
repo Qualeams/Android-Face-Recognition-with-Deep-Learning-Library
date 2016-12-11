@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,12 @@ public class SupportVectorMachine implements Recognition {
         }
     }
 
+    public SupportVectorMachine(File trainingFile, File predictionFile){
+        this.trainingFile = trainingFile;
+        this.predictionFile = predictionFile;
+        trainingList = new ArrayList<>();
+    }
+
     // link jni library
     static {
         System.loadLibrary("jnilibsvm");
@@ -90,6 +97,16 @@ public class SupportVectorMachine implements Recognition {
         jniSvmTrain(svmTrainOptions + " " + training + " " + model);
 
         saveToFile();
+        return true;
+    }
+
+    public boolean train(String svmTrainOptions) {
+        fh.saveStringList(trainingList, trainingFile);
+
+        String training = trainingFile.getAbsolutePath();
+        String model = trainingFile.getAbsolutePath() + "_model";
+        jniSvmTrain(svmTrainOptions + " " + training + " " + model);
+
         return true;
     }
 
@@ -115,6 +132,34 @@ public class SupportVectorMachine implements Recognition {
             int iLabel = Integer.valueOf(buf.readLine());
             buf.close();
             return labelMap.getKey(iLabel);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String recognize(String svmString){
+        try {
+            FileWriter fw = new FileWriter(predictionFile, false);
+            testList.add(svmString);
+            fw.append(svmString);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String prediction = predictionFile.getAbsolutePath();
+        String model = trainingFile.getAbsolutePath() + "_model";
+        String output = predictionFile.getAbsolutePath() + "_output";
+        jniSvmPredict(prediction + " " + model + " " + output);
+
+        try {
+            BufferedReader buf = new BufferedReader(new FileReader(output));
+            int label = Integer.valueOf(buf.readLine());
+            buf.close();
+            return String.valueOf(label);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -150,6 +195,10 @@ public class SupportVectorMachine implements Recognition {
         } else {
             testList.add(imageToSvmString(img, label));
         }
+    }
+
+    public void addImage(String svmString, String label) {
+        trainingList.add(label + " " + svmString);
     }
 
     public Mat getFeatureVector(Mat img){
