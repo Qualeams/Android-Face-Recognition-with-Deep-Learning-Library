@@ -144,7 +144,6 @@ public class SupportVectorMachine implements Recognition {
     public String recognize(String svmString){
         try {
             FileWriter fw = new FileWriter(predictionFile, false);
-            testList.add(svmString);
             fw.append(svmString);
             fw.close();
         } catch (IOException e) {
@@ -224,7 +223,7 @@ public class SupportVectorMachine implements Recognition {
             }
         }
         String result = String.valueOf(iLabel);
-        return result + " " + getSvmString(img);
+        return result + getSvmString(img);
     }
 
     public String getSvmString(Mat img){
