@@ -144,7 +144,7 @@ public class SupportVectorMachine implements Recognition {
     public String recognize(String svmString){
         try {
             FileWriter fw = new FileWriter(predictionFile, false);
-            fw.append(svmString);
+            fw.append(String.valueOf(1) + svmString);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
