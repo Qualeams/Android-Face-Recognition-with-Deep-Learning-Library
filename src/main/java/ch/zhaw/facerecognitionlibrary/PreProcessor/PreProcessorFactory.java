@@ -166,4 +166,8 @@ public class PreProcessorFactory {
     public int getAngleForRecognition(){
         return preProcessorRecognition.getAngle();
     }
+
+    public void setCascadeClassifierForFaceDetector(String cascadeAssetName){
+        faceDetection.setCascadeClassifierForFaceDetector(context, cascadeAssetName);
+    }
 }

@@ -101,12 +101,12 @@ public class SupportVectorMachine implements Recognition {
         return true;
     }
 
-    public boolean train(String svmTrainOptions) {
+    public boolean trainProbability(String svmTrainOptions) {
         fh.saveStringList(trainingList, trainingFile);
 
         String training = trainingFile.getAbsolutePath();
         String model = trainingFile.getAbsolutePath() + "_model";
-        jniSvmTrain(svmTrainOptions + " " + training + " " + model);
+        jniSvmTrain(svmTrainOptions + " -b 1" + " " + training + " " + model);
 
         return true;
     }
@@ -141,7 +141,7 @@ public class SupportVectorMachine implements Recognition {
         return null;
     }
 
-    public String recognize(String svmString){
+    public String recognizeProbability(String svmString){
         try {
             FileWriter fw = new FileWriter(predictionFile, false);
             fw.append(String.valueOf(1) + svmString);
@@ -153,13 +153,16 @@ public class SupportVectorMachine implements Recognition {
         String prediction = predictionFile.getAbsolutePath();
         String model = trainingFile.getAbsolutePath() + "_model";
         String output = predictionFile.getAbsolutePath() + "_output";
-        jniSvmPredict(prediction + " " + model + " " + output);
+        jniSvmPredict("-b 1 " + prediction + " " + model + " " + output);
 
         try {
             BufferedReader buf = new BufferedReader(new FileReader(output));
-            int label = Integer.valueOf(buf.readLine());
+            // read header line
+            String probability = buf.readLine() + "\n";
+            // read content line
+            probability = probability + buf.readLine();
             buf.close();
-            return String.valueOf(label);
+            return probability;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

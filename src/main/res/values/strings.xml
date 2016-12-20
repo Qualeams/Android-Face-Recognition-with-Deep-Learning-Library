@@ -32,6 +32,8 @@
     <string name="haarcascade_alt">haarcascade_frontalface_alt</string>
     <string name="haarcascade_alt2">haarcascade_frontalface_alt2</string>
     <string name="lbpcascade">lbpcascade_frontalface</string>
+    <string name="classifier_350kids">02_Classifier_350kids</string>
+    <string name="classifier_200adults_350kids">01_Classifier_200adults_350kids</string>
 
     <string name="haarcascade_eye">haarcascade_eye</string>
     <string name="haarcascade_lefteye">haarcascade_lefteye_2splits</string>

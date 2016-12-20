@@ -77,6 +77,10 @@ public class FaceDetection {
         return cascadeClassifier;
     }
 
+    public void setCascadeClassifierForFaceDetector(Context context, String cascadeAssetName){
+        CascadeClassifier cascadeClassifier = setCascadeClassifier(context.getAssets(), context.getDir("cascade", Context.MODE_PRIVATE), cascadeAssetName);
+        faceDetector = cascadeClassifier;
+    }
 
     public Rect[] getFaces(Mat img) {
         MatOfRect faces = new MatOfRect();

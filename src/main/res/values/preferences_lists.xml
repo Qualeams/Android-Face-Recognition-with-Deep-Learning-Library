@@ -65,6 +65,8 @@
         <item>@string/haarcascade_alt</item>
         <item>@string/haarcascade_alt2</item>
         <item>@string/lbpcascade</item>
+        <item>@string/classifier_350kids</item>
+        <item>@string/classifier_200adults_350kids</item>
     </string-array>
     <string-array name="lefteye_cascade_file">
         <item>@string/haarcascade_lefteye</item>
