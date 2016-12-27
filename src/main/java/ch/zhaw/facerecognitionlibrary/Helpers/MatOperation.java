@@ -57,12 +57,9 @@ public class MatOperation {
 
     public static Point drawRectangleOnPreview(Mat img, Rect face, boolean front_camera){
         if(front_camera){
-            int topLeftX = (int) (img.cols() - (face.tl().x + face.width));
-            int bottomRightX = (int) (img.cols() - (face.br().x) + face.width);
-            Point tl = new Point(topLeftX, face.tl().y);
-            Point br = new Point(bottomRightX, face.br().y);
-            Imgproc.rectangle(img, tl, br, FACE_RECT_COLOR, THICKNESS);
-            return tl;
+            Rect mirroredFace = getMirroredFaceForFrontCamera(img, face);
+            Imgproc.rectangle(img, mirroredFace.tl(), mirroredFace.br(), FACE_RECT_COLOR, THICKNESS);
+            return mirroredFace.tl();
         } else {
             Imgproc.rectangle(img, face.tl(), face.br(), FACE_RECT_COLOR, THICKNESS);
             return face.tl();
@@ -102,5 +99,13 @@ public class MatOperation {
             }
         }
         return faces;
+    }
+
+    public static Rect getMirroredFaceForFrontCamera(Mat img, Rect face){
+        int topLeftX = (int) (img.cols() - (face.tl().x + face.width));
+        int bottomRightX = (int) (img.cols() - (face.br().x) + face.width);
+        Point tl = new Point(topLeftX, face.tl().y);
+        Point br = new Point(bottomRightX, face.br().y);
+        return new Rect(tl, br);
     }
 }
