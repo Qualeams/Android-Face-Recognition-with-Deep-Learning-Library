@@ -4,6 +4,7 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.opencv.android.JavaCameraView;
 
@@ -33,13 +34,18 @@ public class CustomCameraView extends JavaCameraView {
         params =  mCamera.getParameters();
 
         List<String> sceneModes = params.getSupportedSceneModes();
-        if (sceneModes.contains(Camera.Parameters.SCENE_MODE_NIGHT_PORTRAIT)) {
-            Log.d("JavaCameraViewSettings", "Night portrait mode supported");
-            params.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT_PORTRAIT);
+        if (sceneModes != null){
+            if (sceneModes.contains(Camera.Parameters.SCENE_MODE_NIGHT_PORTRAIT)) {
+                Log.d("JavaCameraViewSettings", "Night portrait mode supported");
+                params.setSceneMode(Camera.Parameters.SCENE_MODE_NIGHT_PORTRAIT);
+            } else {
+                Log.d("JavaCameraViewSettings", "Night portrait mode supported");
+            }
+
+            mCamera.setParameters(params);
         } else {
-            Log.d("JavaCameraViewSettings", "Night portrait mode supported");
+            Toast.makeText(getContext(), "The selected camera doesn't support Night Portrait Mode", Toast.LENGTH_SHORT).show();
         }
 
-        mCamera.setParameters(params);
     }
 }
