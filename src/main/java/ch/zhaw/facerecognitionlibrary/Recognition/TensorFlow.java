@@ -49,7 +49,7 @@ public class TensorFlow implements Recognition {
     private int inputSize;
     private int outputSize;
 
-    Recognition rec;
+    private Recognition rec;
 
     public TensorFlow(Context context, int method) {
         String dataPath = FileHelper.TENSORFLOW_PATH;
@@ -134,7 +134,7 @@ public class TensorFlow implements Recognition {
         Bitmap bmp = Bitmap.createBitmap(inputSize, inputSize, Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(img, bmp);
 
-        String[] sVector = classifyImageBmp(inputLayer, outputLayer, outputSize, bmp).split(STRING_SPLIT_CHARACTER);
+        String[] sVector = classifyImageBmp(inputLayer, outputLayer, outputSize, bmp).replace("[","").replace("]","").split(STRING_SPLIT_CHARACTER);
 
         System.out.println(sVector.length);
 
