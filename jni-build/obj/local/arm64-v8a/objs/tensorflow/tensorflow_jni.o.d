@@ -1,117 +1,49 @@
 obj/local/arm64-v8a/objs/tensorflow/tensorflow_jni.o: \
  jni/tensorflow_jni.cc jni/tensorflow_jni.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/jni.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/cdefs.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/cdefs_elf.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/api-level.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/asset_manager.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/stdint.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/machine/wchar_limits.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/int-ll64.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/bitsperlong.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/bitsperlong.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/posix_types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/stddef.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/compiler.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/posix_types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/posix_types.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/sysmacros.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/asset_manager_jni.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/bitmap.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/pthread.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/time.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/time.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/time.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/xlocale.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/signal.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/errno.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/errno.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/errno.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/errno.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/errno-base.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/limits.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/limits.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/limits.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/syslimits.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/string.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/malloc.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/sigcontext.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/signal.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/signal.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/signal.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/signal-defs.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/siginfo.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/siginfo.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/ucontext.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/user.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sched.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/sched.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/stat.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/stat.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/endian.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/endian.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/machine/endian.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/unistd.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/select.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/sysconf.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/pathconf.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/queue \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream \
- jni/genfiles/tensorflow/core/framework/step_stats.pb.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/common.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/port.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/assert.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/stdlib.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/alloca.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/strings.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/memory.h \
+ jni/include/tensorflow/core/framework/step_stats.pb.h \
+ jni/include/google/protobuf/stubs/common.h \
+ jni/include/google/protobuf/stubs/port.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/param.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/param.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/param.h \
- /Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/param.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/macros.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/platform_macros.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/logging.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/scoped_ptr.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/mutex.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/callback.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/type_traits.h \
+ jni/include/google/protobuf/stubs/macros.h \
+ jni/include/google/protobuf/stubs/platform_macros.h \
+ jni/include/google/protobuf/stubs/logging.h \
+ jni/include/google/protobuf/stubs/scoped_ptr.h \
+ jni/include/google/protobuf/stubs/mutex.h \
+ jni/include/google/protobuf/stubs/callback.h \
+ jni/include/google/protobuf/stubs/type_traits.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/utility \
- jni/include/google/protobuf/src/google/protobuf/stubs/template_util.h \
- jni/include/google/protobuf/src/google/protobuf/arena.h \
+ jni/include/google/protobuf/stubs/template_util.h \
+ jni/include/google/protobuf/arena.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/limits \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/typeinfo \
- jni/include/google/protobuf/src/google/protobuf/stubs/atomic_sequence_num.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/atomicops.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/atomicops_internals_arm64_gcc.h \
- jni/include/google/protobuf/src/google/protobuf/arenastring.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/fastmem.h \
- jni/include/google/protobuf/src/google/protobuf/generated_message_util.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/once.h \
- jni/include/google/protobuf/src/google/protobuf/has_bits.h \
- jni/include/google/protobuf/src/google/protobuf/metadata.h \
- jni/include/google/protobuf/src/google/protobuf/unknown_field_set.h \
- jni/include/google/protobuf/src/google/protobuf/message.h \
- jni/include/google/protobuf/src/google/protobuf/message_lite.h \
- jni/include/google/protobuf/src/google/protobuf/descriptor.h \
+ jni/include/google/protobuf/stubs/atomic_sequence_num.h \
+ jni/include/google/protobuf/stubs/atomicops.h \
+ jni/include/google/protobuf/stubs/atomicops_internals_arm64_gcc.h \
+ jni/include/google/protobuf/arenastring.h \
+ jni/include/google/protobuf/stubs/fastmem.h \
+ jni/include/google/protobuf/generated_message_util.h \
+ jni/include/google/protobuf/stubs/once.h \
+ jni/include/google/protobuf/has_bits.h \
+ jni/include/google/protobuf/metadata.h \
+ jni/include/google/protobuf/unknown_field_set.h \
+ jni/include/google/protobuf/message.h \
+ jni/include/google/protobuf/message_lite.h \
+ jni/include/google/protobuf/descriptor.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/memory \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/set \
- jni/include/google/protobuf/src/google/protobuf/repeated_field.h \
+ jni/include/google/protobuf/repeated_field.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/iterator \
- jni/include/google/protobuf/src/google/protobuf/stubs/casts.h \
- jni/include/google/protobuf/src/google/protobuf/extension_set.h \
+ jni/include/google/protobuf/stubs/casts.h \
+ jni/include/google/protobuf/extension_set.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/map \
- jni/genfiles/tensorflow/core/framework/allocation_description.pb.h \
- jni/genfiles/tensorflow/core/framework/tensor_description.pb.h \
- jni/genfiles/tensorflow/core/framework/types.pb.h \
- jni/include/google/protobuf/src/google/protobuf/generated_enum_reflection.h \
- jni/include/google/protobuf/src/google/protobuf/generated_enum_util.h \
- jni/genfiles/tensorflow/core/framework/tensor_shape.pb.h \
+ jni/include/tensorflow/core/framework/allocation_description.pb.h \
+ jni/include/tensorflow/core/framework/tensor_description.pb.h \
+ jni/include/tensorflow/core/framework/types.pb.h \
+ jni/include/google/protobuf/generated_enum_reflection.h \
+ jni/include/google/protobuf/generated_enum_util.h \
+ jni/include/tensorflow/core/framework/tensor_shape.pb.h \
  jni/include/tensorflow/core/framework/tensor.h \
  jni/include/third_party/eigen3/unsupported/Eigen/CXX11/Tensor \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/Tensor \
@@ -135,9 +67,11 @@ obj/local/arm64-v8a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/NumTraits.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctions.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctionsImpl.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h \
+ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Complex.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/PacketMathHalf.h \
  jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/TypeCasting.h \
@@ -315,15 +249,16 @@ obj/local/arm64-v8a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/types.h \
  jni/include/tensorflow/core/platform/platform.h \
  jni/include/tensorflow/core/platform/default/integral_types.h \
+ jni/include/tensorflow/core/framework/resource_handle.pb.h \
  jni/include/tensorflow/core/framework/type_traits.h \
  jni/include/tensorflow/core/platform/logging.h \
  jni/include/tensorflow/core/platform/default/logging.h \
  jni/include/tensorflow/core/platform/macros.h \
- jni/genfiles/tensorflow/core/framework/tensor.pb.h \
+ jni/include/tensorflow/core/framework/tensor.pb.h \
  jni/include/tensorflow/core/framework/tensor_shape.h \
  jni/include/tensorflow/core/lib/core/errors.h \
  jni/include/tensorflow/core/lib/core/status.h \
- jni/genfiles/tensorflow/core/lib/core/error_codes.pb.h \
+ jni/include/tensorflow/core/lib/core/error_codes.pb.h \
  jni/include/tensorflow/core/lib/core/stringpiece.h \
  jni/include/tensorflow/core/lib/strings/strcat.h \
  jni/include/tensorflow/core/lib/strings/numbers.h \
@@ -343,33 +278,32 @@ obj/local/arm64-v8a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/lib/strings/stringprintf.h \
  jni/include/tensorflow/core/platform/env.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map \
+ jni/include/tensorflow/core/platform/env_time.h \
  jni/include/tensorflow/core/platform/file_system.h \
  jni/include/tensorflow/core/platform/file_statistics.h \
  jni/include/tensorflow/core/platform/protobuf.h \
- jni/include/google/protobuf/src/google/protobuf/any.pb.h \
- jni/include/google/protobuf/src/google/protobuf/any.h \
  jni/include/tensorflow/core/platform/default/protobuf.h \
- jni/include/google/protobuf/src/google/protobuf/compiler/importer.h \
- jni/include/google/protobuf/src/google/protobuf/descriptor_database.h \
- jni/include/google/protobuf/src/google/protobuf/compiler/parser.h \
- jni/include/google/protobuf/src/google/protobuf/descriptor.pb.h \
- jni/include/google/protobuf/src/google/protobuf/io/tokenizer.h \
- jni/include/google/protobuf/src/google/protobuf/io/coded_stream.h \
- jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream.h \
- jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/stl_util.h \
- jni/include/google/protobuf/src/google/protobuf/map.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/hash.h \
- jni/include/google/protobuf/src/google/protobuf/map_type_handler.h \
- jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h \
- jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h \
- jni/include/google/protobuf/src/google/protobuf/text_format.h \
- jni/include/google/protobuf/src/google/protobuf/util/json_util.h \
- jni/include/google/protobuf/src/google/protobuf/util/type_resolver.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/status.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/stringpiece.h \
- jni/include/google/protobuf/src/google/protobuf/stubs/bytestream.h \
- jni/include/google/protobuf/src/google/protobuf/util/type_resolver_util.h \
+ jni/include/google/protobuf/compiler/importer.h \
+ jni/include/google/protobuf/descriptor_database.h \
+ jni/include/google/protobuf/compiler/parser.h \
+ jni/include/google/protobuf/descriptor.pb.h \
+ jni/include/google/protobuf/io/tokenizer.h \
+ jni/include/google/protobuf/io/coded_stream.h \
+ jni/include/google/protobuf/io/zero_copy_stream.h \
+ jni/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+ jni/include/google/protobuf/stubs/stl_util.h \
+ jni/include/google/protobuf/map.h \
+ jni/include/google/protobuf/stubs/hash.h \
+ jni/include/google/protobuf/map_type_handler.h \
+ jni/include/google/protobuf/wire_format_lite_inl.h \
+ jni/include/google/protobuf/wire_format_lite.h \
+ jni/include/google/protobuf/text_format.h \
+ jni/include/google/protobuf/util/json_util.h \
+ jni/include/google/protobuf/util/type_resolver.h \
+ jni/include/google/protobuf/stubs/status.h \
+ jni/include/google/protobuf/stubs/stringpiece.h \
+ jni/include/google/protobuf/stubs/bytestream.h \
+ jni/include/google/protobuf/util/type_resolver_util.h \
  jni/include/tensorflow/core/platform/mutex.h \
  jni/include/tensorflow/core/platform/default/mutex.h \
  /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/chrono \
@@ -377,249 +311,114 @@ obj/local/arm64-v8a/objs/tensorflow/tensorflow_jni.o: \
  jni/include/tensorflow/core/platform/thread_annotations.h \
  jni/include/tensorflow/core/platform/default/thread_annotations.h \
  jni/include/tensorflow/core/public/session.h \
- jni/genfiles/tensorflow/core/framework/graph.pb.h \
- jni/genfiles/tensorflow/core/framework/node_def.pb.h \
- jni/include/google/protobuf/src/google/protobuf/map_field_inl.h \
- jni/include/google/protobuf/src/google/protobuf/map_field.h \
- jni/include/google/protobuf/src/google/protobuf/generated_message_reflection.h \
- jni/include/google/protobuf/src/google/protobuf/map_entry.h \
- jni/include/google/protobuf/src/google/protobuf/map_entry_lite.h \
- jni/include/google/protobuf/src/google/protobuf/reflection_ops.h \
- jni/include/google/protobuf/src/google/protobuf/map_field_lite.h \
- jni/genfiles/tensorflow/core/framework/attr_value.pb.h \
- jni/genfiles/tensorflow/core/framework/function.pb.h \
- jni/genfiles/tensorflow/core/framework/op_def.pb.h \
- jni/genfiles/tensorflow/core/framework/versions.pb.h \
- jni/genfiles/tensorflow/core/protobuf/config.pb.h \
- jni/genfiles/tensorflow/core/framework/cost_graph.pb.h \
+ jni/include/tensorflow/core/framework/graph.pb.h \
+ jni/include/tensorflow/core/framework/node_def.pb.h \
+ jni/include/google/protobuf/map_field_inl.h \
+ jni/include/google/protobuf/map_field.h \
+ jni/include/google/protobuf/generated_message_reflection.h \
+ jni/include/google/protobuf/map_entry.h \
+ jni/include/google/protobuf/map_entry_lite.h \
+ jni/include/google/protobuf/reflection_ops.h \
+ jni/include/google/protobuf/map_field_lite.h \
+ jni/include/tensorflow/core/framework/attr_value.pb.h \
+ jni/include/tensorflow/core/framework/function.pb.h \
+ jni/include/tensorflow/core/framework/op_def.pb.h \
+ jni/include/tensorflow/core/framework/versions.pb.h \
+ jni/include/tensorflow/core/protobuf/config.pb.h \
+ jni/include/tensorflow/core/framework/cost_graph.pb.h \
+ jni/include/tensorflow/core/protobuf/debug.pb.h \
  jni/include/tensorflow/core/public/session_options.h \
  jni/include/tensorflow/core/util/stat_summarizer.h jni/jni_utils.h
 
 jni/tensorflow_jni.h:
 
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/jni.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/cdefs.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/cdefs_elf.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/api-level.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/asset_manager.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/stdint.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/machine/wchar_limits.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/int-ll64.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/bitsperlong.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/bitsperlong.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/posix_types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/stddef.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/compiler.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/posix_types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/posix_types.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/sysmacros.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/asset_manager_jni.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/android/bitmap.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/pthread.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/time.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/time.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/time.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/xlocale.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/signal.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/errno.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/errno.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/errno.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/errno.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/errno-base.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/limits.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/limits.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/limits.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/syslimits.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/string.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/malloc.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/sigcontext.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/signal.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/signal.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/signal.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/signal-defs.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/siginfo.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/siginfo.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/ucontext.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/user.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sched.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/sched.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/stat.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/stat.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/endian.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/endian.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/machine/endian.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/unistd.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/select.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/sysconf.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/pathconf.h:
-
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/queue:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream:
 
-jni/genfiles/tensorflow/core/framework/step_stats.pb.h:
+jni/include/tensorflow/core/framework/step_stats.pb.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/common.h:
+jni/include/google/protobuf/stubs/common.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/port.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/assert.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/stdlib.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/alloca.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/strings.h:
-
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/memory.h:
+jni/include/google/protobuf/stubs/port.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef:
 
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/sys/param.h:
+jni/include/google/protobuf/stubs/macros.h:
 
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/linux/param.h:
+jni/include/google/protobuf/stubs/platform_macros.h:
 
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm/param.h:
+jni/include/google/protobuf/stubs/logging.h:
 
-/Users/sladomic/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm64/usr/include/asm-generic/param.h:
+jni/include/google/protobuf/stubs/scoped_ptr.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/macros.h:
+jni/include/google/protobuf/stubs/mutex.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/platform_macros.h:
+jni/include/google/protobuf/stubs/callback.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/logging.h:
-
-jni/include/google/protobuf/src/google/protobuf/stubs/scoped_ptr.h:
-
-jni/include/google/protobuf/src/google/protobuf/stubs/mutex.h:
-
-jni/include/google/protobuf/src/google/protobuf/stubs/callback.h:
-
-jni/include/google/protobuf/src/google/protobuf/stubs/type_traits.h:
+jni/include/google/protobuf/stubs/type_traits.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/utility:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/template_util.h:
+jni/include/google/protobuf/stubs/template_util.h:
 
-jni/include/google/protobuf/src/google/protobuf/arena.h:
+jni/include/google/protobuf/arena.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/limits:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/typeinfo:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/atomic_sequence_num.h:
+jni/include/google/protobuf/stubs/atomic_sequence_num.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/atomicops.h:
+jni/include/google/protobuf/stubs/atomicops.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/atomicops_internals_arm64_gcc.h:
+jni/include/google/protobuf/stubs/atomicops_internals_arm64_gcc.h:
 
-jni/include/google/protobuf/src/google/protobuf/arenastring.h:
+jni/include/google/protobuf/arenastring.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/fastmem.h:
+jni/include/google/protobuf/stubs/fastmem.h:
 
-jni/include/google/protobuf/src/google/protobuf/generated_message_util.h:
+jni/include/google/protobuf/generated_message_util.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/once.h:
+jni/include/google/protobuf/stubs/once.h:
 
-jni/include/google/protobuf/src/google/protobuf/has_bits.h:
+jni/include/google/protobuf/has_bits.h:
 
-jni/include/google/protobuf/src/google/protobuf/metadata.h:
+jni/include/google/protobuf/metadata.h:
 
-jni/include/google/protobuf/src/google/protobuf/unknown_field_set.h:
+jni/include/google/protobuf/unknown_field_set.h:
 
-jni/include/google/protobuf/src/google/protobuf/message.h:
+jni/include/google/protobuf/message.h:
 
-jni/include/google/protobuf/src/google/protobuf/message_lite.h:
+jni/include/google/protobuf/message_lite.h:
 
-jni/include/google/protobuf/src/google/protobuf/descriptor.h:
+jni/include/google/protobuf/descriptor.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/memory:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/set:
 
-jni/include/google/protobuf/src/google/protobuf/repeated_field.h:
+jni/include/google/protobuf/repeated_field.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/iterator:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/casts.h:
+jni/include/google/protobuf/stubs/casts.h:
 
-jni/include/google/protobuf/src/google/protobuf/extension_set.h:
+jni/include/google/protobuf/extension_set.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/map:
 
-jni/genfiles/tensorflow/core/framework/allocation_description.pb.h:
+jni/include/tensorflow/core/framework/allocation_description.pb.h:
 
-jni/genfiles/tensorflow/core/framework/tensor_description.pb.h:
+jni/include/tensorflow/core/framework/tensor_description.pb.h:
 
-jni/genfiles/tensorflow/core/framework/types.pb.h:
+jni/include/tensorflow/core/framework/types.pb.h:
 
-jni/include/google/protobuf/src/google/protobuf/generated_enum_reflection.h:
+jni/include/google/protobuf/generated_enum_reflection.h:
 
-jni/include/google/protobuf/src/google/protobuf/generated_enum_util.h:
+jni/include/google/protobuf/generated_enum_util.h:
 
-jni/genfiles/tensorflow/core/framework/tensor_shape.pb.h:
+jni/include/tensorflow/core/framework/tensor_shape.pb.h:
 
 jni/include/tensorflow/core/framework/tensor.h:
 
@@ -667,11 +466,15 @@ jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Co
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/GenericPacketMath.h:
 
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/MathFunctionsImpl.h:
+
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/PacketMath.h:
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/MathFunctions.h:
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/NEON/Complex.h:
+
+jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Complex.h:
 
 jni/include/external/eigen_archive/unsupported/Eigen/CXX11/../../../Eigen/src/Core/arch/CUDA/Half.h:
 
@@ -1027,6 +830,8 @@ jni/include/tensorflow/core/platform/platform.h:
 
 jni/include/tensorflow/core/platform/default/integral_types.h:
 
+jni/include/tensorflow/core/framework/resource_handle.pb.h:
+
 jni/include/tensorflow/core/framework/type_traits.h:
 
 jni/include/tensorflow/core/platform/logging.h:
@@ -1035,7 +840,7 @@ jni/include/tensorflow/core/platform/default/logging.h:
 
 jni/include/tensorflow/core/platform/macros.h:
 
-jni/genfiles/tensorflow/core/framework/tensor.pb.h:
+jni/include/tensorflow/core/framework/tensor.pb.h:
 
 jni/include/tensorflow/core/framework/tensor_shape.h:
 
@@ -1043,7 +848,7 @@ jni/include/tensorflow/core/lib/core/errors.h:
 
 jni/include/tensorflow/core/lib/core/status.h:
 
-jni/genfiles/tensorflow/core/lib/core/error_codes.pb.h:
+jni/include/tensorflow/core/lib/core/error_codes.pb.h:
 
 jni/include/tensorflow/core/lib/core/stringpiece.h:
 
@@ -1083,59 +888,57 @@ jni/include/tensorflow/core/platform/env.h:
 
 /Users/sladomic/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/unordered_map:
 
+jni/include/tensorflow/core/platform/env_time.h:
+
 jni/include/tensorflow/core/platform/file_system.h:
 
 jni/include/tensorflow/core/platform/file_statistics.h:
 
 jni/include/tensorflow/core/platform/protobuf.h:
 
-jni/include/google/protobuf/src/google/protobuf/any.pb.h:
-
-jni/include/google/protobuf/src/google/protobuf/any.h:
-
 jni/include/tensorflow/core/platform/default/protobuf.h:
 
-jni/include/google/protobuf/src/google/protobuf/compiler/importer.h:
+jni/include/google/protobuf/compiler/importer.h:
 
-jni/include/google/protobuf/src/google/protobuf/descriptor_database.h:
+jni/include/google/protobuf/descriptor_database.h:
 
-jni/include/google/protobuf/src/google/protobuf/compiler/parser.h:
+jni/include/google/protobuf/compiler/parser.h:
 
-jni/include/google/protobuf/src/google/protobuf/descriptor.pb.h:
+jni/include/google/protobuf/descriptor.pb.h:
 
-jni/include/google/protobuf/src/google/protobuf/io/tokenizer.h:
+jni/include/google/protobuf/io/tokenizer.h:
 
-jni/include/google/protobuf/src/google/protobuf/io/coded_stream.h:
+jni/include/google/protobuf/io/coded_stream.h:
 
-jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream.h:
+jni/include/google/protobuf/io/zero_copy_stream.h:
 
-jni/include/google/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h:
+jni/include/google/protobuf/io/zero_copy_stream_impl_lite.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/stl_util.h:
+jni/include/google/protobuf/stubs/stl_util.h:
 
-jni/include/google/protobuf/src/google/protobuf/map.h:
+jni/include/google/protobuf/map.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/hash.h:
+jni/include/google/protobuf/stubs/hash.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_type_handler.h:
+jni/include/google/protobuf/map_type_handler.h:
 
-jni/include/google/protobuf/src/google/protobuf/wire_format_lite_inl.h:
+jni/include/google/protobuf/wire_format_lite_inl.h:
 
-jni/include/google/protobuf/src/google/protobuf/wire_format_lite.h:
+jni/include/google/protobuf/wire_format_lite.h:
 
-jni/include/google/protobuf/src/google/protobuf/text_format.h:
+jni/include/google/protobuf/text_format.h:
 
-jni/include/google/protobuf/src/google/protobuf/util/json_util.h:
+jni/include/google/protobuf/util/json_util.h:
 
-jni/include/google/protobuf/src/google/protobuf/util/type_resolver.h:
+jni/include/google/protobuf/util/type_resolver.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/status.h:
+jni/include/google/protobuf/stubs/status.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/stringpiece.h:
+jni/include/google/protobuf/stubs/stringpiece.h:
 
-jni/include/google/protobuf/src/google/protobuf/stubs/bytestream.h:
+jni/include/google/protobuf/stubs/bytestream.h:
 
-jni/include/google/protobuf/src/google/protobuf/util/type_resolver_util.h:
+jni/include/google/protobuf/util/type_resolver_util.h:
 
 jni/include/tensorflow/core/platform/mutex.h:
 
@@ -1151,35 +954,37 @@ jni/include/tensorflow/core/platform/default/thread_annotations.h:
 
 jni/include/tensorflow/core/public/session.h:
 
-jni/genfiles/tensorflow/core/framework/graph.pb.h:
+jni/include/tensorflow/core/framework/graph.pb.h:
 
-jni/genfiles/tensorflow/core/framework/node_def.pb.h:
+jni/include/tensorflow/core/framework/node_def.pb.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_field_inl.h:
+jni/include/google/protobuf/map_field_inl.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_field.h:
+jni/include/google/protobuf/map_field.h:
 
-jni/include/google/protobuf/src/google/protobuf/generated_message_reflection.h:
+jni/include/google/protobuf/generated_message_reflection.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_entry.h:
+jni/include/google/protobuf/map_entry.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_entry_lite.h:
+jni/include/google/protobuf/map_entry_lite.h:
 
-jni/include/google/protobuf/src/google/protobuf/reflection_ops.h:
+jni/include/google/protobuf/reflection_ops.h:
 
-jni/include/google/protobuf/src/google/protobuf/map_field_lite.h:
+jni/include/google/protobuf/map_field_lite.h:
 
-jni/genfiles/tensorflow/core/framework/attr_value.pb.h:
+jni/include/tensorflow/core/framework/attr_value.pb.h:
 
-jni/genfiles/tensorflow/core/framework/function.pb.h:
+jni/include/tensorflow/core/framework/function.pb.h:
 
-jni/genfiles/tensorflow/core/framework/op_def.pb.h:
+jni/include/tensorflow/core/framework/op_def.pb.h:
 
-jni/genfiles/tensorflow/core/framework/versions.pb.h:
+jni/include/tensorflow/core/framework/versions.pb.h:
 
-jni/genfiles/tensorflow/core/protobuf/config.pb.h:
+jni/include/tensorflow/core/protobuf/config.pb.h:
 
-jni/genfiles/tensorflow/core/framework/cost_graph.pb.h:
+jni/include/tensorflow/core/framework/cost_graph.pb.h:
+
+jni/include/tensorflow/core/protobuf/debug.pb.h:
 
 jni/include/tensorflow/core/public/session_options.h:
 
