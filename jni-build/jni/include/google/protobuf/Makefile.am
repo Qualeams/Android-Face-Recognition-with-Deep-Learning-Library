@@ -1,1 +1,1 @@
-/private/var/tmp/_bazel_sladomic/2f3a7d4f7ec070ecc5f83d82c6b8d6a5/external/protobuf/Makefile.am
+/home/parallels/.cache/bazel/_bazel_parallels/bf8ecddf5d37599acb351922c5de33e4/external/protobuf/Makefile.am
