@@ -31,8 +31,7 @@ namespace tensorflow {
 // construction time.
 class ShapeRefiner {
  public:
-  explicit ShapeRefiner(const OpRegistryInterface* ops);
-  ~ShapeRefiner();
+  ShapeRefiner(int graph_def_version, const OpRegistryInterface* ops);
 
   // Performs validation of 'node' and runs 'node's shape function,
   // storing its shape outputs.
@@ -60,7 +59,7 @@ class ShapeRefiner {
     if (it == node_to_context_.end()) {
       return nullptr;
     }
-    return it->second;
+    return it->second.get();
   }
 
  private:
@@ -71,12 +70,42 @@ class ShapeRefiner {
       Node* node, Graph* out_graph, bool* is_constant_graph,
       std::vector<std::pair<string, Tensor>>* const_inputs) TF_MUST_USE_RESULT;
 
-  const OpRegistryInterface* ops_registry_ = nullptr;
+  Status EvaluateConstantTensorForEdge(const Node* node, int dst_idx,
+                                       bool* evaluated, Tensor* result);
+
+  // This function tries to materialize as much information about the 'node''s
+  // dst_idx input as a statically computable shape, and the result may be
+  // partially known, depending on what is statically inferable.
+  //
+  // This is called when node.input[dst_idx] is a tensor that is used to define
+  // the shape of some other tensor (e.g., the second argument to Reshape is a
+  // <shape> tensor, where each element of the shape tensor is a dimension of
+  // the target tensor).  It returns in <result> a shape for that input.
+  //
+  // Unlike simply resolving node.input[dst_idx] to a constant and then
+  // converting that to a shape, this function can return a partial shape. This
+  // is useful for cases where the shape tensor is only partially defined, such
+  // as with calls for: reshape(x, shape(y)) where shape(y) is partially
+  // defined.
+  //
+  // The implementation has op implementations for ops commonly called on shape
+  // tensors, and the implementations are specialized to shape tensors (namely,
+  // the output is a vector).
+  //
+  // <target_context> is used when creating new DimensionHandle and ShapeHandle
+  // objects.
+  Status ConstantPartialShape(shape_inference::InferenceContext* target_context,
+                              const Node* node, int dst_idx,
+                              shape_inference::ShapeHandle* result);
+
+  const int graph_def_version_;
+  const OpRegistryInterface* const ops_registry_;
 
   // Stores a map from a node to its InferenceContext.
   //
   // Owns values.
-  std::unordered_map<const Node*, shape_inference::InferenceContext*>
+  std::unordered_map<const Node*,
+                     std::unique_ptr<shape_inference::InferenceContext>>
       node_to_context_;
 
   // Holds a cache from 'tensor name' to the tensor that is

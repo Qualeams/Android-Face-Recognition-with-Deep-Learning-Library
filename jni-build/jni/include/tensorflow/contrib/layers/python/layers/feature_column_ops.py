@@ -19,12 +19,14 @@ from __future__ import division
 from __future__ import print_function
 
 from tensorflow.contrib.framework.python.framework import checkpoint_utils
+from tensorflow.contrib.framework.python.framework import experimental
 from tensorflow.contrib.framework.python.ops import variables as contrib_variables
 from tensorflow.contrib.layers.python.layers import embedding_ops
 from tensorflow.contrib.layers.python.layers import feature_column as fc
 from tensorflow.contrib.layers.python.layers import layers
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops
+from tensorflow.python.framework import sparse_tensor as sparse_tensor_py
 from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import init_ops
 from tensorflow.python.ops import math_ops
@@ -64,17 +66,19 @@ def _embeddings_from_arguments(column,
     weight_tensor = layers._inner_flatten(args.weight_tensor, output_rank)
   # pylint: enable=protected-access
 
-  if args.hashed:
+  # This option is only enabled for scattered_embedding_column.
+  if args.hash_key:
     embeddings = contrib_variables.model_variable(
         name='weights',
         shape=[args.vocab_size],
         dtype=dtypes.float32,
         initializer=args.initializer,
-        trainable=trainable,
+        trainable=(trainable and args.trainable),
         collections=weight_collections)
 
-    return embedding_ops.hashed_embedding_lookup_sparse(
+    return embedding_ops.scattered_embedding_lookup_sparse(
         embeddings, input_tensor, args.dimension,
+        hash_key=args.hash_key,
         combiner=args.combiner, name='lookup')
 
   if args.shared_embedding_name is not None:
@@ -104,7 +108,7 @@ def _embeddings_from_arguments(column,
           shape=shape,
           dtype=dtypes.float32,
           initializer=args.initializer,
-          trainable=trainable,
+          trainable=(trainable and args.trainable),
           collections=weight_collections)
       graph.add_to_collection(shared_embedding_collection_name, embeddings)
   else:
@@ -113,7 +117,7 @@ def _embeddings_from_arguments(column,
         shape=[args.vocab_size, args.dimension],
         dtype=dtypes.float32,
         initializer=args.initializer,
-        trainable=trainable,
+        trainable=(trainable and args.trainable),
         collections=weight_collections)
 
   if isinstance(embeddings, variables.Variable):
@@ -127,9 +131,9 @@ def _embeddings_from_arguments(column,
       embeddings,
       input_tensor,
       sparse_weights=weight_tensor,
-      default_id=0,
       combiner=args.combiner,
-      name=column.name + 'weights')
+      name=column.name + 'weights',
+      max_norm=args.max_norm)
 
 
 def _input_from_feature_columns(columns_to_tensors,
@@ -148,7 +152,7 @@ def _input_from_feature_columns(columns_to_tensors,
     transformer = _Transformer(columns_to_tensors)
     if weight_collections:
       weight_collections = list(set(list(weight_collections) +
-                                    [ops.GraphKeys.VARIABLES]))
+                                    [ops.GraphKeys.GLOBAL_VARIABLES]))
 
     for column in sorted(set(feature_columns), key=lambda x: x.key):
       with variable_scope.variable_scope(None,
@@ -177,7 +181,7 @@ def _input_from_feature_columns(columns_to_tensors,
           except ValueError as e:
             raise ValueError('Error creating input layer for column: {}.\n'
                              '{}, {}'.format(column.name, e, ee))
-    return array_ops.concat(output_rank - 1, output_tensors)
+    return array_ops.concat(output_tensors, output_rank - 1)
 
 
 def input_from_feature_columns(columns_to_tensors,
@@ -193,36 +197,36 @@ def input_from_feature_columns(columns_to_tensors,
   during this conversion. For example sparse features need a totally different
   handling than continuous features.
 
-  An example usage of input_from_feature_columns is as follows:
+  Example:
 
+  ```python
     # Building model for training
     columns_to_tensor = tf.parse_example(...)
     first_layer = input_from_feature_columns(
         columns_to_tensors=columns_to_tensor,
         feature_columns=feature_columns)
-    second_layer = fully_connected(first_layer, ...)
+    second_layer = fully_connected(inputs=first_layer, ...)
     ...
+  ```
 
-    where feature_columns can be defined as follows:
+  where feature_columns can be defined as follows:
 
-    occupation = sparse_column_with_hash_bucket(column_name="occupation",
-                                              hash_bucket_size=1000)
-    occupation_emb = embedding_column(sparse_id_column=occupation, dimension=16,
-                                     combiner="sum")
-    age = real_valued_column("age")
-    age_buckets = bucketized_column(
-        source_column=age,
-        boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
-    occupation_x_age = crossed_column(columns=[occupation, age_buckets],
-                                      hash_bucket_size=10000)
+  ```python
+    sparse_feature = sparse_column_with_hash_bucket(
+        column_name="sparse_col", ...)
+    sparse_feature_emb = embedding_column(sparse_id_column=sparse_feature, ...)
+    real_valued_feature = real_valued_column(...)
+    real_valued_buckets = bucketized_column(
+        source_column=real_valued_feature, ...)
 
-    feature_columns=[occupation_emb, occupation_x_age]
+    feature_columns=[sparse_feature_emb, real_valued_buckets]
+  ```
 
   Args:
     columns_to_tensors: A mapping from feature column to tensors. 'string' key
       means a base feature (not-transformed). It can have FeatureColumn as a
       key too. That means that FeatureColumn is already transformed by input
-      pipeline. For example, `inflow` may have handled transformations.
+      pipeline.
     feature_columns: A set containing all the feature columns. All items in the
       set should be instances of classes derived by FeatureColumn.
     weight_collections: List of graph collections to which weights are added.
@@ -245,6 +249,7 @@ def input_from_feature_columns(columns_to_tensors,
                                      default_name='input_from_feature_columns')
 
 
+@experimental
 def sequence_input_from_feature_columns(columns_to_tensors,
                                         feature_columns,
                                         weight_collections=None,
@@ -254,16 +259,16 @@ def sequence_input_from_feature_columns(columns_to_tensors,
 
   See documentation for `input_from_feature_columns`. The following types of
   `FeatureColumn` are permitted in `feature_columns`: `_OneHotColumn`,
-  `_EmbeddingColumn`, `_HashedEmbeddingColumn`, `_RealValuedColumn`,
+  `_EmbeddingColumn`, `_ScatteredEmbeddingColumn`, `_RealValuedColumn`,
   `_DataFrameColumn`. In addition, columns in `feature_columns` may not be
-  constructed using any of the following: `HashedEmbeddingColumn`,
+  constructed using any of the following: `ScatteredEmbeddingColumn`,
   `BucketizedColumn`, `CrossedColumn`.
 
   Args:
     columns_to_tensors: A mapping from feature column to tensors. 'string' key
       means a base feature (not-transformed). It can have FeatureColumn as a
       key too. That means that FeatureColumn is already transformed by input
-      pipeline. For example, `inflow` may have handled transformations.
+      pipeline.
     feature_columns: A set containing all the feature columns. All items in the
       set should be instances of classes derived by FeatureColumn.
     weight_collections: List of graph collections to which weights are added.
@@ -327,7 +332,6 @@ def _create_embedding_lookup(column,
         variable,
         embedding_lookup_arguments.input_tensor,
         sparse_weights=embedding_lookup_arguments.weight_tensor,
-        default_id=0,
         combiner=embedding_lookup_arguments.combiner,
         name=column.name + '_weights')
     return variable, predictions
@@ -365,9 +369,9 @@ def _create_joint_embedding_lookup(columns_to_tensors,
     values = t.values + prev_size
     prev_size += a.vocab_size
     sparse_tensors.append(
-        ops.SparseTensor(t.indices,
-                         values,
-                         t.shape))
+        sparse_tensor_py.SparseTensor(t.indices,
+                                      values,
+                                      t.dense_shape))
   sparse_tensor = sparse_ops.sparse_concat(1, sparse_tensors)
   with variable_scope.variable_scope(
       None, default_name='linear_weights', values=columns_to_tensors.values()):
@@ -375,7 +379,7 @@ def _create_joint_embedding_lookup(columns_to_tensors,
         name='weights',
         shape=[prev_size, num_outputs],
         dtype=dtypes.float32,
-        initializer=init_ops.zeros_initializer,
+        initializer=init_ops.zeros_initializer(),
         trainable=trainable,
         collections=weight_collections)
     if isinstance(variable, variables.Variable):
@@ -386,7 +390,6 @@ def _create_joint_embedding_lookup(columns_to_tensors,
         variable,
         sparse_tensor,
         sparse_weights=None,
-        default_id=0,
         combiner='sum',
         name='_weights')
     return variable, predictions
@@ -417,10 +420,11 @@ def joint_weighted_sum_from_feature_columns(columns_to_tensors,
     scope: Optional scope for variable_scope.
 
   Returns:
-    A tuple of followings:
-      * A Tensor which represents predictions of a linear model.
-      * A list of Variables storing the weights.
-      * A Variable which is used for bias.
+    A tuple containing:
+
+    * A Tensor which represents predictions of a linear model.
+    * A list of Variables storing the weights.
+    * A Variable which is used for bias.
 
   Raises:
     ValueError: if FeatureColumn cannot be used for linear predictions.
@@ -452,7 +456,8 @@ def joint_weighted_sum_from_feature_columns(columns_to_tensors,
     bias = contrib_variables.model_variable(
         'bias_weight',
         shape=[num_outputs],
-        initializer=init_ops.zeros_initializer,
+        initializer=init_ops.zeros_initializer(),
+        trainable=trainable,
         collections=_add_variable_collection(weight_collections))
     _log_variable(bias)
     predictions = nn_ops.bias_add(predictions_no_bias, bias)
@@ -473,30 +478,22 @@ def weighted_sum_from_feature_columns(columns_to_tensors,
   to logits in classification problems. It refers to prediction itself for
   linear regression problems.
 
-  An example usage of weighted_sum_from_feature_columns is as follows:
+  Example:
 
+    ```
     # Building model for training
+    feature_columns = (
+        real_valued_column("my_feature1"),
+        ...
+    )
     columns_to_tensor = tf.parse_example(...)
     logits = weighted_sum_from_feature_columns(
         columns_to_tensors=columns_to_tensor,
         feature_columns=feature_columns,
         num_outputs=1)
-    loss = tf.nn.sigmoid_cross_entropy_with_logits(logits, labels)
-
-    where feature_columns can be defined as follows:
-
-    occupation = sparse_column_with_hash_bucket(column_name="occupation",
-                                              hash_bucket_size=1000)
-    occupation_emb = embedding_column(sparse_id_column=occupation, dimension=16,
-                                     combiner="sum")
-    age = real_valued_column("age")
-    age_buckets = bucketized_column(
-        source_column=age,
-        boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
-    occupation_x_age = crossed_column(columns=[occupation, age_buckets],
-                                      hash_bucket_size=10000)
-
-    feature_columns=[occupation_emb, occupation_x_age]
+    loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,
+                                                   logits=logits)
+    ```
 
   Args:
     columns_to_tensors: A mapping from feature column to tensors. 'string' key
@@ -512,7 +509,8 @@ def weighted_sum_from_feature_columns(columns_to_tensors,
     scope: Optional scope for variable_scope.
 
   Returns:
-    A tuple of followings:
+    A tuple containing:
+
       * A Tensor which represents predictions of a linear model.
       * A dictionary which maps feature_column to corresponding Variable.
       * A Variable which is used for bias.
@@ -548,16 +546,20 @@ def weighted_sum_from_feature_columns(columns_to_tensors,
             values=columns_to_tensors.values()):
           tensor = column._to_dense_tensor(transformed_tensor)
           tensor = fc._reshape_real_valued_tensor(tensor, 2, column.name)
-          variable = [contrib_variables.model_variable(
-              name='weight',
-              shape=[tensor.get_shape()[1], num_outputs],
-              initializer=init_ops.zeros_initializer,
-              collections=weight_collections)]
+          variable = [
+              contrib_variables.model_variable(
+                  name='weight',
+                  shape=[tensor.get_shape()[1], num_outputs],
+                  initializer=init_ops.zeros_initializer(),
+                  trainable=trainable,
+                  collections=weight_collections)
+          ]
           predictions = math_ops.matmul(tensor, variable[0], name='matmul')
       except ValueError as ee:
         raise ValueError('Error creating weighted sum for column: {}.\n'
                          '{}'.format(column.name, ee))
-      output_tensors.append(predictions)
+      output_tensors.append(array_ops.reshape(
+          predictions, shape=(-1, num_outputs)))
       column_to_variable[column] = variable
       _log_variable(variable)
       _maybe_restore_from_checkpoint(column._checkpoint_path(), variable)
@@ -566,7 +568,8 @@ def weighted_sum_from_feature_columns(columns_to_tensors,
     bias = contrib_variables.model_variable(
         'bias_weight',
         shape=[num_outputs],
-        initializer=init_ops.zeros_initializer,
+        initializer=init_ops.zeros_initializer(),
+        trainable=trainable,
         collections=_add_variable_collection(weight_collections))
     _log_variable(bias)
     predictions = nn_ops.bias_add(predictions_no_bias, bias)
@@ -580,7 +583,9 @@ def parse_feature_columns_from_examples(serialized,
                                         example_names=None):
   """Parses tf.Examples to extract tensors for given feature_columns.
 
-  This is a wrapper of 'tf.parse_example'. A typical usage is as follows:
+  This is a wrapper of 'tf.parse_example'.
+
+  Example:
 
   ```python
   columns_to_tensor = parse_feature_columns_from_examples(
@@ -589,22 +594,26 @@ def parse_feature_columns_from_examples(serialized,
 
   # Where my_features are:
   # Define features and transformations
-  country = sparse_column_with_keys(column_name="native_country",
-                                    keys=["US", "BRA", ...])
-  country_emb = embedding_column(sparse_id_column=country, dimension=3,
-                                 combiner="sum")
-  occupation = sparse_column_with_hash_bucket(column_name="occupation",
-                                              hash_bucket_size=1000)
-  occupation_emb = embedding_column(sparse_id_column=occupation, dimension=16,
-                                   combiner="sum")
-  occupation_x_country = crossed_column(columns=[occupation, country],
-                                        hash_bucket_size=10000)
-  age = real_valued_column("age")
-  age_buckets = bucketized_column(
-      source_column=age,
-      boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
+  sparse_feature_a = sparse_column_with_keys(
+      column_name="sparse_feature_a", keys=["AB", "CD", ...])
 
-  my_features = [occupation_emb, age_buckets, country_emb]
+  embedding_feature_a = embedding_column(
+      sparse_id_column=sparse_feature_a, dimension=3, combiner="sum")
+
+  sparse_feature_b = sparse_column_with_hash_bucket(
+      column_name="sparse_feature_b", hash_bucket_size=1000)
+
+  embedding_feature_b = embedding_column(
+      sparse_id_column=sparse_feature_b, dimension=16, combiner="sum")
+
+  crossed_feature_a_x_b = crossed_column(
+      columns=[sparse_feature_a, sparse_feature_b], hash_bucket_size=10000)
+
+  real_feature = real_valued_column("real_feature")
+  real_feature_buckets = bucketized_column(
+      source_column=real_feature, boundaries=[...])
+
+  my_features = [embedding_feature_b, real_feature_buckets, embedding_feature_a]
   ```
 
   Args:
@@ -632,6 +641,117 @@ def parse_feature_columns_from_examples(serialized,
   return columns_to_tensors
 
 
+def transform_features(features, feature_columns):
+  """Returns transformed features based on features columns passed in.
+
+  Example:
+
+  ```python
+  columns_to_tensor = transform_features(features=features,
+                                         feature_columns=feature_columns)
+
+  # Where my_features are:
+  # Define features and transformations
+  sparse_feature_a = sparse_column_with_keys(
+      column_name="sparse_feature_a", keys=["AB", "CD", ...])
+
+  embedding_feature_a = embedding_column(
+      sparse_id_column=sparse_feature_a, dimension=3, combiner="sum")
+
+  sparse_feature_b = sparse_column_with_hash_bucket(
+      column_name="sparse_feature_b", hash_bucket_size=1000)
+
+  embedding_feature_b = embedding_column(
+      sparse_id_column=sparse_feature_b, dimension=16, combiner="sum")
+
+  crossed_feature_a_x_b = crossed_column(
+      columns=[sparse_feature_a, sparse_feature_b], hash_bucket_size=10000)
+
+  real_feature = real_valued_column("real_feature")
+  real_feature_buckets = bucketized_column(
+      source_column=real_feature, boundaries=[...])
+
+  feature_columns = [embedding_feature_b,
+                     real_feature_buckets,
+                     embedding_feature_a]
+  ```
+
+  Args:
+    features: A dictionary of features.
+    feature_columns: An iterable containing all the feature columns. All items
+      should be instances of classes derived from _FeatureColumn.
+
+  Returns:
+    A `dict` mapping FeatureColumn to `Tensor` and `SparseTensor` values.
+  """
+  check_feature_columns(feature_columns)
+  columns_to_tensor = features.copy()
+  transformer = _Transformer(columns_to_tensor)
+  for column in sorted(set(feature_columns), key=lambda x: x.key):
+    transformer.transform(column)
+  keys = list(columns_to_tensor.keys())
+  for k in keys:
+    if k not in feature_columns:
+      columns_to_tensor.pop(k)
+  return columns_to_tensor
+
+
+def parse_feature_columns_from_sequence_examples(
+    serialized,
+    context_feature_columns,
+    sequence_feature_columns,
+    name=None,
+    example_name=None):
+  """Parses tf.SequenceExamples to extract tensors for given `FeatureColumn`s.
+
+  Args:
+    serialized: A scalar (0-D Tensor) of type string, a single serialized
+      `SequenceExample` proto.
+    context_feature_columns: An iterable containing the feature columns for
+      context features. All items should be instances of classes derived from
+      `_FeatureColumn`. Can be `None`.
+    sequence_feature_columns: An iterable containing the feature columns for
+      sequence features. All items should be instances of classes derived from
+      `_FeatureColumn`. Can be `None`.
+    name: A name for this operation (optional).
+    example_name: A scalar (0-D Tensor) of type string (optional), the names of
+      the serialized proto.
+
+  Returns:
+    A tuple consisting of:
+    context_features: a dict mapping `FeatureColumns` from
+      `context_feature_columns` to their parsed `Tensors`/`SparseTensor`s.
+    sequence_features: a dict mapping `FeatureColumns` from
+      `sequence_feature_columns` to their parsed `Tensors`/`SparseTensor`s.
+  """
+  # Sequence example parsing requires a single (scalar) example.
+  try:
+    serialized = array_ops.reshape(serialized, [])
+  except ValueError as e:
+    raise ValueError(
+        'serialized must contain as single sequence example. Batching must be '
+        'done after parsing for sequence examples. Error: {}'.format(e))
+
+  if context_feature_columns is None:
+    context_feature_columns = []
+  if sequence_feature_columns is None:
+    sequence_feature_columns = []
+
+  check_feature_columns(context_feature_columns)
+  context_feature_spec = fc.create_feature_spec_for_parsing(
+      context_feature_columns)
+
+  check_feature_columns(sequence_feature_columns)
+  sequence_feature_spec = fc._create_sequence_feature_spec_for_parsing(  # pylint: disable=protected-access
+      sequence_feature_columns, allow_missing_by_default=False)
+
+  return parsing_ops.parse_single_sequence_example(serialized,
+                                                   context_feature_spec,
+                                                   sequence_feature_spec,
+                                                   example_name,
+                                                   name)
+
+
 def _log_variable(variable):
   if isinstance(variable, list):
     for var in variable:
@@ -645,7 +765,7 @@ def _log_variable(variable):
 
 def _infer_real_valued_column_for_tensor(name, tensor):
   """Creates a real_valued_column for given tensor and name."""
-  if isinstance(tensor, ops.SparseTensor):
+  if isinstance(tensor, sparse_tensor_py.SparseTensor):
     raise ValueError(
         'SparseTensor is not supported for auto detection. Please define '
         'corresponding FeatureColumn for tensor {} {}.', name, tensor)
@@ -678,11 +798,14 @@ def check_feature_columns(feature_columns):
   """Checks the validity of the set of FeatureColumns.
 
   Args:
-    feature_columns: A set of instances or subclasses of FeatureColumn.
+    feature_columns: An iterable of instances or subclasses of FeatureColumn.
 
   Raises:
+    ValueError: If `feature_columns` is a dict.
     ValueError: If there are duplicate feature column keys.
   """
+  if isinstance(feature_columns, dict):
+    raise ValueError('Expected feature_columns to be iterable, found dict.')
   seen_keys = set()
   for f in feature_columns:
     key = f.key
@@ -701,29 +824,29 @@ class _Transformer(object):
   feature columns require data transformations. This class handles those
   transformations if they are not handled already.
 
-  Some features may be used in more than one places. For example one can use a
+  Some features may be used in more than one place. For example, one can use a
   bucketized feature by itself and a cross with it. In that case Transformer
   should create only one bucketization op instead of multiple ops for each
   feature column. To handle re-use of transformed columns, Transformer keeps all
   previously transformed columns.
 
-  An example usage of Transformer is as follows:
+  Example:
 
-    occupation = sparse_column_with_hash_bucket(column_name="occupation",
-                                                hash_bucket_size=1000)
-    age = real_valued_column("age")
-    age_buckets = bucketized_column(
-        source_column=age,
-        boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
-    occupation_x_age = crossed_column(columns=[occupation, age_buckets],
-                                      hash_bucket_size=10000)
+  ```python
+    sparse_feature = sparse_column_with_hash_bucket(...)
+    real_valued_feature = real_valued_column(...)
+    real_valued_buckets = bucketized_column(source_column=real_valued_feature,
+                                            ...)
+    sparse_x_real = crossed_column(
+        columns=[sparse_feature, real_valued_buckets], hash_bucket_size=10000)
 
     columns_to_tensor = tf.parse_example(...)
     transformer = Transformer(columns_to_tensor)
 
-    occupation_x_age_tensor = transformer.transform(occupation_x_age)
-    occupation_tensor = transformer.transform(occupation)
-    age_buckets_tensor = transformer.transform(age_buckets)
+    sparse_x_real_tensor = transformer.transform(sparse_x_real)
+    sparse_tensor = transformer.transform(sparse_feature)
+    real_buckets_tensor = transformer.transform(real_valued_buckets)
+  ```
   """
 
   def __init__(self, columns_to_tensors):
@@ -768,7 +891,7 @@ class _Transformer(object):
 def _add_variable_collection(weight_collections):
   if weight_collections:
     weight_collections = list(
-        set(list(weight_collections) + [ops.GraphKeys.VARIABLES]))
+        set(list(weight_collections) + [ops.GraphKeys.GLOBAL_VARIABLES]))
   return weight_collections
 
 
@@ -779,7 +902,7 @@ _SUPPORTED_SEQUENCE_COLUMNS = (fc._OneHotColumn,
                                fc._EmbeddingColumn,
                                fc._RealValuedColumn)
 
-_FORBIDDEN_SEQUENCE_COLUMNS = (fc._HashedEmbeddingColumn,
+_FORBIDDEN_SEQUENCE_COLUMNS = (fc._ScatteredEmbeddingColumn,
                                fc._BucketizedColumn,
                                fc._CrossedColumn)
 

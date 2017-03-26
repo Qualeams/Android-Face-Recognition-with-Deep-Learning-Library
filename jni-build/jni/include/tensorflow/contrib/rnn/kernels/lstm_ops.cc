@@ -34,10 +34,6 @@ limitations under the License.
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/platform/macros.h"
 
-#if GOOGLE_CUDA
-#include "tensorflow/core/platform/stream_executor.h"
-#endif  // GOOGLE_CUDA
-
 namespace tensorflow {
 
 typedef Eigen::ThreadPoolDevice CPUDevice;
@@ -116,9 +112,9 @@ class LSTMBlockCellOp : public OpKernel {
 
     // Allocate our output tensors.
     Tensor* i_tensor = nullptr;
-    OP_REQUIRES_OK(
-        ctx, ctx->allocate_output("i", TensorShape({batch_size, cell_size}),
-                                  &i_tensor));
+    OP_REQUIRES_OK(ctx, ctx->forward_input_or_allocate_output(
+                            {"h_prev"}, "i",
+                            TensorShape({batch_size, cell_size}), &i_tensor));
 
     Tensor* cs_tensor = nullptr;
     OP_REQUIRES_OK(
@@ -131,9 +127,9 @@ class LSTMBlockCellOp : public OpKernel {
                                   &f_tensor));
 
     Tensor* o_tensor = nullptr;
-    OP_REQUIRES_OK(
-        ctx, ctx->allocate_output("o", TensorShape({batch_size, cell_size}),
-                                  &o_tensor));
+    OP_REQUIRES_OK(ctx, ctx->forward_input_or_allocate_output(
+                            {"cs_prev"}, "o",
+                            TensorShape({batch_size, cell_size}), &o_tensor));
 
     Tensor* ci_tensor = nullptr;
     OP_REQUIRES_OK(
@@ -164,14 +160,10 @@ class LSTMBlockCellOp : public OpKernel {
                                       &icfo_tensor));
 
     const Device& device = ctx->eigen_device<Device>();
-    perftools::gputools::Stream* stream =
-        std::is_same<Device, GPUDevice>::value
-            ? ctx->op_device_context()->stream()
-            : nullptr;
 
     functor::LSTMBlockCellFprop<Device, T, USE_CUBLAS>(batch_size, input_size,
                                                        cell_size)(
-        ctx, stream, device, forget_bias_, cell_clip_, use_peephole_,
+        ctx, device, forget_bias_, cell_clip_, use_peephole_,
         x_tensor->matrix<T>(), cs_prev_tensor->matrix<T>(),
         h_prev_tensor->matrix<T>(), w_tensor->matrix<T>(), wci_tensor->vec<T>(),
         wcf_tensor->vec<T>(), wco_tensor->vec<T>(), b_tensor->vec<T>(),
@@ -196,22 +188,21 @@ REGISTER_KERNEL(float);
 
 #if GOOGLE_CUDA
 namespace functor {
-#define DECLARE_GPU_SPEC(T)                                                \
-  template <>                                                              \
-  void LSTMBlockCellFprop<GPUDevice, T, true>::operator()(                 \
-      OpKernelContext* ctx, perftools::gputools::Stream* stream,           \
-      const GPUDevice& d, const T forget_bias, const T cell_clip,          \
-      bool use_peephole, typename TTypes<T>::ConstMatrix x,                \
-      typename TTypes<T>::ConstMatrix cs_prev,                             \
-      typename TTypes<T>::ConstMatrix h_prev,                              \
-      typename TTypes<T>::ConstMatrix w, typename TTypes<T>::ConstVec wci, \
-      typename TTypes<T>::ConstVec wcf, typename TTypes<T>::ConstVec wco,  \
-      typename TTypes<T>::ConstVec b, typename TTypes<T>::Matrix xh,       \
-      typename TTypes<T>::Matrix i, typename TTypes<T>::Matrix cs,         \
-      typename TTypes<T>::Matrix f, typename TTypes<T>::Matrix o,          \
-      typename TTypes<T>::Matrix ci, typename TTypes<T>::Matrix co,        \
-      typename TTypes<T>::Matrix icfo, typename TTypes<T>::Matrix h);      \
-                                                                           \
+#define DECLARE_GPU_SPEC(T)                                                    \
+  template <>                                                                  \
+  void LSTMBlockCellFprop<GPUDevice, T, true>::operator()(                     \
+      OpKernelContext* ctx, const GPUDevice& d, const T forget_bias,           \
+      const T cell_clip, bool use_peephole, typename TTypes<T>::ConstMatrix x, \
+      typename TTypes<T>::ConstMatrix cs_prev,                                 \
+      typename TTypes<T>::ConstMatrix h_prev,                                  \
+      typename TTypes<T>::ConstMatrix w, typename TTypes<T>::ConstVec wci,     \
+      typename TTypes<T>::ConstVec wcf, typename TTypes<T>::ConstVec wco,      \
+      typename TTypes<T>::ConstVec b, typename TTypes<T>::Matrix xh,           \
+      typename TTypes<T>::Matrix i, typename TTypes<T>::Matrix cs,             \
+      typename TTypes<T>::Matrix f, typename TTypes<T>::Matrix o,              \
+      typename TTypes<T>::Matrix ci, typename TTypes<T>::Matrix co,            \
+      typename TTypes<T>::Matrix icfo, typename TTypes<T>::Matrix h);          \
+                                                                               \
   extern template struct LSTMBlockCellFprop<GPUDevice, T, true>;
 
 DECLARE_GPU_SPEC(float);
@@ -396,10 +387,10 @@ class LSTMBlockCellGradOp : public OpKernel {
 
     // Allocate our output tensors.
     Tensor* cs_prev_grad_tensor = nullptr;
-    OP_REQUIRES_OK(ctx,
-                   ctx->allocate_output("cs_prev_grad",
-                                        TensorShape({batch_size, cell_size}),
-                                        &cs_prev_grad_tensor));
+    OP_REQUIRES_OK(
+        ctx, ctx->forward_input_or_allocate_output(
+                 {"cs_grad"}, "cs_prev_grad",
+                 TensorShape({batch_size, cell_size}), &cs_prev_grad_tensor));
 
     Tensor* dicfo_tensor = nullptr;
     OP_REQUIRES_OK(ctx, ctx->allocate_output(
@@ -407,16 +398,19 @@ class LSTMBlockCellGradOp : public OpKernel {
                             &dicfo_tensor));
 
     Tensor* wci_grad_tensor = nullptr;
-    OP_REQUIRES_OK(ctx, ctx->allocate_output("wci_grad", wci_tensor->shape(),
-                                             &wci_grad_tensor));
+    OP_REQUIRES_OK(
+        ctx, ctx->forward_input_or_allocate_output(
+                 {"wci"}, "wci_grad", wci_tensor->shape(), &wci_grad_tensor));
 
     Tensor* wcf_grad_tensor = nullptr;
-    OP_REQUIRES_OK(ctx, ctx->allocate_output("wcf_grad", wcf_tensor->shape(),
-                                             &wcf_grad_tensor));
+    OP_REQUIRES_OK(
+        ctx, ctx->forward_input_or_allocate_output(
+                 {"wcf"}, "wcf_grad", wcf_tensor->shape(), &wcf_grad_tensor));
 
     Tensor* wco_grad_tensor = nullptr;
-    OP_REQUIRES_OK(ctx, ctx->allocate_output("wco_grad", wco_tensor->shape(),
-                                             &wco_grad_tensor));
+    OP_REQUIRES_OK(
+        ctx, ctx->forward_input_or_allocate_output(
+                 {"wco"}, "wco_grad", wco_tensor->shape(), &wco_grad_tensor));
 
     // Allocate our temp tensors.
     Tensor do_tensor;
@@ -445,10 +439,6 @@ class LSTMBlockCellGradOp : public OpKernel {
                                            &di_tensor));
 
     const Device& device = ctx->eigen_device<Device>();
-    perftools::gputools::Stream* stream =
-        std::is_same<Device, GPUDevice>::value
-            ? ctx->op_device_context()->stream()
-            : nullptr;
 
     functor::TensorZero<Device, T>()(device, wci_grad_tensor->flat<float>());
     functor::TensorZero<Device, T>()(device, wcf_grad_tensor->flat<float>());
@@ -456,7 +446,7 @@ class LSTMBlockCellGradOp : public OpKernel {
 
     functor::LSTMBlockCellBprop<Device, T, USE_CUBLAS>(batch_size, input_size,
                                                        cell_size)(
-        ctx, stream, device, use_peephole_, x_tensor->matrix<T>(),
+        ctx, device, use_peephole_, x_tensor->matrix<T>(),
         cs_prev_tensor->matrix<T>(), h_prev_tensor->matrix<T>(),
         w_tensor->matrix<T>(), wci_tensor->vec<T>(), wcf_tensor->vec<T>(),
         wco_tensor->vec<T>(), b_tensor->vec<T>(), i_tensor->matrix<T>(),
@@ -486,8 +476,7 @@ namespace functor {
 #define DECLARE_GPU_SPEC(T)                                                   \
   template <>                                                                 \
   void LSTMBlockCellBprop<GPUDevice, T, true>::operator()(                    \
-      OpKernelContext* ctx, perftools::gputools::Stream* stream,              \
-      const GPUDevice& d, bool use_peephole,                                  \
+      OpKernelContext* ctx, const GPUDevice& d, bool use_peephole,            \
       typename TTypes<T>::ConstMatrix x,                                      \
       typename TTypes<T>::ConstMatrix cs_prev,                                \
       typename TTypes<T>::ConstMatrix h_prev,                                 \
@@ -610,7 +599,7 @@ class SliceHelper {
       CHECK(aligned.shape().IsSameSize(t.shape()));
       CHECK_EQ(aligned.dtype(), t.dtype());
     } else {  // allocate a new temporary tensor
-      ctx_->allocate_temp(t.dtype(), t.shape(), &aligned);
+      TF_CHECK_OK(ctx_->allocate_temp(t.dtype(), t.shape(), &aligned));
       pool_.emplace(name, std::make_pair(aligned, true));
     }
     functor::TensorCopyUnaligned<Device, T>()(device_, t.unaligned_flat<T>(),
@@ -769,10 +758,6 @@ class BlockLSTMOp : public OpKernel {
                                       &icfo_tensor));
 
     const Device& device = ctx->eigen_device<Device>();
-    perftools::gputools::Stream* stream =
-        std::is_same<Device, GPUDevice>::value
-            ? ctx->op_device_context()->stream()
-            : nullptr;
 
     const int64 seq_len_max = seq_len_max_tensor->scalar<int64>()();
     SliceHelper<Device, T> slicer(ctx);
@@ -794,7 +779,7 @@ class BlockLSTMOp : public OpKernel {
 
       functor::LSTMBlockCellFprop<Device, T, USE_CUBLAS>(batch_size, input_size,
                                                          cell_size)(
-          ctx, stream, device, forget_bias_, cell_clip_, use_peephole_,
+          ctx, device, forget_bias_, cell_clip_, use_peephole_,
           x_tensor.matrix<T>(), cs_prev_tensor2.matrix<T>(),
           h_prev_tensor2.matrix<T>(), w_tensor->matrix<T>(),
           wci_tensor->vec<T>(), wcf_tensor->vec<T>(), wco_tensor->vec<T>(),
@@ -1020,10 +1005,6 @@ class BlockLSTMGradOp : public OpKernel {
 
 
     const Device& device = ctx->eigen_device<Device>();
-    perftools::gputools::Stream* stream =
-        std::is_same<Device, GPUDevice>::value
-            ? ctx->op_device_context()->stream()
-            : nullptr;
 
     functor::TensorZero<Device, T>()(device, cs_grad_tensor.flat<float>());
     functor::TensorZero<Device, T>()(device,
@@ -1073,7 +1054,7 @@ class BlockLSTMGradOp : public OpKernel {
       Tensor x_grad_tensor = slicer.OutputSlice(x_grad, t, "x_grad");
       functor::BlockLSTMBprop<Device, T, USE_CUBLAS>(batch_size, input_size,
                                                      cell_size)(
-          ctx, stream, device, use_peephole_, x_tensor.matrix<T>(),
+          ctx, device, use_peephole_, x_tensor.matrix<T>(),
           cs_prev_tensor2.matrix<T>(), h_prev_tensor2.matrix<T>(),
           w_tensor->matrix<T>(), wci_tensor->vec<T>(), wcf_tensor->vec<T>(),
           wco_tensor->vec<T>(), b_tensor->vec<T>(), xh_tensor.matrix<T>(),
@@ -1134,8 +1115,7 @@ namespace functor {
                                                                                \
   template <>                                                                  \
   void BlockLSTMBprop<GPUDevice, T, true>::operator()(                         \
-      OpKernelContext* ctx, perftools::gputools::Stream* stream,               \
-      const GPUDevice& d, bool use_peephole,                                   \
+      OpKernelContext* ctx, const GPUDevice& d, bool use_peephole,             \
       typename TTypes<T>::ConstMatrix x,                                       \
       typename TTypes<T>::ConstMatrix cs_prev,                                 \
       typename TTypes<T>::ConstMatrix h_prev,                                  \

@@ -1,7 +1,7 @@
 # TF Learn Examples
 
 Learn is a high-level API for TensorFlow that allows you to create,
-train, and use deep learning models easily. See the [Quickstart tutorial](../../g3doc/tutorials/tflearn/index.md)
+train, and use deep learning models easily. See the [Quickstart tutorial](https://www.tensorflow.org/get_started/tflearn)
 for an introduction to the API.
 
 To run most of these examples, you need to install the `scikit learn` library (`sudo pip install sklearn`).
@@ -21,13 +21,13 @@ Some examples use the `pandas` library for data processing (`sudo pip install pa
 * [Deep Neural Network with Customized Decay Function](iris_custom_decay_dnn.py)
 
 ## Specialized Models
-* [Building a Random Forest Model](random_forest.py)
+* [Building a Random Forest Model](random_forest_mnist.py)
 * [Building a Wide & Deep Model](wide_n_deep_tutorial.py)
+* [Building a Residual Network Model](resnet.py)
 
 ## Text classification
 
 * [Text Classification Using Recurrent Neural Networks on Words](text_classification.py)
-(See also [Simplified Version Using Built-in RNN Model](text_classification_builtin_rnn_model.py) using built-in parameters)
 * [Text Classification Using Convolutional Neural Networks on Words](text_classification_cnn.py)
 * [Text Classification Using Recurrent Neural Networks on Characters](text_classification_character_rnn.py)
 * [Text Classification Using Convolutional Neural Networks on Characters](text_classification_character_cnn.py)

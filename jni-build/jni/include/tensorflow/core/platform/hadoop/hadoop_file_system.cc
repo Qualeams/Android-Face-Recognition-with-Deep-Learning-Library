@@ -23,8 +23,10 @@ limitations under the License.
 #include "tensorflow/core/platform/env.h"
 #include "tensorflow/core/platform/file_system.h"
 #include "tensorflow/core/platform/logging.h"
+#include "tensorflow/core/platform/mutex.h"
 #include "tensorflow/core/platform/posix/error.h"
 #include "third_party/hadoop/hdfs.h"
+
 
 namespace tensorflow {
 
@@ -56,10 +58,13 @@ class LibHDFS {
   std::function<hdfsFS(hdfsBuilder*)> hdfsBuilderConnect;
   std::function<hdfsBuilder*()> hdfsNewBuilder;
   std::function<void(hdfsBuilder*, const char*)> hdfsBuilderSetNameNode;
+  std::function<int(const char*, char**)> hdfsConfGetStr;
+  std::function<void(hdfsBuilder*, const char* kerbTicketCachePath)>
+      hdfsBuilderSetKerbTicketCachePath;
   std::function<int(hdfsFS, hdfsFile)> hdfsCloseFile;
   std::function<tSize(hdfsFS, hdfsFile, tOffset, void*, tSize)> hdfsPread;
   std::function<tSize(hdfsFS, hdfsFile, const void*, tSize)> hdfsWrite;
-  std::function<int(hdfsFS, hdfsFile)> hdfsFlush;
+  std::function<int(hdfsFS, hdfsFile)> hdfsHFlush;
   std::function<int(hdfsFS, hdfsFile)> hdfsHSync;
   std::function<hdfsFile(hdfsFS, const char*, int, int, short, tSize)>
       hdfsOpenFile;
@@ -81,10 +86,12 @@ class LibHDFS {
       BIND_HDFS_FUNC(hdfsBuilderConnect);
       BIND_HDFS_FUNC(hdfsNewBuilder);
       BIND_HDFS_FUNC(hdfsBuilderSetNameNode);
+      BIND_HDFS_FUNC(hdfsConfGetStr);
+      BIND_HDFS_FUNC(hdfsBuilderSetKerbTicketCachePath);
       BIND_HDFS_FUNC(hdfsCloseFile);
       BIND_HDFS_FUNC(hdfsPread);
       BIND_HDFS_FUNC(hdfsWrite);
-      BIND_HDFS_FUNC(hdfsFlush);
+      BIND_HDFS_FUNC(hdfsHFlush);
       BIND_HDFS_FUNC(hdfsHSync);
       BIND_HDFS_FUNC(hdfsOpenFile);
       BIND_HDFS_FUNC(hdfsExists);
@@ -100,14 +107,24 @@ class LibHDFS {
 
     // libhdfs.so won't be in the standard locations. Use the path as specified
     // in the libhdfs documentation.
+#if defined(PLATFORM_WINDOWS)
+    const char *kLibHdfsDso = "hdfs.dll";
+#else
+    const char *kLibHdfsDso = "libhdfs.so";
+#endif
     char* hdfs_home = getenv("HADOOP_HDFS_HOME");
     if (hdfs_home == nullptr) {
       status_ = errors::FailedPrecondition(
           "Environment variable HADOOP_HDFS_HOME not set");
       return;
     }
-    string path = io::JoinPath(hdfs_home, "lib", "native", "libhdfs.so");
+    string path = io::JoinPath(hdfs_home, "lib", "native", kLibHdfsDso);
     status_ = TryLoadAndBind(path.c_str(), &handle_);
+    if (!status_.ok()) {
+      // try load libhdfs.so using dynamic loader's search path in case libhdfs.so
+      // is installed in non-standard location
+      status_ = TryLoadAndBind(kLibHdfsDso, &handle_);
+    }
     return;
   }
 
@@ -126,14 +143,30 @@ Status HadoopFileSystem::Connect(StringPiece fname, hdfsFS* fs) {
   TF_RETURN_IF_ERROR(hdfs_->status());
 
   StringPiece scheme, namenode, path;
-  ParseURI(fname, &scheme, &namenode, &path);
+  io::ParseURI(fname, &scheme, &namenode, &path);
   const string nn = namenode.ToString();
 
   hdfsBuilder* builder = hdfs_->hdfsNewBuilder();
   if (scheme == "file") {
     hdfs_->hdfsBuilderSetNameNode(builder, nullptr);
+  } else if (scheme == "viewfs") {
+    char *defaultFS = NULL;
+    hdfs_->hdfsConfGetStr("fs.defaultFS", &defaultFS);
+    StringPiece defaultScheme, defaultCluster, defaultPath;
+    io::ParseURI(defaultFS, &defaultScheme, &defaultCluster, &defaultPath);
+
+    if (scheme != defaultScheme || namenode != defaultCluster) {
+      return errors::Unimplemented("viewfs is only supported as a fs.defaultFS.");
+    }
+    // The default NameNode configuration will be used (from the XML configuration files). See:
+    // https://github.com/tensorflow/tensorflow/blob/v1.0.0/third_party/hadoop/hdfs.h#L259
+    hdfs_->hdfsBuilderSetNameNode(builder, "default");
   } else {
     hdfs_->hdfsBuilderSetNameNode(builder, nn.c_str());
+  }
+  char* ticket_cache_path = getenv("KERB_TICKET_CACHE_PATH");
+  if (ticket_cache_path != nullptr) {
+    hdfs_->hdfsBuilderSetKerbTicketCachePath(builder, ticket_cache_path);
   }
   *fs = hdfs_->hdfsBuilderConnect(builder);
   if (*fs == nullptr) {
@@ -144,30 +177,59 @@ Status HadoopFileSystem::Connect(StringPiece fname, hdfsFS* fs) {
 
 string HadoopFileSystem::TranslateName(const string& name) const {
   StringPiece scheme, namenode, path;
-  ParseURI(name, &scheme, &namenode, &path);
+  io::ParseURI(name, &scheme, &namenode, &path);
   return path.ToString();
 }
 
 class HDFSRandomAccessFile : public RandomAccessFile {
  public:
-  HDFSRandomAccessFile(const string& fname, LibHDFS* hdfs, hdfsFS fs,
-                       hdfsFile file)
-      : filename_(fname), hdfs_(hdfs), fs_(fs), file_(file) {}
+  HDFSRandomAccessFile(const string& filename, const string& hdfs_filename,
+                       LibHDFS* hdfs, hdfsFS fs, hdfsFile file)
+      : filename_(filename),
+        hdfs_filename_(hdfs_filename),
+        hdfs_(hdfs),
+        fs_(fs),
+        file_(file) {}
 
-  ~HDFSRandomAccessFile() override { hdfs_->hdfsCloseFile(fs_, file_); }
+  ~HDFSRandomAccessFile() override {
+    if (file_ != nullptr) {
+      mutex_lock lock(mu_);
+      hdfs_->hdfsCloseFile(fs_, file_);
+    }
+  }
 
   Status Read(uint64 offset, size_t n, StringPiece* result,
               char* scratch) const override {
     Status s;
     char* dst = scratch;
+    bool eof_retried = false;
     while (n > 0 && s.ok()) {
+      // We lock inside the loop rather than outside so we don't block other
+      // concurrent readers.
+      mutex_lock lock(mu_);
       tSize r = hdfs_->hdfsPread(fs_, file_, static_cast<tOffset>(offset), dst,
                                  static_cast<tSize>(n));
       if (r > 0) {
         dst += r;
         n -= r;
         offset += r;
-      } else if (r == 0) {
+      } else if (!eof_retried && r == 0) {
+        // Always reopen the file upon reaching EOF to see if there's more data.
+        // If writers are streaming contents while others are concurrently
+        // reading, HDFS requires that we reopen the file to see updated
+        // contents.
+        //
+        // Fixes #5438
+        if (file_ != nullptr && hdfs_->hdfsCloseFile(fs_, file_) != 0) {
+          return IOError(filename_, errno);
+        }
+        file_ =
+            hdfs_->hdfsOpenFile(fs_, hdfs_filename_.c_str(), O_RDONLY, 0, 0, 0);
+        if (file_ == nullptr) {
+          return IOError(filename_, errno);
+        }
+        eof_retried = true;
+      } else if (eof_retried && r == 0) {
         s = Status(error::OUT_OF_RANGE, "Read less bytes than requested");
       } else if (errno == EINTR || errno == EAGAIN) {
         // hdfsPread may return EINTR too. Just retry.
@@ -181,9 +243,12 @@ class HDFSRandomAccessFile : public RandomAccessFile {
 
  private:
   string filename_;
+  string hdfs_filename_;
   LibHDFS* hdfs_;
   hdfsFS fs_;
-  hdfsFile file_;
+
+  mutable mutex mu_;
+  mutable hdfsFile file_ GUARDED_BY(mu_);
 };
 
 Status HadoopFileSystem::NewRandomAccessFile(
@@ -196,7 +261,8 @@ Status HadoopFileSystem::NewRandomAccessFile(
   if (file == nullptr) {
     return IOError(fname, errno);
   }
-  result->reset(new HDFSRandomAccessFile(fname, hdfs_, fs, file));
+  result->reset(
+      new HDFSRandomAccessFile(fname, TranslateName(fname), hdfs_, fs, file));
   return Status::OK();
 }
 
@@ -207,7 +273,7 @@ class HDFSWritableFile : public WritableFile {
 
   ~HDFSWritableFile() override {
     if (file_ != nullptr) {
-      Close();
+      Close().IgnoreError();
     }
   }
 
@@ -231,7 +297,7 @@ class HDFSWritableFile : public WritableFile {
   }
 
   Status Flush() override {
-    if (hdfs_->hdfsFlush(fs_, file_) != 0) {
+    if (hdfs_->hdfsHFlush(fs_, file_) != 0) {
       return IOError(filename_, errno);
     }
     return Status::OK();
@@ -290,15 +356,13 @@ Status HadoopFileSystem::NewReadOnlyMemoryRegionFromFile(
   return errors::Unimplemented("HDFS does not support ReadOnlyMemoryRegion");
 }
 
-bool HadoopFileSystem::FileExists(const string& fname) {
+Status HadoopFileSystem::FileExists(const string& fname) {
   hdfsFS fs = nullptr;
-  Status status = Connect(fname, &fs);
-  if (!status.ok()) {
-    LOG(ERROR) << "Connect failed: " << status.error_message();
-    return false;
+  TF_RETURN_IF_ERROR(Connect(fname, &fs));
+  if (hdfs_->hdfsExists(fs, TranslateName(fname).c_str()) == 0) {
+    return Status::OK();
   }
-
-  return hdfs_->hdfsExists(fs, TranslateName(fname).c_str()) == 0;
+  return errors::NotFound(fname, " not found.");
 }
 
 Status HadoopFileSystem::GetChildren(const string& dir,
@@ -362,9 +426,15 @@ Status HadoopFileSystem::DeleteDir(const string& dir) {
   hdfsFileInfo* info =
       hdfs_->hdfsListDirectory(fs, TranslateName(dir).c_str(), &entries);
   if (info != nullptr) {
-    return IOError(dir, errno);
+    hdfs_->hdfsFreeFileInfo(info, entries);
   }
-  hdfs_->hdfsFreeFileInfo(info, entries);
+  // Due to HDFS bug HDFS-8407, we can't distinguish between an error and empty
+  // folder, expscially for Kerberos enable setup, EAGAIN is quite common when
+  // the call is actually successful. Check again by Stat.
+  if (info == nullptr && errno != 0) {
+    FileStatistics stat;
+    TF_RETURN_IF_ERROR(Stat(dir, &stat));
+  }
 
   if (entries > 0) {
     return errors::FailedPrecondition("Cannot delete a non-empty directory.");
@@ -422,5 +492,6 @@ Status HadoopFileSystem::Stat(const string& fname, FileStatistics* stats) {
 }
 
 REGISTER_FILE_SYSTEM("hdfs", HadoopFileSystem);
+REGISTER_FILE_SYSTEM("viewfs", HadoopFileSystem);
 
 }  // namespace tensorflow

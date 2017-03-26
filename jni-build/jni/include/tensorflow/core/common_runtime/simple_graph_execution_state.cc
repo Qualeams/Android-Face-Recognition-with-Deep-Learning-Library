@@ -29,6 +29,8 @@ limitations under the License.
 #include "tensorflow/core/graph/graph_constructor.h"
 #include "tensorflow/core/graph/subgraph.h"
 #include "tensorflow/core/graph/validate.h"
+#include "tensorflow/core/grappler/grappler_item.h"
+#include "tensorflow/core/grappler/optimizers/meta_optimizer.h"
 #include "tensorflow/core/lib/core/errors.h"
 #include "tensorflow/core/lib/core/status.h"
 #include "tensorflow/core/lib/strings/stringprintf.h"
@@ -227,10 +229,54 @@ void SimpleGraphExecutionState::RestoreStatefulNodes(Graph* graph) {
 
 Status SimpleGraphExecutionState::InitBaseGraph(
     const BuildGraphOptions& options) {
+  const GraphDef* graph_def = &original_graph_def_;
+
+  GraphDef optimized_graph;
+  const RewriterConfig& rewrite_options =
+      session_options_->config.graph_options().rewrite_options();
+  if (grappler::MetaOptimizerEnabled(rewrite_options)) {
+    // Adding this functionalty in steps. The first step is to make sure
+    // we don't break dependencies. The second step will be to turn the
+    // functionality on by default.
+    grappler::GrapplerItem item;
+    item.id = "tf_graph";
+    item.graph = original_graph_def_;
+
+    item.fetch = options.fetch_endpoints;
+    item.fetch.insert(item.fetch.end(), options.target_nodes.begin(),
+                      options.target_nodes.end());
+
+    Status s;
+    if (!options.feed_endpoints.empty()) {
+      std::unordered_set<string> feeds(options.feed_endpoints.begin(),
+                                       options.feed_endpoints.end());
+      for (const NodeDef& node : original_graph_def_.node()) {
+        if (feeds.find(node.name()) == feeds.end()) {
+          continue;
+        }
+        if (node.attr().count("dtype") == 0 ||
+            node.attr().count("shape") == 0) {
+          s = errors::InvalidArgument("Missing node shape or type");
+          break;
+        }
+        TensorShape shape(node.attr().at("shape").shape());
+        DataType type = node.attr().at("dtype").type();
+        Tensor fake_input(type, shape);
+        item.feed.emplace_back(node.name(), fake_input);
+      }
+    }
+
+    if (s.ok()) {
+      s = grappler::RunMetaOptimizer(item, rewrite_options, &optimized_graph);
+    }
+    if (s.ok()) {
+      graph_def = &optimized_graph;
+    }
+  }
+
   std::unique_ptr<Graph> new_graph(new Graph(flib_def_.get()));
   GraphConstructorOptions opts;
-  TF_RETURN_IF_ERROR(
-      ConvertGraphDefToGraph(opts, original_graph_def_, new_graph.get()));
+  TF_RETURN_IF_ERROR(ConvertGraphDefToGraph(opts, *graph_def, new_graph.get()));
   for (const Node* n : new_graph->nodes()) {
     VLOG(2) << "Mapping " << n->name() << " to " << n->cost_id();
     node_name_to_cost_id_map_[n->name()] = n->cost_id();
@@ -257,6 +303,7 @@ Status SimpleGraphExecutionState::InitBaseGraph(
   optimization_options.session_options = session_options_;
   optimization_options.graph = &new_graph;
   optimization_options.flib_def = flib_def_.get();
+  optimization_options.device_set = device_set_;
   optimization_options.cost_model = &costs;
 
   TF_RETURN_IF_ERROR(OptimizationPassRegistry::Global()->RunGrouping(
@@ -274,19 +321,15 @@ Status SimpleGraphExecutionState::InitBaseGraph(
   return Status::OK();
 }
 
-void SimpleGraphExecutionState::UpdateCostsFromStats(const StepStats& ss) {
-  mutex_lock l(mu_);
-  costs_.MergeFromStats(node_name_to_cost_id_map_, ss);
-}
-
-void SimpleGraphExecutionState::MergeCostsFromGlobal(CostModel* costs) {
-  mutex_lock l(mu_);
-  costs->MergeFromGlobal(costs_);
-}
-
 Status SimpleGraphExecutionState::BuildGraph(
     const BuildGraphOptions& options, std::unique_ptr<SimpleClientGraph>* out) {
   VLOG(1) << "BuildGraph";
+  if (!graph_) {
+    // It is only valid to call this method directly when the original graph
+    // was created with the option `place_pruned_graph == false`.
+    return errors::Internal(
+        "Attempted to prune a graph that has not been fully initialized.");
+  }
   std::unique_ptr<Graph> ng(new Graph(flib_def_.get()));
   CopyGraph(*graph_, ng.get());
 
@@ -310,6 +353,7 @@ Status SimpleGraphExecutionState::BuildGraph(
   optimization_options.session_options = session_options_;
   optimization_options.graph = &ng;
   optimization_options.flib_def = flib.get();
+  optimization_options.device_set = device_set_;
   optimization_options.cost_model = &costs;
 
   TF_RETURN_IF_ERROR(OptimizationPassRegistry::Global()->RunGrouping(

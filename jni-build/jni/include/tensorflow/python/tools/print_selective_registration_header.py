@@ -27,103 +27,44 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import argparse
 import sys
 
-import tensorflow as tf
-from google.protobuf import text_format
-from tensorflow.core.framework import graph_pb2
-from tensorflow.python import pywrap_tensorflow
+from tensorflow.python.platform import app
+from tensorflow.python.tools import selective_registration_header_lib
 
-FLAGS = tf.app.flags.FLAGS
-
-tf.app.flags.DEFINE_string('proto_fileformat', 'rawproto',
-                           'Format of proto file, either textproto or rawproto')
-
-tf.app.flags.DEFINE_string(
-    'graphs', '',
-    'Comma-separated list of paths to model files to be analyzed.')
-
-tf.app.flags.DEFINE_string('default_ops', 'NoOp:NoOp,_Recv:RecvOp,_Send:SendOp',
-                           'Default operator:kernel pairs to always include '
-                           'implementation for')
-
-
-def get_ops_and_kernels(proto_fileformat, proto_files, default_ops_str):
-  """Gets the ops and kernels needed from the model files."""
-  ops = set()
-
-  for proto_file in proto_files:
-    tf.logging.info('Loading proto file %s', proto_file)
-    # Load GraphDef.
-    file_data = tf.gfile.GFile(proto_file).read()
-    if proto_fileformat == 'rawproto':
-      graph_def = graph_pb2.GraphDef.FromString(file_data)
-    else:
-      assert proto_fileformat == 'textproto'
-      graph_def = text_format.Parse(file_data, graph_pb2.GraphDef())
-
-    # Find all ops and kernels used by the graph.
-    for node_def in graph_def.node:
-      if not node_def.device:
-        node_def.device = '/cpu:0'
-      kernel_class = pywrap_tensorflow.TryFindKernelClass(
-          node_def.SerializeToString())
-      if kernel_class:
-        op_and_kernel = (str(node_def.op), kernel_class.decode('utf-8'))
-        if op_and_kernel not in ops:
-          ops.add(op_and_kernel)
-      else:
-        print(
-            'Warning: no kernel found for op %s' % node_def.op, file=sys.stderr)
-
-  # Add default ops.
-  for s in default_ops_str.split(','):
-    op, kernel = s.split(':')
-    op_and_kernel = (op, kernel)
-    if op_and_kernel not in ops:
-      ops.add(op_and_kernel)
-
-  return list(sorted(ops))
-
-
-def print_header(ops_and_kernels, ops):
-  """Prints a header for use with tensorflow SELECTIVE_REGISTRATION."""
-  print('#ifndef OPS_TO_REGISTER')
-  print('#define OPS_TO_REGISTER')
-
-  print('constexpr inline bool ShouldRegisterOp(const char op[]) {')
-  print('  return false')
-  for op in sorted(ops):
-    print('     || (strcmp(op, "%s") == 0)' % op)
-  print('  ;')
-  print('}')
-
-  line = 'const char kNecessaryOpKernelClasses[] = ","\n'
-  for _, kernel_class in ops_and_kernels:
-    line += '"%s,"\n' % kernel_class
-  line += ';'
-  print(line)
-
-  print('const bool kRequiresSymbolicGradients = %s;' %
-        ('true' if 'SymbolicGradient' in ops else 'false'))
-
-  print('#endif')
+FLAGS = None
 
 
 def main(unused_argv):
-  if not FLAGS.graphs:
-    print('--graphs is required')
-    return 1
   graphs = FLAGS.graphs.split(',')
-  ops_and_kernels = get_ops_and_kernels(FLAGS.proto_fileformat, graphs,
-                                        FLAGS.default_ops)
-  ops = set([op for op, _ in ops_and_kernels])
-  if not ops:
-    print('Error reading graph!')
-    return 1
-
-  print_header(ops_and_kernels, ops)
+  print(selective_registration_header_lib.get_header(
+      graphs, FLAGS.proto_fileformat, FLAGS.default_ops))
 
 
 if __name__ == '__main__':
-  tf.app.run()
+  parser = argparse.ArgumentParser()
+  parser.register('type', 'bool', lambda v: v.lower() == 'true')
+  parser.add_argument(
+      '--graphs',
+      type=str,
+      default='',
+      help='Comma-separated list of paths to model files to be analyzed.',
+      required=True)
+  parser.add_argument(
+      '--proto_fileformat',
+      type=str,
+      default='rawproto',
+      help='Format of proto file, either textproto or rawproto.')
+  parser.add_argument(
+      '--default_ops',
+      type=str,
+      default='NoOp:NoOp,_Recv:RecvOp,_Send:SendOp',
+      help='Default operator:kernel pairs to always include implementation for.'
+      'Pass "all" to have all operators and kernels included; note that this '
+      'should be used only when it is useful compared with simply not using '
+      'selective registration, as it can in some cases limit the effect of '
+      'compilation caches')
+
+  FLAGS, unparsed = parser.parse_known_args()
+  app.run(main=main, argv=[sys.argv[0]] + unparsed)

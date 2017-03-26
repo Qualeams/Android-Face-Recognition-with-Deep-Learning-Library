@@ -56,6 +56,10 @@
 # In addition, this script obeys the following environment variables:
 # TF_DIST_DOCKER_NO_CACHE:      do not use cache when building docker images
 
+die() {
+  echo $@
+  exit 1
+}
 
 # Configurations
 DOCKER_IMG_NAME="tensorflow/tf-dist-test-local-cluster"
@@ -147,6 +151,8 @@ rm -rf "${BUILD_DIR}"
 # Run docker image for test.
 docker run ${DOCKER_IMG_NAME} \
     /var/tf_dist_test/scripts/dist_mnist_test.sh \
-    --ps_hosts "localhost:2000,localhost:2001" \
-    --worker_hosts "localhost:3000,localhost:3001" \
+    --ps_hosts $(seq -f "localhost:%g" -s "," \
+                 2000 $((2000 + ${NUM_PARAMETER_SERVERS} - 1))) \
+    --worker_hosts $(seq -f "localhost:%g" -s "," \
+                     3000 $((3000 + ${NUM_WORKERS} - 1))) \
     --num_gpus 0 ${SYNC_REPLICAS_FLAG}

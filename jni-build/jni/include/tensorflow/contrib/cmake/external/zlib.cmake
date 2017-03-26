@@ -8,7 +8,7 @@ set(ZLIB_TAG 50893291621658f355bc5b4d450a8d06a563053d)
 
 if(WIN32)
   set(zlib_STATIC_LIBRARIES
-      ${CMAKE_CURRENT_BINARY_DIR}/zlib/install/lib/zlib.lib)
+      ${CMAKE_CURRENT_BINARY_DIR}/zlib/install/lib/zlibstatic.lib)
 else()
   set(zlib_STATIC_LIBRARIES
       ${CMAKE_CURRENT_BINARY_DIR}/zlib/install/lib/libz.a)
@@ -42,5 +42,5 @@ add_custom_target(zlib_copy_headers_to_destination
 
 foreach(header_file ${ZLIB_HEADERS})
     add_custom_command(TARGET zlib_copy_headers_to_destination PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${header_file} ${zlib_INCLUDE_DIR})
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${header_file} ${zlib_INCLUDE_DIR})
 endforeach()

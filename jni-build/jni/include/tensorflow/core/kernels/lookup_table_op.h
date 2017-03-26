@@ -53,7 +53,16 @@ class LookupTableOp : public OpKernel {
       OP_REQUIRES_OK(ctx, cinfo_.Init(ctx->resource_manager(), def(),
                                       use_node_name_sharing_));
       auto creator = [ctx, this](lookup::LookupInterface** ret) {
-        *ret = new Container(ctx, this);
+        lookup::LookupInterface* container = new Container(ctx, this);
+        if (!ctx->status().ok()) {
+          container->Unref();
+          return ctx->status();
+        }
+        if (ctx->track_allocations()) {
+          ctx->record_device_persistent_memory_allocation(
+              container->MemoryUsed());
+        }
+        *ret = container;
         return Status::OK();
       };
 
