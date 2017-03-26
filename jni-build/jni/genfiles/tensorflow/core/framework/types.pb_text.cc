@@ -29,6 +29,7 @@ const char* EnumName_DataType(
     case 17: return "DT_UINT16";
     case 18: return "DT_COMPLEX128";
     case 19: return "DT_HALF";
+    case 20: return "DT_RESOURCE";
     case 101: return "DT_FLOAT_REF";
     case 102: return "DT_DOUBLE_REF";
     case 103: return "DT_INT32_REF";
@@ -48,6 +49,7 @@ const char* EnumName_DataType(
     case 117: return "DT_UINT16_REF";
     case 118: return "DT_COMPLEX128_REF";
     case 119: return "DT_HALF_REF";
+    case 120: return "DT_RESOURCE_REF";
     default: return "";
   }
 }

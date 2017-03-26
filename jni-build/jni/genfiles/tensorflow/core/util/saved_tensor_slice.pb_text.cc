@@ -77,6 +77,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -146,6 +147,8 @@ bool ProtoParseFromScanner(
         msg->set_type(::tensorflow::DT_COMPLEX128);
       } else if (value == "DT_HALF" || value == "19") {
         msg->set_type(::tensorflow::DT_HALF);
+      } else if (value == "DT_RESOURCE" || value == "20") {
+        msg->set_type(::tensorflow::DT_RESOURCE);
       } else if (value == "DT_FLOAT_REF" || value == "101") {
         msg->set_type(::tensorflow::DT_FLOAT_REF);
       } else if (value == "DT_DOUBLE_REF" || value == "102") {
@@ -184,6 +187,8 @@ bool ProtoParseFromScanner(
         msg->set_type(::tensorflow::DT_COMPLEX128_REF);
       } else if (value == "DT_HALF_REF" || value == "119") {
         msg->set_type(::tensorflow::DT_HALF_REF);
+      } else if (value == "DT_RESOURCE_REF" || value == "120") {
+        msg->set_type(::tensorflow::DT_RESOURCE_REF);
       } else {
         return false;
       }
@@ -276,6 +281,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -381,6 +387,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -487,6 +494,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;

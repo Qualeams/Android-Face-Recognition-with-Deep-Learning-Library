@@ -9,6 +9,16 @@
 
 namespace tensorflow {
 
+// Message-text conversion for tensorflow.SummaryDescription
+string ProtoDebugString(
+    const ::tensorflow::SummaryDescription& msg);
+string ProtoShortDebugString(
+    const ::tensorflow::SummaryDescription& msg);
+bool ProtoParseFromString(
+    const string& s,
+    ::tensorflow::SummaryDescription* msg)
+        TF_MUST_USE_RESULT;
+
 // Message-text conversion for tensorflow.HistogramProto
 string ProtoDebugString(
     const ::tensorflow::HistogramProto& msg);

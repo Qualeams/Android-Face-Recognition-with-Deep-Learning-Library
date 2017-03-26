@@ -2,6 +2,8 @@
 #ifndef tensorflow_core_framework_tensor_proto_IMPL_H_
 #define tensorflow_core_framework_tensor_proto_IMPL_H_
 
+#include "tensorflow/core/framework/resource_handle.pb.h"
+#include "tensorflow/core/framework/resource_handle.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor.pb.h"
 #include "tensorflow/core/framework/tensor.pb_text.h"
 #include "tensorflow/core/framework/tensor_shape.pb.h"

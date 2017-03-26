@@ -18,136 +18,117 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class TensorShapeProto_DimDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<TensorShapeProto_Dim> {
+} _TensorShapeProto_Dim_default_instance_;
+class TensorShapeProtoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<TensorShapeProto> {
+} _TensorShapeProto_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* TensorShapeProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  TensorShapeProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* TensorShapeProto_Dim_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  TensorShapeProto_Dim_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[2];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, size_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, name_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, dim_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, unknown_rank_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/framework/tensor_shape.proto");
-  GOOGLE_CHECK(file != NULL);
-  TensorShapeProto_descriptor_ = file->message_type(0);
-  static const int TensorShapeProto_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, dim_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, unknown_rank_),
-  };
-  TensorShapeProto_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      TensorShapeProto_descriptor_,
-      TensorShapeProto::internal_default_instance(),
-      TensorShapeProto_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(TensorShapeProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto, _internal_metadata_));
-  TensorShapeProto_Dim_descriptor_ = TensorShapeProto_descriptor_->nested_type(0);
-  static const int TensorShapeProto_Dim_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, size_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, name_),
-  };
-  TensorShapeProto_Dim_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      TensorShapeProto_Dim_descriptor_,
-      TensorShapeProto_Dim::internal_default_instance(),
-      TensorShapeProto_Dim_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(TensorShapeProto_Dim),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TensorShapeProto_Dim, _internal_metadata_));
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(TensorShapeProto_Dim)},
+  { 6, -1, sizeof(TensorShapeProto)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_TensorShapeProto_Dim_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_TensorShapeProto_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/framework/tensor_shape.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TensorShapeProto_descriptor_, TensorShapeProto::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TensorShapeProto_Dim_descriptor_, TensorShapeProto_Dim::internal_default_instance());
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 2);
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() {
-  TensorShapeProto_default_instance_.Shutdown();
-  delete TensorShapeProto_reflection_;
-  TensorShapeProto_Dim_default_instance_.Shutdown();
-  delete TensorShapeProto_Dim_reflection_;
+void TableStruct::Shutdown() {
+  _TensorShapeProto_Dim_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
+  _TensorShapeProto_default_instance_.Shutdown();
+  delete file_level_metadata[1].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  TensorShapeProto_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  TensorShapeProto_Dim_default_instance_.DefaultConstruct();
-  TensorShapeProto_default_instance_.get_mutable()->InitAsDefaultInstance();
-  TensorShapeProto_Dim_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  _TensorShapeProto_Dim_default_instance_.DefaultConstruct();
+  _TensorShapeProto_default_instance_.DefaultConstruct();
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n,tensorflow/core/framework/tensor_shape"
+      ".proto\022\ntensorflow\"z\n\020TensorShapeProto\022-"
+      "\n\003dim\030\002 \003(\0132 .tensorflow.TensorShapeProt"
+      "o.Dim\022\024\n\014unknown_rank\030\003 \001(\010\032!\n\003Dim\022\014\n\004si"
+      "ze\030\001 \001(\003\022\014\n\004name\030\002 \001(\tB2\n\030org.tensorflow"
+      ".frameworkB\021TensorShapeProtosP\001\370\001\001b\006prot"
+      "o3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n,tensorflow/core/framework/tensor_shape"
-    ".proto\022\ntensorflow\"z\n\020TensorShapeProto\022-"
-    "\n\003dim\030\002 \003(\0132 .tensorflow.TensorShapeProt"
-    "o.Dim\022\024\n\014unknown_rank\030\003 \001(\010\032!\n\003Dim\022\014\n\004si"
-    "ze\030\001 \001(\003\022\014\n\004name\030\002 \001(\tB2\n\030org.tensorflow"
-    ".frameworkB\021TensorShapeProtosP\001\370\001\001b\006prot"
-    "o3", 242);
+      descriptor, 242);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/tensor_shape.proto", &protobuf_RegisterTypes);
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto);
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
-
-}  // namespace
+}  // namespace protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto
 
 
 // ===================================================================
@@ -159,7 +140,9 @@ const int TensorShapeProto_Dim::kNameFieldNumber;
 
 TensorShapeProto_Dim::TensorShapeProto_Dim()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TensorShapeProto.Dim)
 }
@@ -167,21 +150,23 @@ TensorShapeProto_Dim::TensorShapeProto_Dim(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.TensorShapeProto.Dim)
 }
-
-void TensorShapeProto_Dim::InitAsDefaultInstance() {
-}
-
 TensorShapeProto_Dim::TensorShapeProto_Dim(const TensorShapeProto_Dim& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name(),
+      GetArenaNoVirtual());
+  }
+  size_ = from.size_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.TensorShapeProto.Dim)
 }
 
@@ -217,16 +202,14 @@ void TensorShapeProto_Dim::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* TensorShapeProto_Dim::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return TensorShapeProto_Dim_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::file_level_metadata[0].descriptor;
 }
 
 const TensorShapeProto_Dim& TensorShapeProto_Dim::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<TensorShapeProto_Dim> TensorShapeProto_Dim_default_instance_;
 
 TensorShapeProto_Dim* TensorShapeProto_Dim::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<TensorShapeProto_Dim>(arena);
@@ -234,8 +217,8 @@ TensorShapeProto_Dim* TensorShapeProto_Dim::New(::google::protobuf::Arena* arena
 
 void TensorShapeProto_Dim::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.TensorShapeProto.Dim)
-  size_ = GOOGLE_LONGLONG(0);
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  size_ = GOOGLE_LONGLONG(0);
 }
 
 bool TensorShapeProto_Dim::MergePartialFromCodedStream(
@@ -244,13 +227,14 @@ bool TensorShapeProto_Dim::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.TensorShapeProto.Dim)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 size = 1;
+      // int64 size = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -258,14 +242,13 @@ bool TensorShapeProto_Dim::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_name;
         break;
       }
 
-      // optional string name = 2;
+      // string name = 2;
       case 2: {
-        if (tag == 18) {
-         parse_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -275,7 +258,6 @@ bool TensorShapeProto_Dim::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -303,12 +285,12 @@ failure:
 void TensorShapeProto_Dim::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.TensorShapeProto.Dim)
-  // optional int64 size = 1;
+  // int64 size = 1;
   if (this->size() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->size(), output);
   }
 
-  // optional string name = 2;
+  // string name = 2;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -323,14 +305,14 @@ void TensorShapeProto_Dim::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* TensorShapeProto_Dim::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorShapeProto.Dim)
-  // optional int64 size = 1;
+  // int64 size = 1;
   if (this->size() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->size(), target);
   }
 
-  // optional string name = 2;
+  // string name = 2;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -349,18 +331,18 @@ size_t TensorShapeProto_Dim::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorShapeProto.Dim)
   size_t total_size = 0;
 
-  // optional int64 size = 1;
-  if (this->size() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->size());
-  }
-
-  // optional string name = 2;
+  // string name = 2;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
+  }
+
+  // int64 size = 1;
+  if (this->size() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->size());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -372,7 +354,7 @@ size_t TensorShapeProto_Dim::ByteSizeLong() const {
 
 void TensorShapeProto_Dim::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorShapeProto.Dim)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const TensorShapeProto_Dim* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const TensorShapeProto_Dim>(
           &from);
@@ -381,26 +363,19 @@ void TensorShapeProto_Dim::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorShapeProto.Dim)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void TensorShapeProto_Dim::MergeFrom(const TensorShapeProto_Dim& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorShapeProto.Dim)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void TensorShapeProto_Dim::UnsafeMergeFrom(const TensorShapeProto_Dim& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.size() != 0) {
-    set_size(from.size());
-  }
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.name().size() > 0) {
     set_name(from.name());
+  }
+  if (from.size() != 0) {
+    set_size(from.size());
   }
 }
 
@@ -415,11 +390,10 @@ void TensorShapeProto_Dim::CopyFrom(const TensorShapeProto_Dim& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorShapeProto.Dim)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool TensorShapeProto_Dim::IsInitialized() const {
-
   return true;
 }
 
@@ -428,10 +402,13 @@ void TensorShapeProto_Dim::Swap(TensorShapeProto_Dim* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    TensorShapeProto_Dim temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    TensorShapeProto_Dim* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void TensorShapeProto_Dim::UnsafeArenaSwap(TensorShapeProto_Dim* other) {
@@ -440,320 +417,20 @@ void TensorShapeProto_Dim::UnsafeArenaSwap(TensorShapeProto_Dim* other) {
   InternalSwap(other);
 }
 void TensorShapeProto_Dim::InternalSwap(TensorShapeProto_Dim* other) {
-  std::swap(size_, other->size_);
   name_.Swap(&other->name_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(size_, other->size_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata TensorShapeProto_Dim::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = TensorShapeProto_Dim_descriptor_;
-  metadata.reflection = TensorShapeProto_Dim_reflection_;
-  return metadata;
-}
-
-
-// -------------------------------------------------------------------
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int TensorShapeProto::kDimFieldNumber;
-const int TensorShapeProto::kUnknownRankFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-TensorShapeProto::TensorShapeProto()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:tensorflow.TensorShapeProto)
-}
-TensorShapeProto::TensorShapeProto(::google::protobuf::Arena* arena)
-  : ::google::protobuf::Message(),
-  _internal_metadata_(arena),
-  dim_(arena) {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:tensorflow.TensorShapeProto)
-}
-
-void TensorShapeProto::InitAsDefaultInstance() {
-}
-
-TensorShapeProto::TensorShapeProto(const TensorShapeProto& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:tensorflow.TensorShapeProto)
-}
-
-void TensorShapeProto::SharedCtor() {
-  unknown_rank_ = false;
-  _cached_size_ = 0;
-}
-
-TensorShapeProto::~TensorShapeProto() {
-  // @@protoc_insertion_point(destructor:tensorflow.TensorShapeProto)
-  SharedDtor();
-}
-
-void TensorShapeProto::SharedDtor() {
-  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
-  if (arena != NULL) {
-    return;
-  }
-
-}
-
-void TensorShapeProto::ArenaDtor(void* object) {
-  TensorShapeProto* _this = reinterpret_cast< TensorShapeProto* >(object);
-  (void)_this;
-}
-void TensorShapeProto::RegisterArenaDtor(::google::protobuf::Arena* arena) {
-}
-void TensorShapeProto::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* TensorShapeProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return TensorShapeProto_descriptor_;
-}
-
-const TensorShapeProto& TensorShapeProto::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<TensorShapeProto> TensorShapeProto_default_instance_;
-
-TensorShapeProto* TensorShapeProto::New(::google::protobuf::Arena* arena) const {
-  return ::google::protobuf::Arena::CreateMessage<TensorShapeProto>(arena);
-}
-
-void TensorShapeProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:tensorflow.TensorShapeProto)
-  unknown_rank_ = false;
-  dim_.Clear();
-}
-
-bool TensorShapeProto::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:tensorflow.TensorShapeProto)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
-      case 2: {
-        if (tag == 18) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_dim:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_dim()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_dim;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(24)) goto parse_unknown_rank;
-        break;
-      }
-
-      // optional bool unknown_rank = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_unknown_rank:
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &unknown_rank_)));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:tensorflow.TensorShapeProto)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:tensorflow.TensorShapeProto)
-  return false;
-#undef DO_
-}
-
-void TensorShapeProto::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:tensorflow.TensorShapeProto)
-  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
-  for (unsigned int i = 0, n = this->dim_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->dim(i), output);
-  }
-
-  // optional bool unknown_rank = 3;
-  if (this->unknown_rank() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->unknown_rank(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:tensorflow.TensorShapeProto)
-}
-
-::google::protobuf::uint8* TensorShapeProto::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorShapeProto)
-  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
-  for (unsigned int i = 0, n = this->dim_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        2, this->dim(i), false, target);
-  }
-
-  // optional bool unknown_rank = 3;
-  if (this->unknown_rank() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->unknown_rank(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.TensorShapeProto)
-  return target;
-}
-
-size_t TensorShapeProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorShapeProto)
-  size_t total_size = 0;
-
-  // optional bool unknown_rank = 3;
-  if (this->unknown_rank() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
-  {
-    unsigned int count = this->dim_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->dim(i));
-    }
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void TensorShapeProto::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorShapeProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const TensorShapeProto* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const TensorShapeProto>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.TensorShapeProto)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorShapeProto)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void TensorShapeProto::MergeFrom(const TensorShapeProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorShapeProto)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void TensorShapeProto::UnsafeMergeFrom(const TensorShapeProto& from) {
-  GOOGLE_DCHECK(&from != this);
-  dim_.MergeFrom(from.dim_);
-  if (from.unknown_rank() != 0) {
-    set_unknown_rank(from.unknown_rank());
-  }
-}
-
-void TensorShapeProto::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.TensorShapeProto)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void TensorShapeProto::CopyFrom(const TensorShapeProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorShapeProto)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool TensorShapeProto::IsInitialized() const {
-
-  return true;
-}
-
-void TensorShapeProto::Swap(TensorShapeProto* other) {
-  if (other == this) return;
-  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
-    InternalSwap(other);
-  } else {
-    TensorShapeProto temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
-  }
-}
-void TensorShapeProto::UnsafeArenaSwap(TensorShapeProto* other) {
-  if (other == this) return;
-  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
-  InternalSwap(other);
-}
-void TensorShapeProto::InternalSwap(TensorShapeProto* other) {
-  dim_.UnsafeArenaSwap(&other->dim_);
-  std::swap(unknown_rank_, other->unknown_rank_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata TensorShapeProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = TensorShapeProto_descriptor_;
-  metadata.reflection = TensorShapeProto_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TensorShapeProto_Dim
 
-// optional int64 size = 1;
+// int64 size = 1;
 void TensorShapeProto_Dim::clear_size() {
   size_ = GOOGLE_LONGLONG(0);
 }
@@ -767,13 +444,13 @@ void TensorShapeProto_Dim::set_size(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.TensorShapeProto.Dim.size)
 }
 
-// optional string name = 2;
+// string name = 2;
 void TensorShapeProto_Dim::clear_name() {
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& TensorShapeProto_Dim::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.TensorShapeProto.Dim.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get();
 }
 void TensorShapeProto_Dim::set_name(const ::std::string& value) {
   
@@ -833,11 +510,290 @@ void TensorShapeProto_Dim::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TensorShapeProto.Dim.name)
 }
 
-inline const TensorShapeProto_Dim* TensorShapeProto_Dim::internal_default_instance() {
-  return &TensorShapeProto_Dim_default_instance_.get();
-}
-// -------------------------------------------------------------------
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TensorShapeProto::kDimFieldNumber;
+const int TensorShapeProto::kUnknownRankFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+TensorShapeProto::TensorShapeProto()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:tensorflow.TensorShapeProto)
+}
+TensorShapeProto::TensorShapeProto(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  dim_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.TensorShapeProto)
+}
+TensorShapeProto::TensorShapeProto(const TensorShapeProto& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      dim_(from.dim_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  unknown_rank_ = from.unknown_rank_;
+  // @@protoc_insertion_point(copy_constructor:tensorflow.TensorShapeProto)
+}
+
+void TensorShapeProto::SharedCtor() {
+  unknown_rank_ = false;
+  _cached_size_ = 0;
+}
+
+TensorShapeProto::~TensorShapeProto() {
+  // @@protoc_insertion_point(destructor:tensorflow.TensorShapeProto)
+  SharedDtor();
+}
+
+void TensorShapeProto::SharedDtor() {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
+    return;
+  }
+
+}
+
+void TensorShapeProto::ArenaDtor(void* object) {
+  TensorShapeProto* _this = reinterpret_cast< TensorShapeProto* >(object);
+  (void)_this;
+}
+void TensorShapeProto::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void TensorShapeProto::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* TensorShapeProto::descriptor() {
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::file_level_metadata[1].descriptor;
+}
+
+const TensorShapeProto& TensorShapeProto::default_instance() {
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+TensorShapeProto* TensorShapeProto::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<TensorShapeProto>(arena);
+}
+
+void TensorShapeProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.TensorShapeProto)
+  dim_.Clear();
+  unknown_rank_ = false;
+}
+
+bool TensorShapeProto::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:tensorflow.TensorShapeProto)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
+          DO_(input->IncrementRecursionDepth());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_dim()));
+        } else {
+          goto handle_unusual;
+        }
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // bool unknown_rank = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &unknown_rank_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:tensorflow.TensorShapeProto)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:tensorflow.TensorShapeProto)
+  return false;
+#undef DO_
+}
+
+void TensorShapeProto::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:tensorflow.TensorShapeProto)
+  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
+  for (unsigned int i = 0, n = this->dim_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->dim(i), output);
+  }
+
+  // bool unknown_rank = 3;
+  if (this->unknown_rank() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->unknown_rank(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:tensorflow.TensorShapeProto)
+}
+
+::google::protobuf::uint8* TensorShapeProto::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TensorShapeProto)
+  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
+  for (unsigned int i = 0, n = this->dim_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, this->dim(i), false, target);
+  }
+
+  // bool unknown_rank = 3;
+  if (this->unknown_rank() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->unknown_rank(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.TensorShapeProto)
+  return target;
+}
+
+size_t TensorShapeProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.TensorShapeProto)
+  size_t total_size = 0;
+
+  // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
+  {
+    unsigned int count = this->dim_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->dim(i));
+    }
+  }
+
+  // bool unknown_rank = 3;
+  if (this->unknown_rank() != 0) {
+    total_size += 1 + 1;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void TensorShapeProto::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TensorShapeProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  const TensorShapeProto* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const TensorShapeProto>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.TensorShapeProto)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TensorShapeProto)
+    MergeFrom(*source);
+  }
+}
+
+void TensorShapeProto::MergeFrom(const TensorShapeProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TensorShapeProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  dim_.MergeFrom(from.dim_);
+  if (from.unknown_rank() != 0) {
+    set_unknown_rank(from.unknown_rank());
+  }
+}
+
+void TensorShapeProto::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.TensorShapeProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void TensorShapeProto::CopyFrom(const TensorShapeProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TensorShapeProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TensorShapeProto::IsInitialized() const {
+  return true;
+}
+
+void TensorShapeProto::Swap(TensorShapeProto* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    TensorShapeProto* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
+  }
+}
+void TensorShapeProto::UnsafeArenaSwap(TensorShapeProto* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void TensorShapeProto::InternalSwap(TensorShapeProto* other) {
+  dim_.UnsafeArenaSwap(&other->dim_);
+  std::swap(unknown_rank_, other->unknown_rank_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata TensorShapeProto::GetMetadata() const {
+  protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::file_level_metadata[1];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TensorShapeProto
 
 // repeated .tensorflow.TensorShapeProto.Dim dim = 2;
@@ -870,7 +826,7 @@ TensorShapeProto::dim() const {
   return dim_;
 }
 
-// optional bool unknown_rank = 3;
+// bool unknown_rank = 3;
 void TensorShapeProto::clear_unknown_rank() {
   unknown_rank_ = false;
 }
@@ -884,9 +840,6 @@ void TensorShapeProto::set_unknown_rank(bool value) {
   // @@protoc_insertion_point(field_set:tensorflow.TensorShapeProto.unknown_rank)
 }
 
-inline const TensorShapeProto* TensorShapeProto::internal_default_instance() {
-  return &TensorShapeProto_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

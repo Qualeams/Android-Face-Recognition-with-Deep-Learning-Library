@@ -18,521 +18,412 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class EntryValueDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<EntryValue> {
+  public:
+  double double_value_;
+  ::google::protobuf::internal::ArenaStringPtr string_value_;
+} _EntryValue_default_instance_;
+class BenchmarkEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<BenchmarkEntry> {
+} _BenchmarkEntry_default_instance_;
+class BenchmarkEntriesDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<BenchmarkEntries> {
+} _BenchmarkEntries_default_instance_;
+class BuildConfigurationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<BuildConfiguration> {
+} _BuildConfiguration_default_instance_;
+class CommitIdDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<CommitId> {
+  public:
+  ::google::protobuf::int64 changelist_;
+  ::google::protobuf::internal::ArenaStringPtr hash_;
+} _CommitId_default_instance_;
+class CPUInfoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<CPUInfo> {
+} _CPUInfo_default_instance_;
+class MemoryInfoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<MemoryInfo> {
+} _MemoryInfo_default_instance_;
+class GPUInfoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<GPUInfo> {
+} _GPUInfo_default_instance_;
+class PlatformInfoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PlatformInfo> {
+} _PlatformInfo_default_instance_;
+class AvailableDeviceInfoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<AvailableDeviceInfo> {
+} _AvailableDeviceInfo_default_instance_;
+class MachineConfigurationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<MachineConfiguration> {
+} _MachineConfiguration_default_instance_;
+class RunConfigurationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<RunConfiguration> {
+} _RunConfiguration_default_instance_;
+class TestResultsDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<TestResults> {
+} _TestResults_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* EntryValue_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EntryValue_reflection_ = NULL;
-struct EntryValueOneofInstance {
-  double double_value_;
-  ::google::protobuf::internal::ArenaStringPtr string_value_;
-}* EntryValue_default_oneof_instance_ = NULL;
-const ::google::protobuf::Descriptor* BenchmarkEntry_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  BenchmarkEntry_reflection_ = NULL;
-const ::google::protobuf::Descriptor* BenchmarkEntry_ExtrasEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* BenchmarkEntries_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  BenchmarkEntries_reflection_ = NULL;
-const ::google::protobuf::Descriptor* BuildConfiguration_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  BuildConfiguration_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CommitId_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CommitId_reflection_ = NULL;
-struct CommitIdOneofInstance {
-  ::google::protobuf::int64 changelist_;
-  ::google::protobuf::internal::ArenaStringPtr hash_;
-}* CommitId_default_oneof_instance_ = NULL;
-const ::google::protobuf::Descriptor* CPUInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CPUInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CPUInfo_CacheSizeEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* MemoryInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MemoryInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* GPUInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  GPUInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* PlatformInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  PlatformInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* AvailableDeviceInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  AvailableDeviceInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MachineConfiguration_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MachineConfiguration_reflection_ = NULL;
-const ::google::protobuf::Descriptor* RunConfiguration_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  RunConfiguration_reflection_ = NULL;
-const ::google::protobuf::Descriptor* TestResults_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  TestResults_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[15];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, _internal_metadata_),
+  ~0u,  // no _extensions_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, _oneof_case_[0]),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_EntryValue_default_instance_), double_value_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_EntryValue_default_instance_), string_value_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, kind_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, iters_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, cpu_time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, wall_time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, throughput_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, extras_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntries, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntries, entry_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, mode_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, cc_flags_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, opts_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, _internal_metadata_),
+  ~0u,  // no _extensions_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, _oneof_case_[0]),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_CommitId_default_instance_), changelist_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_CommitId_default_instance_), hash_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, snapshot_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, kind_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, num_cores_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, num_cores_allowed_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, mhz_per_cpu_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cpu_info_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cpu_governor_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cache_size_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, total_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, available_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, model_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, uuid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, bus_id_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, linkage_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, machine_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, release_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, system_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, version_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, memory_limit_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, physical_description_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, hostname_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, serial_identifier_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, platform_info_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, cpu_info_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, device_info_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, available_device_info_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, memory_info_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunConfiguration, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunConfiguration, argument_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, target_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, entries_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, build_configuration_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, commit_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, start_time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, run_time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, machine_configuration_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, run_configuration_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, benchmark_type_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/util/test_log.proto");
-  GOOGLE_CHECK(file != NULL);
-  EntryValue_descriptor_ = file->message_type(0);
-  static const int EntryValue_offsets_[3] = {
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(EntryValue_default_oneof_instance_, double_value_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(EntryValue_default_oneof_instance_, string_value_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, kind_),
-  };
-  EntryValue_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EntryValue_descriptor_,
-      EntryValue::internal_default_instance(),
-      EntryValue_offsets_,
-      -1,
-      -1,
-      -1,
-      EntryValue_default_oneof_instance_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, _oneof_case_[0]),
-      sizeof(EntryValue),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EntryValue, _internal_metadata_));
-  BenchmarkEntry_descriptor_ = file->message_type(1);
-  static const int BenchmarkEntry_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, iters_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, cpu_time_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, wall_time_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, throughput_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, extras_),
-  };
-  BenchmarkEntry_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      BenchmarkEntry_descriptor_,
-      BenchmarkEntry::internal_default_instance(),
-      BenchmarkEntry_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(BenchmarkEntry),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntry, _internal_metadata_));
-  BenchmarkEntry_ExtrasEntry_descriptor_ = BenchmarkEntry_descriptor_->nested_type(0);
-  BenchmarkEntries_descriptor_ = file->message_type(2);
-  static const int BenchmarkEntries_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntries, entry_),
-  };
-  BenchmarkEntries_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      BenchmarkEntries_descriptor_,
-      BenchmarkEntries::internal_default_instance(),
-      BenchmarkEntries_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(BenchmarkEntries),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BenchmarkEntries, _internal_metadata_));
-  BuildConfiguration_descriptor_ = file->message_type(3);
-  static const int BuildConfiguration_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, mode_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, cc_flags_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, opts_),
-  };
-  BuildConfiguration_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      BuildConfiguration_descriptor_,
-      BuildConfiguration::internal_default_instance(),
-      BuildConfiguration_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(BuildConfiguration),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BuildConfiguration, _internal_metadata_));
-  CommitId_descriptor_ = file->message_type(4);
-  static const int CommitId_offsets_[4] = {
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(CommitId_default_oneof_instance_, changelist_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(CommitId_default_oneof_instance_, hash_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, snapshot_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, kind_),
-  };
-  CommitId_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CommitId_descriptor_,
-      CommitId::internal_default_instance(),
-      CommitId_offsets_,
-      -1,
-      -1,
-      -1,
-      CommitId_default_oneof_instance_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, _oneof_case_[0]),
-      sizeof(CommitId),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommitId, _internal_metadata_));
-  CPUInfo_descriptor_ = file->message_type(5);
-  static const int CPUInfo_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, num_cores_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, num_cores_allowed_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, mhz_per_cpu_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cpu_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cpu_governor_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, cache_size_),
-  };
-  CPUInfo_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CPUInfo_descriptor_,
-      CPUInfo::internal_default_instance(),
-      CPUInfo_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(CPUInfo),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CPUInfo, _internal_metadata_));
-  CPUInfo_CacheSizeEntry_descriptor_ = CPUInfo_descriptor_->nested_type(0);
-  MemoryInfo_descriptor_ = file->message_type(6);
-  static const int MemoryInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, total_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, available_),
-  };
-  MemoryInfo_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MemoryInfo_descriptor_,
-      MemoryInfo::internal_default_instance(),
-      MemoryInfo_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MemoryInfo),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MemoryInfo, _internal_metadata_));
-  GPUInfo_descriptor_ = file->message_type(7);
-  static const int GPUInfo_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, model_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, uuid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, bus_id_),
-  };
-  GPUInfo_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      GPUInfo_descriptor_,
-      GPUInfo::internal_default_instance(),
-      GPUInfo_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(GPUInfo),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GPUInfo, _internal_metadata_));
-  PlatformInfo_descriptor_ = file->message_type(8);
-  static const int PlatformInfo_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, bits_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, linkage_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, machine_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, release_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, system_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, version_),
-  };
-  PlatformInfo_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      PlatformInfo_descriptor_,
-      PlatformInfo::internal_default_instance(),
-      PlatformInfo_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(PlatformInfo),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlatformInfo, _internal_metadata_));
-  AvailableDeviceInfo_descriptor_ = file->message_type(9);
-  static const int AvailableDeviceInfo_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, memory_limit_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, physical_description_),
-  };
-  AvailableDeviceInfo_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      AvailableDeviceInfo_descriptor_,
-      AvailableDeviceInfo::internal_default_instance(),
-      AvailableDeviceInfo_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(AvailableDeviceInfo),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableDeviceInfo, _internal_metadata_));
-  MachineConfiguration_descriptor_ = file->message_type(10);
-  static const int MachineConfiguration_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, hostname_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, serial_identifier_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, platform_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, cpu_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, device_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, available_device_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, memory_info_),
-  };
-  MachineConfiguration_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MachineConfiguration_descriptor_,
-      MachineConfiguration::internal_default_instance(),
-      MachineConfiguration_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MachineConfiguration),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MachineConfiguration, _internal_metadata_));
-  RunConfiguration_descriptor_ = file->message_type(11);
-  static const int RunConfiguration_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunConfiguration, argument_),
-  };
-  RunConfiguration_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      RunConfiguration_descriptor_,
-      RunConfiguration::internal_default_instance(),
-      RunConfiguration_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(RunConfiguration),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RunConfiguration, _internal_metadata_));
-  TestResults_descriptor_ = file->message_type(12);
-  static const int TestResults_offsets_[9] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, target_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, entries_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, build_configuration_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, commit_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, start_time_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, run_time_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, machine_configuration_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, run_configuration_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, name_),
-  };
-  TestResults_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      TestResults_descriptor_,
-      TestResults::internal_default_instance(),
-      TestResults_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(TestResults),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TestResults, _internal_metadata_));
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(EntryValue)},
+  { 7, -1, sizeof(BenchmarkEntry)},
+  { 17, -1, sizeof(BenchmarkEntries)},
+  { 22, -1, sizeof(BuildConfiguration)},
+  { 29, -1, sizeof(CommitId)},
+  { 37, -1, sizeof(CPUInfo)},
+  { 47, -1, sizeof(MemoryInfo)},
+  { 53, -1, sizeof(GPUInfo)},
+  { 60, -1, sizeof(PlatformInfo)},
+  { 70, -1, sizeof(AvailableDeviceInfo)},
+  { 78, -1, sizeof(MachineConfiguration)},
+  { 89, -1, sizeof(RunConfiguration)},
+  { 94, -1, sizeof(TestResults)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EntryValue_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_BenchmarkEntry_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_BenchmarkEntries_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_BuildConfiguration_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_CommitId_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_CPUInfo_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_MemoryInfo_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_GPUInfo_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_PlatformInfo_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_AvailableDeviceInfo_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_MachineConfiguration_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_RunConfiguration_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_TestResults_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/util/test_log.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, file_level_enum_descriptors, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 15);
+  const ::google::protobuf::Descriptor* BenchmarkEntry_ExtrasEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[1].descriptor;
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EntryValue_descriptor_, EntryValue::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      BenchmarkEntry_descriptor_, BenchmarkEntry::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        BenchmarkEntry_ExtrasEntry_descriptor_,
+        BenchmarkEntry_ExtrasEntry_descriptor,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
             ::tensorflow::EntryValue,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
             0>::CreateDefaultInstance(
-                BenchmarkEntry_ExtrasEntry_descriptor_));
+                BenchmarkEntry_ExtrasEntry_descriptor));
+  const ::google::protobuf::Descriptor* CPUInfo_CacheSizeEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[6].descriptor;
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      BenchmarkEntries_descriptor_, BenchmarkEntries::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      BuildConfiguration_descriptor_, BuildConfiguration::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CommitId_descriptor_, CommitId::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CPUInfo_descriptor_, CPUInfo::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        CPUInfo_CacheSizeEntry_descriptor_,
+        CPUInfo_CacheSizeEntry_descriptor,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
             ::google::protobuf::int64,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_INT64,
             0>::CreateDefaultInstance(
-                CPUInfo_CacheSizeEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MemoryInfo_descriptor_, MemoryInfo::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GPUInfo_descriptor_, GPUInfo::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      PlatformInfo_descriptor_, PlatformInfo::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      AvailableDeviceInfo_descriptor_, AvailableDeviceInfo::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MachineConfiguration_descriptor_, MachineConfiguration::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RunConfiguration_descriptor_, RunConfiguration::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      TestResults_descriptor_, TestResults::internal_default_instance());
+                CPUInfo_CacheSizeEntry_descriptor));
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() {
-  EntryValue_default_instance_.Shutdown();
-  delete EntryValue_default_oneof_instance_;
-  delete EntryValue_reflection_;
-  BenchmarkEntry_default_instance_.Shutdown();
-  delete BenchmarkEntry_reflection_;
-  BenchmarkEntries_default_instance_.Shutdown();
-  delete BenchmarkEntries_reflection_;
-  BuildConfiguration_default_instance_.Shutdown();
-  delete BuildConfiguration_reflection_;
-  CommitId_default_instance_.Shutdown();
-  delete CommitId_default_oneof_instance_;
-  delete CommitId_reflection_;
-  CPUInfo_default_instance_.Shutdown();
-  delete CPUInfo_reflection_;
-  MemoryInfo_default_instance_.Shutdown();
-  delete MemoryInfo_reflection_;
-  GPUInfo_default_instance_.Shutdown();
-  delete GPUInfo_reflection_;
-  PlatformInfo_default_instance_.Shutdown();
-  delete PlatformInfo_reflection_;
-  AvailableDeviceInfo_default_instance_.Shutdown();
-  delete AvailableDeviceInfo_reflection_;
-  MachineConfiguration_default_instance_.Shutdown();
-  delete MachineConfiguration_reflection_;
-  RunConfiguration_default_instance_.Shutdown();
-  delete RunConfiguration_reflection_;
-  TestResults_default_instance_.Shutdown();
-  delete TestResults_reflection_;
+void TableStruct::Shutdown() {
+  _EntryValue_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
+  _BenchmarkEntry_default_instance_.Shutdown();
+  delete file_level_metadata[2].reflection;
+  _BenchmarkEntries_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
+  _BuildConfiguration_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
+  _CommitId_default_instance_.Shutdown();
+  delete file_level_metadata[5].reflection;
+  _CPUInfo_default_instance_.Shutdown();
+  delete file_level_metadata[7].reflection;
+  _MemoryInfo_default_instance_.Shutdown();
+  delete file_level_metadata[8].reflection;
+  _GPUInfo_default_instance_.Shutdown();
+  delete file_level_metadata[9].reflection;
+  _PlatformInfo_default_instance_.Shutdown();
+  delete file_level_metadata[10].reflection;
+  _AvailableDeviceInfo_default_instance_.Shutdown();
+  delete file_level_metadata[11].reflection;
+  _MachineConfiguration_default_instance_.Shutdown();
+  delete file_level_metadata[12].reflection;
+  _RunConfiguration_default_instance_.Shutdown();
+  delete file_level_metadata[13].reflection;
+  _TestResults_default_instance_.Shutdown();
+  delete file_level_metadata[14].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::protobuf_InitDefaults_google_2fprotobuf_2fany_2eproto();
-  ::google::protobuf::internal::GetEmptyString();
-  EntryValue_default_instance_.DefaultConstruct();
-  EntryValue_default_oneof_instance_ = new EntryValueOneofInstance();
-  ::google::protobuf::internal::GetEmptyString();
-  BenchmarkEntry_default_instance_.DefaultConstruct();
-  BenchmarkEntries_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  BuildConfiguration_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  CommitId_default_instance_.DefaultConstruct();
-  CommitId_default_oneof_instance_ = new CommitIdOneofInstance();
-  ::google::protobuf::internal::GetEmptyString();
-  CPUInfo_default_instance_.DefaultConstruct();
-  MemoryInfo_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  GPUInfo_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  PlatformInfo_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  AvailableDeviceInfo_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  MachineConfiguration_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  RunConfiguration_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  TestResults_default_instance_.DefaultConstruct();
-  EntryValue_default_instance_.get_mutable()->InitAsDefaultInstance();
-  BenchmarkEntry_default_instance_.get_mutable()->InitAsDefaultInstance();
-  BenchmarkEntries_default_instance_.get_mutable()->InitAsDefaultInstance();
-  BuildConfiguration_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CommitId_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CPUInfo_default_instance_.get_mutable()->InitAsDefaultInstance();
-  MemoryInfo_default_instance_.get_mutable()->InitAsDefaultInstance();
-  GPUInfo_default_instance_.get_mutable()->InitAsDefaultInstance();
-  PlatformInfo_default_instance_.get_mutable()->InitAsDefaultInstance();
-  AvailableDeviceInfo_default_instance_.get_mutable()->InitAsDefaultInstance();
-  MachineConfiguration_default_instance_.get_mutable()->InitAsDefaultInstance();
-  RunConfiguration_default_instance_.get_mutable()->InitAsDefaultInstance();
-  TestResults_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  ::google::protobuf::protobuf_google_2fprotobuf_2fany_2eproto::InitDefaults();
+  _EntryValue_default_instance_.DefaultConstruct();
+  _BenchmarkEntry_default_instance_.DefaultConstruct();
+  _BenchmarkEntries_default_instance_.DefaultConstruct();
+  _BuildConfiguration_default_instance_.DefaultConstruct();
+  _CommitId_default_instance_.DefaultConstruct();
+  _CPUInfo_default_instance_.DefaultConstruct();
+  _MemoryInfo_default_instance_.DefaultConstruct();
+  _GPUInfo_default_instance_.DefaultConstruct();
+  _PlatformInfo_default_instance_.DefaultConstruct();
+  _AvailableDeviceInfo_default_instance_.DefaultConstruct();
+  _MachineConfiguration_default_instance_.DefaultConstruct();
+  _RunConfiguration_default_instance_.DefaultConstruct();
+  _TestResults_default_instance_.DefaultConstruct();
+  _EntryValue_default_instance_.double_value_ = 0;
+  _EntryValue_default_instance_.string_value_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _CommitId_default_instance_.changelist_ = GOOGLE_LONGLONG(0);
+  _CommitId_default_instance_.hash_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _MachineConfiguration_default_instance_.get_mutable()->platform_info_ = const_cast< ::tensorflow::PlatformInfo*>(
+      ::tensorflow::PlatformInfo::internal_default_instance());
+  _MachineConfiguration_default_instance_.get_mutable()->cpu_info_ = const_cast< ::tensorflow::CPUInfo*>(
+      ::tensorflow::CPUInfo::internal_default_instance());
+  _MachineConfiguration_default_instance_.get_mutable()->memory_info_ = const_cast< ::tensorflow::MemoryInfo*>(
+      ::tensorflow::MemoryInfo::internal_default_instance());
+  _TestResults_default_instance_.get_mutable()->entries_ = const_cast< ::tensorflow::BenchmarkEntries*>(
+      ::tensorflow::BenchmarkEntries::internal_default_instance());
+  _TestResults_default_instance_.get_mutable()->build_configuration_ = const_cast< ::tensorflow::BuildConfiguration*>(
+      ::tensorflow::BuildConfiguration::internal_default_instance());
+  _TestResults_default_instance_.get_mutable()->commit_id_ = const_cast< ::tensorflow::CommitId*>(
+      ::tensorflow::CommitId::internal_default_instance());
+  _TestResults_default_instance_.get_mutable()->machine_configuration_ = const_cast< ::tensorflow::MachineConfiguration*>(
+      ::tensorflow::MachineConfiguration::internal_default_instance());
+  _TestResults_default_instance_.get_mutable()->run_configuration_ = const_cast< ::tensorflow::RunConfiguration*>(
+      ::tensorflow::RunConfiguration::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n#tensorflow/core/util/test_log.proto\022\nt"
+      "ensorflow\032\031google/protobuf/any.proto\"D\n\n"
+      "EntryValue\022\026\n\014double_value\030\001 \001(\001H\000\022\026\n\014st"
+      "ring_value\030\002 \001(\tH\000B\006\n\004kind\"\345\001\n\016Benchmark"
+      "Entry\022\014\n\004name\030\001 \001(\t\022\r\n\005iters\030\002 \001(\003\022\020\n\010cp"
+      "u_time\030\003 \001(\001\022\021\n\twall_time\030\004 \001(\001\022\022\n\nthrou"
+      "ghput\030\005 \001(\001\0226\n\006extras\030\006 \003(\0132&.tensorflow"
+      ".BenchmarkEntry.ExtrasEntry\032E\n\013ExtrasEnt"
+      "ry\022\013\n\003key\030\001 \001(\t\022%\n\005value\030\002 \001(\0132\026.tensorf"
+      "low.EntryValue:\0028\001\"=\n\020BenchmarkEntries\022)"
+      "\n\005entry\030\001 \003(\0132\032.tensorflow.BenchmarkEntr"
+      "y\"B\n\022BuildConfiguration\022\014\n\004mode\030\001 \001(\t\022\020\n"
+      "\010cc_flags\030\002 \003(\t\022\014\n\004opts\030\003 \003(\t\"J\n\010CommitI"
+      "d\022\024\n\nchangelist\030\001 \001(\003H\000\022\016\n\004hash\030\002 \001(\tH\000\022"
+      "\020\n\010snapshot\030\003 \001(\tB\006\n\004kind\"\336\001\n\007CPUInfo\022\021\n"
+      "\tnum_cores\030\001 \001(\003\022\031\n\021num_cores_allowed\030\002 "
+      "\001(\003\022\023\n\013mhz_per_cpu\030\003 \001(\001\022\020\n\010cpu_info\030\004 \001"
+      "(\t\022\024\n\014cpu_governor\030\005 \001(\t\0226\n\ncache_size\030\006"
+      " \003(\0132\".tensorflow.CPUInfo.CacheSizeEntry"
+      "\0320\n\016CacheSizeEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
+      "\030\002 \001(\003:\0028\001\".\n\nMemoryInfo\022\r\n\005total\030\001 \001(\003\022"
+      "\021\n\tavailable\030\002 \001(\003\"6\n\007GPUInfo\022\r\n\005model\030\001"
+      " \001(\t\022\014\n\004uuid\030\002 \001(\t\022\016\n\006bus_id\030\003 \001(\t\"p\n\014Pl"
+      "atformInfo\022\014\n\004bits\030\001 \001(\t\022\017\n\007linkage\030\002 \001("
+      "\t\022\017\n\007machine\030\003 \001(\t\022\017\n\007release\030\004 \001(\t\022\016\n\006s"
+      "ystem\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\"e\n\023Availabl"
+      "eDeviceInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022"
+      "\024\n\014memory_limit\030\003 \001(\003\022\034\n\024physical_descri"
+      "ption\030\004 \001(\t\"\263\002\n\024MachineConfiguration\022\020\n\010"
+      "hostname\030\001 \001(\t\022\031\n\021serial_identifier\030\007 \001("
+      "\t\022/\n\rplatform_info\030\002 \001(\0132\030.tensorflow.Pl"
+      "atformInfo\022%\n\010cpu_info\030\003 \001(\0132\023.tensorflo"
+      "w.CPUInfo\022)\n\013device_info\030\004 \003(\0132\024.google."
+      "protobuf.Any\022>\n\025available_device_info\030\005 "
+      "\003(\0132\037.tensorflow.AvailableDeviceInfo\022+\n\013"
+      "memory_info\030\006 \001(\0132\026.tensorflow.MemoryInf"
+      "o\"$\n\020RunConfiguration\022\020\n\010argument\030\001 \003(\t\""
+      "\202\004\n\013TestResults\022\016\n\006target\030\001 \001(\t\022-\n\007entri"
+      "es\030\002 \001(\0132\034.tensorflow.BenchmarkEntries\022;"
+      "\n\023build_configuration\030\003 \001(\0132\036.tensorflow"
+      ".BuildConfiguration\022\'\n\tcommit_id\030\004 \001(\0132\024"
+      ".tensorflow.CommitId\022\022\n\nstart_time\030\005 \001(\003"
+      "\022\020\n\010run_time\030\006 \001(\001\022\?\n\025machine_configurat"
+      "ion\030\007 \001(\0132 .tensorflow.MachineConfigurat"
+      "ion\0227\n\021run_configuration\030\010 \001(\0132\034.tensorf"
+      "low.RunConfiguration\022\014\n\004name\030\t \001(\t\022=\n\016be"
+      "nchmark_type\030\n \001(\0162%.tensorflow.TestResu"
+      "lts.BenchmarkType\"a\n\rBenchmarkType\022\013\n\007UN"
+      "KNOWN\020\000\022\026\n\022CPP_MICROBENCHMARK\020\001\022\024\n\020PYTHO"
+      "N_BENCHMARK\020\002\022\025\n\021ANDROID_BENCHMARK\020\003B1\n\033"
+      "org.tensorflow.util.testlogB\rTestLogProt"
+      "osP\001\370\001\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n#tensorflow/core/util/test_log.proto\022\nt"
-    "ensorflow\032\031google/protobuf/any.proto\"D\n\n"
-    "EntryValue\022\026\n\014double_value\030\001 \001(\001H\000\022\026\n\014st"
-    "ring_value\030\002 \001(\tH\000B\006\n\004kind\"\345\001\n\016Benchmark"
-    "Entry\022\014\n\004name\030\001 \001(\t\022\r\n\005iters\030\002 \001(\003\022\020\n\010cp"
-    "u_time\030\003 \001(\001\022\021\n\twall_time\030\004 \001(\001\022\022\n\nthrou"
-    "ghput\030\005 \001(\001\0226\n\006extras\030\006 \003(\0132&.tensorflow"
-    ".BenchmarkEntry.ExtrasEntry\032E\n\013ExtrasEnt"
-    "ry\022\013\n\003key\030\001 \001(\t\022%\n\005value\030\002 \001(\0132\026.tensorf"
-    "low.EntryValue:\0028\001\"=\n\020BenchmarkEntries\022)"
-    "\n\005entry\030\001 \003(\0132\032.tensorflow.BenchmarkEntr"
-    "y\"B\n\022BuildConfiguration\022\014\n\004mode\030\001 \001(\t\022\020\n"
-    "\010cc_flags\030\002 \003(\t\022\014\n\004opts\030\003 \003(\t\"J\n\010CommitI"
-    "d\022\024\n\nchangelist\030\001 \001(\003H\000\022\016\n\004hash\030\002 \001(\tH\000\022"
-    "\020\n\010snapshot\030\003 \001(\tB\006\n\004kind\"\336\001\n\007CPUInfo\022\021\n"
-    "\tnum_cores\030\001 \001(\003\022\031\n\021num_cores_allowed\030\002 "
-    "\001(\003\022\023\n\013mhz_per_cpu\030\003 \001(\001\022\020\n\010cpu_info\030\004 \001"
-    "(\t\022\024\n\014cpu_governor\030\005 \001(\t\0226\n\ncache_size\030\006"
-    " \003(\0132\".tensorflow.CPUInfo.CacheSizeEntry"
-    "\0320\n\016CacheSizeEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
-    "\030\002 \001(\003:\0028\001\".\n\nMemoryInfo\022\r\n\005total\030\001 \001(\003\022"
-    "\021\n\tavailable\030\002 \001(\003\"6\n\007GPUInfo\022\r\n\005model\030\001"
-    " \001(\t\022\014\n\004uuid\030\002 \001(\t\022\016\n\006bus_id\030\003 \001(\t\"p\n\014Pl"
-    "atformInfo\022\014\n\004bits\030\001 \001(\t\022\017\n\007linkage\030\002 \001("
-    "\t\022\017\n\007machine\030\003 \001(\t\022\017\n\007release\030\004 \001(\t\022\016\n\006s"
-    "ystem\030\005 \001(\t\022\017\n\007version\030\006 \001(\t\"e\n\023Availabl"
-    "eDeviceInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022"
-    "\024\n\014memory_limit\030\003 \001(\003\022\034\n\024physical_descri"
-    "ption\030\004 \001(\t\"\263\002\n\024MachineConfiguration\022\020\n\010"
-    "hostname\030\001 \001(\t\022\031\n\021serial_identifier\030\007 \001("
-    "\t\022/\n\rplatform_info\030\002 \001(\0132\030.tensorflow.Pl"
-    "atformInfo\022%\n\010cpu_info\030\003 \001(\0132\023.tensorflo"
-    "w.CPUInfo\022)\n\013device_info\030\004 \003(\0132\024.google."
-    "protobuf.Any\022>\n\025available_device_info\030\005 "
-    "\003(\0132\037.tensorflow.AvailableDeviceInfo\022+\n\013"
-    "memory_info\030\006 \001(\0132\026.tensorflow.MemoryInf"
-    "o\"$\n\020RunConfiguration\022\020\n\010argument\030\001 \003(\t\""
-    "\340\002\n\013TestResults\022\016\n\006target\030\001 \001(\t\022-\n\007entri"
-    "es\030\002 \001(\0132\034.tensorflow.BenchmarkEntries\022;"
-    "\n\023build_configuration\030\003 \001(\0132\036.tensorflow"
-    ".BuildConfiguration\022\'\n\tcommit_id\030\004 \001(\0132\024"
-    ".tensorflow.CommitId\022\022\n\nstart_time\030\005 \001(\003"
-    "\022\020\n\010run_time\030\006 \001(\001\022\?\n\025machine_configurat"
-    "ion\030\007 \001(\0132 .tensorflow.MachineConfigurat"
-    "ion\0227\n\021run_configuration\030\010 \001(\0132\034.tensorf"
-    "low.RunConfiguration\022\014\n\004name\030\t \001(\tB1\n\033or"
-    "g.tensorflow.util.testlogB\rTestLogProtos"
-    "P\001\370\001\001b\006proto3", 1893);
+      descriptor, 2055);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/util/test_log.proto", &protobuf_RegisterTypes);
-  ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2futil_2ftest_5flog_2eproto);
+  ::google::protobuf::protobuf_google_2fprotobuf_2fany_2eproto::AddDescriptors();
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2futil_2ftest_5flog_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2futil_2ftest_5flog_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2futil_2ftest_5flog_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
+}  // namespace protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
+const ::google::protobuf::EnumDescriptor* TestResults_BenchmarkType_descriptor() {
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_enum_descriptors[0];
+}
+bool TestResults_BenchmarkType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
 }
 
-}  // namespace
-
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const TestResults_BenchmarkType TestResults::UNKNOWN;
+const TestResults_BenchmarkType TestResults::CPP_MICROBENCHMARK;
+const TestResults_BenchmarkType TestResults::PYTHON_BENCHMARK;
+const TestResults_BenchmarkType TestResults::ANDROID_BENCHMARK;
+const TestResults_BenchmarkType TestResults::BenchmarkType_MIN;
+const TestResults_BenchmarkType TestResults::BenchmarkType_MAX;
+const int TestResults::BenchmarkType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 // ===================================================================
 
@@ -543,7 +434,9 @@ const int EntryValue::kStringValueFieldNumber;
 
 EntryValue::EntryValue()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.EntryValue)
 }
@@ -551,23 +444,31 @@ EntryValue::EntryValue(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.EntryValue)
 }
-
-void EntryValue::InitAsDefaultInstance() {
-  EntryValue_default_oneof_instance_->double_value_ = 0;
-  EntryValue_default_oneof_instance_->string_value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
 EntryValue::EntryValue(const EntryValue& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  clear_has_kind();
+  switch (from.kind_case()) {
+    case kDoubleValue: {
+      set_double_value(from.double_value());
+      break;
+    }
+    case kStringValue: {
+      set_string_value(from.string_value());
+      break;
+    }
+    case KIND_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.EntryValue)
 }
 
@@ -604,16 +505,14 @@ void EntryValue::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EntryValue::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EntryValue_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[0].descriptor;
 }
 
 const EntryValue& EntryValue::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EntryValue> EntryValue_default_instance_;
 
 EntryValue* EntryValue::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<EntryValue>(arena);
@@ -650,13 +549,14 @@ bool EntryValue::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.EntryValue)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional double double_value = 1;
+      // double double_value = 1;
       case 1: {
-        if (tag == 9) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u)) {
           clear_kind();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -665,13 +565,13 @@ bool EntryValue::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        goto after_string_value;
         break;
       }
 
-      // optional string string_value = 2;
+      // string string_value = 2;
       case 2: {
-        if (tag == 18) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_string_value()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -681,8 +581,6 @@ bool EntryValue::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-       after_string_value:
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -710,12 +608,12 @@ failure:
 void EntryValue::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.EntryValue)
-  // optional double double_value = 1;
+  // double double_value = 1;
   if (has_double_value()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->double_value(), output);
   }
 
-  // optional string string_value = 2;
+  // string string_value = 2;
   if (has_string_value()) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->string_value().data(), this->string_value().length(),
@@ -730,14 +628,14 @@ void EntryValue::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* EntryValue::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.EntryValue)
-  // optional double double_value = 1;
+  // double double_value = 1;
   if (has_double_value()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->double_value(), target);
   }
 
-  // optional string string_value = 2;
+  // string string_value = 2;
   if (has_string_value()) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->string_value().data(), this->string_value().length(),
@@ -757,12 +655,12 @@ size_t EntryValue::ByteSizeLong() const {
   size_t total_size = 0;
 
   switch (kind_case()) {
-    // optional double double_value = 1;
+    // double double_value = 1;
     case kDoubleValue: {
       total_size += 1 + 8;
       break;
     }
-    // optional string string_value = 2;
+    // string string_value = 2;
     case kStringValue: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -782,7 +680,7 @@ size_t EntryValue::ByteSizeLong() const {
 
 void EntryValue::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.EntryValue)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EntryValue* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EntryValue>(
           &from);
@@ -791,21 +689,14 @@ void EntryValue::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.EntryValue)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EntryValue::MergeFrom(const EntryValue& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.EntryValue)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void EntryValue::UnsafeMergeFrom(const EntryValue& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   switch (from.kind_case()) {
     case kDoubleValue: {
       set_double_value(from.double_value());
@@ -832,11 +723,10 @@ void EntryValue::CopyFrom(const EntryValue& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.EntryValue)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EntryValue::IsInitialized() const {
-
   return true;
 }
 
@@ -845,10 +735,13 @@ void EntryValue::Swap(EntryValue* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    EntryValue temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    EntryValue* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void EntryValue::UnsafeArenaSwap(EntryValue* other) {
@@ -859,22 +752,18 @@ void EntryValue::UnsafeArenaSwap(EntryValue* other) {
 void EntryValue::InternalSwap(EntryValue* other) {
   std::swap(kind_, other->kind_);
   std::swap(_oneof_case_[0], other->_oneof_case_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EntryValue::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EntryValue_descriptor_;
-  metadata.reflection = EntryValue_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // EntryValue
 
-// optional double double_value = 1;
+// double double_value = 1;
 bool EntryValue::has_double_value() const {
   return kind_case() == kDoubleValue;
 }
@@ -903,7 +792,7 @@ void EntryValue::set_double_value(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.EntryValue.double_value)
 }
 
-// optional string string_value = 2;
+// string string_value = 2;
 bool EntryValue::has_string_value() const {
   return kind_case() == kStringValue;
 }
@@ -920,7 +809,7 @@ void EntryValue::clear_string_value() {
 const ::std::string& EntryValue::string_value() const {
   // @@protoc_insertion_point(field_get:tensorflow.EntryValue.string_value)
   if (has_string_value()) {
-    return kind_.string_value_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return kind_.string_value_.Get();
   }
   return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
 }
@@ -1021,9 +910,11 @@ void EntryValue::clear_has_kind() {
 EntryValue::KindCase EntryValue::kind_case() const {
   return EntryValue::KindCase(_oneof_case_[0]);
 }
-inline const EntryValue* EntryValue::internal_default_instance() {
-  return &EntryValue_default_instance_.get();
-}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1039,7 +930,9 @@ const int BenchmarkEntry::kExtrasFieldNumber;
 
 BenchmarkEntry::BenchmarkEntry()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.BenchmarkEntry)
 }
@@ -1048,29 +941,40 @@ BenchmarkEntry::BenchmarkEntry(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   extras_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.BenchmarkEntry)
 }
-
-void BenchmarkEntry::InitAsDefaultInstance() {
-}
-
 BenchmarkEntry::BenchmarkEntry(const BenchmarkEntry& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  const ::google::protobuf::Descriptor*& BenchmarkEntry_ExtrasEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[1].descriptor;
+  extras_.SetAssignDescriptorCallback(
+      protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce);
+  extras_.SetEntryDescriptor(
+      &BenchmarkEntry_ExtrasEntry_descriptor);
+  extras_.MergeFrom(from.extras_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name(),
+      GetArenaNoVirtual());
+  }
+  ::memcpy(&iters_, &from.iters_,
+    reinterpret_cast<char*>(&throughput_) -
+    reinterpret_cast<char*>(&iters_) + sizeof(throughput_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.BenchmarkEntry)
 }
 
 void BenchmarkEntry::SharedCtor() {
+  const ::google::protobuf::Descriptor*& BenchmarkEntry_ExtrasEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[1].descriptor;
   extras_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
+      protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce);
   extras_.SetEntryDescriptor(
-      &::tensorflow::BenchmarkEntry_ExtrasEntry_descriptor_);
+      &BenchmarkEntry_ExtrasEntry_descriptor);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&iters_, 0, reinterpret_cast<char*>(&throughput_) -
     reinterpret_cast<char*>(&iters_) + sizeof(throughput_));
@@ -1103,16 +1007,14 @@ void BenchmarkEntry::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* BenchmarkEntry::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return BenchmarkEntry_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[2].descriptor;
 }
 
 const BenchmarkEntry& BenchmarkEntry::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<BenchmarkEntry> BenchmarkEntry_default_instance_;
 
 BenchmarkEntry* BenchmarkEntry::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<BenchmarkEntry>(arena);
@@ -1120,29 +1022,10 @@ BenchmarkEntry* BenchmarkEntry::New(::google::protobuf::Arena* arena) const {
 
 void BenchmarkEntry::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.BenchmarkEntry)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(BenchmarkEntry, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<BenchmarkEntry*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(iters_, throughput_);
-  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
   extras_.Clear();
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  ::memset(&iters_, 0, reinterpret_cast<char*>(&throughput_) -
+    reinterpret_cast<char*>(&iters_) + sizeof(throughput_));
 }
 
 bool BenchmarkEntry::MergePartialFromCodedStream(
@@ -1151,13 +1034,14 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.BenchmarkEntry)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string name = 1;
+      // string name = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1167,14 +1051,13 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_iters;
         break;
       }
 
-      // optional int64 iters = 2;
+      // int64 iters = 2;
       case 2: {
-        if (tag == 16) {
-         parse_iters:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -1182,14 +1065,13 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_cpu_time;
         break;
       }
 
-      // optional double cpu_time = 3;
+      // double cpu_time = 3;
       case 3: {
-        if (tag == 25) {
-         parse_cpu_time:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1197,14 +1079,13 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(33)) goto parse_wall_time;
         break;
       }
 
-      // optional double wall_time = 4;
+      // double wall_time = 4;
       case 4: {
-        if (tag == 33) {
-         parse_wall_time:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1212,14 +1093,13 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(41)) goto parse_throughput;
         break;
       }
 
-      // optional double throughput = 5;
+      // double throughput = 5;
       case 5: {
-        if (tag == 41) {
-         parse_throughput:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(41u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1227,16 +1107,14 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_extras;
         break;
       }
 
       // map<string, .tensorflow.EntryValue> extras = 6;
       case 6: {
-        if (tag == 50) {
-         parse_extras:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_extras:
           BenchmarkEntry_ExtrasEntry::Parser< ::google::protobuf::internal::MapField<
               ::std::string, ::tensorflow::EntryValue,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
@@ -1252,9 +1130,7 @@ bool BenchmarkEntry::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_loop_extras;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1282,7 +1158,7 @@ failure:
 void BenchmarkEntry::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.BenchmarkEntry)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -1292,22 +1168,22 @@ void BenchmarkEntry::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // optional int64 iters = 2;
+  // int64 iters = 2;
   if (this->iters() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->iters(), output);
   }
 
-  // optional double cpu_time = 3;
+  // double cpu_time = 3;
   if (this->cpu_time() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->cpu_time(), output);
   }
 
-  // optional double wall_time = 4;
+  // double wall_time = 4;
   if (this->wall_time() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->wall_time(), output);
   }
 
-  // optional double throughput = 5;
+  // double throughput = 5;
   if (this->throughput() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->throughput(), output);
   }
@@ -1327,7 +1203,7 @@ void BenchmarkEntry::SerializeWithCachedSizes(
       }
     };
 
-    if (output->IsSerializationDeterminstic() &&
+    if (output->IsSerializationDeterministic() &&
         this->extras().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->extras().size()]);
@@ -1372,9 +1248,9 @@ void BenchmarkEntry::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* BenchmarkEntry::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.BenchmarkEntry)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -1385,22 +1261,22 @@ void BenchmarkEntry::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // optional int64 iters = 2;
+  // int64 iters = 2;
   if (this->iters() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->iters(), target);
   }
 
-  // optional double cpu_time = 3;
+  // double cpu_time = 3;
   if (this->cpu_time() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->cpu_time(), target);
   }
 
-  // optional double wall_time = 4;
+  // double wall_time = 4;
   if (this->wall_time() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->wall_time(), target);
   }
 
-  // optional double throughput = 5;
+  // double throughput = 5;
   if (this->throughput() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->throughput(), target);
   }
@@ -1472,35 +1348,6 @@ size_t BenchmarkEntry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.BenchmarkEntry)
   size_t total_size = 0;
 
-  // optional string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-  }
-
-  // optional int64 iters = 2;
-  if (this->iters() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->iters());
-  }
-
-  // optional double cpu_time = 3;
-  if (this->cpu_time() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double wall_time = 4;
-  if (this->wall_time() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double throughput = 5;
-  if (this->throughput() != 0) {
-    total_size += 1 + 8;
-  }
-
   // map<string, .tensorflow.EntryValue> extras = 6;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->extras_size());
@@ -1521,6 +1368,35 @@ size_t BenchmarkEntry::ByteSizeLong() const {
     }
   }
 
+  // string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // int64 iters = 2;
+  if (this->iters() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->iters());
+  }
+
+  // double cpu_time = 3;
+  if (this->cpu_time() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double wall_time = 4;
+  if (this->wall_time() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double throughput = 5;
+  if (this->throughput() != 0) {
+    total_size += 1 + 8;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -1530,7 +1406,7 @@ size_t BenchmarkEntry::ByteSizeLong() const {
 
 void BenchmarkEntry::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.BenchmarkEntry)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const BenchmarkEntry* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const BenchmarkEntry>(
           &from);
@@ -1539,21 +1415,14 @@ void BenchmarkEntry::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.BenchmarkEntry)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void BenchmarkEntry::MergeFrom(const BenchmarkEntry& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.BenchmarkEntry)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void BenchmarkEntry::UnsafeMergeFrom(const BenchmarkEntry& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   extras_.MergeFrom(from.extras_);
   if (from.name().size() > 0) {
     set_name(from.name());
@@ -1583,11 +1452,10 @@ void BenchmarkEntry::CopyFrom(const BenchmarkEntry& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.BenchmarkEntry)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool BenchmarkEntry::IsInitialized() const {
-
   return true;
 }
 
@@ -1596,10 +1464,13 @@ void BenchmarkEntry::Swap(BenchmarkEntry* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    BenchmarkEntry temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    BenchmarkEntry* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void BenchmarkEntry::UnsafeArenaSwap(BenchmarkEntry* other) {
@@ -1608,34 +1479,30 @@ void BenchmarkEntry::UnsafeArenaSwap(BenchmarkEntry* other) {
   InternalSwap(other);
 }
 void BenchmarkEntry::InternalSwap(BenchmarkEntry* other) {
+  extras_.Swap(&other->extras_);
   name_.Swap(&other->name_);
   std::swap(iters_, other->iters_);
   std::swap(cpu_time_, other->cpu_time_);
   std::swap(wall_time_, other->wall_time_);
   std::swap(throughput_, other->throughput_);
-  extras_.Swap(&other->extras_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata BenchmarkEntry::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = BenchmarkEntry_descriptor_;
-  metadata.reflection = BenchmarkEntry_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[2];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BenchmarkEntry
 
-// optional string name = 1;
+// string name = 1;
 void BenchmarkEntry::clear_name() {
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& BenchmarkEntry::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.BenchmarkEntry.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get();
 }
 void BenchmarkEntry::set_name(const ::std::string& value) {
   
@@ -1695,7 +1562,7 @@ void BenchmarkEntry::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.BenchmarkEntry.name)
 }
 
-// optional int64 iters = 2;
+// int64 iters = 2;
 void BenchmarkEntry::clear_iters() {
   iters_ = GOOGLE_LONGLONG(0);
 }
@@ -1709,7 +1576,7 @@ void BenchmarkEntry::set_iters(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.BenchmarkEntry.iters)
 }
 
-// optional double cpu_time = 3;
+// double cpu_time = 3;
 void BenchmarkEntry::clear_cpu_time() {
   cpu_time_ = 0;
 }
@@ -1723,7 +1590,7 @@ void BenchmarkEntry::set_cpu_time(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.BenchmarkEntry.cpu_time)
 }
 
-// optional double wall_time = 4;
+// double wall_time = 4;
 void BenchmarkEntry::clear_wall_time() {
   wall_time_ = 0;
 }
@@ -1737,7 +1604,7 @@ void BenchmarkEntry::set_wall_time(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.BenchmarkEntry.wall_time)
 }
 
-// optional double throughput = 5;
+// double throughput = 5;
 void BenchmarkEntry::clear_throughput() {
   throughput_ = 0;
 }
@@ -1769,9 +1636,6 @@ BenchmarkEntry::mutable_extras() {
   return extras_.MutableMap();
 }
 
-inline const BenchmarkEntry* BenchmarkEntry::internal_default_instance() {
-  return &BenchmarkEntry_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1782,7 +1646,9 @@ const int BenchmarkEntries::kEntryFieldNumber;
 
 BenchmarkEntries::BenchmarkEntries()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.BenchmarkEntries)
 }
@@ -1791,21 +1657,18 @@ BenchmarkEntries::BenchmarkEntries(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   entry_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.BenchmarkEntries)
 }
-
-void BenchmarkEntries::InitAsDefaultInstance() {
-}
-
 BenchmarkEntries::BenchmarkEntries(const BenchmarkEntries& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      entry_(from.entry_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:tensorflow.BenchmarkEntries)
 }
 
@@ -1838,16 +1701,14 @@ void BenchmarkEntries::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* BenchmarkEntries::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return BenchmarkEntries_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[3].descriptor;
 }
 
 const BenchmarkEntries& BenchmarkEntries::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<BenchmarkEntries> BenchmarkEntries_default_instance_;
 
 BenchmarkEntries* BenchmarkEntries::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<BenchmarkEntries>(arena);
@@ -1864,23 +1725,21 @@ bool BenchmarkEntries::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.BenchmarkEntries)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .tensorflow.BenchmarkEntry entry = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_entry:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_entry()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_entry;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1919,7 +1778,7 @@ void BenchmarkEntries::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* BenchmarkEntries::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.BenchmarkEntries)
   // repeated .tensorflow.BenchmarkEntry entry = 1;
   for (unsigned int i = 0, n = this->entry_size(); i < n; i++) {
@@ -1956,7 +1815,7 @@ size_t BenchmarkEntries::ByteSizeLong() const {
 
 void BenchmarkEntries::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.BenchmarkEntries)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const BenchmarkEntries* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const BenchmarkEntries>(
           &from);
@@ -1965,21 +1824,14 @@ void BenchmarkEntries::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.BenchmarkEntries)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void BenchmarkEntries::MergeFrom(const BenchmarkEntries& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.BenchmarkEntries)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void BenchmarkEntries::UnsafeMergeFrom(const BenchmarkEntries& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   entry_.MergeFrom(from.entry_);
 }
 
@@ -1994,11 +1846,10 @@ void BenchmarkEntries::CopyFrom(const BenchmarkEntries& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.BenchmarkEntries)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool BenchmarkEntries::IsInitialized() const {
-
   return true;
 }
 
@@ -2007,10 +1858,13 @@ void BenchmarkEntries::Swap(BenchmarkEntries* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    BenchmarkEntries temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    BenchmarkEntries* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void BenchmarkEntries::UnsafeArenaSwap(BenchmarkEntries* other) {
@@ -2020,16 +1874,12 @@ void BenchmarkEntries::UnsafeArenaSwap(BenchmarkEntries* other) {
 }
 void BenchmarkEntries::InternalSwap(BenchmarkEntries* other) {
   entry_.UnsafeArenaSwap(&other->entry_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata BenchmarkEntries::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = BenchmarkEntries_descriptor_;
-  metadata.reflection = BenchmarkEntries_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[3];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2065,9 +1915,6 @@ BenchmarkEntries::entry() const {
   return entry_;
 }
 
-inline const BenchmarkEntries* BenchmarkEntries::internal_default_instance() {
-  return &BenchmarkEntries_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2080,7 +1927,9 @@ const int BuildConfiguration::kOptsFieldNumber;
 
 BuildConfiguration::BuildConfiguration()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.BuildConfiguration)
 }
@@ -2090,21 +1939,24 @@ BuildConfiguration::BuildConfiguration(::google::protobuf::Arena* arena)
   cc_flags_(arena),
   opts_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.BuildConfiguration)
 }
-
-void BuildConfiguration::InitAsDefaultInstance() {
-}
-
 BuildConfiguration::BuildConfiguration(const BuildConfiguration& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      cc_flags_(from.cc_flags_),
+      opts_(from.opts_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  mode_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.mode().size() > 0) {
+    mode_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mode(),
+      GetArenaNoVirtual());
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.BuildConfiguration)
 }
 
@@ -2139,16 +1991,14 @@ void BuildConfiguration::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* BuildConfiguration::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return BuildConfiguration_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[4].descriptor;
 }
 
 const BuildConfiguration& BuildConfiguration::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<BuildConfiguration> BuildConfiguration_default_instance_;
 
 BuildConfiguration* BuildConfiguration::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<BuildConfiguration>(arena);
@@ -2156,9 +2006,9 @@ BuildConfiguration* BuildConfiguration::New(::google::protobuf::Arena* arena) co
 
 void BuildConfiguration::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.BuildConfiguration)
-  mode_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   cc_flags_.Clear();
   opts_.Clear();
+  mode_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 
 bool BuildConfiguration::MergePartialFromCodedStream(
@@ -2167,13 +2017,14 @@ bool BuildConfiguration::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.BuildConfiguration)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string mode = 1;
+      // string mode = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_mode()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2183,14 +2034,13 @@ bool BuildConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_cc_flags;
         break;
       }
 
       // repeated string cc_flags = 2;
       case 2: {
-        if (tag == 18) {
-         parse_cc_flags:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->add_cc_flags()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2201,15 +2051,13 @@ bool BuildConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_cc_flags;
-        if (input->ExpectTag(26)) goto parse_opts;
         break;
       }
 
       // repeated string opts = 3;
       case 3: {
-        if (tag == 26) {
-         parse_opts:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->add_opts()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2220,8 +2068,6 @@ bool BuildConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_opts;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2249,7 +2095,7 @@ failure:
 void BuildConfiguration::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.BuildConfiguration)
-  // optional string mode = 1;
+  // string mode = 1;
   if (this->mode().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->mode().data(), this->mode().length(),
@@ -2260,7 +2106,7 @@ void BuildConfiguration::SerializeWithCachedSizes(
   }
 
   // repeated string cc_flags = 2;
-  for (int i = 0; i < this->cc_flags_size(); i++) {
+  for (int i = 0, n = this->cc_flags_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cc_flags(i).data(), this->cc_flags(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -2270,7 +2116,7 @@ void BuildConfiguration::SerializeWithCachedSizes(
   }
 
   // repeated string opts = 3;
-  for (int i = 0; i < this->opts_size(); i++) {
+  for (int i = 0, n = this->opts_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->opts(i).data(), this->opts(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -2284,9 +2130,9 @@ void BuildConfiguration::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* BuildConfiguration::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.BuildConfiguration)
-  // optional string mode = 1;
+  // string mode = 1;
   if (this->mode().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->mode().data(), this->mode().length(),
@@ -2298,7 +2144,7 @@ void BuildConfiguration::SerializeWithCachedSizes(
   }
 
   // repeated string cc_flags = 2;
-  for (int i = 0; i < this->cc_flags_size(); i++) {
+  for (int i = 0, n = this->cc_flags_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cc_flags(i).data(), this->cc_flags(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -2308,7 +2154,7 @@ void BuildConfiguration::SerializeWithCachedSizes(
   }
 
   // repeated string opts = 3;
-  for (int i = 0; i < this->opts_size(); i++) {
+  for (int i = 0, n = this->opts_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->opts(i).data(), this->opts(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -2325,17 +2171,10 @@ size_t BuildConfiguration::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.BuildConfiguration)
   size_t total_size = 0;
 
-  // optional string mode = 1;
-  if (this->mode().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->mode());
-  }
-
   // repeated string cc_flags = 2;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->cc_flags_size());
-  for (int i = 0; i < this->cc_flags_size(); i++) {
+  for (int i = 0, n = this->cc_flags_size(); i < n; i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->cc_flags(i));
   }
@@ -2343,9 +2182,16 @@ size_t BuildConfiguration::ByteSizeLong() const {
   // repeated string opts = 3;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->opts_size());
-  for (int i = 0; i < this->opts_size(); i++) {
+  for (int i = 0, n = this->opts_size(); i < n; i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->opts(i));
+  }
+
+  // string mode = 1;
+  if (this->mode().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->mode());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2357,7 +2203,7 @@ size_t BuildConfiguration::ByteSizeLong() const {
 
 void BuildConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.BuildConfiguration)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const BuildConfiguration* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const BuildConfiguration>(
           &from);
@@ -2366,23 +2212,16 @@ void BuildConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.BuildConfiguration)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void BuildConfiguration::MergeFrom(const BuildConfiguration& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.BuildConfiguration)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void BuildConfiguration::UnsafeMergeFrom(const BuildConfiguration& from) {
-  GOOGLE_DCHECK(&from != this);
-  cc_flags_.UnsafeMergeFrom(from.cc_flags_);
-  opts_.UnsafeMergeFrom(from.opts_);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  cc_flags_.MergeFrom(from.cc_flags_);
+  opts_.MergeFrom(from.opts_);
   if (from.mode().size() > 0) {
     set_mode(from.mode());
   }
@@ -2399,11 +2238,10 @@ void BuildConfiguration::CopyFrom(const BuildConfiguration& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.BuildConfiguration)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool BuildConfiguration::IsInitialized() const {
-
   return true;
 }
 
@@ -2412,10 +2250,13 @@ void BuildConfiguration::Swap(BuildConfiguration* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    BuildConfiguration temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    BuildConfiguration* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void BuildConfiguration::UnsafeArenaSwap(BuildConfiguration* other) {
@@ -2424,31 +2265,27 @@ void BuildConfiguration::UnsafeArenaSwap(BuildConfiguration* other) {
   InternalSwap(other);
 }
 void BuildConfiguration::InternalSwap(BuildConfiguration* other) {
-  mode_.Swap(&other->mode_);
   cc_flags_.UnsafeArenaSwap(&other->cc_flags_);
   opts_.UnsafeArenaSwap(&other->opts_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  mode_.Swap(&other->mode_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata BuildConfiguration::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = BuildConfiguration_descriptor_;
-  metadata.reflection = BuildConfiguration_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[4];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BuildConfiguration
 
-// optional string mode = 1;
+// string mode = 1;
 void BuildConfiguration::clear_mode() {
   mode_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& BuildConfiguration::mode() const {
   // @@protoc_insertion_point(field_get:tensorflow.BuildConfiguration.mode)
-  return mode_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return mode_.Get();
 }
 void BuildConfiguration::set_mode(const ::std::string& value) {
   
@@ -2527,6 +2364,12 @@ void BuildConfiguration::set_cc_flags(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.BuildConfiguration.cc_flags)
   cc_flags_.Mutable(index)->assign(value);
 }
+#if LANG_CXX11
+void BuildConfiguration::set_cc_flags(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.BuildConfiguration.cc_flags)
+  cc_flags_.Mutable(index)->assign(std::move(value));
+}
+#endif
 void BuildConfiguration::set_cc_flags(int index, const char* value) {
   cc_flags_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.BuildConfiguration.cc_flags)
@@ -2544,6 +2387,12 @@ void BuildConfiguration::add_cc_flags(const ::std::string& value) {
   cc_flags_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.BuildConfiguration.cc_flags)
 }
+#if LANG_CXX11
+void BuildConfiguration::add_cc_flags(::std::string&& value) {
+  cc_flags_.Add()->assign(std::move(value));
+  // @@protoc_insertion_point(field_add:tensorflow.BuildConfiguration.cc_flags)
+}
+#endif
 void BuildConfiguration::add_cc_flags(const char* value) {
   cc_flags_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.BuildConfiguration.cc_flags)
@@ -2582,6 +2431,12 @@ void BuildConfiguration::set_opts(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.BuildConfiguration.opts)
   opts_.Mutable(index)->assign(value);
 }
+#if LANG_CXX11
+void BuildConfiguration::set_opts(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.BuildConfiguration.opts)
+  opts_.Mutable(index)->assign(std::move(value));
+}
+#endif
 void BuildConfiguration::set_opts(int index, const char* value) {
   opts_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.BuildConfiguration.opts)
@@ -2599,6 +2454,12 @@ void BuildConfiguration::add_opts(const ::std::string& value) {
   opts_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.BuildConfiguration.opts)
 }
+#if LANG_CXX11
+void BuildConfiguration::add_opts(::std::string&& value) {
+  opts_.Add()->assign(std::move(value));
+  // @@protoc_insertion_point(field_add:tensorflow.BuildConfiguration.opts)
+}
+#endif
 void BuildConfiguration::add_opts(const char* value) {
   opts_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.BuildConfiguration.opts)
@@ -2618,9 +2479,6 @@ BuildConfiguration::mutable_opts() {
   return &opts_;
 }
 
-inline const BuildConfiguration* BuildConfiguration::internal_default_instance() {
-  return &BuildConfiguration_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2633,7 +2491,9 @@ const int CommitId::kSnapshotFieldNumber;
 
 CommitId::CommitId()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.CommitId)
 }
@@ -2641,23 +2501,36 @@ CommitId::CommitId(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.CommitId)
 }
-
-void CommitId::InitAsDefaultInstance() {
-  CommitId_default_oneof_instance_->changelist_ = GOOGLE_LONGLONG(0);
-  CommitId_default_oneof_instance_->hash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
 CommitId::CommitId(const CommitId& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  snapshot_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.snapshot().size() > 0) {
+    snapshot_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.snapshot(),
+      GetArenaNoVirtual());
+  }
+  clear_has_kind();
+  switch (from.kind_case()) {
+    case kChangelist: {
+      set_changelist(from.changelist());
+      break;
+    }
+    case kHash: {
+      set_hash(from.hash());
+      break;
+    }
+    case KIND_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.CommitId)
 }
 
@@ -2696,16 +2569,14 @@ void CommitId::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* CommitId::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CommitId_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[5].descriptor;
 }
 
 const CommitId& CommitId::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<CommitId> CommitId_default_instance_;
 
 CommitId* CommitId::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<CommitId>(arena);
@@ -2743,13 +2614,14 @@ bool CommitId::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CommitId)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 changelist = 1;
+      // int64 changelist = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
           clear_kind();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -2758,13 +2630,13 @@ bool CommitId::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        goto after_hash;
         break;
       }
 
-      // optional string hash = 2;
+      // string hash = 2;
       case 2: {
-        if (tag == 18) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_hash()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2774,15 +2646,13 @@ bool CommitId::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-       after_hash:
-        if (input->ExpectTag(26)) goto parse_snapshot;
         break;
       }
 
-      // optional string snapshot = 3;
+      // string snapshot = 3;
       case 3: {
-        if (tag == 26) {
-         parse_snapshot:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_snapshot()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2792,7 +2662,6 @@ bool CommitId::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2820,12 +2689,12 @@ failure:
 void CommitId::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.CommitId)
-  // optional int64 changelist = 1;
+  // int64 changelist = 1;
   if (has_changelist()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->changelist(), output);
   }
 
-  // optional string hash = 2;
+  // string hash = 2;
   if (has_hash()) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->hash().data(), this->hash().length(),
@@ -2835,7 +2704,7 @@ void CommitId::SerializeWithCachedSizes(
       2, this->hash(), output);
   }
 
-  // optional string snapshot = 3;
+  // string snapshot = 3;
   if (this->snapshot().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->snapshot().data(), this->snapshot().length(),
@@ -2850,14 +2719,14 @@ void CommitId::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* CommitId::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.CommitId)
-  // optional int64 changelist = 1;
+  // int64 changelist = 1;
   if (has_changelist()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->changelist(), target);
   }
 
-  // optional string hash = 2;
+  // string hash = 2;
   if (has_hash()) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->hash().data(), this->hash().length(),
@@ -2868,7 +2737,7 @@ void CommitId::SerializeWithCachedSizes(
         2, this->hash(), target);
   }
 
-  // optional string snapshot = 3;
+  // string snapshot = 3;
   if (this->snapshot().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->snapshot().data(), this->snapshot().length(),
@@ -2887,7 +2756,7 @@ size_t CommitId::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.CommitId)
   size_t total_size = 0;
 
-  // optional string snapshot = 3;
+  // string snapshot = 3;
   if (this->snapshot().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2895,14 +2764,14 @@ size_t CommitId::ByteSizeLong() const {
   }
 
   switch (kind_case()) {
-    // optional int64 changelist = 1;
+    // int64 changelist = 1;
     case kChangelist: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->changelist());
       break;
     }
-    // optional string hash = 2;
+    // string hash = 2;
     case kHash: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2922,7 +2791,7 @@ size_t CommitId::ByteSizeLong() const {
 
 void CommitId::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CommitId)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const CommitId* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const CommitId>(
           &from);
@@ -2931,21 +2800,17 @@ void CommitId::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CommitId)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void CommitId::MergeFrom(const CommitId& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CommitId)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.snapshot().size() > 0) {
+    set_snapshot(from.snapshot());
   }
-}
-
-void CommitId::UnsafeMergeFrom(const CommitId& from) {
-  GOOGLE_DCHECK(&from != this);
   switch (from.kind_case()) {
     case kChangelist: {
       set_changelist(from.changelist());
@@ -2958,9 +2823,6 @@ void CommitId::UnsafeMergeFrom(const CommitId& from) {
     case KIND_NOT_SET: {
       break;
     }
-  }
-  if (from.snapshot().size() > 0) {
-    set_snapshot(from.snapshot());
   }
 }
 
@@ -2975,11 +2837,10 @@ void CommitId::CopyFrom(const CommitId& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CommitId)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool CommitId::IsInitialized() const {
-
   return true;
 }
 
@@ -2988,10 +2849,13 @@ void CommitId::Swap(CommitId* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    CommitId temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    CommitId* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void CommitId::UnsafeArenaSwap(CommitId* other) {
@@ -3003,22 +2867,18 @@ void CommitId::InternalSwap(CommitId* other) {
   snapshot_.Swap(&other->snapshot_);
   std::swap(kind_, other->kind_);
   std::swap(_oneof_case_[0], other->_oneof_case_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata CommitId::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CommitId_descriptor_;
-  metadata.reflection = CommitId_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[5];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // CommitId
 
-// optional int64 changelist = 1;
+// int64 changelist = 1;
 bool CommitId::has_changelist() const {
   return kind_case() == kChangelist;
 }
@@ -3047,7 +2907,7 @@ void CommitId::set_changelist(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.CommitId.changelist)
 }
 
-// optional string hash = 2;
+// string hash = 2;
 bool CommitId::has_hash() const {
   return kind_case() == kHash;
 }
@@ -3064,7 +2924,7 @@ void CommitId::clear_hash() {
 const ::std::string& CommitId::hash() const {
   // @@protoc_insertion_point(field_get:tensorflow.CommitId.hash)
   if (has_hash()) {
-    return kind_.hash_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return kind_.hash_.Get();
   }
   return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
 }
@@ -3156,13 +3016,13 @@ void CommitId::unsafe_arena_set_allocated_hash(::std::string* hash) {
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CommitId.hash)
 }
 
-// optional string snapshot = 3;
+// string snapshot = 3;
 void CommitId::clear_snapshot() {
   snapshot_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& CommitId::snapshot() const {
   // @@protoc_insertion_point(field_get:tensorflow.CommitId.snapshot)
-  return snapshot_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return snapshot_.Get();
 }
 void CommitId::set_snapshot(const ::std::string& value) {
   
@@ -3231,9 +3091,11 @@ void CommitId::clear_has_kind() {
 CommitId::KindCase CommitId::kind_case() const {
   return CommitId::KindCase(_oneof_case_[0]);
 }
-inline const CommitId* CommitId::internal_default_instance() {
-  return &CommitId_default_instance_.get();
-}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3249,7 +3111,9 @@ const int CPUInfo::kCacheSizeFieldNumber;
 
 CPUInfo::CPUInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.CPUInfo)
 }
@@ -3258,29 +3122,45 @@ CPUInfo::CPUInfo(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   cache_size_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.CPUInfo)
 }
-
-void CPUInfo::InitAsDefaultInstance() {
-}
-
 CPUInfo::CPUInfo(const CPUInfo& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  const ::google::protobuf::Descriptor*& CPUInfo_CacheSizeEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[6].descriptor;
+  cache_size_.SetAssignDescriptorCallback(
+      protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce);
+  cache_size_.SetEntryDescriptor(
+      &CPUInfo_CacheSizeEntry_descriptor);
+  cache_size_.MergeFrom(from.cache_size_);
+  cpu_info_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.cpu_info().size() > 0) {
+    cpu_info_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.cpu_info(),
+      GetArenaNoVirtual());
+  }
+  cpu_governor_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.cpu_governor().size() > 0) {
+    cpu_governor_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.cpu_governor(),
+      GetArenaNoVirtual());
+  }
+  ::memcpy(&num_cores_, &from.num_cores_,
+    reinterpret_cast<char*>(&mhz_per_cpu_) -
+    reinterpret_cast<char*>(&num_cores_) + sizeof(mhz_per_cpu_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.CPUInfo)
 }
 
 void CPUInfo::SharedCtor() {
+  const ::google::protobuf::Descriptor*& CPUInfo_CacheSizeEntry_descriptor = protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[6].descriptor;
   cache_size_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
+      protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce);
   cache_size_.SetEntryDescriptor(
-      &::tensorflow::CPUInfo_CacheSizeEntry_descriptor_);
+      &CPUInfo_CacheSizeEntry_descriptor);
   cpu_info_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   cpu_governor_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&num_cores_, 0, reinterpret_cast<char*>(&mhz_per_cpu_) -
@@ -3315,16 +3195,14 @@ void CPUInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* CPUInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CPUInfo_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[7].descriptor;
 }
 
 const CPUInfo& CPUInfo::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<CPUInfo> CPUInfo_default_instance_;
 
 CPUInfo* CPUInfo::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<CPUInfo>(arena);
@@ -3332,30 +3210,11 @@ CPUInfo* CPUInfo::New(::google::protobuf::Arena* arena) const {
 
 void CPUInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.CPUInfo)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(CPUInfo, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<CPUInfo*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(num_cores_, mhz_per_cpu_);
+  cache_size_.Clear();
   cpu_info_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   cpu_governor_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  cache_size_.Clear();
+  ::memset(&num_cores_, 0, reinterpret_cast<char*>(&mhz_per_cpu_) -
+    reinterpret_cast<char*>(&num_cores_) + sizeof(mhz_per_cpu_));
 }
 
 bool CPUInfo::MergePartialFromCodedStream(
@@ -3364,13 +3223,14 @@ bool CPUInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.CPUInfo)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 num_cores = 1;
+      // int64 num_cores = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -3378,14 +3238,13 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_num_cores_allowed;
         break;
       }
 
-      // optional int64 num_cores_allowed = 2;
+      // int64 num_cores_allowed = 2;
       case 2: {
-        if (tag == 16) {
-         parse_num_cores_allowed:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -3393,14 +3252,13 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_mhz_per_cpu;
         break;
       }
 
-      // optional double mhz_per_cpu = 3;
+      // double mhz_per_cpu = 3;
       case 3: {
-        if (tag == 25) {
-         parse_mhz_per_cpu:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -3408,14 +3266,13 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_cpu_info;
         break;
       }
 
-      // optional string cpu_info = 4;
+      // string cpu_info = 4;
       case 4: {
-        if (tag == 34) {
-         parse_cpu_info:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_cpu_info()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -3425,14 +3282,13 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_cpu_governor;
         break;
       }
 
-      // optional string cpu_governor = 5;
+      // string cpu_governor = 5;
       case 5: {
-        if (tag == 42) {
-         parse_cpu_governor:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_cpu_governor()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -3442,16 +3298,14 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_cache_size;
         break;
       }
 
       // map<string, int64> cache_size = 6;
       case 6: {
-        if (tag == 50) {
-         parse_cache_size:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_cache_size:
           CPUInfo_CacheSizeEntry::Parser< ::google::protobuf::internal::MapField<
               ::std::string, ::google::protobuf::int64,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
@@ -3467,9 +3321,7 @@ bool CPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_loop_cache_size;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -3497,22 +3349,22 @@ failure:
 void CPUInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.CPUInfo)
-  // optional int64 num_cores = 1;
+  // int64 num_cores = 1;
   if (this->num_cores() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->num_cores(), output);
   }
 
-  // optional int64 num_cores_allowed = 2;
+  // int64 num_cores_allowed = 2;
   if (this->num_cores_allowed() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->num_cores_allowed(), output);
   }
 
-  // optional double mhz_per_cpu = 3;
+  // double mhz_per_cpu = 3;
   if (this->mhz_per_cpu() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->mhz_per_cpu(), output);
   }
 
-  // optional string cpu_info = 4;
+  // string cpu_info = 4;
   if (this->cpu_info().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cpu_info().data(), this->cpu_info().length(),
@@ -3522,7 +3374,7 @@ void CPUInfo::SerializeWithCachedSizes(
       4, this->cpu_info(), output);
   }
 
-  // optional string cpu_governor = 5;
+  // string cpu_governor = 5;
   if (this->cpu_governor().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cpu_governor().data(), this->cpu_governor().length(),
@@ -3547,7 +3399,7 @@ void CPUInfo::SerializeWithCachedSizes(
       }
     };
 
-    if (output->IsSerializationDeterminstic() &&
+    if (output->IsSerializationDeterministic() &&
         this->cache_size().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->cache_size().size()]);
@@ -3592,24 +3444,24 @@ void CPUInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* CPUInfo::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.CPUInfo)
-  // optional int64 num_cores = 1;
+  // int64 num_cores = 1;
   if (this->num_cores() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->num_cores(), target);
   }
 
-  // optional int64 num_cores_allowed = 2;
+  // int64 num_cores_allowed = 2;
   if (this->num_cores_allowed() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->num_cores_allowed(), target);
   }
 
-  // optional double mhz_per_cpu = 3;
+  // double mhz_per_cpu = 3;
   if (this->mhz_per_cpu() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->mhz_per_cpu(), target);
   }
 
-  // optional string cpu_info = 4;
+  // string cpu_info = 4;
   if (this->cpu_info().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cpu_info().data(), this->cpu_info().length(),
@@ -3620,7 +3472,7 @@ void CPUInfo::SerializeWithCachedSizes(
         4, this->cpu_info(), target);
   }
 
-  // optional string cpu_governor = 5;
+  // string cpu_governor = 5;
   if (this->cpu_governor().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cpu_governor().data(), this->cpu_governor().length(),
@@ -3698,39 +3550,6 @@ size_t CPUInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.CPUInfo)
   size_t total_size = 0;
 
-  // optional int64 num_cores = 1;
-  if (this->num_cores() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->num_cores());
-  }
-
-  // optional int64 num_cores_allowed = 2;
-  if (this->num_cores_allowed() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->num_cores_allowed());
-  }
-
-  // optional double mhz_per_cpu = 3;
-  if (this->mhz_per_cpu() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional string cpu_info = 4;
-  if (this->cpu_info().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->cpu_info());
-  }
-
-  // optional string cpu_governor = 5;
-  if (this->cpu_governor().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->cpu_governor());
-  }
-
   // map<string, int64> cache_size = 6;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->cache_size_size());
@@ -3751,6 +3570,39 @@ size_t CPUInfo::ByteSizeLong() const {
     }
   }
 
+  // string cpu_info = 4;
+  if (this->cpu_info().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->cpu_info());
+  }
+
+  // string cpu_governor = 5;
+  if (this->cpu_governor().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->cpu_governor());
+  }
+
+  // int64 num_cores = 1;
+  if (this->num_cores() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->num_cores());
+  }
+
+  // int64 num_cores_allowed = 2;
+  if (this->num_cores_allowed() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->num_cores_allowed());
+  }
+
+  // double mhz_per_cpu = 3;
+  if (this->mhz_per_cpu() != 0) {
+    total_size += 1 + 8;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3760,7 +3612,7 @@ size_t CPUInfo::ByteSizeLong() const {
 
 void CPUInfo::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.CPUInfo)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const CPUInfo* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const CPUInfo>(
           &from);
@@ -3769,22 +3621,21 @@ void CPUInfo::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.CPUInfo)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void CPUInfo::MergeFrom(const CPUInfo& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.CPUInfo)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void CPUInfo::UnsafeMergeFrom(const CPUInfo& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   cache_size_.MergeFrom(from.cache_size_);
+  if (from.cpu_info().size() > 0) {
+    set_cpu_info(from.cpu_info());
+  }
+  if (from.cpu_governor().size() > 0) {
+    set_cpu_governor(from.cpu_governor());
+  }
   if (from.num_cores() != 0) {
     set_num_cores(from.num_cores());
   }
@@ -3793,12 +3644,6 @@ void CPUInfo::UnsafeMergeFrom(const CPUInfo& from) {
   }
   if (from.mhz_per_cpu() != 0) {
     set_mhz_per_cpu(from.mhz_per_cpu());
-  }
-  if (from.cpu_info().size() > 0) {
-    set_cpu_info(from.cpu_info());
-  }
-  if (from.cpu_governor().size() > 0) {
-    set_cpu_governor(from.cpu_governor());
   }
 }
 
@@ -3813,11 +3658,10 @@ void CPUInfo::CopyFrom(const CPUInfo& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.CPUInfo)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool CPUInfo::IsInitialized() const {
-
   return true;
 }
 
@@ -3826,10 +3670,13 @@ void CPUInfo::Swap(CPUInfo* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    CPUInfo temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    CPUInfo* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void CPUInfo::UnsafeArenaSwap(CPUInfo* other) {
@@ -3838,28 +3685,24 @@ void CPUInfo::UnsafeArenaSwap(CPUInfo* other) {
   InternalSwap(other);
 }
 void CPUInfo::InternalSwap(CPUInfo* other) {
+  cache_size_.Swap(&other->cache_size_);
+  cpu_info_.Swap(&other->cpu_info_);
+  cpu_governor_.Swap(&other->cpu_governor_);
   std::swap(num_cores_, other->num_cores_);
   std::swap(num_cores_allowed_, other->num_cores_allowed_);
   std::swap(mhz_per_cpu_, other->mhz_per_cpu_);
-  cpu_info_.Swap(&other->cpu_info_);
-  cpu_governor_.Swap(&other->cpu_governor_);
-  cache_size_.Swap(&other->cache_size_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata CPUInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CPUInfo_descriptor_;
-  metadata.reflection = CPUInfo_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[7];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // CPUInfo
 
-// optional int64 num_cores = 1;
+// int64 num_cores = 1;
 void CPUInfo::clear_num_cores() {
   num_cores_ = GOOGLE_LONGLONG(0);
 }
@@ -3873,7 +3716,7 @@ void CPUInfo::set_num_cores(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.CPUInfo.num_cores)
 }
 
-// optional int64 num_cores_allowed = 2;
+// int64 num_cores_allowed = 2;
 void CPUInfo::clear_num_cores_allowed() {
   num_cores_allowed_ = GOOGLE_LONGLONG(0);
 }
@@ -3887,7 +3730,7 @@ void CPUInfo::set_num_cores_allowed(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.CPUInfo.num_cores_allowed)
 }
 
-// optional double mhz_per_cpu = 3;
+// double mhz_per_cpu = 3;
 void CPUInfo::clear_mhz_per_cpu() {
   mhz_per_cpu_ = 0;
 }
@@ -3901,13 +3744,13 @@ void CPUInfo::set_mhz_per_cpu(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.CPUInfo.mhz_per_cpu)
 }
 
-// optional string cpu_info = 4;
+// string cpu_info = 4;
 void CPUInfo::clear_cpu_info() {
   cpu_info_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& CPUInfo::cpu_info() const {
   // @@protoc_insertion_point(field_get:tensorflow.CPUInfo.cpu_info)
-  return cpu_info_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return cpu_info_.Get();
 }
 void CPUInfo::set_cpu_info(const ::std::string& value) {
   
@@ -3967,13 +3810,13 @@ void CPUInfo::unsafe_arena_set_allocated_cpu_info(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.CPUInfo.cpu_info)
 }
 
-// optional string cpu_governor = 5;
+// string cpu_governor = 5;
 void CPUInfo::clear_cpu_governor() {
   cpu_governor_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& CPUInfo::cpu_governor() const {
   // @@protoc_insertion_point(field_get:tensorflow.CPUInfo.cpu_governor)
-  return cpu_governor_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return cpu_governor_.Get();
 }
 void CPUInfo::set_cpu_governor(const ::std::string& value) {
   
@@ -4051,9 +3894,6 @@ CPUInfo::mutable_cache_size() {
   return cache_size_.MutableMap();
 }
 
-inline const CPUInfo* CPUInfo::internal_default_instance() {
-  return &CPUInfo_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4065,7 +3905,9 @@ const int MemoryInfo::kAvailableFieldNumber;
 
 MemoryInfo::MemoryInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.MemoryInfo)
 }
@@ -4073,21 +3915,20 @@ MemoryInfo::MemoryInfo(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.MemoryInfo)
 }
-
-void MemoryInfo::InitAsDefaultInstance() {
-}
-
 MemoryInfo::MemoryInfo(const MemoryInfo& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&total_, &from.total_,
+    reinterpret_cast<char*>(&available_) -
+    reinterpret_cast<char*>(&total_) + sizeof(available_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.MemoryInfo)
 }
 
@@ -4122,16 +3963,14 @@ void MemoryInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* MemoryInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MemoryInfo_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[8].descriptor;
 }
 
 const MemoryInfo& MemoryInfo::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<MemoryInfo> MemoryInfo_default_instance_;
 
 MemoryInfo* MemoryInfo::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<MemoryInfo>(arena);
@@ -4139,27 +3978,8 @@ MemoryInfo* MemoryInfo::New(::google::protobuf::Arena* arena) const {
 
 void MemoryInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.MemoryInfo)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(MemoryInfo, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<MemoryInfo*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(total_, available_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  ::memset(&total_, 0, reinterpret_cast<char*>(&available_) -
+    reinterpret_cast<char*>(&total_) + sizeof(available_));
 }
 
 bool MemoryInfo::MergePartialFromCodedStream(
@@ -4168,13 +3988,14 @@ bool MemoryInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MemoryInfo)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 total = 1;
+      // int64 total = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -4182,14 +4003,13 @@ bool MemoryInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_available;
         break;
       }
 
-      // optional int64 available = 2;
+      // int64 available = 2;
       case 2: {
-        if (tag == 16) {
-         parse_available:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -4197,7 +4017,6 @@ bool MemoryInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -4225,12 +4044,12 @@ failure:
 void MemoryInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.MemoryInfo)
-  // optional int64 total = 1;
+  // int64 total = 1;
   if (this->total() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->total(), output);
   }
 
-  // optional int64 available = 2;
+  // int64 available = 2;
   if (this->available() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->available(), output);
   }
@@ -4240,14 +4059,14 @@ void MemoryInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* MemoryInfo::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.MemoryInfo)
-  // optional int64 total = 1;
+  // int64 total = 1;
   if (this->total() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->total(), target);
   }
 
-  // optional int64 available = 2;
+  // int64 available = 2;
   if (this->available() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->available(), target);
   }
@@ -4260,14 +4079,14 @@ size_t MemoryInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.MemoryInfo)
   size_t total_size = 0;
 
-  // optional int64 total = 1;
+  // int64 total = 1;
   if (this->total() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->total());
   }
 
-  // optional int64 available = 2;
+  // int64 available = 2;
   if (this->available() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -4283,7 +4102,7 @@ size_t MemoryInfo::ByteSizeLong() const {
 
 void MemoryInfo::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MemoryInfo)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const MemoryInfo* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const MemoryInfo>(
           &from);
@@ -4292,21 +4111,14 @@ void MemoryInfo::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MemoryInfo)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void MemoryInfo::MergeFrom(const MemoryInfo& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MemoryInfo)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void MemoryInfo::UnsafeMergeFrom(const MemoryInfo& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.total() != 0) {
     set_total(from.total());
   }
@@ -4326,11 +4138,10 @@ void MemoryInfo::CopyFrom(const MemoryInfo& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MemoryInfo)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool MemoryInfo::IsInitialized() const {
-
   return true;
 }
 
@@ -4339,10 +4150,13 @@ void MemoryInfo::Swap(MemoryInfo* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    MemoryInfo temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    MemoryInfo* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void MemoryInfo::UnsafeArenaSwap(MemoryInfo* other) {
@@ -4353,22 +4167,18 @@ void MemoryInfo::UnsafeArenaSwap(MemoryInfo* other) {
 void MemoryInfo::InternalSwap(MemoryInfo* other) {
   std::swap(total_, other->total_);
   std::swap(available_, other->available_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata MemoryInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MemoryInfo_descriptor_;
-  metadata.reflection = MemoryInfo_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[8];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // MemoryInfo
 
-// optional int64 total = 1;
+// int64 total = 1;
 void MemoryInfo::clear_total() {
   total_ = GOOGLE_LONGLONG(0);
 }
@@ -4382,7 +4192,7 @@ void MemoryInfo::set_total(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.MemoryInfo.total)
 }
 
-// optional int64 available = 2;
+// int64 available = 2;
 void MemoryInfo::clear_available() {
   available_ = GOOGLE_LONGLONG(0);
 }
@@ -4396,9 +4206,6 @@ void MemoryInfo::set_available(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.MemoryInfo.available)
 }
 
-inline const MemoryInfo* MemoryInfo::internal_default_instance() {
-  return &MemoryInfo_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4411,7 +4218,9 @@ const int GPUInfo::kBusIdFieldNumber;
 
 GPUInfo::GPUInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.GPUInfo)
 }
@@ -4419,21 +4228,32 @@ GPUInfo::GPUInfo(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.GPUInfo)
 }
-
-void GPUInfo::InitAsDefaultInstance() {
-}
-
 GPUInfo::GPUInfo(const GPUInfo& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  model_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.model().size() > 0) {
+    model_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.model(),
+      GetArenaNoVirtual());
+  }
+  uuid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.uuid().size() > 0) {
+    uuid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.uuid(),
+      GetArenaNoVirtual());
+  }
+  bus_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.bus_id().size() > 0) {
+    bus_id_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bus_id(),
+      GetArenaNoVirtual());
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.GPUInfo)
 }
 
@@ -4472,16 +4292,14 @@ void GPUInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* GPUInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GPUInfo_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[9].descriptor;
 }
 
 const GPUInfo& GPUInfo::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<GPUInfo> GPUInfo_default_instance_;
 
 GPUInfo* GPUInfo::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<GPUInfo>(arena);
@@ -4500,13 +4318,14 @@ bool GPUInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.GPUInfo)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string model = 1;
+      // string model = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_model()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -4516,14 +4335,13 @@ bool GPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_uuid;
         break;
       }
 
-      // optional string uuid = 2;
+      // string uuid = 2;
       case 2: {
-        if (tag == 18) {
-         parse_uuid:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_uuid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -4533,14 +4351,13 @@ bool GPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_bus_id;
         break;
       }
 
-      // optional string bus_id = 3;
+      // string bus_id = 3;
       case 3: {
-        if (tag == 26) {
-         parse_bus_id:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_bus_id()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -4550,7 +4367,6 @@ bool GPUInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -4578,7 +4394,7 @@ failure:
 void GPUInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.GPUInfo)
-  // optional string model = 1;
+  // string model = 1;
   if (this->model().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->model().data(), this->model().length(),
@@ -4588,7 +4404,7 @@ void GPUInfo::SerializeWithCachedSizes(
       1, this->model(), output);
   }
 
-  // optional string uuid = 2;
+  // string uuid = 2;
   if (this->uuid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->uuid().data(), this->uuid().length(),
@@ -4598,7 +4414,7 @@ void GPUInfo::SerializeWithCachedSizes(
       2, this->uuid(), output);
   }
 
-  // optional string bus_id = 3;
+  // string bus_id = 3;
   if (this->bus_id().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bus_id().data(), this->bus_id().length(),
@@ -4613,9 +4429,9 @@ void GPUInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* GPUInfo::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.GPUInfo)
-  // optional string model = 1;
+  // string model = 1;
   if (this->model().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->model().data(), this->model().length(),
@@ -4626,7 +4442,7 @@ void GPUInfo::SerializeWithCachedSizes(
         1, this->model(), target);
   }
 
-  // optional string uuid = 2;
+  // string uuid = 2;
   if (this->uuid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->uuid().data(), this->uuid().length(),
@@ -4637,7 +4453,7 @@ void GPUInfo::SerializeWithCachedSizes(
         2, this->uuid(), target);
   }
 
-  // optional string bus_id = 3;
+  // string bus_id = 3;
   if (this->bus_id().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bus_id().data(), this->bus_id().length(),
@@ -4656,21 +4472,21 @@ size_t GPUInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.GPUInfo)
   size_t total_size = 0;
 
-  // optional string model = 1;
+  // string model = 1;
   if (this->model().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->model());
   }
 
-  // optional string uuid = 2;
+  // string uuid = 2;
   if (this->uuid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->uuid());
   }
 
-  // optional string bus_id = 3;
+  // string bus_id = 3;
   if (this->bus_id().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -4686,7 +4502,7 @@ size_t GPUInfo::ByteSizeLong() const {
 
 void GPUInfo::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.GPUInfo)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const GPUInfo* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const GPUInfo>(
           &from);
@@ -4695,21 +4511,14 @@ void GPUInfo::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.GPUInfo)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void GPUInfo::MergeFrom(const GPUInfo& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.GPUInfo)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void GPUInfo::UnsafeMergeFrom(const GPUInfo& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.model().size() > 0) {
     set_model(from.model());
   }
@@ -4732,11 +4541,10 @@ void GPUInfo::CopyFrom(const GPUInfo& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.GPUInfo)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool GPUInfo::IsInitialized() const {
-
   return true;
 }
 
@@ -4745,10 +4553,13 @@ void GPUInfo::Swap(GPUInfo* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    GPUInfo temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    GPUInfo* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void GPUInfo::UnsafeArenaSwap(GPUInfo* other) {
@@ -4760,28 +4571,24 @@ void GPUInfo::InternalSwap(GPUInfo* other) {
   model_.Swap(&other->model_);
   uuid_.Swap(&other->uuid_);
   bus_id_.Swap(&other->bus_id_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata GPUInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = GPUInfo_descriptor_;
-  metadata.reflection = GPUInfo_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[9];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // GPUInfo
 
-// optional string model = 1;
+// string model = 1;
 void GPUInfo::clear_model() {
   model_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& GPUInfo::model() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUInfo.model)
-  return model_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return model_.Get();
 }
 void GPUInfo::set_model(const ::std::string& value) {
   
@@ -4841,13 +4648,13 @@ void GPUInfo::unsafe_arena_set_allocated_model(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.GPUInfo.model)
 }
 
-// optional string uuid = 2;
+// string uuid = 2;
 void GPUInfo::clear_uuid() {
   uuid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& GPUInfo::uuid() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUInfo.uuid)
-  return uuid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return uuid_.Get();
 }
 void GPUInfo::set_uuid(const ::std::string& value) {
   
@@ -4907,13 +4714,13 @@ void GPUInfo::unsafe_arena_set_allocated_uuid(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.GPUInfo.uuid)
 }
 
-// optional string bus_id = 3;
+// string bus_id = 3;
 void GPUInfo::clear_bus_id() {
   bus_id_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& GPUInfo::bus_id() const {
   // @@protoc_insertion_point(field_get:tensorflow.GPUInfo.bus_id)
-  return bus_id_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return bus_id_.Get();
 }
 void GPUInfo::set_bus_id(const ::std::string& value) {
   
@@ -4973,9 +4780,6 @@ void GPUInfo::unsafe_arena_set_allocated_bus_id(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.GPUInfo.bus_id)
 }
 
-inline const GPUInfo* GPUInfo::internal_default_instance() {
-  return &GPUInfo_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4991,7 +4795,9 @@ const int PlatformInfo::kVersionFieldNumber;
 
 PlatformInfo::PlatformInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.PlatformInfo)
 }
@@ -4999,21 +4805,47 @@ PlatformInfo::PlatformInfo(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.PlatformInfo)
 }
-
-void PlatformInfo::InitAsDefaultInstance() {
-}
-
 PlatformInfo::PlatformInfo(const PlatformInfo& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  bits_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.bits().size() > 0) {
+    bits_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bits(),
+      GetArenaNoVirtual());
+  }
+  linkage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.linkage().size() > 0) {
+    linkage_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.linkage(),
+      GetArenaNoVirtual());
+  }
+  machine_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.machine().size() > 0) {
+    machine_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.machine(),
+      GetArenaNoVirtual());
+  }
+  release_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.release().size() > 0) {
+    release_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.release(),
+      GetArenaNoVirtual());
+  }
+  system_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.system().size() > 0) {
+    system_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.system(),
+      GetArenaNoVirtual());
+  }
+  version_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.version().size() > 0) {
+    version_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.version(),
+      GetArenaNoVirtual());
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.PlatformInfo)
 }
 
@@ -5058,16 +4890,14 @@ void PlatformInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* PlatformInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return PlatformInfo_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[10].descriptor;
 }
 
 const PlatformInfo& PlatformInfo::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<PlatformInfo> PlatformInfo_default_instance_;
 
 PlatformInfo* PlatformInfo::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<PlatformInfo>(arena);
@@ -5089,13 +4919,14 @@ bool PlatformInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.PlatformInfo)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string bits = 1;
+      // string bits = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_bits()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5105,14 +4936,13 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_linkage;
         break;
       }
 
-      // optional string linkage = 2;
+      // string linkage = 2;
       case 2: {
-        if (tag == 18) {
-         parse_linkage:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_linkage()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5122,14 +4952,13 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_machine;
         break;
       }
 
-      // optional string machine = 3;
+      // string machine = 3;
       case 3: {
-        if (tag == 26) {
-         parse_machine:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_machine()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5139,14 +4968,13 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_release;
         break;
       }
 
-      // optional string release = 4;
+      // string release = 4;
       case 4: {
-        if (tag == 34) {
-         parse_release:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_release()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5156,14 +4984,13 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_system;
         break;
       }
 
-      // optional string system = 5;
+      // string system = 5;
       case 5: {
-        if (tag == 42) {
-         parse_system:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_system()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5173,14 +5000,13 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_version;
         break;
       }
 
-      // optional string version = 6;
+      // string version = 6;
       case 6: {
-        if (tag == 50) {
-         parse_version:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_version()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5190,7 +5016,6 @@ bool PlatformInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -5218,7 +5043,7 @@ failure:
 void PlatformInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.PlatformInfo)
-  // optional string bits = 1;
+  // string bits = 1;
   if (this->bits().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bits().data(), this->bits().length(),
@@ -5228,7 +5053,7 @@ void PlatformInfo::SerializeWithCachedSizes(
       1, this->bits(), output);
   }
 
-  // optional string linkage = 2;
+  // string linkage = 2;
   if (this->linkage().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->linkage().data(), this->linkage().length(),
@@ -5238,7 +5063,7 @@ void PlatformInfo::SerializeWithCachedSizes(
       2, this->linkage(), output);
   }
 
-  // optional string machine = 3;
+  // string machine = 3;
   if (this->machine().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->machine().data(), this->machine().length(),
@@ -5248,7 +5073,7 @@ void PlatformInfo::SerializeWithCachedSizes(
       3, this->machine(), output);
   }
 
-  // optional string release = 4;
+  // string release = 4;
   if (this->release().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->release().data(), this->release().length(),
@@ -5258,7 +5083,7 @@ void PlatformInfo::SerializeWithCachedSizes(
       4, this->release(), output);
   }
 
-  // optional string system = 5;
+  // string system = 5;
   if (this->system().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->system().data(), this->system().length(),
@@ -5268,7 +5093,7 @@ void PlatformInfo::SerializeWithCachedSizes(
       5, this->system(), output);
   }
 
-  // optional string version = 6;
+  // string version = 6;
   if (this->version().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->version().data(), this->version().length(),
@@ -5283,9 +5108,9 @@ void PlatformInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* PlatformInfo::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.PlatformInfo)
-  // optional string bits = 1;
+  // string bits = 1;
   if (this->bits().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bits().data(), this->bits().length(),
@@ -5296,7 +5121,7 @@ void PlatformInfo::SerializeWithCachedSizes(
         1, this->bits(), target);
   }
 
-  // optional string linkage = 2;
+  // string linkage = 2;
   if (this->linkage().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->linkage().data(), this->linkage().length(),
@@ -5307,7 +5132,7 @@ void PlatformInfo::SerializeWithCachedSizes(
         2, this->linkage(), target);
   }
 
-  // optional string machine = 3;
+  // string machine = 3;
   if (this->machine().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->machine().data(), this->machine().length(),
@@ -5318,7 +5143,7 @@ void PlatformInfo::SerializeWithCachedSizes(
         3, this->machine(), target);
   }
 
-  // optional string release = 4;
+  // string release = 4;
   if (this->release().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->release().data(), this->release().length(),
@@ -5329,7 +5154,7 @@ void PlatformInfo::SerializeWithCachedSizes(
         4, this->release(), target);
   }
 
-  // optional string system = 5;
+  // string system = 5;
   if (this->system().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->system().data(), this->system().length(),
@@ -5340,7 +5165,7 @@ void PlatformInfo::SerializeWithCachedSizes(
         5, this->system(), target);
   }
 
-  // optional string version = 6;
+  // string version = 6;
   if (this->version().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->version().data(), this->version().length(),
@@ -5359,42 +5184,42 @@ size_t PlatformInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.PlatformInfo)
   size_t total_size = 0;
 
-  // optional string bits = 1;
+  // string bits = 1;
   if (this->bits().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->bits());
   }
 
-  // optional string linkage = 2;
+  // string linkage = 2;
   if (this->linkage().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->linkage());
   }
 
-  // optional string machine = 3;
+  // string machine = 3;
   if (this->machine().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->machine());
   }
 
-  // optional string release = 4;
+  // string release = 4;
   if (this->release().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->release());
   }
 
-  // optional string system = 5;
+  // string system = 5;
   if (this->system().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->system());
   }
 
-  // optional string version = 6;
+  // string version = 6;
   if (this->version().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -5410,7 +5235,7 @@ size_t PlatformInfo::ByteSizeLong() const {
 
 void PlatformInfo::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.PlatformInfo)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const PlatformInfo* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const PlatformInfo>(
           &from);
@@ -5419,21 +5244,14 @@ void PlatformInfo::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.PlatformInfo)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void PlatformInfo::MergeFrom(const PlatformInfo& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.PlatformInfo)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void PlatformInfo::UnsafeMergeFrom(const PlatformInfo& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.bits().size() > 0) {
     set_bits(from.bits());
   }
@@ -5465,11 +5283,10 @@ void PlatformInfo::CopyFrom(const PlatformInfo& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.PlatformInfo)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool PlatformInfo::IsInitialized() const {
-
   return true;
 }
 
@@ -5478,10 +5295,13 @@ void PlatformInfo::Swap(PlatformInfo* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    PlatformInfo temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    PlatformInfo* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void PlatformInfo::UnsafeArenaSwap(PlatformInfo* other) {
@@ -5496,28 +5316,24 @@ void PlatformInfo::InternalSwap(PlatformInfo* other) {
   release_.Swap(&other->release_);
   system_.Swap(&other->system_);
   version_.Swap(&other->version_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata PlatformInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = PlatformInfo_descriptor_;
-  metadata.reflection = PlatformInfo_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[10];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PlatformInfo
 
-// optional string bits = 1;
+// string bits = 1;
 void PlatformInfo::clear_bits() {
   bits_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::bits() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.bits)
-  return bits_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return bits_.Get();
 }
 void PlatformInfo::set_bits(const ::std::string& value) {
   
@@ -5577,13 +5393,13 @@ void PlatformInfo::unsafe_arena_set_allocated_bits(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.bits)
 }
 
-// optional string linkage = 2;
+// string linkage = 2;
 void PlatformInfo::clear_linkage() {
   linkage_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::linkage() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.linkage)
-  return linkage_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return linkage_.Get();
 }
 void PlatformInfo::set_linkage(const ::std::string& value) {
   
@@ -5643,13 +5459,13 @@ void PlatformInfo::unsafe_arena_set_allocated_linkage(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.linkage)
 }
 
-// optional string machine = 3;
+// string machine = 3;
 void PlatformInfo::clear_machine() {
   machine_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::machine() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.machine)
-  return machine_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return machine_.Get();
 }
 void PlatformInfo::set_machine(const ::std::string& value) {
   
@@ -5709,13 +5525,13 @@ void PlatformInfo::unsafe_arena_set_allocated_machine(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.machine)
 }
 
-// optional string release = 4;
+// string release = 4;
 void PlatformInfo::clear_release() {
   release_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::release() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.release)
-  return release_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return release_.Get();
 }
 void PlatformInfo::set_release(const ::std::string& value) {
   
@@ -5775,13 +5591,13 @@ void PlatformInfo::unsafe_arena_set_allocated_release(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.release)
 }
 
-// optional string system = 5;
+// string system = 5;
 void PlatformInfo::clear_system() {
   system_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::system() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.system)
-  return system_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return system_.Get();
 }
 void PlatformInfo::set_system(const ::std::string& value) {
   
@@ -5841,13 +5657,13 @@ void PlatformInfo::unsafe_arena_set_allocated_system(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.system)
 }
 
-// optional string version = 6;
+// string version = 6;
 void PlatformInfo::clear_version() {
   version_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& PlatformInfo::version() const {
   // @@protoc_insertion_point(field_get:tensorflow.PlatformInfo.version)
-  return version_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return version_.Get();
 }
 void PlatformInfo::set_version(const ::std::string& value) {
   
@@ -5907,9 +5723,6 @@ void PlatformInfo::unsafe_arena_set_allocated_version(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.PlatformInfo.version)
 }
 
-inline const PlatformInfo* PlatformInfo::internal_default_instance() {
-  return &PlatformInfo_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -5923,7 +5736,9 @@ const int AvailableDeviceInfo::kPhysicalDescriptionFieldNumber;
 
 AvailableDeviceInfo::AvailableDeviceInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.AvailableDeviceInfo)
 }
@@ -5931,21 +5746,33 @@ AvailableDeviceInfo::AvailableDeviceInfo(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.AvailableDeviceInfo)
 }
-
-void AvailableDeviceInfo::InitAsDefaultInstance() {
-}
-
 AvailableDeviceInfo::AvailableDeviceInfo(const AvailableDeviceInfo& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name(),
+      GetArenaNoVirtual());
+  }
+  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.type().size() > 0) {
+    type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type(),
+      GetArenaNoVirtual());
+  }
+  physical_description_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.physical_description().size() > 0) {
+    physical_description_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.physical_description(),
+      GetArenaNoVirtual());
+  }
+  memory_limit_ = from.memory_limit_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.AvailableDeviceInfo)
 }
 
@@ -5985,16 +5812,14 @@ void AvailableDeviceInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* AvailableDeviceInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AvailableDeviceInfo_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[11].descriptor;
 }
 
 const AvailableDeviceInfo& AvailableDeviceInfo::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<AvailableDeviceInfo> AvailableDeviceInfo_default_instance_;
 
 AvailableDeviceInfo* AvailableDeviceInfo::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<AvailableDeviceInfo>(arena);
@@ -6004,8 +5829,8 @@ void AvailableDeviceInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.AvailableDeviceInfo)
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  memory_limit_ = GOOGLE_LONGLONG(0);
   physical_description_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  memory_limit_ = GOOGLE_LONGLONG(0);
 }
 
 bool AvailableDeviceInfo::MergePartialFromCodedStream(
@@ -6014,13 +5839,14 @@ bool AvailableDeviceInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.AvailableDeviceInfo)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string name = 1;
+      // string name = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -6030,14 +5856,13 @@ bool AvailableDeviceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_type;
         break;
       }
 
-      // optional string type = 2;
+      // string type = 2;
       case 2: {
-        if (tag == 18) {
-         parse_type:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_type()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -6047,14 +5872,13 @@ bool AvailableDeviceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_memory_limit;
         break;
       }
 
-      // optional int64 memory_limit = 3;
+      // int64 memory_limit = 3;
       case 3: {
-        if (tag == 24) {
-         parse_memory_limit:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -6062,14 +5886,13 @@ bool AvailableDeviceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_physical_description;
         break;
       }
 
-      // optional string physical_description = 4;
+      // string physical_description = 4;
       case 4: {
-        if (tag == 34) {
-         parse_physical_description:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_physical_description()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -6079,7 +5902,6 @@ bool AvailableDeviceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -6107,7 +5929,7 @@ failure:
 void AvailableDeviceInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.AvailableDeviceInfo)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -6117,7 +5939,7 @@ void AvailableDeviceInfo::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // optional string type = 2;
+  // string type = 2;
   if (this->type().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
@@ -6127,12 +5949,12 @@ void AvailableDeviceInfo::SerializeWithCachedSizes(
       2, this->type(), output);
   }
 
-  // optional int64 memory_limit = 3;
+  // int64 memory_limit = 3;
   if (this->memory_limit() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->memory_limit(), output);
   }
 
-  // optional string physical_description = 4;
+  // string physical_description = 4;
   if (this->physical_description().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->physical_description().data(), this->physical_description().length(),
@@ -6147,9 +5969,9 @@ void AvailableDeviceInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* AvailableDeviceInfo::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.AvailableDeviceInfo)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -6160,7 +5982,7 @@ void AvailableDeviceInfo::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // optional string type = 2;
+  // string type = 2;
   if (this->type().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
@@ -6171,12 +5993,12 @@ void AvailableDeviceInfo::SerializeWithCachedSizes(
         2, this->type(), target);
   }
 
-  // optional int64 memory_limit = 3;
+  // int64 memory_limit = 3;
   if (this->memory_limit() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->memory_limit(), target);
   }
 
-  // optional string physical_description = 4;
+  // string physical_description = 4;
   if (this->physical_description().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->physical_description().data(), this->physical_description().length(),
@@ -6195,32 +6017,32 @@ size_t AvailableDeviceInfo::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.AvailableDeviceInfo)
   size_t total_size = 0;
 
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
   }
 
-  // optional string type = 2;
+  // string type = 2;
   if (this->type().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->type());
   }
 
-  // optional int64 memory_limit = 3;
-  if (this->memory_limit() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->memory_limit());
-  }
-
-  // optional string physical_description = 4;
+  // string physical_description = 4;
   if (this->physical_description().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->physical_description());
+  }
+
+  // int64 memory_limit = 3;
+  if (this->memory_limit() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->memory_limit());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -6232,7 +6054,7 @@ size_t AvailableDeviceInfo::ByteSizeLong() const {
 
 void AvailableDeviceInfo::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.AvailableDeviceInfo)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const AvailableDeviceInfo* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const AvailableDeviceInfo>(
           &from);
@@ -6241,32 +6063,25 @@ void AvailableDeviceInfo::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.AvailableDeviceInfo)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void AvailableDeviceInfo::MergeFrom(const AvailableDeviceInfo& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.AvailableDeviceInfo)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void AvailableDeviceInfo::UnsafeMergeFrom(const AvailableDeviceInfo& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.name().size() > 0) {
     set_name(from.name());
   }
   if (from.type().size() > 0) {
     set_type(from.type());
   }
-  if (from.memory_limit() != 0) {
-    set_memory_limit(from.memory_limit());
-  }
   if (from.physical_description().size() > 0) {
     set_physical_description(from.physical_description());
+  }
+  if (from.memory_limit() != 0) {
+    set_memory_limit(from.memory_limit());
   }
 }
 
@@ -6281,11 +6096,10 @@ void AvailableDeviceInfo::CopyFrom(const AvailableDeviceInfo& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.AvailableDeviceInfo)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool AvailableDeviceInfo::IsInitialized() const {
-
   return true;
 }
 
@@ -6294,10 +6108,13 @@ void AvailableDeviceInfo::Swap(AvailableDeviceInfo* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    AvailableDeviceInfo temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    AvailableDeviceInfo* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void AvailableDeviceInfo::UnsafeArenaSwap(AvailableDeviceInfo* other) {
@@ -6308,30 +6125,26 @@ void AvailableDeviceInfo::UnsafeArenaSwap(AvailableDeviceInfo* other) {
 void AvailableDeviceInfo::InternalSwap(AvailableDeviceInfo* other) {
   name_.Swap(&other->name_);
   type_.Swap(&other->type_);
-  std::swap(memory_limit_, other->memory_limit_);
   physical_description_.Swap(&other->physical_description_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(memory_limit_, other->memory_limit_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata AvailableDeviceInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = AvailableDeviceInfo_descriptor_;
-  metadata.reflection = AvailableDeviceInfo_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[11];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // AvailableDeviceInfo
 
-// optional string name = 1;
+// string name = 1;
 void AvailableDeviceInfo::clear_name() {
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& AvailableDeviceInfo::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.AvailableDeviceInfo.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get();
 }
 void AvailableDeviceInfo::set_name(const ::std::string& value) {
   
@@ -6391,13 +6204,13 @@ void AvailableDeviceInfo::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AvailableDeviceInfo.name)
 }
 
-// optional string type = 2;
+// string type = 2;
 void AvailableDeviceInfo::clear_type() {
   type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& AvailableDeviceInfo::type() const {
   // @@protoc_insertion_point(field_get:tensorflow.AvailableDeviceInfo.type)
-  return type_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.Get();
 }
 void AvailableDeviceInfo::set_type(const ::std::string& value) {
   
@@ -6457,7 +6270,7 @@ void AvailableDeviceInfo::unsafe_arena_set_allocated_type(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AvailableDeviceInfo.type)
 }
 
-// optional int64 memory_limit = 3;
+// int64 memory_limit = 3;
 void AvailableDeviceInfo::clear_memory_limit() {
   memory_limit_ = GOOGLE_LONGLONG(0);
 }
@@ -6471,13 +6284,13 @@ void AvailableDeviceInfo::set_memory_limit(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.AvailableDeviceInfo.memory_limit)
 }
 
-// optional string physical_description = 4;
+// string physical_description = 4;
 void AvailableDeviceInfo::clear_physical_description() {
   physical_description_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& AvailableDeviceInfo::physical_description() const {
   // @@protoc_insertion_point(field_get:tensorflow.AvailableDeviceInfo.physical_description)
-  return physical_description_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return physical_description_.Get();
 }
 void AvailableDeviceInfo::set_physical_description(const ::std::string& value) {
   
@@ -6537,9 +6350,6 @@ void AvailableDeviceInfo::unsafe_arena_set_allocated_physical_description(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AvailableDeviceInfo.physical_description)
 }
 
-inline const AvailableDeviceInfo* AvailableDeviceInfo::internal_default_instance() {
-  return &AvailableDeviceInfo_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -6697,7 +6507,9 @@ const int MachineConfiguration::kMemoryInfoFieldNumber;
 
 MachineConfiguration::MachineConfiguration()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.MachineConfiguration)
 }
@@ -6707,36 +6519,52 @@ MachineConfiguration::MachineConfiguration(::google::protobuf::Arena* arena)
   device_info_(arena),
   available_device_info_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.MachineConfiguration)
 }
-
-void MachineConfiguration::InitAsDefaultInstance() {
-  platform_info_ = const_cast< ::tensorflow::PlatformInfo*>(
-      ::tensorflow::PlatformInfo::internal_default_instance());
-  cpu_info_ = const_cast< ::tensorflow::CPUInfo*>(
-      ::tensorflow::CPUInfo::internal_default_instance());
-  memory_info_ = const_cast< ::tensorflow::MemoryInfo*>(
-      ::tensorflow::MemoryInfo::internal_default_instance());
-}
-
 MachineConfiguration::MachineConfiguration(const MachineConfiguration& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      device_info_(from.device_info_),
+      available_device_info_(from.available_device_info_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  hostname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.hostname().size() > 0) {
+    hostname_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.hostname(),
+      GetArenaNoVirtual());
+  }
+  serial_identifier_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.serial_identifier().size() > 0) {
+    serial_identifier_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.serial_identifier(),
+      GetArenaNoVirtual());
+  }
+  if (from.has_platform_info()) {
+    platform_info_ = new ::tensorflow::PlatformInfo(*from.platform_info_);
+  } else {
+    platform_info_ = NULL;
+  }
+  if (from.has_cpu_info()) {
+    cpu_info_ = new ::tensorflow::CPUInfo(*from.cpu_info_);
+  } else {
+    cpu_info_ = NULL;
+  }
+  if (from.has_memory_info()) {
+    memory_info_ = new ::tensorflow::MemoryInfo(*from.memory_info_);
+  } else {
+    memory_info_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.MachineConfiguration)
 }
 
 void MachineConfiguration::SharedCtor() {
   hostname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   serial_identifier_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  platform_info_ = NULL;
-  cpu_info_ = NULL;
-  memory_info_ = NULL;
+  ::memset(&platform_info_, 0, reinterpret_cast<char*>(&memory_info_) -
+    reinterpret_cast<char*>(&platform_info_) + sizeof(memory_info_));
   _cached_size_ = 0;
 }
 
@@ -6753,9 +6581,13 @@ void MachineConfiguration::SharedDtor() {
 
   hostname_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
   serial_identifier_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
-  if (this != &MachineConfiguration_default_instance_.get()) {
+  if (this != internal_default_instance()) {
     delete platform_info_;
+  }
+  if (this != internal_default_instance()) {
     delete cpu_info_;
+  }
+  if (this != internal_default_instance()) {
     delete memory_info_;
   }
 }
@@ -6772,16 +6604,14 @@ void MachineConfiguration::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* MachineConfiguration::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MachineConfiguration_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[12].descriptor;
 }
 
 const MachineConfiguration& MachineConfiguration::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<MachineConfiguration> MachineConfiguration_default_instance_;
 
 MachineConfiguration* MachineConfiguration::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<MachineConfiguration>(arena);
@@ -6789,16 +6619,22 @@ MachineConfiguration* MachineConfiguration::New(::google::protobuf::Arena* arena
 
 void MachineConfiguration::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.MachineConfiguration)
-  hostname_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  serial_identifier_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (GetArenaNoVirtual() == NULL && platform_info_ != NULL) delete platform_info_;
-  platform_info_ = NULL;
-  if (GetArenaNoVirtual() == NULL && cpu_info_ != NULL) delete cpu_info_;
-  cpu_info_ = NULL;
-  if (GetArenaNoVirtual() == NULL && memory_info_ != NULL) delete memory_info_;
-  memory_info_ = NULL;
   device_info_.Clear();
   available_device_info_.Clear();
+  hostname_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  serial_identifier_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  if (GetArenaNoVirtual() == NULL && platform_info_ != NULL) {
+    delete platform_info_;
+  }
+  platform_info_ = NULL;
+  if (GetArenaNoVirtual() == NULL && cpu_info_ != NULL) {
+    delete cpu_info_;
+  }
+  cpu_info_ = NULL;
+  if (GetArenaNoVirtual() == NULL && memory_info_ != NULL) {
+    delete memory_info_;
+  }
+  memory_info_ = NULL;
 }
 
 bool MachineConfiguration::MergePartialFromCodedStream(
@@ -6807,13 +6643,14 @@ bool MachineConfiguration::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.MachineConfiguration)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string hostname = 1;
+      // string hostname = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_hostname()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -6823,86 +6660,77 @@ bool MachineConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_platform_info;
         break;
       }
 
-      // optional .tensorflow.PlatformInfo platform_info = 2;
+      // .tensorflow.PlatformInfo platform_info = 2;
       case 2: {
-        if (tag == 18) {
-         parse_platform_info:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_platform_info()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_cpu_info;
         break;
       }
 
-      // optional .tensorflow.CPUInfo cpu_info = 3;
+      // .tensorflow.CPUInfo cpu_info = 3;
       case 3: {
-        if (tag == 26) {
-         parse_cpu_info:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cpu_info()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_device_info;
         break;
       }
 
       // repeated .google.protobuf.Any device_info = 4;
       case 4: {
-        if (tag == 34) {
-         parse_device_info:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_device_info:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_device_info()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_loop_device_info;
-        if (input->ExpectTag(42)) goto parse_loop_available_device_info;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
       // repeated .tensorflow.AvailableDeviceInfo available_device_info = 5;
       case 5: {
-        if (tag == 42) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_available_device_info:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_available_device_info()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_loop_available_device_info;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(50)) goto parse_memory_info;
         break;
       }
 
-      // optional .tensorflow.MemoryInfo memory_info = 6;
+      // .tensorflow.MemoryInfo memory_info = 6;
       case 6: {
-        if (tag == 50) {
-         parse_memory_info:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_memory_info()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_serial_identifier;
         break;
       }
 
-      // optional string serial_identifier = 7;
+      // string serial_identifier = 7;
       case 7: {
-        if (tag == 58) {
-         parse_serial_identifier:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_serial_identifier()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -6912,7 +6740,6 @@ bool MachineConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -6940,7 +6767,7 @@ failure:
 void MachineConfiguration::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.MachineConfiguration)
-  // optional string hostname = 1;
+  // string hostname = 1;
   if (this->hostname().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->hostname().data(), this->hostname().length(),
@@ -6950,13 +6777,13 @@ void MachineConfiguration::SerializeWithCachedSizes(
       1, this->hostname(), output);
   }
 
-  // optional .tensorflow.PlatformInfo platform_info = 2;
+  // .tensorflow.PlatformInfo platform_info = 2;
   if (this->has_platform_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->platform_info_, output);
   }
 
-  // optional .tensorflow.CPUInfo cpu_info = 3;
+  // .tensorflow.CPUInfo cpu_info = 3;
   if (this->has_cpu_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->cpu_info_, output);
@@ -6974,13 +6801,13 @@ void MachineConfiguration::SerializeWithCachedSizes(
       5, this->available_device_info(i), output);
   }
 
-  // optional .tensorflow.MemoryInfo memory_info = 6;
+  // .tensorflow.MemoryInfo memory_info = 6;
   if (this->has_memory_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, *this->memory_info_, output);
   }
 
-  // optional string serial_identifier = 7;
+  // string serial_identifier = 7;
   if (this->serial_identifier().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->serial_identifier().data(), this->serial_identifier().length(),
@@ -6995,9 +6822,9 @@ void MachineConfiguration::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* MachineConfiguration::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.MachineConfiguration)
-  // optional string hostname = 1;
+  // string hostname = 1;
   if (this->hostname().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->hostname().data(), this->hostname().length(),
@@ -7008,14 +6835,14 @@ void MachineConfiguration::SerializeWithCachedSizes(
         1, this->hostname(), target);
   }
 
-  // optional .tensorflow.PlatformInfo platform_info = 2;
+  // .tensorflow.PlatformInfo platform_info = 2;
   if (this->has_platform_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         2, *this->platform_info_, false, target);
   }
 
-  // optional .tensorflow.CPUInfo cpu_info = 3;
+  // .tensorflow.CPUInfo cpu_info = 3;
   if (this->has_cpu_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -7036,14 +6863,14 @@ void MachineConfiguration::SerializeWithCachedSizes(
         5, this->available_device_info(i), false, target);
   }
 
-  // optional .tensorflow.MemoryInfo memory_info = 6;
+  // .tensorflow.MemoryInfo memory_info = 6;
   if (this->has_memory_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         6, *this->memory_info_, false, target);
   }
 
-  // optional string serial_identifier = 7;
+  // string serial_identifier = 7;
   if (this->serial_identifier().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->serial_identifier().data(), this->serial_identifier().length(),
@@ -7061,41 +6888,6 @@ void MachineConfiguration::SerializeWithCachedSizes(
 size_t MachineConfiguration::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.MachineConfiguration)
   size_t total_size = 0;
-
-  // optional string hostname = 1;
-  if (this->hostname().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->hostname());
-  }
-
-  // optional string serial_identifier = 7;
-  if (this->serial_identifier().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->serial_identifier());
-  }
-
-  // optional .tensorflow.PlatformInfo platform_info = 2;
-  if (this->has_platform_info()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->platform_info_);
-  }
-
-  // optional .tensorflow.CPUInfo cpu_info = 3;
-  if (this->has_cpu_info()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->cpu_info_);
-  }
-
-  // optional .tensorflow.MemoryInfo memory_info = 6;
-  if (this->has_memory_info()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->memory_info_);
-  }
 
   // repeated .google.protobuf.Any device_info = 4;
   {
@@ -7119,6 +6911,41 @@ size_t MachineConfiguration::ByteSizeLong() const {
     }
   }
 
+  // string hostname = 1;
+  if (this->hostname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->hostname());
+  }
+
+  // string serial_identifier = 7;
+  if (this->serial_identifier().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->serial_identifier());
+  }
+
+  // .tensorflow.PlatformInfo platform_info = 2;
+  if (this->has_platform_info()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->platform_info_);
+  }
+
+  // .tensorflow.CPUInfo cpu_info = 3;
+  if (this->has_cpu_info()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->cpu_info_);
+  }
+
+  // .tensorflow.MemoryInfo memory_info = 6;
+  if (this->has_memory_info()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->memory_info_);
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -7128,7 +6955,7 @@ size_t MachineConfiguration::ByteSizeLong() const {
 
 void MachineConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.MachineConfiguration)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const MachineConfiguration* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const MachineConfiguration>(
           &from);
@@ -7137,21 +6964,14 @@ void MachineConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.MachineConfiguration)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void MachineConfiguration::MergeFrom(const MachineConfiguration& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.MachineConfiguration)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void MachineConfiguration::UnsafeMergeFrom(const MachineConfiguration& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   device_info_.MergeFrom(from.device_info_);
   available_device_info_.MergeFrom(from.available_device_info_);
   if (from.hostname().size() > 0) {
@@ -7182,11 +7002,10 @@ void MachineConfiguration::CopyFrom(const MachineConfiguration& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.MachineConfiguration)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool MachineConfiguration::IsInitialized() const {
-
   return true;
 }
 
@@ -7195,10 +7014,13 @@ void MachineConfiguration::Swap(MachineConfiguration* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    MachineConfiguration temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    MachineConfiguration* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void MachineConfiguration::UnsafeArenaSwap(MachineConfiguration* other) {
@@ -7207,35 +7029,31 @@ void MachineConfiguration::UnsafeArenaSwap(MachineConfiguration* other) {
   InternalSwap(other);
 }
 void MachineConfiguration::InternalSwap(MachineConfiguration* other) {
+  device_info_.UnsafeArenaSwap(&other->device_info_);
+  available_device_info_.UnsafeArenaSwap(&other->available_device_info_);
   hostname_.Swap(&other->hostname_);
   serial_identifier_.Swap(&other->serial_identifier_);
   std::swap(platform_info_, other->platform_info_);
   std::swap(cpu_info_, other->cpu_info_);
-  device_info_.UnsafeArenaSwap(&other->device_info_);
-  available_device_info_.UnsafeArenaSwap(&other->available_device_info_);
   std::swap(memory_info_, other->memory_info_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata MachineConfiguration::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MachineConfiguration_descriptor_;
-  metadata.reflection = MachineConfiguration_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[12];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // MachineConfiguration
 
-// optional string hostname = 1;
+// string hostname = 1;
 void MachineConfiguration::clear_hostname() {
   hostname_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& MachineConfiguration::hostname() const {
   // @@protoc_insertion_point(field_get:tensorflow.MachineConfiguration.hostname)
-  return hostname_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return hostname_.Get();
 }
 void MachineConfiguration::set_hostname(const ::std::string& value) {
   
@@ -7295,13 +7113,13 @@ void MachineConfiguration::unsafe_arena_set_allocated_hostname(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MachineConfiguration.hostname)
 }
 
-// optional string serial_identifier = 7;
+// string serial_identifier = 7;
 void MachineConfiguration::clear_serial_identifier() {
   serial_identifier_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& MachineConfiguration::serial_identifier() const {
   // @@protoc_insertion_point(field_get:tensorflow.MachineConfiguration.serial_identifier)
-  return serial_identifier_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return serial_identifier_.Get();
 }
 void MachineConfiguration::set_serial_identifier(const ::std::string& value) {
   
@@ -7361,7 +7179,7 @@ void MachineConfiguration::unsafe_arena_set_allocated_serial_identifier(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.MachineConfiguration.serial_identifier)
 }
 
-// optional .tensorflow.PlatformInfo platform_info = 2;
+// .tensorflow.PlatformInfo platform_info = 2;
 bool MachineConfiguration::has_platform_info() const {
   return this != internal_default_instance() && platform_info_ != NULL;
 }
@@ -7410,7 +7228,7 @@ const ::tensorflow::PlatformInfo& MachineConfiguration::platform_info() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MachineConfiguration.platform_info)
 }
 
-// optional .tensorflow.CPUInfo cpu_info = 3;
+// .tensorflow.CPUInfo cpu_info = 3;
 bool MachineConfiguration::has_cpu_info() const {
   return this != internal_default_instance() && cpu_info_ != NULL;
 }
@@ -7519,7 +7337,7 @@ MachineConfiguration::available_device_info() const {
   return available_device_info_;
 }
 
-// optional .tensorflow.MemoryInfo memory_info = 6;
+// .tensorflow.MemoryInfo memory_info = 6;
 bool MachineConfiguration::has_memory_info() const {
   return this != internal_default_instance() && memory_info_ != NULL;
 }
@@ -7568,9 +7386,6 @@ const ::tensorflow::MemoryInfo& MachineConfiguration::memory_info() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.MachineConfiguration.memory_info)
 }
 
-inline const MachineConfiguration* MachineConfiguration::internal_default_instance() {
-  return &MachineConfiguration_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -7581,7 +7396,9 @@ const int RunConfiguration::kArgumentFieldNumber;
 
 RunConfiguration::RunConfiguration()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.RunConfiguration)
 }
@@ -7590,21 +7407,18 @@ RunConfiguration::RunConfiguration(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   argument_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.RunConfiguration)
 }
-
-void RunConfiguration::InitAsDefaultInstance() {
-}
-
 RunConfiguration::RunConfiguration(const RunConfiguration& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      argument_(from.argument_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:tensorflow.RunConfiguration)
 }
 
@@ -7637,16 +7451,14 @@ void RunConfiguration::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* RunConfiguration::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RunConfiguration_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[13].descriptor;
 }
 
 const RunConfiguration& RunConfiguration::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<RunConfiguration> RunConfiguration_default_instance_;
 
 RunConfiguration* RunConfiguration::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<RunConfiguration>(arena);
@@ -7663,14 +7475,14 @@ bool RunConfiguration::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.RunConfiguration)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated string argument = 1;
       case 1: {
-        if (tag == 10) {
-         parse_argument:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->add_argument()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -7681,8 +7493,6 @@ bool RunConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_argument;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -7711,7 +7521,7 @@ void RunConfiguration::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.RunConfiguration)
   // repeated string argument = 1;
-  for (int i = 0; i < this->argument_size(); i++) {
+  for (int i = 0, n = this->argument_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->argument(i).data(), this->argument(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -7725,10 +7535,10 @@ void RunConfiguration::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* RunConfiguration::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.RunConfiguration)
   // repeated string argument = 1;
-  for (int i = 0; i < this->argument_size(); i++) {
+  for (int i = 0, n = this->argument_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->argument(i).data(), this->argument(i).length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
@@ -7748,7 +7558,7 @@ size_t RunConfiguration::ByteSizeLong() const {
   // repeated string argument = 1;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->argument_size());
-  for (int i = 0; i < this->argument_size(); i++) {
+  for (int i = 0, n = this->argument_size(); i < n; i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
       this->argument(i));
   }
@@ -7762,7 +7572,7 @@ size_t RunConfiguration::ByteSizeLong() const {
 
 void RunConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.RunConfiguration)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const RunConfiguration* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const RunConfiguration>(
           &from);
@@ -7771,22 +7581,15 @@ void RunConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.RunConfiguration)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void RunConfiguration::MergeFrom(const RunConfiguration& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.RunConfiguration)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void RunConfiguration::UnsafeMergeFrom(const RunConfiguration& from) {
-  GOOGLE_DCHECK(&from != this);
-  argument_.UnsafeMergeFrom(from.argument_);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  argument_.MergeFrom(from.argument_);
 }
 
 void RunConfiguration::CopyFrom(const ::google::protobuf::Message& from) {
@@ -7800,11 +7603,10 @@ void RunConfiguration::CopyFrom(const RunConfiguration& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.RunConfiguration)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool RunConfiguration::IsInitialized() const {
-
   return true;
 }
 
@@ -7813,10 +7615,13 @@ void RunConfiguration::Swap(RunConfiguration* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    RunConfiguration temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    RunConfiguration* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void RunConfiguration::UnsafeArenaSwap(RunConfiguration* other) {
@@ -7826,16 +7631,12 @@ void RunConfiguration::UnsafeArenaSwap(RunConfiguration* other) {
 }
 void RunConfiguration::InternalSwap(RunConfiguration* other) {
   argument_.UnsafeArenaSwap(&other->argument_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata RunConfiguration::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = RunConfiguration_descriptor_;
-  metadata.reflection = RunConfiguration_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[13];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7860,6 +7661,12 @@ void RunConfiguration::set_argument(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:tensorflow.RunConfiguration.argument)
   argument_.Mutable(index)->assign(value);
 }
+#if LANG_CXX11
+void RunConfiguration::set_argument(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:tensorflow.RunConfiguration.argument)
+  argument_.Mutable(index)->assign(std::move(value));
+}
+#endif
 void RunConfiguration::set_argument(int index, const char* value) {
   argument_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:tensorflow.RunConfiguration.argument)
@@ -7877,6 +7684,12 @@ void RunConfiguration::add_argument(const ::std::string& value) {
   argument_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:tensorflow.RunConfiguration.argument)
 }
+#if LANG_CXX11
+void RunConfiguration::add_argument(::std::string&& value) {
+  argument_.Add()->assign(std::move(value));
+  // @@protoc_insertion_point(field_add:tensorflow.RunConfiguration.argument)
+}
+#endif
 void RunConfiguration::add_argument(const char* value) {
   argument_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:tensorflow.RunConfiguration.argument)
@@ -7896,9 +7709,6 @@ RunConfiguration::mutable_argument() {
   return &argument_;
 }
 
-inline const RunConfiguration* RunConfiguration::internal_default_instance() {
-  return &RunConfiguration_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -8148,11 +7958,14 @@ const int TestResults::kRunTimeFieldNumber;
 const int TestResults::kMachineConfigurationFieldNumber;
 const int TestResults::kRunConfigurationFieldNumber;
 const int TestResults::kNameFieldNumber;
+const int TestResults::kBenchmarkTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 TestResults::TestResults()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.TestResults)
 }
@@ -8160,44 +7973,63 @@ TestResults::TestResults(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.TestResults)
 }
-
-void TestResults::InitAsDefaultInstance() {
-  entries_ = const_cast< ::tensorflow::BenchmarkEntries*>(
-      ::tensorflow::BenchmarkEntries::internal_default_instance());
-  build_configuration_ = const_cast< ::tensorflow::BuildConfiguration*>(
-      ::tensorflow::BuildConfiguration::internal_default_instance());
-  commit_id_ = const_cast< ::tensorflow::CommitId*>(
-      ::tensorflow::CommitId::internal_default_instance());
-  machine_configuration_ = const_cast< ::tensorflow::MachineConfiguration*>(
-      ::tensorflow::MachineConfiguration::internal_default_instance());
-  run_configuration_ = const_cast< ::tensorflow::RunConfiguration*>(
-      ::tensorflow::RunConfiguration::internal_default_instance());
-}
-
 TestResults::TestResults(const TestResults& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  target_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.target().size() > 0) {
+    target_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.target(),
+      GetArenaNoVirtual());
+  }
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name(),
+      GetArenaNoVirtual());
+  }
+  if (from.has_entries()) {
+    entries_ = new ::tensorflow::BenchmarkEntries(*from.entries_);
+  } else {
+    entries_ = NULL;
+  }
+  if (from.has_build_configuration()) {
+    build_configuration_ = new ::tensorflow::BuildConfiguration(*from.build_configuration_);
+  } else {
+    build_configuration_ = NULL;
+  }
+  if (from.has_commit_id()) {
+    commit_id_ = new ::tensorflow::CommitId(*from.commit_id_);
+  } else {
+    commit_id_ = NULL;
+  }
+  if (from.has_machine_configuration()) {
+    machine_configuration_ = new ::tensorflow::MachineConfiguration(*from.machine_configuration_);
+  } else {
+    machine_configuration_ = NULL;
+  }
+  if (from.has_run_configuration()) {
+    run_configuration_ = new ::tensorflow::RunConfiguration(*from.run_configuration_);
+  } else {
+    run_configuration_ = NULL;
+  }
+  ::memcpy(&start_time_, &from.start_time_,
+    reinterpret_cast<char*>(&benchmark_type_) -
+    reinterpret_cast<char*>(&start_time_) + sizeof(benchmark_type_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.TestResults)
 }
 
 void TestResults::SharedCtor() {
   target_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  entries_ = NULL;
-  build_configuration_ = NULL;
-  commit_id_ = NULL;
-  machine_configuration_ = NULL;
-  run_configuration_ = NULL;
-  ::memset(&start_time_, 0, reinterpret_cast<char*>(&run_time_) -
-    reinterpret_cast<char*>(&start_time_) + sizeof(run_time_));
+  ::memset(&entries_, 0, reinterpret_cast<char*>(&benchmark_type_) -
+    reinterpret_cast<char*>(&entries_) + sizeof(benchmark_type_));
   _cached_size_ = 0;
 }
 
@@ -8214,11 +8046,19 @@ void TestResults::SharedDtor() {
 
   target_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
   name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
-  if (this != &TestResults_default_instance_.get()) {
+  if (this != internal_default_instance()) {
     delete entries_;
+  }
+  if (this != internal_default_instance()) {
     delete build_configuration_;
+  }
+  if (this != internal_default_instance()) {
     delete commit_id_;
+  }
+  if (this != internal_default_instance()) {
     delete machine_configuration_;
+  }
+  if (this != internal_default_instance()) {
     delete run_configuration_;
   }
 }
@@ -8235,16 +8075,14 @@ void TestResults::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* TestResults::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return TestResults_descriptor_;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[14].descriptor;
 }
 
 const TestResults& TestResults::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2futil_2ftest_5flog_2eproto();
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<TestResults> TestResults_default_instance_;
 
 TestResults* TestResults::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<TestResults>(arena);
@@ -8252,39 +8090,30 @@ TestResults* TestResults::New(::google::protobuf::Arena* arena) const {
 
 void TestResults::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.TestResults)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(TestResults, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<TestResults*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(start_time_, run_time_);
   target_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (GetArenaNoVirtual() == NULL && entries_ != NULL) delete entries_;
-  entries_ = NULL;
-  if (GetArenaNoVirtual() == NULL && build_configuration_ != NULL) delete build_configuration_;
-  build_configuration_ = NULL;
-  if (GetArenaNoVirtual() == NULL && commit_id_ != NULL) delete commit_id_;
-  commit_id_ = NULL;
-  if (GetArenaNoVirtual() == NULL && machine_configuration_ != NULL) delete machine_configuration_;
-  machine_configuration_ = NULL;
-  if (GetArenaNoVirtual() == NULL && run_configuration_ != NULL) delete run_configuration_;
-  run_configuration_ = NULL;
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  if (GetArenaNoVirtual() == NULL && entries_ != NULL) {
+    delete entries_;
+  }
+  entries_ = NULL;
+  if (GetArenaNoVirtual() == NULL && build_configuration_ != NULL) {
+    delete build_configuration_;
+  }
+  build_configuration_ = NULL;
+  if (GetArenaNoVirtual() == NULL && commit_id_ != NULL) {
+    delete commit_id_;
+  }
+  commit_id_ = NULL;
+  if (GetArenaNoVirtual() == NULL && machine_configuration_ != NULL) {
+    delete machine_configuration_;
+  }
+  machine_configuration_ = NULL;
+  if (GetArenaNoVirtual() == NULL && run_configuration_ != NULL) {
+    delete run_configuration_;
+  }
+  run_configuration_ = NULL;
+  ::memset(&start_time_, 0, reinterpret_cast<char*>(&benchmark_type_) -
+    reinterpret_cast<char*>(&start_time_) + sizeof(benchmark_type_));
 }
 
 bool TestResults::MergePartialFromCodedStream(
@@ -8293,13 +8122,14 @@ bool TestResults::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.TestResults)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string target = 1;
+      // string target = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_target()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -8309,53 +8139,49 @@ bool TestResults::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_entries;
         break;
       }
 
-      // optional .tensorflow.BenchmarkEntries entries = 2;
+      // .tensorflow.BenchmarkEntries entries = 2;
       case 2: {
-        if (tag == 18) {
-         parse_entries:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_entries()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_build_configuration;
         break;
       }
 
-      // optional .tensorflow.BuildConfiguration build_configuration = 3;
+      // .tensorflow.BuildConfiguration build_configuration = 3;
       case 3: {
-        if (tag == 26) {
-         parse_build_configuration:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_build_configuration()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_commit_id;
         break;
       }
 
-      // optional .tensorflow.CommitId commit_id = 4;
+      // .tensorflow.CommitId commit_id = 4;
       case 4: {
-        if (tag == 34) {
-         parse_commit_id:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_commit_id()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_start_time;
         break;
       }
 
-      // optional int64 start_time = 5;
+      // int64 start_time = 5;
       case 5: {
-        if (tag == 40) {
-         parse_start_time:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -8363,14 +8189,13 @@ bool TestResults::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(49)) goto parse_run_time;
         break;
       }
 
-      // optional double run_time = 6;
+      // double run_time = 6;
       case 6: {
-        if (tag == 49) {
-         parse_run_time:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(49u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -8378,40 +8203,37 @@ bool TestResults::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_machine_configuration;
         break;
       }
 
-      // optional .tensorflow.MachineConfiguration machine_configuration = 7;
+      // .tensorflow.MachineConfiguration machine_configuration = 7;
       case 7: {
-        if (tag == 58) {
-         parse_machine_configuration:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_machine_configuration()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_run_configuration;
         break;
       }
 
-      // optional .tensorflow.RunConfiguration run_configuration = 8;
+      // .tensorflow.RunConfiguration run_configuration = 8;
       case 8: {
-        if (tag == 66) {
-         parse_run_configuration:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(66u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_run_configuration()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(74)) goto parse_name;
         break;
       }
 
-      // optional string name = 9;
+      // string name = 9;
       case 9: {
-        if (tag == 74) {
-         parse_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(74u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -8421,7 +8243,21 @@ bool TestResults::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      // .tensorflow.TestResults.BenchmarkType benchmark_type = 10;
+      case 10: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(80u)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_benchmark_type(static_cast< ::tensorflow::TestResults_BenchmarkType >(value));
+        } else {
+          goto handle_unusual;
+        }
         break;
       }
 
@@ -8449,7 +8285,7 @@ failure:
 void TestResults::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.TestResults)
-  // optional string target = 1;
+  // string target = 1;
   if (this->target().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->target().data(), this->target().length(),
@@ -8459,47 +8295,47 @@ void TestResults::SerializeWithCachedSizes(
       1, this->target(), output);
   }
 
-  // optional .tensorflow.BenchmarkEntries entries = 2;
+  // .tensorflow.BenchmarkEntries entries = 2;
   if (this->has_entries()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->entries_, output);
   }
 
-  // optional .tensorflow.BuildConfiguration build_configuration = 3;
+  // .tensorflow.BuildConfiguration build_configuration = 3;
   if (this->has_build_configuration()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->build_configuration_, output);
   }
 
-  // optional .tensorflow.CommitId commit_id = 4;
+  // .tensorflow.CommitId commit_id = 4;
   if (this->has_commit_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->commit_id_, output);
   }
 
-  // optional int64 start_time = 5;
+  // int64 start_time = 5;
   if (this->start_time() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->start_time(), output);
   }
 
-  // optional double run_time = 6;
+  // double run_time = 6;
   if (this->run_time() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->run_time(), output);
   }
 
-  // optional .tensorflow.MachineConfiguration machine_configuration = 7;
+  // .tensorflow.MachineConfiguration machine_configuration = 7;
   if (this->has_machine_configuration()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       7, *this->machine_configuration_, output);
   }
 
-  // optional .tensorflow.RunConfiguration run_configuration = 8;
+  // .tensorflow.RunConfiguration run_configuration = 8;
   if (this->has_run_configuration()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       8, *this->run_configuration_, output);
   }
 
-  // optional string name = 9;
+  // string name = 9;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -8509,14 +8345,20 @@ void TestResults::SerializeWithCachedSizes(
       9, this->name(), output);
   }
 
+  // .tensorflow.TestResults.BenchmarkType benchmark_type = 10;
+  if (this->benchmark_type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      10, this->benchmark_type(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:tensorflow.TestResults)
 }
 
 ::google::protobuf::uint8* TestResults::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.TestResults)
-  // optional string target = 1;
+  // string target = 1;
   if (this->target().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->target().data(), this->target().length(),
@@ -8527,52 +8369,52 @@ void TestResults::SerializeWithCachedSizes(
         1, this->target(), target);
   }
 
-  // optional .tensorflow.BenchmarkEntries entries = 2;
+  // .tensorflow.BenchmarkEntries entries = 2;
   if (this->has_entries()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         2, *this->entries_, false, target);
   }
 
-  // optional .tensorflow.BuildConfiguration build_configuration = 3;
+  // .tensorflow.BuildConfiguration build_configuration = 3;
   if (this->has_build_configuration()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         3, *this->build_configuration_, false, target);
   }
 
-  // optional .tensorflow.CommitId commit_id = 4;
+  // .tensorflow.CommitId commit_id = 4;
   if (this->has_commit_id()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         4, *this->commit_id_, false, target);
   }
 
-  // optional int64 start_time = 5;
+  // int64 start_time = 5;
   if (this->start_time() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->start_time(), target);
   }
 
-  // optional double run_time = 6;
+  // double run_time = 6;
   if (this->run_time() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->run_time(), target);
   }
 
-  // optional .tensorflow.MachineConfiguration machine_configuration = 7;
+  // .tensorflow.MachineConfiguration machine_configuration = 7;
   if (this->has_machine_configuration()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         7, *this->machine_configuration_, false, target);
   }
 
-  // optional .tensorflow.RunConfiguration run_configuration = 8;
+  // .tensorflow.RunConfiguration run_configuration = 8;
   if (this->has_run_configuration()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         8, *this->run_configuration_, false, target);
   }
 
-  // optional string name = 9;
+  // string name = 9;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -8583,6 +8425,12 @@ void TestResults::SerializeWithCachedSizes(
         9, this->name(), target);
   }
 
+  // .tensorflow.TestResults.BenchmarkType benchmark_type = 10;
+  if (this->benchmark_type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      10, this->benchmark_type(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:tensorflow.TestResults)
   return target;
 }
@@ -8591,65 +8439,71 @@ size_t TestResults::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.TestResults)
   size_t total_size = 0;
 
-  // optional string target = 1;
+  // string target = 1;
   if (this->target().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->target());
   }
 
-  // optional .tensorflow.BenchmarkEntries entries = 2;
+  // string name = 9;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // .tensorflow.BenchmarkEntries entries = 2;
   if (this->has_entries()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->entries_);
   }
 
-  // optional .tensorflow.BuildConfiguration build_configuration = 3;
+  // .tensorflow.BuildConfiguration build_configuration = 3;
   if (this->has_build_configuration()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->build_configuration_);
   }
 
-  // optional .tensorflow.CommitId commit_id = 4;
+  // .tensorflow.CommitId commit_id = 4;
   if (this->has_commit_id()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->commit_id_);
   }
 
-  // optional int64 start_time = 5;
-  if (this->start_time() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->start_time());
-  }
-
-  // optional double run_time = 6;
-  if (this->run_time() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional .tensorflow.MachineConfiguration machine_configuration = 7;
+  // .tensorflow.MachineConfiguration machine_configuration = 7;
   if (this->has_machine_configuration()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->machine_configuration_);
   }
 
-  // optional .tensorflow.RunConfiguration run_configuration = 8;
+  // .tensorflow.RunConfiguration run_configuration = 8;
   if (this->has_run_configuration()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->run_configuration_);
   }
 
-  // optional string name = 9;
-  if (this->name().size() > 0) {
+  // int64 start_time = 5;
+  if (this->start_time() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->start_time());
+  }
+
+  // double run_time = 6;
+  if (this->run_time() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // .tensorflow.TestResults.BenchmarkType benchmark_type = 10;
+  if (this->benchmark_type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->benchmark_type());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -8661,7 +8515,7 @@ size_t TestResults::ByteSizeLong() const {
 
 void TestResults::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.TestResults)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const TestResults* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const TestResults>(
           &from);
@@ -8670,23 +8524,19 @@ void TestResults::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.TestResults)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void TestResults::MergeFrom(const TestResults& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.TestResults)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void TestResults::UnsafeMergeFrom(const TestResults& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.target().size() > 0) {
     set_target(from.target());
+  }
+  if (from.name().size() > 0) {
+    set_name(from.name());
   }
   if (from.has_entries()) {
     mutable_entries()->::tensorflow::BenchmarkEntries::MergeFrom(from.entries());
@@ -8697,20 +8547,20 @@ void TestResults::UnsafeMergeFrom(const TestResults& from) {
   if (from.has_commit_id()) {
     mutable_commit_id()->::tensorflow::CommitId::MergeFrom(from.commit_id());
   }
-  if (from.start_time() != 0) {
-    set_start_time(from.start_time());
-  }
-  if (from.run_time() != 0) {
-    set_run_time(from.run_time());
-  }
   if (from.has_machine_configuration()) {
     mutable_machine_configuration()->::tensorflow::MachineConfiguration::MergeFrom(from.machine_configuration());
   }
   if (from.has_run_configuration()) {
     mutable_run_configuration()->::tensorflow::RunConfiguration::MergeFrom(from.run_configuration());
   }
-  if (from.name().size() > 0) {
-    set_name(from.name());
+  if (from.start_time() != 0) {
+    set_start_time(from.start_time());
+  }
+  if (from.run_time() != 0) {
+    set_run_time(from.run_time());
+  }
+  if (from.benchmark_type() != 0) {
+    set_benchmark_type(from.benchmark_type());
   }
 }
 
@@ -8725,11 +8575,10 @@ void TestResults::CopyFrom(const TestResults& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.TestResults)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool TestResults::IsInitialized() const {
-
   return true;
 }
 
@@ -8738,10 +8587,13 @@ void TestResults::Swap(TestResults* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    TestResults temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    TestResults* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void TestResults::UnsafeArenaSwap(TestResults* other) {
@@ -8751,36 +8603,33 @@ void TestResults::UnsafeArenaSwap(TestResults* other) {
 }
 void TestResults::InternalSwap(TestResults* other) {
   target_.Swap(&other->target_);
+  name_.Swap(&other->name_);
   std::swap(entries_, other->entries_);
   std::swap(build_configuration_, other->build_configuration_);
   std::swap(commit_id_, other->commit_id_);
-  std::swap(start_time_, other->start_time_);
-  std::swap(run_time_, other->run_time_);
   std::swap(machine_configuration_, other->machine_configuration_);
   std::swap(run_configuration_, other->run_configuration_);
-  name_.Swap(&other->name_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(start_time_, other->start_time_);
+  std::swap(run_time_, other->run_time_);
+  std::swap(benchmark_type_, other->benchmark_type_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata TestResults::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = TestResults_descriptor_;
-  metadata.reflection = TestResults_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2futil_2ftest_5flog_2eproto::file_level_metadata[14];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TestResults
 
-// optional string target = 1;
+// string target = 1;
 void TestResults::clear_target() {
   target_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& TestResults::target() const {
   // @@protoc_insertion_point(field_get:tensorflow.TestResults.target)
-  return target_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return target_.Get();
 }
 void TestResults::set_target(const ::std::string& value) {
   
@@ -8840,7 +8689,7 @@ void TestResults::unsafe_arena_set_allocated_target(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TestResults.target)
 }
 
-// optional .tensorflow.BenchmarkEntries entries = 2;
+// .tensorflow.BenchmarkEntries entries = 2;
 bool TestResults::has_entries() const {
   return this != internal_default_instance() && entries_ != NULL;
 }
@@ -8889,7 +8738,7 @@ const ::tensorflow::BenchmarkEntries& TestResults::entries() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TestResults.entries)
 }
 
-// optional .tensorflow.BuildConfiguration build_configuration = 3;
+// .tensorflow.BuildConfiguration build_configuration = 3;
 bool TestResults::has_build_configuration() const {
   return this != internal_default_instance() && build_configuration_ != NULL;
 }
@@ -8938,7 +8787,7 @@ const ::tensorflow::BuildConfiguration& TestResults::build_configuration() const
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TestResults.build_configuration)
 }
 
-// optional .tensorflow.CommitId commit_id = 4;
+// .tensorflow.CommitId commit_id = 4;
 bool TestResults::has_commit_id() const {
   return this != internal_default_instance() && commit_id_ != NULL;
 }
@@ -8987,7 +8836,7 @@ const ::tensorflow::CommitId& TestResults::commit_id() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TestResults.commit_id)
 }
 
-// optional int64 start_time = 5;
+// int64 start_time = 5;
 void TestResults::clear_start_time() {
   start_time_ = GOOGLE_LONGLONG(0);
 }
@@ -9001,7 +8850,7 @@ void TestResults::set_start_time(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.TestResults.start_time)
 }
 
-// optional double run_time = 6;
+// double run_time = 6;
 void TestResults::clear_run_time() {
   run_time_ = 0;
 }
@@ -9015,7 +8864,7 @@ void TestResults::set_run_time(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.TestResults.run_time)
 }
 
-// optional .tensorflow.MachineConfiguration machine_configuration = 7;
+// .tensorflow.MachineConfiguration machine_configuration = 7;
 bool TestResults::has_machine_configuration() const {
   return this != internal_default_instance() && machine_configuration_ != NULL;
 }
@@ -9064,7 +8913,7 @@ const ::tensorflow::MachineConfiguration& TestResults::machine_configuration() c
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TestResults.machine_configuration)
 }
 
-// optional .tensorflow.RunConfiguration run_configuration = 8;
+// .tensorflow.RunConfiguration run_configuration = 8;
 bool TestResults::has_run_configuration() const {
   return this != internal_default_instance() && run_configuration_ != NULL;
 }
@@ -9113,13 +8962,13 @@ const ::tensorflow::RunConfiguration& TestResults::run_configuration() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.TestResults.run_configuration)
 }
 
-// optional string name = 9;
+// string name = 9;
 void TestResults::clear_name() {
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& TestResults::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.TestResults.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get();
 }
 void TestResults::set_name(const ::std::string& value) {
   
@@ -9179,9 +9028,20 @@ void TestResults::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.TestResults.name)
 }
 
-inline const TestResults* TestResults::internal_default_instance() {
-  return &TestResults_default_instance_.get();
+// .tensorflow.TestResults.BenchmarkType benchmark_type = 10;
+void TestResults::clear_benchmark_type() {
+  benchmark_type_ = 0;
 }
+::tensorflow::TestResults_BenchmarkType TestResults::benchmark_type() const {
+  // @@protoc_insertion_point(field_get:tensorflow.TestResults.benchmark_type)
+  return static_cast< ::tensorflow::TestResults_BenchmarkType >(benchmark_type_);
+}
+void TestResults::set_benchmark_type(::tensorflow::TestResults_BenchmarkType value) {
+  
+  benchmark_type_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.TestResults.benchmark_type)
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

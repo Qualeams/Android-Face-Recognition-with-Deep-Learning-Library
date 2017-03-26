@@ -23,6 +23,10 @@ bool ProtoParseFromString(
 const char* EnumName_OptimizerOptions_Level(
     ::tensorflow::OptimizerOptions_Level value);
 
+// Enum text output for tensorflow.OptimizerOptions.GlobalJitLevel
+const char* EnumName_OptimizerOptions_GlobalJitLevel(
+    ::tensorflow::OptimizerOptions_GlobalJitLevel value);
+
 // Message-text conversion for tensorflow.OptimizerOptions
 string ProtoDebugString(
     const ::tensorflow::OptimizerOptions& msg);
@@ -53,6 +57,16 @@ bool ProtoParseFromString(
     ::tensorflow::ThreadPoolOptionProto* msg)
         TF_MUST_USE_RESULT;
 
+// Message-text conversion for tensorflow.RPCOptions
+string ProtoDebugString(
+    const ::tensorflow::RPCOptions& msg);
+string ProtoShortDebugString(
+    const ::tensorflow::RPCOptions& msg);
+bool ProtoParseFromString(
+    const string& s,
+    ::tensorflow::RPCOptions* msg)
+        TF_MUST_USE_RESULT;
+
 // Message-text conversion for tensorflow.ConfigProto
 string ProtoDebugString(
     const ::tensorflow::ConfigProto& msg);
@@ -61,16 +75,6 @@ string ProtoShortDebugString(
 bool ProtoParseFromString(
     const string& s,
     ::tensorflow::ConfigProto* msg)
-        TF_MUST_USE_RESULT;
-
-// Message-text conversion for tensorflow.DebugTensorWatch
-string ProtoDebugString(
-    const ::tensorflow::DebugTensorWatch& msg);
-string ProtoShortDebugString(
-    const ::tensorflow::DebugTensorWatch& msg);
-bool ProtoParseFromString(
-    const string& s,
-    ::tensorflow::DebugTensorWatch* msg)
         TF_MUST_USE_RESULT;
 
 // Enum text output for tensorflow.RunOptions.TraceLevel

@@ -18,233 +18,192 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class VarLenFeatureProtoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<VarLenFeatureProto> {
+} _VarLenFeatureProto_default_instance_;
+class FixedLenFeatureProtoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<FixedLenFeatureProto> {
+} _FixedLenFeatureProto_default_instance_;
+class FeatureConfigurationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<FeatureConfiguration> {
+  public:
+  const ::tensorflow::FixedLenFeatureProto* fixed_len_feature_;
+  const ::tensorflow::VarLenFeatureProto* var_len_feature_;
+} _FeatureConfiguration_default_instance_;
+class ExampleParserConfigurationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<ExampleParserConfiguration> {
+} _ExampleParserConfiguration_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* VarLenFeatureProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  VarLenFeatureProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FixedLenFeatureProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FixedLenFeatureProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FeatureConfiguration_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FeatureConfiguration_reflection_ = NULL;
-struct FeatureConfigurationOneofInstance {
-  const ::tensorflow::FixedLenFeatureProto* fixed_len_feature_;
-  const ::tensorflow::VarLenFeatureProto* var_len_feature_;
-}* FeatureConfiguration_default_oneof_instance_ = NULL;
-const ::google::protobuf::Descriptor* ExampleParserConfiguration_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  ExampleParserConfiguration_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ExampleParserConfiguration_FeatureMapEntry_descriptor_ = NULL;
+::google::protobuf::Metadata file_level_metadata[5];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, dtype_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, values_output_tensor_name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, indices_output_tensor_name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, shapes_output_tensor_name_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, dtype_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, shape_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, default_value_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, values_output_tensor_name_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, _internal_metadata_),
+  ~0u,  // no _extensions_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, _oneof_case_[0]),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_FeatureConfiguration_default_instance_), fixed_len_feature_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_FeatureConfiguration_default_instance_), var_len_feature_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, config_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExampleParserConfiguration, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExampleParserConfiguration, feature_map_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/example/example_parser_configuration.proto");
-  GOOGLE_CHECK(file != NULL);
-  VarLenFeatureProto_descriptor_ = file->message_type(0);
-  static const int VarLenFeatureProto_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, dtype_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, values_output_tensor_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, indices_output_tensor_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, shapes_output_tensor_name_),
-  };
-  VarLenFeatureProto_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      VarLenFeatureProto_descriptor_,
-      VarLenFeatureProto::internal_default_instance(),
-      VarLenFeatureProto_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(VarLenFeatureProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VarLenFeatureProto, _internal_metadata_));
-  FixedLenFeatureProto_descriptor_ = file->message_type(1);
-  static const int FixedLenFeatureProto_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, dtype_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, shape_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, default_value_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, values_output_tensor_name_),
-  };
-  FixedLenFeatureProto_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FixedLenFeatureProto_descriptor_,
-      FixedLenFeatureProto::internal_default_instance(),
-      FixedLenFeatureProto_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FixedLenFeatureProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FixedLenFeatureProto, _internal_metadata_));
-  FeatureConfiguration_descriptor_ = file->message_type(2);
-  static const int FeatureConfiguration_offsets_[3] = {
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(FeatureConfiguration_default_oneof_instance_, fixed_len_feature_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(FeatureConfiguration_default_oneof_instance_, var_len_feature_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, config_),
-  };
-  FeatureConfiguration_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FeatureConfiguration_descriptor_,
-      FeatureConfiguration::internal_default_instance(),
-      FeatureConfiguration_offsets_,
-      -1,
-      -1,
-      -1,
-      FeatureConfiguration_default_oneof_instance_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, _oneof_case_[0]),
-      sizeof(FeatureConfiguration),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureConfiguration, _internal_metadata_));
-  ExampleParserConfiguration_descriptor_ = file->message_type(3);
-  static const int ExampleParserConfiguration_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExampleParserConfiguration, feature_map_),
-  };
-  ExampleParserConfiguration_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      ExampleParserConfiguration_descriptor_,
-      ExampleParserConfiguration::internal_default_instance(),
-      ExampleParserConfiguration_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(ExampleParserConfiguration),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExampleParserConfiguration, _internal_metadata_));
-  ExampleParserConfiguration_FeatureMapEntry_descriptor_ = ExampleParserConfiguration_descriptor_->nested_type(0);
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(VarLenFeatureProto)},
+  { 8, -1, sizeof(FixedLenFeatureProto)},
+  { 16, -1, sizeof(FeatureConfiguration)},
+  { 23, -1, sizeof(ExampleParserConfiguration)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_VarLenFeatureProto_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_FixedLenFeatureProto_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_FeatureConfiguration_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_ExampleParserConfiguration_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/example/example_parser_configuration.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
+  const ::google::protobuf::Descriptor* ExampleParserConfiguration_FeatureMapEntry_descriptor = protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[3].descriptor;
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VarLenFeatureProto_descriptor_, VarLenFeatureProto::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FixedLenFeatureProto_descriptor_, FixedLenFeatureProto::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FeatureConfiguration_descriptor_, FeatureConfiguration::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ExampleParserConfiguration_descriptor_, ExampleParserConfiguration::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        ExampleParserConfiguration_FeatureMapEntry_descriptor_,
+        ExampleParserConfiguration_FeatureMapEntry_descriptor,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
             ::tensorflow::FeatureConfiguration,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
             0>::CreateDefaultInstance(
-                ExampleParserConfiguration_FeatureMapEntry_descriptor_));
+                ExampleParserConfiguration_FeatureMapEntry_descriptor));
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() {
-  VarLenFeatureProto_default_instance_.Shutdown();
-  delete VarLenFeatureProto_reflection_;
-  FixedLenFeatureProto_default_instance_.Shutdown();
-  delete FixedLenFeatureProto_reflection_;
-  FeatureConfiguration_default_instance_.Shutdown();
-  delete FeatureConfiguration_default_oneof_instance_;
-  delete FeatureConfiguration_reflection_;
-  ExampleParserConfiguration_default_instance_.Shutdown();
-  delete ExampleParserConfiguration_reflection_;
+void TableStruct::Shutdown() {
+  _VarLenFeatureProto_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
+  _FixedLenFeatureProto_default_instance_.Shutdown();
+  delete file_level_metadata[1].reflection;
+  _FeatureConfiguration_default_instance_.Shutdown();
+  delete file_level_metadata[2].reflection;
+  _ExampleParserConfiguration_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftypes_2eproto();
-  ::google::protobuf::internal::GetEmptyString();
-  VarLenFeatureProto_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  FixedLenFeatureProto_default_instance_.DefaultConstruct();
-  FeatureConfiguration_default_instance_.DefaultConstruct();
-  FeatureConfiguration_default_oneof_instance_ = new FeatureConfigurationOneofInstance();
-  ::google::protobuf::internal::GetEmptyString();
-  ExampleParserConfiguration_default_instance_.DefaultConstruct();
-  VarLenFeatureProto_default_instance_.get_mutable()->InitAsDefaultInstance();
-  FixedLenFeatureProto_default_instance_.get_mutable()->InitAsDefaultInstance();
-  FeatureConfiguration_default_instance_.get_mutable()->InitAsDefaultInstance();
-  ExampleParserConfiguration_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::InitDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_2eproto::InitDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftypes_2eproto::InitDefaults();
+  _VarLenFeatureProto_default_instance_.DefaultConstruct();
+  _FixedLenFeatureProto_default_instance_.DefaultConstruct();
+  _FeatureConfiguration_default_instance_.DefaultConstruct();
+  _ExampleParserConfiguration_default_instance_.DefaultConstruct();
+  _FixedLenFeatureProto_default_instance_.get_mutable()->shape_ = const_cast< ::tensorflow::TensorShapeProto*>(
+      ::tensorflow::TensorShapeProto::internal_default_instance());
+  _FixedLenFeatureProto_default_instance_.get_mutable()->default_value_ = const_cast< ::tensorflow::TensorProto*>(
+      ::tensorflow::TensorProto::internal_default_instance());
+  _FeatureConfiguration_default_instance_.fixed_len_feature_ = const_cast< ::tensorflow::FixedLenFeatureProto*>(
+      ::tensorflow::FixedLenFeatureProto::internal_default_instance());
+  _FeatureConfiguration_default_instance_.var_len_feature_ = const_cast< ::tensorflow::VarLenFeatureProto*>(
+      ::tensorflow::VarLenFeatureProto::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n:tensorflow/core/example/example_parser"
+      "_configuration.proto\022\ntensorflow\032,tensor"
+      "flow/core/framework/tensor_shape.proto\032&"
+      "tensorflow/core/framework/tensor.proto\032%"
+      "tensorflow/core/framework/types.proto\"\243\001"
+      "\n\022VarLenFeatureProto\022#\n\005dtype\030\001 \001(\0162\024.te"
+      "nsorflow.DataType\022!\n\031values_output_tenso"
+      "r_name\030\002 \001(\t\022\"\n\032indices_output_tensor_na"
+      "me\030\003 \001(\t\022!\n\031shapes_output_tensor_name\030\004 "
+      "\001(\t\"\273\001\n\024FixedLenFeatureProto\022#\n\005dtype\030\001 "
+      "\001(\0162\024.tensorflow.DataType\022+\n\005shape\030\002 \001(\013"
+      "2\034.tensorflow.TensorShapeProto\022.\n\rdefaul"
+      "t_value\030\003 \001(\0132\027.tensorflow.TensorProto\022!"
+      "\n\031values_output_tensor_name\030\004 \001(\t\"\232\001\n\024Fe"
+      "atureConfiguration\022=\n\021fixed_len_feature\030"
+      "\001 \001(\0132 .tensorflow.FixedLenFeatureProtoH"
+      "\000\0229\n\017var_len_feature\030\002 \001(\0132\036.tensorflow."
+      "VarLenFeatureProtoH\000B\010\n\006config\"\276\001\n\032Examp"
+      "leParserConfiguration\022K\n\013feature_map\030\001 \003"
+      "(\01326.tensorflow.ExampleParserConfigurati"
+      "on.FeatureMapEntry\032S\n\017FeatureMapEntry\022\013\n"
+      "\003key\030\001 \001(\t\022/\n\005value\030\002 \001(\0132 .tensorflow.F"
+      "eatureConfiguration:\0028\001B\?\n\026org.tensorflo"
+      "w.exampleB ExampleParserConfigurationPro"
+      "tosP\001\370\001\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n:tensorflow/core/example/example_parser"
-    "_configuration.proto\022\ntensorflow\032,tensor"
-    "flow/core/framework/tensor_shape.proto\032&"
-    "tensorflow/core/framework/tensor.proto\032%"
-    "tensorflow/core/framework/types.proto\"\243\001"
-    "\n\022VarLenFeatureProto\022#\n\005dtype\030\001 \001(\0162\024.te"
-    "nsorflow.DataType\022!\n\031values_output_tenso"
-    "r_name\030\002 \001(\t\022\"\n\032indices_output_tensor_na"
-    "me\030\003 \001(\t\022!\n\031shapes_output_tensor_name\030\004 "
-    "\001(\t\"\273\001\n\024FixedLenFeatureProto\022#\n\005dtype\030\001 "
-    "\001(\0162\024.tensorflow.DataType\022+\n\005shape\030\002 \001(\013"
-    "2\034.tensorflow.TensorShapeProto\022.\n\rdefaul"
-    "t_value\030\003 \001(\0132\027.tensorflow.TensorProto\022!"
-    "\n\031values_output_tensor_name\030\004 \001(\t\"\232\001\n\024Fe"
-    "atureConfiguration\022=\n\021fixed_len_feature\030"
-    "\001 \001(\0132 .tensorflow.FixedLenFeatureProtoH"
-    "\000\0229\n\017var_len_feature\030\002 \001(\0132\036.tensorflow."
-    "VarLenFeatureProtoH\000B\010\n\006config\"\276\001\n\032Examp"
-    "leParserConfiguration\022K\n\013feature_map\030\001 \003"
-    "(\01326.tensorflow.ExampleParserConfigurati"
-    "on.FeatureMapEntry\032S\n\017FeatureMapEntry\022\013\n"
-    "\003key\030\001 \001(\t\022/\n\005value\030\002 \001(\0132 .tensorflow.F"
-    "eatureConfiguration:\0028\001B\?\n\026org.tensorflo"
-    "w.exampleB ExampleParserConfigurationPro"
-    "tosP\001\370\001\001b\006proto3", 976);
+      descriptor, 976);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/example/example_parser_configuration.proto", &protobuf_RegisterTypes);
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftypes_2eproto();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto);
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_5fshape_2eproto::AddDescriptors();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_2eproto::AddDescriptors();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftypes_2eproto::AddDescriptors();
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
-
-}  // namespace
+}  // namespace protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto
 
 
 // ===================================================================
@@ -258,7 +217,9 @@ const int VarLenFeatureProto::kShapesOutputTensorNameFieldNumber;
 
 VarLenFeatureProto::VarLenFeatureProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.VarLenFeatureProto)
 }
@@ -266,21 +227,33 @@ VarLenFeatureProto::VarLenFeatureProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.VarLenFeatureProto)
 }
-
-void VarLenFeatureProto::InitAsDefaultInstance() {
-}
-
 VarLenFeatureProto::VarLenFeatureProto(const VarLenFeatureProto& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  values_output_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.values_output_tensor_name().size() > 0) {
+    values_output_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.values_output_tensor_name(),
+      GetArenaNoVirtual());
+  }
+  indices_output_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.indices_output_tensor_name().size() > 0) {
+    indices_output_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.indices_output_tensor_name(),
+      GetArenaNoVirtual());
+  }
+  shapes_output_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.shapes_output_tensor_name().size() > 0) {
+    shapes_output_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.shapes_output_tensor_name(),
+      GetArenaNoVirtual());
+  }
+  dtype_ = from.dtype_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.VarLenFeatureProto)
 }
 
@@ -320,16 +293,14 @@ void VarLenFeatureProto::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* VarLenFeatureProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return VarLenFeatureProto_descriptor_;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[0].descriptor;
 }
 
 const VarLenFeatureProto& VarLenFeatureProto::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<VarLenFeatureProto> VarLenFeatureProto_default_instance_;
 
 VarLenFeatureProto* VarLenFeatureProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<VarLenFeatureProto>(arena);
@@ -337,10 +308,10 @@ VarLenFeatureProto* VarLenFeatureProto::New(::google::protobuf::Arena* arena) co
 
 void VarLenFeatureProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.VarLenFeatureProto)
-  dtype_ = 0;
   values_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   indices_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   shapes_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  dtype_ = 0;
 }
 
 bool VarLenFeatureProto::MergePartialFromCodedStream(
@@ -349,13 +320,14 @@ bool VarLenFeatureProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.VarLenFeatureProto)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .tensorflow.DataType dtype = 1;
+      // .tensorflow.DataType dtype = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -364,14 +336,13 @@ bool VarLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_values_output_tensor_name;
         break;
       }
 
-      // optional string values_output_tensor_name = 2;
+      // string values_output_tensor_name = 2;
       case 2: {
-        if (tag == 18) {
-         parse_values_output_tensor_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_values_output_tensor_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -381,14 +352,13 @@ bool VarLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_indices_output_tensor_name;
         break;
       }
 
-      // optional string indices_output_tensor_name = 3;
+      // string indices_output_tensor_name = 3;
       case 3: {
-        if (tag == 26) {
-         parse_indices_output_tensor_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_indices_output_tensor_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -398,14 +368,13 @@ bool VarLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_shapes_output_tensor_name;
         break;
       }
 
-      // optional string shapes_output_tensor_name = 4;
+      // string shapes_output_tensor_name = 4;
       case 4: {
-        if (tag == 34) {
-         parse_shapes_output_tensor_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_shapes_output_tensor_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -415,7 +384,6 @@ bool VarLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -443,13 +411,13 @@ failure:
 void VarLenFeatureProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.VarLenFeatureProto)
-  // optional .tensorflow.DataType dtype = 1;
+  // .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->dtype(), output);
   }
 
-  // optional string values_output_tensor_name = 2;
+  // string values_output_tensor_name = 2;
   if (this->values_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->values_output_tensor_name().data(), this->values_output_tensor_name().length(),
@@ -459,7 +427,7 @@ void VarLenFeatureProto::SerializeWithCachedSizes(
       2, this->values_output_tensor_name(), output);
   }
 
-  // optional string indices_output_tensor_name = 3;
+  // string indices_output_tensor_name = 3;
   if (this->indices_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->indices_output_tensor_name().data(), this->indices_output_tensor_name().length(),
@@ -469,7 +437,7 @@ void VarLenFeatureProto::SerializeWithCachedSizes(
       3, this->indices_output_tensor_name(), output);
   }
 
-  // optional string shapes_output_tensor_name = 4;
+  // string shapes_output_tensor_name = 4;
   if (this->shapes_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->shapes_output_tensor_name().data(), this->shapes_output_tensor_name().length(),
@@ -484,15 +452,15 @@ void VarLenFeatureProto::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* VarLenFeatureProto::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.VarLenFeatureProto)
-  // optional .tensorflow.DataType dtype = 1;
+  // .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->dtype(), target);
   }
 
-  // optional string values_output_tensor_name = 2;
+  // string values_output_tensor_name = 2;
   if (this->values_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->values_output_tensor_name().data(), this->values_output_tensor_name().length(),
@@ -503,7 +471,7 @@ void VarLenFeatureProto::SerializeWithCachedSizes(
         2, this->values_output_tensor_name(), target);
   }
 
-  // optional string indices_output_tensor_name = 3;
+  // string indices_output_tensor_name = 3;
   if (this->indices_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->indices_output_tensor_name().data(), this->indices_output_tensor_name().length(),
@@ -514,7 +482,7 @@ void VarLenFeatureProto::SerializeWithCachedSizes(
         3, this->indices_output_tensor_name(), target);
   }
 
-  // optional string shapes_output_tensor_name = 4;
+  // string shapes_output_tensor_name = 4;
   if (this->shapes_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->shapes_output_tensor_name().data(), this->shapes_output_tensor_name().length(),
@@ -533,31 +501,31 @@ size_t VarLenFeatureProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.VarLenFeatureProto)
   size_t total_size = 0;
 
-  // optional .tensorflow.DataType dtype = 1;
-  if (this->dtype() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->dtype());
-  }
-
-  // optional string values_output_tensor_name = 2;
+  // string values_output_tensor_name = 2;
   if (this->values_output_tensor_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->values_output_tensor_name());
   }
 
-  // optional string indices_output_tensor_name = 3;
+  // string indices_output_tensor_name = 3;
   if (this->indices_output_tensor_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->indices_output_tensor_name());
   }
 
-  // optional string shapes_output_tensor_name = 4;
+  // string shapes_output_tensor_name = 4;
   if (this->shapes_output_tensor_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->shapes_output_tensor_name());
+  }
+
+  // .tensorflow.DataType dtype = 1;
+  if (this->dtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->dtype());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -569,7 +537,7 @@ size_t VarLenFeatureProto::ByteSizeLong() const {
 
 void VarLenFeatureProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.VarLenFeatureProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const VarLenFeatureProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const VarLenFeatureProto>(
           &from);
@@ -578,24 +546,14 @@ void VarLenFeatureProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.VarLenFeatureProto)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void VarLenFeatureProto::MergeFrom(const VarLenFeatureProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.VarLenFeatureProto)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void VarLenFeatureProto::UnsafeMergeFrom(const VarLenFeatureProto& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.dtype() != 0) {
-    set_dtype(from.dtype());
-  }
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.values_output_tensor_name().size() > 0) {
     set_values_output_tensor_name(from.values_output_tensor_name());
   }
@@ -604,6 +562,9 @@ void VarLenFeatureProto::UnsafeMergeFrom(const VarLenFeatureProto& from) {
   }
   if (from.shapes_output_tensor_name().size() > 0) {
     set_shapes_output_tensor_name(from.shapes_output_tensor_name());
+  }
+  if (from.dtype() != 0) {
+    set_dtype(from.dtype());
   }
 }
 
@@ -618,11 +579,10 @@ void VarLenFeatureProto::CopyFrom(const VarLenFeatureProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.VarLenFeatureProto)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool VarLenFeatureProto::IsInitialized() const {
-
   return true;
 }
 
@@ -631,10 +591,13 @@ void VarLenFeatureProto::Swap(VarLenFeatureProto* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    VarLenFeatureProto temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    VarLenFeatureProto* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void VarLenFeatureProto::UnsafeArenaSwap(VarLenFeatureProto* other) {
@@ -643,26 +606,22 @@ void VarLenFeatureProto::UnsafeArenaSwap(VarLenFeatureProto* other) {
   InternalSwap(other);
 }
 void VarLenFeatureProto::InternalSwap(VarLenFeatureProto* other) {
-  std::swap(dtype_, other->dtype_);
   values_output_tensor_name_.Swap(&other->values_output_tensor_name_);
   indices_output_tensor_name_.Swap(&other->indices_output_tensor_name_);
   shapes_output_tensor_name_.Swap(&other->shapes_output_tensor_name_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(dtype_, other->dtype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata VarLenFeatureProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = VarLenFeatureProto_descriptor_;
-  metadata.reflection = VarLenFeatureProto_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // VarLenFeatureProto
 
-// optional .tensorflow.DataType dtype = 1;
+// .tensorflow.DataType dtype = 1;
 void VarLenFeatureProto::clear_dtype() {
   dtype_ = 0;
 }
@@ -676,13 +635,13 @@ void VarLenFeatureProto::set_dtype(::tensorflow::DataType value) {
   // @@protoc_insertion_point(field_set:tensorflow.VarLenFeatureProto.dtype)
 }
 
-// optional string values_output_tensor_name = 2;
+// string values_output_tensor_name = 2;
 void VarLenFeatureProto::clear_values_output_tensor_name() {
   values_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& VarLenFeatureProto::values_output_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VarLenFeatureProto.values_output_tensor_name)
-  return values_output_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return values_output_tensor_name_.Get();
 }
 void VarLenFeatureProto::set_values_output_tensor_name(const ::std::string& value) {
   
@@ -742,13 +701,13 @@ void VarLenFeatureProto::unsafe_arena_set_allocated_values_output_tensor_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VarLenFeatureProto.values_output_tensor_name)
 }
 
-// optional string indices_output_tensor_name = 3;
+// string indices_output_tensor_name = 3;
 void VarLenFeatureProto::clear_indices_output_tensor_name() {
   indices_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& VarLenFeatureProto::indices_output_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VarLenFeatureProto.indices_output_tensor_name)
-  return indices_output_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return indices_output_tensor_name_.Get();
 }
 void VarLenFeatureProto::set_indices_output_tensor_name(const ::std::string& value) {
   
@@ -808,13 +767,13 @@ void VarLenFeatureProto::unsafe_arena_set_allocated_indices_output_tensor_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VarLenFeatureProto.indices_output_tensor_name)
 }
 
-// optional string shapes_output_tensor_name = 4;
+// string shapes_output_tensor_name = 4;
 void VarLenFeatureProto::clear_shapes_output_tensor_name() {
   shapes_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& VarLenFeatureProto::shapes_output_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.VarLenFeatureProto.shapes_output_tensor_name)
-  return shapes_output_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return shapes_output_tensor_name_.Get();
 }
 void VarLenFeatureProto::set_shapes_output_tensor_name(const ::std::string& value) {
   
@@ -874,9 +833,6 @@ void VarLenFeatureProto::unsafe_arena_set_allocated_shapes_output_tensor_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.VarLenFeatureProto.shapes_output_tensor_name)
 }
 
-inline const VarLenFeatureProto* VarLenFeatureProto::internal_default_instance() {
-  return &VarLenFeatureProto_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -984,7 +940,9 @@ const int FixedLenFeatureProto::kValuesOutputTensorNameFieldNumber;
 
 FixedLenFeatureProto::FixedLenFeatureProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.FixedLenFeatureProto)
 }
@@ -992,33 +950,40 @@ FixedLenFeatureProto::FixedLenFeatureProto(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.FixedLenFeatureProto)
 }
-
-void FixedLenFeatureProto::InitAsDefaultInstance() {
-  shape_ = const_cast< ::tensorflow::TensorShapeProto*>(
-      ::tensorflow::TensorShapeProto::internal_default_instance());
-  default_value_ = const_cast< ::tensorflow::TensorProto*>(
-      ::tensorflow::TensorProto::internal_default_instance());
-}
-
 FixedLenFeatureProto::FixedLenFeatureProto(const FixedLenFeatureProto& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  values_output_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.values_output_tensor_name().size() > 0) {
+    values_output_tensor_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.values_output_tensor_name(),
+      GetArenaNoVirtual());
+  }
+  if (from.has_shape()) {
+    shape_ = new ::tensorflow::TensorShapeProto(*from.shape_);
+  } else {
+    shape_ = NULL;
+  }
+  if (from.has_default_value()) {
+    default_value_ = new ::tensorflow::TensorProto(*from.default_value_);
+  } else {
+    default_value_ = NULL;
+  }
+  dtype_ = from.dtype_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.FixedLenFeatureProto)
 }
 
 void FixedLenFeatureProto::SharedCtor() {
   values_output_tensor_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  shape_ = NULL;
-  default_value_ = NULL;
-  dtype_ = 0;
+  ::memset(&shape_, 0, reinterpret_cast<char*>(&dtype_) -
+    reinterpret_cast<char*>(&shape_) + sizeof(dtype_));
   _cached_size_ = 0;
 }
 
@@ -1034,8 +999,10 @@ void FixedLenFeatureProto::SharedDtor() {
   }
 
   values_output_tensor_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
-  if (this != &FixedLenFeatureProto_default_instance_.get()) {
+  if (this != internal_default_instance()) {
     delete shape_;
+  }
+  if (this != internal_default_instance()) {
     delete default_value_;
   }
 }
@@ -1052,16 +1019,14 @@ void FixedLenFeatureProto::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* FixedLenFeatureProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FixedLenFeatureProto_descriptor_;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[1].descriptor;
 }
 
 const FixedLenFeatureProto& FixedLenFeatureProto::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<FixedLenFeatureProto> FixedLenFeatureProto_default_instance_;
 
 FixedLenFeatureProto* FixedLenFeatureProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<FixedLenFeatureProto>(arena);
@@ -1069,12 +1034,16 @@ FixedLenFeatureProto* FixedLenFeatureProto::New(::google::protobuf::Arena* arena
 
 void FixedLenFeatureProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.FixedLenFeatureProto)
-  dtype_ = 0;
-  if (GetArenaNoVirtual() == NULL && shape_ != NULL) delete shape_;
-  shape_ = NULL;
-  if (GetArenaNoVirtual() == NULL && default_value_ != NULL) delete default_value_;
-  default_value_ = NULL;
   values_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  if (GetArenaNoVirtual() == NULL && shape_ != NULL) {
+    delete shape_;
+  }
+  shape_ = NULL;
+  if (GetArenaNoVirtual() == NULL && default_value_ != NULL) {
+    delete default_value_;
+  }
+  default_value_ = NULL;
+  dtype_ = 0;
 }
 
 bool FixedLenFeatureProto::MergePartialFromCodedStream(
@@ -1083,13 +1052,14 @@ bool FixedLenFeatureProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.FixedLenFeatureProto)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .tensorflow.DataType dtype = 1;
+      // .tensorflow.DataType dtype = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -1098,40 +1068,37 @@ bool FixedLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_shape;
         break;
       }
 
-      // optional .tensorflow.TensorShapeProto shape = 2;
+      // .tensorflow.TensorShapeProto shape = 2;
       case 2: {
-        if (tag == 18) {
-         parse_shape:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_shape()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_default_value;
         break;
       }
 
-      // optional .tensorflow.TensorProto default_value = 3;
+      // .tensorflow.TensorProto default_value = 3;
       case 3: {
-        if (tag == 26) {
-         parse_default_value:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_default_value()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_values_output_tensor_name;
         break;
       }
 
-      // optional string values_output_tensor_name = 4;
+      // string values_output_tensor_name = 4;
       case 4: {
-        if (tag == 34) {
-         parse_values_output_tensor_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_values_output_tensor_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1141,7 +1108,6 @@ bool FixedLenFeatureProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1169,25 +1135,25 @@ failure:
 void FixedLenFeatureProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.FixedLenFeatureProto)
-  // optional .tensorflow.DataType dtype = 1;
+  // .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->dtype(), output);
   }
 
-  // optional .tensorflow.TensorShapeProto shape = 2;
+  // .tensorflow.TensorShapeProto shape = 2;
   if (this->has_shape()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->shape_, output);
   }
 
-  // optional .tensorflow.TensorProto default_value = 3;
+  // .tensorflow.TensorProto default_value = 3;
   if (this->has_default_value()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->default_value_, output);
   }
 
-  // optional string values_output_tensor_name = 4;
+  // string values_output_tensor_name = 4;
   if (this->values_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->values_output_tensor_name().data(), this->values_output_tensor_name().length(),
@@ -1202,29 +1168,29 @@ void FixedLenFeatureProto::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* FixedLenFeatureProto::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.FixedLenFeatureProto)
-  // optional .tensorflow.DataType dtype = 1;
+  // .tensorflow.DataType dtype = 1;
   if (this->dtype() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->dtype(), target);
   }
 
-  // optional .tensorflow.TensorShapeProto shape = 2;
+  // .tensorflow.TensorShapeProto shape = 2;
   if (this->has_shape()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         2, *this->shape_, false, target);
   }
 
-  // optional .tensorflow.TensorProto default_value = 3;
+  // .tensorflow.TensorProto default_value = 3;
   if (this->has_default_value()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         3, *this->default_value_, false, target);
   }
 
-  // optional string values_output_tensor_name = 4;
+  // string values_output_tensor_name = 4;
   if (this->values_output_tensor_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->values_output_tensor_name().data(), this->values_output_tensor_name().length(),
@@ -1243,31 +1209,31 @@ size_t FixedLenFeatureProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.FixedLenFeatureProto)
   size_t total_size = 0;
 
-  // optional .tensorflow.DataType dtype = 1;
-  if (this->dtype() != 0) {
+  // string values_output_tensor_name = 4;
+  if (this->values_output_tensor_name().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->dtype());
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->values_output_tensor_name());
   }
 
-  // optional .tensorflow.TensorShapeProto shape = 2;
+  // .tensorflow.TensorShapeProto shape = 2;
   if (this->has_shape()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->shape_);
   }
 
-  // optional .tensorflow.TensorProto default_value = 3;
+  // .tensorflow.TensorProto default_value = 3;
   if (this->has_default_value()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->default_value_);
   }
 
-  // optional string values_output_tensor_name = 4;
-  if (this->values_output_tensor_name().size() > 0) {
+  // .tensorflow.DataType dtype = 1;
+  if (this->dtype() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->values_output_tensor_name());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->dtype());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1279,7 +1245,7 @@ size_t FixedLenFeatureProto::ByteSizeLong() const {
 
 void FixedLenFeatureProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.FixedLenFeatureProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const FixedLenFeatureProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const FixedLenFeatureProto>(
           &from);
@@ -1288,23 +1254,16 @@ void FixedLenFeatureProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.FixedLenFeatureProto)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void FixedLenFeatureProto::MergeFrom(const FixedLenFeatureProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.FixedLenFeatureProto)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void FixedLenFeatureProto::UnsafeMergeFrom(const FixedLenFeatureProto& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.dtype() != 0) {
-    set_dtype(from.dtype());
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.values_output_tensor_name().size() > 0) {
+    set_values_output_tensor_name(from.values_output_tensor_name());
   }
   if (from.has_shape()) {
     mutable_shape()->::tensorflow::TensorShapeProto::MergeFrom(from.shape());
@@ -1312,8 +1271,8 @@ void FixedLenFeatureProto::UnsafeMergeFrom(const FixedLenFeatureProto& from) {
   if (from.has_default_value()) {
     mutable_default_value()->::tensorflow::TensorProto::MergeFrom(from.default_value());
   }
-  if (from.values_output_tensor_name().size() > 0) {
-    set_values_output_tensor_name(from.values_output_tensor_name());
+  if (from.dtype() != 0) {
+    set_dtype(from.dtype());
   }
 }
 
@@ -1328,11 +1287,10 @@ void FixedLenFeatureProto::CopyFrom(const FixedLenFeatureProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.FixedLenFeatureProto)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool FixedLenFeatureProto::IsInitialized() const {
-
   return true;
 }
 
@@ -1341,10 +1299,13 @@ void FixedLenFeatureProto::Swap(FixedLenFeatureProto* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    FixedLenFeatureProto temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    FixedLenFeatureProto* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void FixedLenFeatureProto::UnsafeArenaSwap(FixedLenFeatureProto* other) {
@@ -1353,26 +1314,22 @@ void FixedLenFeatureProto::UnsafeArenaSwap(FixedLenFeatureProto* other) {
   InternalSwap(other);
 }
 void FixedLenFeatureProto::InternalSwap(FixedLenFeatureProto* other) {
-  std::swap(dtype_, other->dtype_);
+  values_output_tensor_name_.Swap(&other->values_output_tensor_name_);
   std::swap(shape_, other->shape_);
   std::swap(default_value_, other->default_value_);
-  values_output_tensor_name_.Swap(&other->values_output_tensor_name_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(dtype_, other->dtype_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata FixedLenFeatureProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FixedLenFeatureProto_descriptor_;
-  metadata.reflection = FixedLenFeatureProto_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[1];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // FixedLenFeatureProto
 
-// optional .tensorflow.DataType dtype = 1;
+// .tensorflow.DataType dtype = 1;
 void FixedLenFeatureProto::clear_dtype() {
   dtype_ = 0;
 }
@@ -1386,7 +1343,7 @@ void FixedLenFeatureProto::set_dtype(::tensorflow::DataType value) {
   // @@protoc_insertion_point(field_set:tensorflow.FixedLenFeatureProto.dtype)
 }
 
-// optional .tensorflow.TensorShapeProto shape = 2;
+// .tensorflow.TensorShapeProto shape = 2;
 bool FixedLenFeatureProto::has_shape() const {
   return this != internal_default_instance() && shape_ != NULL;
 }
@@ -1435,7 +1392,7 @@ const ::tensorflow::TensorShapeProto& FixedLenFeatureProto::shape() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.FixedLenFeatureProto.shape)
 }
 
-// optional .tensorflow.TensorProto default_value = 3;
+// .tensorflow.TensorProto default_value = 3;
 bool FixedLenFeatureProto::has_default_value() const {
   return this != internal_default_instance() && default_value_ != NULL;
 }
@@ -1484,13 +1441,13 @@ const ::tensorflow::TensorProto& FixedLenFeatureProto::default_value() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.FixedLenFeatureProto.default_value)
 }
 
-// optional string values_output_tensor_name = 4;
+// string values_output_tensor_name = 4;
 void FixedLenFeatureProto::clear_values_output_tensor_name() {
   values_output_tensor_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& FixedLenFeatureProto::values_output_tensor_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.FixedLenFeatureProto.values_output_tensor_name)
-  return values_output_tensor_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return values_output_tensor_name_.Get();
 }
 void FixedLenFeatureProto::set_values_output_tensor_name(const ::std::string& value) {
   
@@ -1550,9 +1507,6 @@ void FixedLenFeatureProto::unsafe_arena_set_allocated_values_output_tensor_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.FixedLenFeatureProto.values_output_tensor_name)
 }
 
-inline const FixedLenFeatureProto* FixedLenFeatureProto::internal_default_instance() {
-  return &FixedLenFeatureProto_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1564,7 +1518,9 @@ const int FeatureConfiguration::kVarLenFeatureFieldNumber;
 
 FeatureConfiguration::FeatureConfiguration()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.FeatureConfiguration)
 }
@@ -1572,25 +1528,31 @@ FeatureConfiguration::FeatureConfiguration(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.FeatureConfiguration)
 }
-
-void FeatureConfiguration::InitAsDefaultInstance() {
-  FeatureConfiguration_default_oneof_instance_->fixed_len_feature_ = const_cast< ::tensorflow::FixedLenFeatureProto*>(
-      ::tensorflow::FixedLenFeatureProto::internal_default_instance());
-  FeatureConfiguration_default_oneof_instance_->var_len_feature_ = const_cast< ::tensorflow::VarLenFeatureProto*>(
-      ::tensorflow::VarLenFeatureProto::internal_default_instance());
-}
-
 FeatureConfiguration::FeatureConfiguration(const FeatureConfiguration& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  clear_has_config();
+  switch (from.config_case()) {
+    case kFixedLenFeature: {
+      mutable_fixed_len_feature()->::tensorflow::FixedLenFeatureProto::MergeFrom(from.fixed_len_feature());
+      break;
+    }
+    case kVarLenFeature: {
+      mutable_var_len_feature()->::tensorflow::VarLenFeatureProto::MergeFrom(from.var_len_feature());
+      break;
+    }
+    case CONFIG_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.FeatureConfiguration)
 }
 
@@ -1627,16 +1589,14 @@ void FeatureConfiguration::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* FeatureConfiguration::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FeatureConfiguration_descriptor_;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[2].descriptor;
 }
 
 const FeatureConfiguration& FeatureConfiguration::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<FeatureConfiguration> FeatureConfiguration_default_instance_;
 
 FeatureConfiguration* FeatureConfiguration::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<FeatureConfiguration>(arena);
@@ -1676,32 +1636,31 @@ bool FeatureConfiguration::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.FeatureConfiguration)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
+      // .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_fixed_len_feature()));
         } else {
           goto handle_unusual;
         }
-        goto after_var_len_feature;
         break;
       }
 
-      // optional .tensorflow.VarLenFeatureProto var_len_feature = 2;
+      // .tensorflow.VarLenFeatureProto var_len_feature = 2;
       case 2: {
-        if (tag == 18) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_var_len_feature()));
         } else {
           goto handle_unusual;
         }
-       after_var_len_feature:
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1729,13 +1688,13 @@ failure:
 void FeatureConfiguration::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.FeatureConfiguration)
-  // optional .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
+  // .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
   if (has_fixed_len_feature()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *config_.fixed_len_feature_, output);
   }
 
-  // optional .tensorflow.VarLenFeatureProto var_len_feature = 2;
+  // .tensorflow.VarLenFeatureProto var_len_feature = 2;
   if (has_var_len_feature()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *config_.var_len_feature_, output);
@@ -1746,16 +1705,16 @@ void FeatureConfiguration::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* FeatureConfiguration::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.FeatureConfiguration)
-  // optional .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
+  // .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
   if (has_fixed_len_feature()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         1, *config_.fixed_len_feature_, false, target);
   }
 
-  // optional .tensorflow.VarLenFeatureProto var_len_feature = 2;
+  // .tensorflow.VarLenFeatureProto var_len_feature = 2;
   if (has_var_len_feature()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -1771,14 +1730,14 @@ size_t FeatureConfiguration::ByteSizeLong() const {
   size_t total_size = 0;
 
   switch (config_case()) {
-    // optional .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
+    // .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
     case kFixedLenFeature: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           *config_.fixed_len_feature_);
       break;
     }
-    // optional .tensorflow.VarLenFeatureProto var_len_feature = 2;
+    // .tensorflow.VarLenFeatureProto var_len_feature = 2;
     case kVarLenFeature: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1798,7 +1757,7 @@ size_t FeatureConfiguration::ByteSizeLong() const {
 
 void FeatureConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.FeatureConfiguration)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const FeatureConfiguration* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const FeatureConfiguration>(
           &from);
@@ -1807,21 +1766,14 @@ void FeatureConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.FeatureConfiguration)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void FeatureConfiguration::MergeFrom(const FeatureConfiguration& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.FeatureConfiguration)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void FeatureConfiguration::UnsafeMergeFrom(const FeatureConfiguration& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   switch (from.config_case()) {
     case kFixedLenFeature: {
       mutable_fixed_len_feature()->::tensorflow::FixedLenFeatureProto::MergeFrom(from.fixed_len_feature());
@@ -1848,11 +1800,10 @@ void FeatureConfiguration::CopyFrom(const FeatureConfiguration& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.FeatureConfiguration)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool FeatureConfiguration::IsInitialized() const {
-
   return true;
 }
 
@@ -1861,10 +1812,13 @@ void FeatureConfiguration::Swap(FeatureConfiguration* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    FeatureConfiguration temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    FeatureConfiguration* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void FeatureConfiguration::UnsafeArenaSwap(FeatureConfiguration* other) {
@@ -1875,22 +1829,18 @@ void FeatureConfiguration::UnsafeArenaSwap(FeatureConfiguration* other) {
 void FeatureConfiguration::InternalSwap(FeatureConfiguration* other) {
   std::swap(config_, other->config_);
   std::swap(_oneof_case_[0], other->_oneof_case_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata FeatureConfiguration::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FeatureConfiguration_descriptor_;
-  metadata.reflection = FeatureConfiguration_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[2];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // FeatureConfiguration
 
-// optional .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
+// .tensorflow.FixedLenFeatureProto fixed_len_feature = 1;
 bool FeatureConfiguration::has_fixed_len_feature() const {
   return config_case() == kFixedLenFeature;
 }
@@ -1978,7 +1928,7 @@ void FeatureConfiguration::set_allocated_fixed_len_feature(::tensorflow::FixedLe
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.FeatureConfiguration.fixed_len_feature)
 }
 
-// optional .tensorflow.VarLenFeatureProto var_len_feature = 2;
+// .tensorflow.VarLenFeatureProto var_len_feature = 2;
 bool FeatureConfiguration::has_var_len_feature() const {
   return config_case() == kVarLenFeature;
 }
@@ -2075,9 +2025,11 @@ void FeatureConfiguration::clear_has_config() {
 FeatureConfiguration::ConfigCase FeatureConfiguration::config_case() const {
   return FeatureConfiguration::ConfigCase(_oneof_case_[0]);
 }
-inline const FeatureConfiguration* FeatureConfiguration::internal_default_instance() {
-  return &FeatureConfiguration_default_instance_.get();
-}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2088,7 +2040,9 @@ const int ExampleParserConfiguration::kFeatureMapFieldNumber;
 
 ExampleParserConfiguration::ExampleParserConfiguration()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.ExampleParserConfiguration)
 }
@@ -2097,29 +2051,32 @@ ExampleParserConfiguration::ExampleParserConfiguration(::google::protobuf::Arena
   _internal_metadata_(arena),
   feature_map_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.ExampleParserConfiguration)
 }
-
-void ExampleParserConfiguration::InitAsDefaultInstance() {
-}
-
 ExampleParserConfiguration::ExampleParserConfiguration(const ExampleParserConfiguration& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  const ::google::protobuf::Descriptor*& ExampleParserConfiguration_FeatureMapEntry_descriptor = protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[3].descriptor;
+  feature_map_.SetAssignDescriptorCallback(
+      protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce);
+  feature_map_.SetEntryDescriptor(
+      &ExampleParserConfiguration_FeatureMapEntry_descriptor);
+  feature_map_.MergeFrom(from.feature_map_);
   // @@protoc_insertion_point(copy_constructor:tensorflow.ExampleParserConfiguration)
 }
 
 void ExampleParserConfiguration::SharedCtor() {
+  const ::google::protobuf::Descriptor*& ExampleParserConfiguration_FeatureMapEntry_descriptor = protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[3].descriptor;
   feature_map_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
+      protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce);
   feature_map_.SetEntryDescriptor(
-      &::tensorflow::ExampleParserConfiguration_FeatureMapEntry_descriptor_);
+      &ExampleParserConfiguration_FeatureMapEntry_descriptor);
   _cached_size_ = 0;
 }
 
@@ -2148,16 +2105,14 @@ void ExampleParserConfiguration::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* ExampleParserConfiguration::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ExampleParserConfiguration_descriptor_;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[4].descriptor;
 }
 
 const ExampleParserConfiguration& ExampleParserConfiguration::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto();
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<ExampleParserConfiguration> ExampleParserConfiguration_default_instance_;
 
 ExampleParserConfiguration* ExampleParserConfiguration::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<ExampleParserConfiguration>(arena);
@@ -2174,15 +2129,15 @@ bool ExampleParserConfiguration::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.ExampleParserConfiguration)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // map<string, .tensorflow.FeatureConfiguration> feature_map = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_feature_map:
           ExampleParserConfiguration_FeatureMapEntry::Parser< ::google::protobuf::internal::MapField<
               ::std::string, ::tensorflow::FeatureConfiguration,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
@@ -2198,9 +2153,7 @@ bool ExampleParserConfiguration::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_feature_map;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2243,7 +2196,7 @@ void ExampleParserConfiguration::SerializeWithCachedSizes(
       }
     };
 
-    if (output->IsSerializationDeterminstic() &&
+    if (output->IsSerializationDeterministic() &&
         this->feature_map().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->feature_map().size()]);
@@ -2288,7 +2241,7 @@ void ExampleParserConfiguration::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ExampleParserConfiguration::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.ExampleParserConfiguration)
   // map<string, .tensorflow.FeatureConfiguration> feature_map = 1;
   if (!this->feature_map().empty()) {
@@ -2386,7 +2339,7 @@ size_t ExampleParserConfiguration::ByteSizeLong() const {
 
 void ExampleParserConfiguration::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.ExampleParserConfiguration)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const ExampleParserConfiguration* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const ExampleParserConfiguration>(
           &from);
@@ -2395,21 +2348,14 @@ void ExampleParserConfiguration::MergeFrom(const ::google::protobuf::Message& fr
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.ExampleParserConfiguration)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void ExampleParserConfiguration::MergeFrom(const ExampleParserConfiguration& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.ExampleParserConfiguration)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void ExampleParserConfiguration::UnsafeMergeFrom(const ExampleParserConfiguration& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   feature_map_.MergeFrom(from.feature_map_);
 }
 
@@ -2424,11 +2370,10 @@ void ExampleParserConfiguration::CopyFrom(const ExampleParserConfiguration& from
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.ExampleParserConfiguration)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool ExampleParserConfiguration::IsInitialized() const {
-
   return true;
 }
 
@@ -2437,10 +2382,13 @@ void ExampleParserConfiguration::Swap(ExampleParserConfiguration* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    ExampleParserConfiguration temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    ExampleParserConfiguration* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void ExampleParserConfiguration::UnsafeArenaSwap(ExampleParserConfiguration* other) {
@@ -2450,16 +2398,12 @@ void ExampleParserConfiguration::UnsafeArenaSwap(ExampleParserConfiguration* oth
 }
 void ExampleParserConfiguration::InternalSwap(ExampleParserConfiguration* other) {
   feature_map_.Swap(&other->feature_map_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata ExampleParserConfiguration::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ExampleParserConfiguration_descriptor_;
-  metadata.reflection = ExampleParserConfiguration_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fexample_2fexample_5fparser_5fconfiguration_2eproto::file_level_metadata[4];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2483,9 +2427,6 @@ ExampleParserConfiguration::mutable_feature_map() {
   return feature_map_.MutableMap();
 }
 
-inline const ExampleParserConfiguration* ExampleParserConfiguration::internal_default_instance() {
-  return &ExampleParserConfiguration_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

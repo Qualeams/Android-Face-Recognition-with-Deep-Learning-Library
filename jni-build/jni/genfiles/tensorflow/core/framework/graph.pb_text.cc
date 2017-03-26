@@ -79,6 +79,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;

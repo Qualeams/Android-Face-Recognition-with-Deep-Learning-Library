@@ -10,6 +10,8 @@
 #include "tensorflow/core/framework/node_def.pb_text-impl.h"
 #include "tensorflow/core/framework/op_def.pb.h"
 #include "tensorflow/core/framework/op_def.pb_text-impl.h"
+#include "tensorflow/core/framework/resource_handle.pb.h"
+#include "tensorflow/core/framework/resource_handle.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor.pb.h"
 #include "tensorflow/core/framework/tensor.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor_shape.pb.h"
@@ -29,13 +31,6 @@ void AppendProtoDebugString(
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::FunctionDefLibrary* msg);
-
-void AppendProtoDebugString(
-    ::tensorflow::strings::ProtoTextOutput* o,
-    const ::tensorflow::FunctionDef_Node& msg);
-bool ProtoParseFromScanner(
-    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
-    ::tensorflow::FunctionDef_Node* msg);
 
 void AppendProtoDebugString(
     ::tensorflow::strings::ProtoTextOutput* o,

@@ -6,6 +6,8 @@
 #include "tensorflow/core/framework/cost_graph.pb_text.h"
 #include "tensorflow/core/framework/tensor_shape.pb.h"
 #include "tensorflow/core/framework/tensor_shape.pb_text-impl.h"
+#include "tensorflow/core/framework/types.pb.h"
+#include "tensorflow/core/framework/types.pb_text-impl.h"
 #include "tensorflow/core/lib/strings/proto_text_util.h"
 #include "tensorflow/core/lib/strings/scanner.h"
 

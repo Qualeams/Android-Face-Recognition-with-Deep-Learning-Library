@@ -16,6 +16,8 @@
 #include "tensorflow/core/framework/node_def.pb_text-impl.h"
 #include "tensorflow/core/framework/op_def.pb.h"
 #include "tensorflow/core/framework/op_def.pb_text-impl.h"
+#include "tensorflow/core/framework/resource_handle.pb.h"
+#include "tensorflow/core/framework/resource_handle.pb_text-impl.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 #include "tensorflow/core/framework/step_stats.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor.pb.h"
@@ -32,6 +34,10 @@
 #include "tensorflow/core/lib/strings/scanner.h"
 #include "tensorflow/core/protobuf/config.pb.h"
 #include "tensorflow/core/protobuf/config.pb_text.h"
+#include "tensorflow/core/protobuf/debug.pb.h"
+#include "tensorflow/core/protobuf/debug.pb_text-impl.h"
+#include "tensorflow/core/protobuf/rewriter_config.pb.h"
+#include "tensorflow/core/protobuf/rewriter_config.pb_text-impl.h"
 
 namespace tensorflow {
 
@@ -67,17 +73,17 @@ bool ProtoParseFromScanner(
 
 void AppendProtoDebugString(
     ::tensorflow::strings::ProtoTextOutput* o,
+    const ::tensorflow::RPCOptions& msg);
+bool ProtoParseFromScanner(
+    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
+    ::tensorflow::RPCOptions* msg);
+
+void AppendProtoDebugString(
+    ::tensorflow::strings::ProtoTextOutput* o,
     const ::tensorflow::ConfigProto& msg);
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::ConfigProto* msg);
-
-void AppendProtoDebugString(
-    ::tensorflow::strings::ProtoTextOutput* o,
-    const ::tensorflow::DebugTensorWatch& msg);
-bool ProtoParseFromScanner(
-    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
-    ::tensorflow::DebugTensorWatch* msg);
 
 void AppendProtoDebugString(
     ::tensorflow::strings::ProtoTextOutput* o,

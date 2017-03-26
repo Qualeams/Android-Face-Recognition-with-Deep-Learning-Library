@@ -9,9 +9,15 @@
 
 namespace tensorflow {
 
-// Enum text output for tensorflow.BusAdjacency
-const char* EnumName_BusAdjacency(
-    ::tensorflow::BusAdjacency value);
+// Message-text conversion for tensorflow.DeviceLocality
+string ProtoDebugString(
+    const ::tensorflow::DeviceLocality& msg);
+string ProtoShortDebugString(
+    const ::tensorflow::DeviceLocality& msg);
+bool ProtoParseFromString(
+    const string& s,
+    ::tensorflow::DeviceLocality* msg)
+        TF_MUST_USE_RESULT;
 
 // Message-text conversion for tensorflow.DeviceAttributes
 string ProtoDebugString(

@@ -2,6 +2,8 @@
 #ifndef tensorflow_core_framework_summary_proto_IMPL_H_
 #define tensorflow_core_framework_summary_proto_IMPL_H_
 
+#include "tensorflow/core/framework/resource_handle.pb.h"
+#include "tensorflow/core/framework/resource_handle.pb_text-impl.h"
 #include "tensorflow/core/framework/summary.pb.h"
 #include "tensorflow/core/framework/summary.pb_text.h"
 #include "tensorflow/core/framework/tensor.pb.h"
@@ -16,6 +18,13 @@
 namespace tensorflow {
 
 namespace internal {
+
+void AppendProtoDebugString(
+    ::tensorflow::strings::ProtoTextOutput* o,
+    const ::tensorflow::SummaryDescription& msg);
+bool ProtoParseFromScanner(
+    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
+    ::tensorflow::SummaryDescription* msg);
 
 void AppendProtoDebugString(
     ::tensorflow::strings::ProtoTextOutput* o,

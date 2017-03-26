@@ -54,6 +54,11 @@ void AppendProtoDebugString(
     ::tensorflow::internal::AppendProtoDebugString(o, msg.tensor(i));
     o->CloseNestedMessage();
   }
+  for (int i = 0; i < msg.func_size(); ++i) {
+    o->OpenNestedMessage("func");
+    ::tensorflow::internal::AppendProtoDebugString(o, msg.func(i));
+    o->CloseNestedMessage();
+  }
 }
 
 }  // namespace internal
@@ -73,7 +78,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::AttrValue_ListValue* msg) {
-  std::vector<bool> has_seen(7, false);
+  std::vector<bool> has_seen(8, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -88,6 +93,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -196,6 +202,8 @@ bool ProtoParseFromScanner(
           msg->add_type(::tensorflow::DT_COMPLEX128);
         } else if (value == "DT_HALF" || value == "19") {
           msg->add_type(::tensorflow::DT_HALF);
+        } else if (value == "DT_RESOURCE" || value == "20") {
+          msg->add_type(::tensorflow::DT_RESOURCE);
         } else if (value == "DT_FLOAT_REF" || value == "101") {
           msg->add_type(::tensorflow::DT_FLOAT_REF);
         } else if (value == "DT_DOUBLE_REF" || value == "102") {
@@ -234,6 +242,8 @@ bool ProtoParseFromScanner(
           msg->add_type(::tensorflow::DT_COMPLEX128_REF);
         } else if (value == "DT_HALF_REF" || value == "119") {
           msg->add_type(::tensorflow::DT_HALF_REF);
+        } else if (value == "DT_RESOURCE_REF" || value == "120") {
+          msg->add_type(::tensorflow::DT_RESOURCE_REF);
         } else {
           return false;
         }
@@ -269,6 +279,22 @@ bool ProtoParseFromScanner(
         ProtoSpaceAndComments(scanner);
         if (!::tensorflow::internal::ProtoParseFromScanner(
             scanner, true, open_char == '{', msg->add_tensor())) return false;
+      } while (is_list && scanner->Peek() == ',');
+      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
+    }
+    else if (identifier == "func") {
+      const bool is_list = (scanner->Peek() == '[');
+      do {
+        if (is_list) {
+          scanner->One(Scanner::ALL);
+          ProtoSpaceAndComments(scanner);
+        }
+        const char open_char = scanner->Peek();
+        if (open_char != '{' && open_char != '<') return false;
+        scanner->One(Scanner::ALL);
+        ProtoSpaceAndComments(scanner);
+        if (!::tensorflow::internal::ProtoParseFromScanner(
+            scanner, true, open_char == '{', msg->add_func())) return false;
       } while (is_list && scanner->Peek() == ',');
       if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
     }
@@ -372,6 +398,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -457,6 +484,8 @@ bool ProtoParseFromScanner(
         msg->set_type(::tensorflow::DT_COMPLEX128);
       } else if (value == "DT_HALF" || value == "19") {
         msg->set_type(::tensorflow::DT_HALF);
+      } else if (value == "DT_RESOURCE" || value == "20") {
+        msg->set_type(::tensorflow::DT_RESOURCE);
       } else if (value == "DT_FLOAT_REF" || value == "101") {
         msg->set_type(::tensorflow::DT_FLOAT_REF);
       } else if (value == "DT_DOUBLE_REF" || value == "102") {
@@ -495,6 +524,8 @@ bool ProtoParseFromScanner(
         msg->set_type(::tensorflow::DT_COMPLEX128_REF);
       } else if (value == "DT_HALF_REF" || value == "119") {
         msg->set_type(::tensorflow::DT_HALF_REF);
+      } else if (value == "DT_RESOURCE_REF" || value == "120") {
+        msg->set_type(::tensorflow::DT_RESOURCE_REF);
       } else {
         return false;
       }
@@ -584,6 +615,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -683,6 +715,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;

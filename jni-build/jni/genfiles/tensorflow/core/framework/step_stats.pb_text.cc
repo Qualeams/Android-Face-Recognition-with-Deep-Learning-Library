@@ -32,6 +32,7 @@ void AppendProtoDebugString(
   o->AppendStringIfNotEmpty("allocator_name", ProtobufStringToString(msg.allocator_name()));
   o->AppendNumericIfNotZero("total_bytes", msg.total_bytes());
   o->AppendNumericIfNotZero("peak_bytes", msg.peak_bytes());
+  o->AppendNumericIfNotZero("live_bytes", msg.live_bytes());
 }
 
 }  // namespace internal
@@ -51,7 +52,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::AllocatorMemoryUsed* msg) {
-  std::vector<bool> has_seen(3, false);
+  std::vector<bool> has_seen(4, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -66,6 +67,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -93,6 +95,13 @@ bool ProtoParseFromScanner(
       int64 value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_peak_bytes(value);
+    }
+    else if (identifier == "live_bytes") {
+      if (has_seen[3]) return false;
+      has_seen[3] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_live_bytes(value);
     }
   }
 }
@@ -162,6 +171,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -184,6 +194,139 @@ bool ProtoParseFromScanner(
       ProtoSpaceAndComments(scanner);
       if (!::tensorflow::internal::ProtoParseFromScanner(
           scanner, true, open_char == '{', msg->mutable_tensor_description())) return false;
+    }
+  }
+}
+
+}  // namespace internal
+
+string ProtoDebugString(
+    const ::tensorflow::MemoryStats& msg) {
+  string s;
+  ::tensorflow::strings::ProtoTextOutput o(&s, false);
+  internal::AppendProtoDebugString(&o, msg);
+  o.CloseTopMessage();
+  return s;
+}
+
+string ProtoShortDebugString(
+    const ::tensorflow::MemoryStats& msg) {
+  string s;
+  ::tensorflow::strings::ProtoTextOutput o(&s, true);
+  internal::AppendProtoDebugString(&o, msg);
+  o.CloseTopMessage();
+  return s;
+}
+
+namespace internal {
+
+void AppendProtoDebugString(
+    ::tensorflow::strings::ProtoTextOutput* o,
+    const ::tensorflow::MemoryStats& msg) {
+  o->AppendNumericIfNotZero("host_temp_memory_size", msg.host_temp_memory_size());
+  o->AppendNumericIfNotZero("device_temp_memory_size", msg.device_temp_memory_size());
+  o->AppendNumericIfNotZero("host_persistent_memory_size", msg.host_persistent_memory_size());
+  o->AppendNumericIfNotZero("device_persistent_memory_size", msg.device_persistent_memory_size());
+  for (int i = 0; i < msg.host_persistent_tensor_alloc_ids_size(); ++i) {
+    o->AppendNumeric("host_persistent_tensor_alloc_ids", msg.host_persistent_tensor_alloc_ids(i));
+  }
+  for (int i = 0; i < msg.device_persistent_tensor_alloc_ids_size(); ++i) {
+    o->AppendNumeric("device_persistent_tensor_alloc_ids", msg.device_persistent_tensor_alloc_ids(i));
+  }
+}
+
+}  // namespace internal
+
+bool ProtoParseFromString(
+    const string& s,
+    ::tensorflow::MemoryStats* msg) {
+  msg->Clear();
+  Scanner scanner(s);
+  if (!internal::ProtoParseFromScanner(&scanner, false, false, msg)) return false;
+  scanner.Eos();
+  return scanner.GetResult();
+}
+
+namespace internal {
+
+bool ProtoParseFromScanner(
+    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
+    ::tensorflow::MemoryStats* msg) {
+  std::vector<bool> has_seen(6, false);
+  while(true) {
+    ProtoSpaceAndComments(scanner);
+    if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+      return true;
+    }
+    if (!nested && scanner->empty()) { return true; }
+    scanner->RestartCapture()
+        .Many(Scanner::LETTER_DIGIT_UNDERSCORE)
+        .StopCapture();
+    StringPiece identifier;
+    if (!scanner->GetResult(nullptr, &identifier)) return false;
+    bool parsed_colon = false;
+    (void)parsed_colon;
+    ProtoSpaceAndComments(scanner);
+    if (scanner->Peek() == ':') {
+      parsed_colon = true;
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+    }
+    if (identifier == "host_temp_memory_size") {
+      if (has_seen[0]) return false;
+      has_seen[0] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_host_temp_memory_size(value);
+    }
+    else if (identifier == "device_temp_memory_size") {
+      if (has_seen[1]) return false;
+      has_seen[1] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_device_temp_memory_size(value);
+    }
+    else if (identifier == "host_persistent_memory_size") {
+      if (has_seen[2]) return false;
+      has_seen[2] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_host_persistent_memory_size(value);
+    }
+    else if (identifier == "device_persistent_memory_size") {
+      if (has_seen[3]) return false;
+      has_seen[3] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_device_persistent_memory_size(value);
+    }
+    else if (identifier == "host_persistent_tensor_alloc_ids") {
+      const bool is_list = (scanner->Peek() == '[');
+      do {
+        if (is_list) {
+          scanner->One(Scanner::ALL);
+          ProtoSpaceAndComments(scanner);
+        }
+        int64 value;
+        if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+        msg->add_host_persistent_tensor_alloc_ids(value);
+      } while (is_list && scanner->Peek() == ',');
+      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
+    }
+    else if (identifier == "device_persistent_tensor_alloc_ids") {
+      const bool is_list = (scanner->Peek() == '[');
+      do {
+        if (is_list) {
+          scanner->One(Scanner::ALL);
+          ProtoSpaceAndComments(scanner);
+        }
+        int64 value;
+        if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+        msg->add_device_persistent_tensor_alloc_ids(value);
+      } while (is_list && scanner->Peek() == ',');
+      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
     }
   }
 }
@@ -236,6 +379,11 @@ void AppendProtoDebugString(
     ::tensorflow::internal::AppendProtoDebugString(o, msg.referenced_tensor(i));
     o->CloseNestedMessage();
   }
+  if (msg.has_memory_stats()) {
+    o->OpenNestedMessage("memory_stats");
+    ::tensorflow::internal::AppendProtoDebugString(o, msg.memory_stats());
+    o->CloseNestedMessage();
+  }
 }
 
 }  // namespace internal
@@ -255,7 +403,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::NodeExecStats* msg) {
-  std::vector<bool> has_seen(11, false);
+  std::vector<bool> has_seen(12, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -270,6 +418,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -382,6 +531,16 @@ bool ProtoParseFromScanner(
       } while (is_list && scanner->Peek() == ',');
       if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
     }
+    else if (identifier == "memory_stats") {
+      if (has_seen[11]) return false;
+      has_seen[11] = true;
+      const char open_char = scanner->Peek();
+      if (open_char != '{' && open_char != '<') return false;
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+      if (!::tensorflow::internal::ProtoParseFromScanner(
+          scanner, true, open_char == '{', msg->mutable_memory_stats())) return false;
+    }
   }
 }
 
@@ -450,6 +609,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -547,6 +707,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;

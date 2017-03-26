@@ -18,183 +18,160 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class JobDefDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<JobDef> {
+} _JobDef_default_instance_;
+class ClusterDefDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<ClusterDef> {
+} _ClusterDef_default_instance_;
+class ServerDefDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<ServerDef> {
+} _ServerDef_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* JobDef_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  JobDef_reflection_ = NULL;
-const ::google::protobuf::Descriptor* JobDef_TasksEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* ClusterDef_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  ClusterDef_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ServerDef_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  ServerDef_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[4];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, tasks_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClusterDef, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClusterDef, job_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, cluster_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, job_name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, task_index_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, default_session_config_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, protocol_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/protobuf/tensorflow_server.proto");
-  GOOGLE_CHECK(file != NULL);
-  JobDef_descriptor_ = file->message_type(0);
-  static const int JobDef_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, tasks_),
-  };
-  JobDef_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      JobDef_descriptor_,
-      JobDef::internal_default_instance(),
-      JobDef_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(JobDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(JobDef, _internal_metadata_));
-  JobDef_TasksEntry_descriptor_ = JobDef_descriptor_->nested_type(0);
-  ClusterDef_descriptor_ = file->message_type(1);
-  static const int ClusterDef_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClusterDef, job_),
-  };
-  ClusterDef_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      ClusterDef_descriptor_,
-      ClusterDef::internal_default_instance(),
-      ClusterDef_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(ClusterDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClusterDef, _internal_metadata_));
-  ServerDef_descriptor_ = file->message_type(2);
-  static const int ServerDef_offsets_[5] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, cluster_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, job_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, task_index_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, default_session_config_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, protocol_),
-  };
-  ServerDef_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      ServerDef_descriptor_,
-      ServerDef::internal_default_instance(),
-      ServerDef_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(ServerDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerDef, _internal_metadata_));
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(JobDef)},
+  { 6, -1, sizeof(ClusterDef)},
+  { 11, -1, sizeof(ServerDef)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_JobDef_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_ClusterDef_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_ServerDef_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/protobuf/tensorflow_server.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
+  const ::google::protobuf::Descriptor* JobDef_TasksEntry_descriptor = protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[0].descriptor;
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      JobDef_descriptor_, JobDef::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        JobDef_TasksEntry_descriptor_,
+        JobDef_TasksEntry_descriptor,
         ::google::protobuf::internal::MapEntry<
             ::google::protobuf::int32,
             ::std::string,
             ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             0>::CreateDefaultInstance(
-                JobDef_TasksEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ClusterDef_descriptor_, ClusterDef::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ServerDef_descriptor_, ServerDef::internal_default_instance());
+                JobDef_TasksEntry_descriptor));
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() {
-  JobDef_default_instance_.Shutdown();
-  delete JobDef_reflection_;
-  ClusterDef_default_instance_.Shutdown();
-  delete ClusterDef_reflection_;
-  ServerDef_default_instance_.Shutdown();
-  delete ServerDef_reflection_;
+void TableStruct::Shutdown() {
+  _JobDef_default_instance_.Shutdown();
+  delete file_level_metadata[1].reflection;
+  _ClusterDef_default_instance_.Shutdown();
+  delete file_level_metadata[2].reflection;
+  _ServerDef_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  ::google::protobuf::internal::GetEmptyString();
-  JobDef_default_instance_.DefaultConstruct();
-  ClusterDef_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  ServerDef_default_instance_.DefaultConstruct();
-  JobDef_default_instance_.get_mutable()->InitAsDefaultInstance();
-  ClusterDef_default_instance_.get_mutable()->InitAsDefaultInstance();
-  ServerDef_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto::InitDefaults();
+  _JobDef_default_instance_.DefaultConstruct();
+  _ClusterDef_default_instance_.DefaultConstruct();
+  _ServerDef_default_instance_.DefaultConstruct();
+  _ServerDef_default_instance_.get_mutable()->cluster_ = const_cast< ::tensorflow::ClusterDef*>(
+      ::tensorflow::ClusterDef::internal_default_instance());
+  _ServerDef_default_instance_.get_mutable()->default_session_config_ = const_cast< ::tensorflow::ConfigProto*>(
+      ::tensorflow::ConfigProto::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n0tensorflow/core/protobuf/tensorflow_se"
+      "rver.proto\022\ntensorflow\032%tensorflow/core/"
+      "protobuf/config.proto\"r\n\006JobDef\022\014\n\004name\030"
+      "\001 \001(\t\022,\n\005tasks\030\002 \003(\0132\035.tensorflow.JobDef"
+      ".TasksEntry\032,\n\nTasksEntry\022\013\n\003key\030\001 \001(\005\022\r"
+      "\n\005value\030\002 \001(\t:\0028\001\"-\n\nClusterDef\022\037\n\003job\030\001"
+      " \003(\0132\022.tensorflow.JobDef\"\245\001\n\tServerDef\022\'"
+      "\n\007cluster\030\001 \001(\0132\026.tensorflow.ClusterDef\022"
+      "\020\n\010job_name\030\002 \001(\t\022\022\n\ntask_index\030\003 \001(\005\0227\n"
+      "\026default_session_config\030\004 \001(\0132\027.tensorfl"
+      "ow.ConfigProto\022\020\n\010protocol\030\005 \001(\tB/\n\032org."
+      "tensorflow.distruntimeB\014ServerProtosP\001\370\001"
+      "\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n0tensorflow/core/protobuf/tensorflow_se"
-    "rver.proto\022\ntensorflow\032%tensorflow/core/"
-    "protobuf/config.proto\"r\n\006JobDef\022\014\n\004name\030"
-    "\001 \001(\t\022,\n\005tasks\030\002 \003(\0132\035.tensorflow.JobDef"
-    ".TasksEntry\032,\n\nTasksEntry\022\013\n\003key\030\001 \001(\005\022\r"
-    "\n\005value\030\002 \001(\t:\0028\001\"-\n\nClusterDef\022\037\n\003job\030\001"
-    " \003(\0132\022.tensorflow.JobDef\"\245\001\n\tServerDef\022\'"
-    "\n\007cluster\030\001 \001(\0132\026.tensorflow.ClusterDef\022"
-    "\020\n\010job_name\030\002 \001(\t\022\022\n\ntask_index\030\003 \001(\005\0227\n"
-    "\026default_session_config\030\004 \001(\0132\027.tensorfl"
-    "ow.ConfigProto\022\020\n\010protocol\030\005 \001(\tB/\n\032org."
-    "tensorflow.distruntimeB\014ServerProtosP\001\370\001"
-    "\001b\006proto3", 489);
+      descriptor, 489);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/protobuf/tensorflow_server.proto", &protobuf_RegisterTypes);
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto);
+  ::tensorflow::protobuf_tensorflow_2fcore_2fprotobuf_2fconfig_2eproto::AddDescriptors();
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
+}  // namespace protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
 
-}  // namespace
+// ===================================================================
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -205,7 +182,9 @@ const int JobDef::kTasksFieldNumber;
 
 JobDef::JobDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.JobDef)
 }
@@ -214,29 +193,37 @@ JobDef::JobDef(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   tasks_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.JobDef)
 }
-
-void JobDef::InitAsDefaultInstance() {
-}
-
 JobDef::JobDef(const JobDef& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  const ::google::protobuf::Descriptor*& JobDef_TasksEntry_descriptor = protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[0].descriptor;
+  tasks_.SetAssignDescriptorCallback(
+      protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce);
+  tasks_.SetEntryDescriptor(
+      &JobDef_TasksEntry_descriptor);
+  tasks_.MergeFrom(from.tasks_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name(),
+      GetArenaNoVirtual());
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.JobDef)
 }
 
 void JobDef::SharedCtor() {
+  const ::google::protobuf::Descriptor*& JobDef_TasksEntry_descriptor = protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[0].descriptor;
   tasks_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
+      protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce);
   tasks_.SetEntryDescriptor(
-      &::tensorflow::JobDef_TasksEntry_descriptor_);
+      &JobDef_TasksEntry_descriptor);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
@@ -267,16 +254,14 @@ void JobDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* JobDef::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return JobDef_descriptor_;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[1].descriptor;
 }
 
 const JobDef& JobDef::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<JobDef> JobDef_default_instance_;
 
 JobDef* JobDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<JobDef>(arena);
@@ -284,8 +269,8 @@ JobDef* JobDef::New(::google::protobuf::Arena* arena) const {
 
 void JobDef::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.JobDef)
-  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   tasks_.Clear();
+  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 
 bool JobDef::MergePartialFromCodedStream(
@@ -294,13 +279,14 @@ bool JobDef::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.JobDef)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string name = 1;
+      // string name = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -310,16 +296,14 @@ bool JobDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_tasks;
         break;
       }
 
       // map<int32, string> tasks = 2;
       case 2: {
-        if (tag == 18) {
-         parse_tasks:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_tasks:
           JobDef_TasksEntry::Parser< ::google::protobuf::internal::MapField<
               ::google::protobuf::int32, ::std::string,
               ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
@@ -335,9 +319,7 @@ bool JobDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_loop_tasks;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -365,7 +347,7 @@ failure:
 void JobDef::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.JobDef)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -390,7 +372,7 @@ void JobDef::SerializeWithCachedSizes(
       }
     };
 
-    if (output->IsSerializationDeterminstic() &&
+    if (output->IsSerializationDeterministic() &&
         this->tasks().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->tasks().size()]);
@@ -435,9 +417,9 @@ void JobDef::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* JobDef::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.JobDef)
-  // optional string name = 1;
+  // string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -515,13 +497,6 @@ size_t JobDef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.JobDef)
   size_t total_size = 0;
 
-  // optional string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-  }
-
   // map<int32, string> tasks = 2;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->tasks_size());
@@ -542,6 +517,13 @@ size_t JobDef::ByteSizeLong() const {
     }
   }
 
+  // string name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -551,7 +533,7 @@ size_t JobDef::ByteSizeLong() const {
 
 void JobDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.JobDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const JobDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const JobDef>(
           &from);
@@ -560,21 +542,14 @@ void JobDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.JobDef)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void JobDef::MergeFrom(const JobDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.JobDef)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void JobDef::UnsafeMergeFrom(const JobDef& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   tasks_.MergeFrom(from.tasks_);
   if (from.name().size() > 0) {
     set_name(from.name());
@@ -592,11 +567,10 @@ void JobDef::CopyFrom(const JobDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.JobDef)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool JobDef::IsInitialized() const {
-
   return true;
 }
 
@@ -605,10 +579,13 @@ void JobDef::Swap(JobDef* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    JobDef temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    JobDef* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void JobDef::UnsafeArenaSwap(JobDef* other) {
@@ -617,30 +594,26 @@ void JobDef::UnsafeArenaSwap(JobDef* other) {
   InternalSwap(other);
 }
 void JobDef::InternalSwap(JobDef* other) {
-  name_.Swap(&other->name_);
   tasks_.Swap(&other->tasks_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  name_.Swap(&other->name_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata JobDef::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = JobDef_descriptor_;
-  metadata.reflection = JobDef_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[1];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // JobDef
 
-// optional string name = 1;
+// string name = 1;
 void JobDef::clear_name() {
   name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& JobDef::name() const {
   // @@protoc_insertion_point(field_get:tensorflow.JobDef.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.Get();
 }
 void JobDef::set_name(const ::std::string& value) {
   
@@ -718,9 +691,6 @@ JobDef::mutable_tasks() {
   return tasks_.MutableMap();
 }
 
-inline const JobDef* JobDef::internal_default_instance() {
-  return &JobDef_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -731,7 +701,9 @@ const int ClusterDef::kJobFieldNumber;
 
 ClusterDef::ClusterDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.ClusterDef)
 }
@@ -740,21 +712,18 @@ ClusterDef::ClusterDef(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   job_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.ClusterDef)
 }
-
-void ClusterDef::InitAsDefaultInstance() {
-}
-
 ClusterDef::ClusterDef(const ClusterDef& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      job_(from.job_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:tensorflow.ClusterDef)
 }
 
@@ -787,16 +756,14 @@ void ClusterDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* ClusterDef::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ClusterDef_descriptor_;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[2].descriptor;
 }
 
 const ClusterDef& ClusterDef::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<ClusterDef> ClusterDef_default_instance_;
 
 ClusterDef* ClusterDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<ClusterDef>(arena);
@@ -813,23 +780,21 @@ bool ClusterDef::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.ClusterDef)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .tensorflow.JobDef job = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_job:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_job()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_job;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -868,7 +833,7 @@ void ClusterDef::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ClusterDef::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.ClusterDef)
   // repeated .tensorflow.JobDef job = 1;
   for (unsigned int i = 0, n = this->job_size(); i < n; i++) {
@@ -905,7 +870,7 @@ size_t ClusterDef::ByteSizeLong() const {
 
 void ClusterDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.ClusterDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const ClusterDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const ClusterDef>(
           &from);
@@ -914,21 +879,14 @@ void ClusterDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.ClusterDef)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void ClusterDef::MergeFrom(const ClusterDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.ClusterDef)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void ClusterDef::UnsafeMergeFrom(const ClusterDef& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   job_.MergeFrom(from.job_);
 }
 
@@ -943,11 +901,10 @@ void ClusterDef::CopyFrom(const ClusterDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.ClusterDef)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool ClusterDef::IsInitialized() const {
-
   return true;
 }
 
@@ -956,10 +913,13 @@ void ClusterDef::Swap(ClusterDef* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    ClusterDef temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    ClusterDef* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void ClusterDef::UnsafeArenaSwap(ClusterDef* other) {
@@ -969,16 +929,12 @@ void ClusterDef::UnsafeArenaSwap(ClusterDef* other) {
 }
 void ClusterDef::InternalSwap(ClusterDef* other) {
   job_.UnsafeArenaSwap(&other->job_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata ClusterDef::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ClusterDef_descriptor_;
-  metadata.reflection = ClusterDef_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[2];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1014,9 +970,6 @@ ClusterDef::job() const {
   return job_;
 }
 
-inline const ClusterDef* ClusterDef::internal_default_instance() {
-  return &ClusterDef_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1125,7 +1078,9 @@ const int ServerDef::kProtocolFieldNumber;
 
 ServerDef::ServerDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.ServerDef)
 }
@@ -1133,34 +1088,46 @@ ServerDef::ServerDef(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.ServerDef)
 }
-
-void ServerDef::InitAsDefaultInstance() {
-  cluster_ = const_cast< ::tensorflow::ClusterDef*>(
-      ::tensorflow::ClusterDef::internal_default_instance());
-  default_session_config_ = const_cast< ::tensorflow::ConfigProto*>(
-      ::tensorflow::ConfigProto::internal_default_instance());
-}
-
 ServerDef::ServerDef(const ServerDef& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  job_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.job_name().size() > 0) {
+    job_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.job_name(),
+      GetArenaNoVirtual());
+  }
+  protocol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.protocol().size() > 0) {
+    protocol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.protocol(),
+      GetArenaNoVirtual());
+  }
+  if (from.has_cluster()) {
+    cluster_ = new ::tensorflow::ClusterDef(*from.cluster_);
+  } else {
+    cluster_ = NULL;
+  }
+  if (from.has_default_session_config()) {
+    default_session_config_ = new ::tensorflow::ConfigProto(*from.default_session_config_);
+  } else {
+    default_session_config_ = NULL;
+  }
+  task_index_ = from.task_index_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.ServerDef)
 }
 
 void ServerDef::SharedCtor() {
   job_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   protocol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  cluster_ = NULL;
-  default_session_config_ = NULL;
-  task_index_ = 0;
+  ::memset(&cluster_, 0, reinterpret_cast<char*>(&task_index_) -
+    reinterpret_cast<char*>(&cluster_) + sizeof(task_index_));
   _cached_size_ = 0;
 }
 
@@ -1177,8 +1144,10 @@ void ServerDef::SharedDtor() {
 
   job_name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
   protocol_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
-  if (this != &ServerDef_default_instance_.get()) {
+  if (this != internal_default_instance()) {
     delete cluster_;
+  }
+  if (this != internal_default_instance()) {
     delete default_session_config_;
   }
 }
@@ -1195,16 +1164,14 @@ void ServerDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* ServerDef::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return ServerDef_descriptor_;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[3].descriptor;
 }
 
 const ServerDef& ServerDef::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto();
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<ServerDef> ServerDef_default_instance_;
 
 ServerDef* ServerDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<ServerDef>(arena);
@@ -1212,13 +1179,17 @@ ServerDef* ServerDef::New(::google::protobuf::Arena* arena) const {
 
 void ServerDef::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.ServerDef)
-  if (GetArenaNoVirtual() == NULL && cluster_ != NULL) delete cluster_;
-  cluster_ = NULL;
   job_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  task_index_ = 0;
-  if (GetArenaNoVirtual() == NULL && default_session_config_ != NULL) delete default_session_config_;
-  default_session_config_ = NULL;
   protocol_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  if (GetArenaNoVirtual() == NULL && cluster_ != NULL) {
+    delete cluster_;
+  }
+  cluster_ = NULL;
+  if (GetArenaNoVirtual() == NULL && default_session_config_ != NULL) {
+    delete default_session_config_;
+  }
+  default_session_config_ = NULL;
+  task_index_ = 0;
 }
 
 bool ServerDef::MergePartialFromCodedStream(
@@ -1227,26 +1198,26 @@ bool ServerDef::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.ServerDef)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .tensorflow.ClusterDef cluster = 1;
+      // .tensorflow.ClusterDef cluster = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cluster()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_job_name;
         break;
       }
 
-      // optional string job_name = 2;
+      // string job_name = 2;
       case 2: {
-        if (tag == 18) {
-         parse_job_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_job_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1256,14 +1227,13 @@ bool ServerDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_task_index;
         break;
       }
 
-      // optional int32 task_index = 3;
+      // int32 task_index = 3;
       case 3: {
-        if (tag == 24) {
-         parse_task_index:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1271,27 +1241,25 @@ bool ServerDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_default_session_config;
         break;
       }
 
-      // optional .tensorflow.ConfigProto default_session_config = 4;
+      // .tensorflow.ConfigProto default_session_config = 4;
       case 4: {
-        if (tag == 34) {
-         parse_default_session_config:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_default_session_config()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_protocol;
         break;
       }
 
-      // optional string protocol = 5;
+      // string protocol = 5;
       case 5: {
-        if (tag == 42) {
-         parse_protocol:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_protocol()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1301,7 +1269,6 @@ bool ServerDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1329,13 +1296,13 @@ failure:
 void ServerDef::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.ServerDef)
-  // optional .tensorflow.ClusterDef cluster = 1;
+  // .tensorflow.ClusterDef cluster = 1;
   if (this->has_cluster()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->cluster_, output);
   }
 
-  // optional string job_name = 2;
+  // string job_name = 2;
   if (this->job_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->job_name().data(), this->job_name().length(),
@@ -1345,18 +1312,18 @@ void ServerDef::SerializeWithCachedSizes(
       2, this->job_name(), output);
   }
 
-  // optional int32 task_index = 3;
+  // int32 task_index = 3;
   if (this->task_index() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->task_index(), output);
   }
 
-  // optional .tensorflow.ConfigProto default_session_config = 4;
+  // .tensorflow.ConfigProto default_session_config = 4;
   if (this->has_default_session_config()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->default_session_config_, output);
   }
 
-  // optional string protocol = 5;
+  // string protocol = 5;
   if (this->protocol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->protocol().data(), this->protocol().length(),
@@ -1371,16 +1338,16 @@ void ServerDef::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ServerDef::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.ServerDef)
-  // optional .tensorflow.ClusterDef cluster = 1;
+  // .tensorflow.ClusterDef cluster = 1;
   if (this->has_cluster()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         1, *this->cluster_, false, target);
   }
 
-  // optional string job_name = 2;
+  // string job_name = 2;
   if (this->job_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->job_name().data(), this->job_name().length(),
@@ -1391,19 +1358,19 @@ void ServerDef::SerializeWithCachedSizes(
         2, this->job_name(), target);
   }
 
-  // optional int32 task_index = 3;
+  // int32 task_index = 3;
   if (this->task_index() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->task_index(), target);
   }
 
-  // optional .tensorflow.ConfigProto default_session_config = 4;
+  // .tensorflow.ConfigProto default_session_config = 4;
   if (this->has_default_session_config()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         4, *this->default_session_config_, false, target);
   }
 
-  // optional string protocol = 5;
+  // string protocol = 5;
   if (this->protocol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->protocol().data(), this->protocol().length(),
@@ -1422,39 +1389,39 @@ size_t ServerDef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.ServerDef)
   size_t total_size = 0;
 
-  // optional .tensorflow.ClusterDef cluster = 1;
-  if (this->has_cluster()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->cluster_);
-  }
-
-  // optional string job_name = 2;
+  // string job_name = 2;
   if (this->job_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->job_name());
   }
 
-  // optional int32 task_index = 3;
-  if (this->task_index() != 0) {
+  // string protocol = 5;
+  if (this->protocol().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->task_index());
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->protocol());
   }
 
-  // optional .tensorflow.ConfigProto default_session_config = 4;
+  // .tensorflow.ClusterDef cluster = 1;
+  if (this->has_cluster()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->cluster_);
+  }
+
+  // .tensorflow.ConfigProto default_session_config = 4;
   if (this->has_default_session_config()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->default_session_config_);
   }
 
-  // optional string protocol = 5;
-  if (this->protocol().size() > 0) {
+  // int32 task_index = 3;
+  if (this->task_index() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->protocol());
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->task_index());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1466,7 +1433,7 @@ size_t ServerDef::ByteSizeLong() const {
 
 void ServerDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.ServerDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const ServerDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const ServerDef>(
           &from);
@@ -1475,35 +1442,28 @@ void ServerDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.ServerDef)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void ServerDef::MergeFrom(const ServerDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.ServerDef)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void ServerDef::UnsafeMergeFrom(const ServerDef& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.has_cluster()) {
-    mutable_cluster()->::tensorflow::ClusterDef::MergeFrom(from.cluster());
-  }
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.job_name().size() > 0) {
     set_job_name(from.job_name());
   }
-  if (from.task_index() != 0) {
-    set_task_index(from.task_index());
+  if (from.protocol().size() > 0) {
+    set_protocol(from.protocol());
+  }
+  if (from.has_cluster()) {
+    mutable_cluster()->::tensorflow::ClusterDef::MergeFrom(from.cluster());
   }
   if (from.has_default_session_config()) {
     mutable_default_session_config()->::tensorflow::ConfigProto::MergeFrom(from.default_session_config());
   }
-  if (from.protocol().size() > 0) {
-    set_protocol(from.protocol());
+  if (from.task_index() != 0) {
+    set_task_index(from.task_index());
   }
 }
 
@@ -1518,11 +1478,10 @@ void ServerDef::CopyFrom(const ServerDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.ServerDef)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool ServerDef::IsInitialized() const {
-
   return true;
 }
 
@@ -1531,10 +1490,13 @@ void ServerDef::Swap(ServerDef* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    ServerDef temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    ServerDef* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void ServerDef::UnsafeArenaSwap(ServerDef* other) {
@@ -1543,27 +1505,23 @@ void ServerDef::UnsafeArenaSwap(ServerDef* other) {
   InternalSwap(other);
 }
 void ServerDef::InternalSwap(ServerDef* other) {
-  std::swap(cluster_, other->cluster_);
   job_name_.Swap(&other->job_name_);
-  std::swap(task_index_, other->task_index_);
-  std::swap(default_session_config_, other->default_session_config_);
   protocol_.Swap(&other->protocol_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(cluster_, other->cluster_);
+  std::swap(default_session_config_, other->default_session_config_);
+  std::swap(task_index_, other->task_index_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata ServerDef::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ServerDef_descriptor_;
-  metadata.reflection = ServerDef_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fprotobuf_2ftensorflow_5fserver_2eproto::file_level_metadata[3];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // ServerDef
 
-// optional .tensorflow.ClusterDef cluster = 1;
+// .tensorflow.ClusterDef cluster = 1;
 bool ServerDef::has_cluster() const {
   return this != internal_default_instance() && cluster_ != NULL;
 }
@@ -1612,13 +1570,13 @@ const ::tensorflow::ClusterDef& ServerDef::cluster() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.ServerDef.cluster)
 }
 
-// optional string job_name = 2;
+// string job_name = 2;
 void ServerDef::clear_job_name() {
   job_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& ServerDef::job_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.ServerDef.job_name)
-  return job_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return job_name_.Get();
 }
 void ServerDef::set_job_name(const ::std::string& value) {
   
@@ -1678,7 +1636,7 @@ void ServerDef::unsafe_arena_set_allocated_job_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.ServerDef.job_name)
 }
 
-// optional int32 task_index = 3;
+// int32 task_index = 3;
 void ServerDef::clear_task_index() {
   task_index_ = 0;
 }
@@ -1692,7 +1650,7 @@ void ServerDef::set_task_index(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:tensorflow.ServerDef.task_index)
 }
 
-// optional .tensorflow.ConfigProto default_session_config = 4;
+// .tensorflow.ConfigProto default_session_config = 4;
 bool ServerDef::has_default_session_config() const {
   return this != internal_default_instance() && default_session_config_ != NULL;
 }
@@ -1741,13 +1699,13 @@ const ::tensorflow::ConfigProto& ServerDef::default_session_config() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.ServerDef.default_session_config)
 }
 
-// optional string protocol = 5;
+// string protocol = 5;
 void ServerDef::clear_protocol() {
   protocol_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& ServerDef::protocol() const {
   // @@protoc_insertion_point(field_get:tensorflow.ServerDef.protocol)
-  return protocol_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return protocol_.Get();
 }
 void ServerDef::set_protocol(const ::std::string& value) {
   
@@ -1807,9 +1765,6 @@ void ServerDef::unsafe_arena_set_allocated_protocol(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.ServerDef.protocol)
 }
 
-inline const ServerDef* ServerDef::internal_default_instance() {
-  return &ServerDef_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

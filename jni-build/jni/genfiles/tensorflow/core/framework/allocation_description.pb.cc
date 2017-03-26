@@ -18,117 +18,109 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class AllocationDescriptionDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<AllocationDescription> {
+} _AllocationDescription_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* AllocationDescription_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  AllocationDescription_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[1];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, requested_bytes_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocated_bytes_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocator_name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocation_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, has_single_reference_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, ptr_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/framework/allocation_description.proto");
-  GOOGLE_CHECK(file != NULL);
-  AllocationDescription_descriptor_ = file->message_type(0);
-  static const int AllocationDescription_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, requested_bytes_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocated_bytes_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocator_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, allocation_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, has_single_reference_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, ptr_),
-  };
-  AllocationDescription_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      AllocationDescription_descriptor_,
-      AllocationDescription::internal_default_instance(),
-      AllocationDescription_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(AllocationDescription),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllocationDescription, _internal_metadata_));
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(AllocationDescription)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_AllocationDescription_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/framework/allocation_description.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      AllocationDescription_descriptor_, AllocationDescription::internal_default_instance());
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 1);
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() {
-  AllocationDescription_default_instance_.Shutdown();
-  delete AllocationDescription_reflection_;
+void TableStruct::Shutdown() {
+  _AllocationDescription_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::internal::GetEmptyString();
-  AllocationDescription_default_instance_.DefaultConstruct();
-  AllocationDescription_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  _AllocationDescription_default_instance_.DefaultConstruct();
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n6tensorflow/core/framework/allocation_d"
+      "escription.proto\022\ntensorflow\"\243\001\n\025Allocat"
+      "ionDescription\022\027\n\017requested_bytes\030\001 \001(\003\022"
+      "\027\n\017allocated_bytes\030\002 \001(\003\022\026\n\016allocator_na"
+      "me\030\003 \001(\t\022\025\n\rallocation_id\030\004 \001(\003\022\034\n\024has_s"
+      "ingle_reference\030\005 \001(\010\022\013\n\003ptr\030\006 \001(\004B<\n\030or"
+      "g.tensorflow.frameworkB\033AllocationDescri"
+      "ptionProtosP\001\370\001\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n6tensorflow/core/framework/allocation_d"
-    "escription.proto\022\ntensorflow\"\243\001\n\025Allocat"
-    "ionDescription\022\027\n\017requested_bytes\030\001 \001(\003\022"
-    "\027\n\017allocated_bytes\030\002 \001(\003\022\026\n\016allocator_na"
-    "me\030\003 \001(\t\022\025\n\rallocation_id\030\004 \001(\003\022\034\n\024has_s"
-    "ingle_reference\030\005 \001(\010\022\013\n\003ptr\030\006 \001(\004B<\n\030or"
-    "g.tensorflow.frameworkB\033AllocationDescri"
-    "ptionProtosP\001\370\001\001b\006proto3", 304);
+      descriptor, 304);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/allocation_description.proto", &protobuf_RegisterTypes);
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto);
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
-
-}  // namespace
+}  // namespace protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto
 
 
 // ===================================================================
@@ -144,7 +136,9 @@ const int AllocationDescription::kPtrFieldNumber;
 
 AllocationDescription::AllocationDescription()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.AllocationDescription)
 }
@@ -152,21 +146,25 @@ AllocationDescription::AllocationDescription(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.AllocationDescription)
 }
-
-void AllocationDescription::InitAsDefaultInstance() {
-}
-
 AllocationDescription::AllocationDescription(const AllocationDescription& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  allocator_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.allocator_name().size() > 0) {
+    allocator_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.allocator_name(),
+      GetArenaNoVirtual());
+  }
+  ::memcpy(&requested_bytes_, &from.requested_bytes_,
+    reinterpret_cast<char*>(&has_single_reference_) -
+    reinterpret_cast<char*>(&requested_bytes_) + sizeof(has_single_reference_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.AllocationDescription)
 }
 
@@ -203,16 +201,14 @@ void AllocationDescription::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* AllocationDescription::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AllocationDescription_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::file_level_metadata[0].descriptor;
 }
 
 const AllocationDescription& AllocationDescription::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<AllocationDescription> AllocationDescription_default_instance_;
 
 AllocationDescription* AllocationDescription::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<AllocationDescription>(arena);
@@ -220,28 +216,9 @@ AllocationDescription* AllocationDescription::New(::google::protobuf::Arena* are
 
 void AllocationDescription::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.AllocationDescription)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(AllocationDescription, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<AllocationDescription*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(requested_bytes_, has_single_reference_);
   allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  ::memset(&requested_bytes_, 0, reinterpret_cast<char*>(&has_single_reference_) -
+    reinterpret_cast<char*>(&requested_bytes_) + sizeof(has_single_reference_));
 }
 
 bool AllocationDescription::MergePartialFromCodedStream(
@@ -250,13 +227,14 @@ bool AllocationDescription::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.AllocationDescription)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 requested_bytes = 1;
+      // int64 requested_bytes = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -264,14 +242,13 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_allocated_bytes;
         break;
       }
 
-      // optional int64 allocated_bytes = 2;
+      // int64 allocated_bytes = 2;
       case 2: {
-        if (tag == 16) {
-         parse_allocated_bytes:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -279,14 +256,13 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_allocator_name;
         break;
       }
 
-      // optional string allocator_name = 3;
+      // string allocator_name = 3;
       case 3: {
-        if (tag == 26) {
-         parse_allocator_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_allocator_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -296,14 +272,13 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_allocation_id;
         break;
       }
 
-      // optional int64 allocation_id = 4;
+      // int64 allocation_id = 4;
       case 4: {
-        if (tag == 32) {
-         parse_allocation_id:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -311,14 +286,13 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_has_single_reference;
         break;
       }
 
-      // optional bool has_single_reference = 5;
+      // bool has_single_reference = 5;
       case 5: {
-        if (tag == 40) {
-         parse_has_single_reference:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
@@ -326,14 +300,13 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(48)) goto parse_ptr;
         break;
       }
 
-      // optional uint64 ptr = 6;
+      // uint64 ptr = 6;
       case 6: {
-        if (tag == 48) {
-         parse_ptr:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
@@ -341,7 +314,6 @@ bool AllocationDescription::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -369,17 +341,17 @@ failure:
 void AllocationDescription::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.AllocationDescription)
-  // optional int64 requested_bytes = 1;
+  // int64 requested_bytes = 1;
   if (this->requested_bytes() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->requested_bytes(), output);
   }
 
-  // optional int64 allocated_bytes = 2;
+  // int64 allocated_bytes = 2;
   if (this->allocated_bytes() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->allocated_bytes(), output);
   }
 
-  // optional string allocator_name = 3;
+  // string allocator_name = 3;
   if (this->allocator_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->allocator_name().data(), this->allocator_name().length(),
@@ -389,17 +361,17 @@ void AllocationDescription::SerializeWithCachedSizes(
       3, this->allocator_name(), output);
   }
 
-  // optional int64 allocation_id = 4;
+  // int64 allocation_id = 4;
   if (this->allocation_id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->allocation_id(), output);
   }
 
-  // optional bool has_single_reference = 5;
+  // bool has_single_reference = 5;
   if (this->has_single_reference() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->has_single_reference(), output);
   }
 
-  // optional uint64 ptr = 6;
+  // uint64 ptr = 6;
   if (this->ptr() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt64(6, this->ptr(), output);
   }
@@ -409,19 +381,19 @@ void AllocationDescription::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* AllocationDescription::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.AllocationDescription)
-  // optional int64 requested_bytes = 1;
+  // int64 requested_bytes = 1;
   if (this->requested_bytes() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->requested_bytes(), target);
   }
 
-  // optional int64 allocated_bytes = 2;
+  // int64 allocated_bytes = 2;
   if (this->allocated_bytes() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->allocated_bytes(), target);
   }
 
-  // optional string allocator_name = 3;
+  // string allocator_name = 3;
   if (this->allocator_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->allocator_name().data(), this->allocator_name().length(),
@@ -432,17 +404,17 @@ void AllocationDescription::SerializeWithCachedSizes(
         3, this->allocator_name(), target);
   }
 
-  // optional int64 allocation_id = 4;
+  // int64 allocation_id = 4;
   if (this->allocation_id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->allocation_id(), target);
   }
 
-  // optional bool has_single_reference = 5;
+  // bool has_single_reference = 5;
   if (this->has_single_reference() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->has_single_reference(), target);
   }
 
-  // optional uint64 ptr = 6;
+  // uint64 ptr = 6;
   if (this->ptr() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(6, this->ptr(), target);
   }
@@ -455,44 +427,44 @@ size_t AllocationDescription::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.AllocationDescription)
   size_t total_size = 0;
 
-  // optional int64 requested_bytes = 1;
-  if (this->requested_bytes() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->requested_bytes());
-  }
-
-  // optional int64 allocated_bytes = 2;
-  if (this->allocated_bytes() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->allocated_bytes());
-  }
-
-  // optional string allocator_name = 3;
+  // string allocator_name = 3;
   if (this->allocator_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->allocator_name());
   }
 
-  // optional int64 allocation_id = 4;
+  // int64 requested_bytes = 1;
+  if (this->requested_bytes() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->requested_bytes());
+  }
+
+  // int64 allocated_bytes = 2;
+  if (this->allocated_bytes() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->allocated_bytes());
+  }
+
+  // int64 allocation_id = 4;
   if (this->allocation_id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->allocation_id());
   }
 
-  // optional bool has_single_reference = 5;
-  if (this->has_single_reference() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // optional uint64 ptr = 6;
+  // uint64 ptr = 6;
   if (this->ptr() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt64Size(
         this->ptr());
+  }
+
+  // bool has_single_reference = 5;
+  if (this->has_single_reference() != 0) {
+    total_size += 1 + 1;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -504,7 +476,7 @@ size_t AllocationDescription::ByteSizeLong() const {
 
 void AllocationDescription::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.AllocationDescription)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const AllocationDescription* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const AllocationDescription>(
           &from);
@@ -513,38 +485,31 @@ void AllocationDescription::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.AllocationDescription)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void AllocationDescription::MergeFrom(const AllocationDescription& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.AllocationDescription)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.allocator_name().size() > 0) {
+    set_allocator_name(from.allocator_name());
   }
-}
-
-void AllocationDescription::UnsafeMergeFrom(const AllocationDescription& from) {
-  GOOGLE_DCHECK(&from != this);
   if (from.requested_bytes() != 0) {
     set_requested_bytes(from.requested_bytes());
   }
   if (from.allocated_bytes() != 0) {
     set_allocated_bytes(from.allocated_bytes());
   }
-  if (from.allocator_name().size() > 0) {
-    set_allocator_name(from.allocator_name());
-  }
   if (from.allocation_id() != 0) {
     set_allocation_id(from.allocation_id());
   }
-  if (from.has_single_reference() != 0) {
-    set_has_single_reference(from.has_single_reference());
-  }
   if (from.ptr() != 0) {
     set_ptr(from.ptr());
+  }
+  if (from.has_single_reference() != 0) {
+    set_has_single_reference(from.has_single_reference());
   }
 }
 
@@ -559,11 +524,10 @@ void AllocationDescription::CopyFrom(const AllocationDescription& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.AllocationDescription)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool AllocationDescription::IsInitialized() const {
-
   return true;
 }
 
@@ -572,10 +536,13 @@ void AllocationDescription::Swap(AllocationDescription* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    AllocationDescription temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    AllocationDescription* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void AllocationDescription::UnsafeArenaSwap(AllocationDescription* other) {
@@ -584,28 +551,24 @@ void AllocationDescription::UnsafeArenaSwap(AllocationDescription* other) {
   InternalSwap(other);
 }
 void AllocationDescription::InternalSwap(AllocationDescription* other) {
+  allocator_name_.Swap(&other->allocator_name_);
   std::swap(requested_bytes_, other->requested_bytes_);
   std::swap(allocated_bytes_, other->allocated_bytes_);
-  allocator_name_.Swap(&other->allocator_name_);
   std::swap(allocation_id_, other->allocation_id_);
-  std::swap(has_single_reference_, other->has_single_reference_);
   std::swap(ptr_, other->ptr_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(has_single_reference_, other->has_single_reference_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata AllocationDescription::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = AllocationDescription_descriptor_;
-  metadata.reflection = AllocationDescription_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fallocation_5fdescription_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // AllocationDescription
 
-// optional int64 requested_bytes = 1;
+// int64 requested_bytes = 1;
 void AllocationDescription::clear_requested_bytes() {
   requested_bytes_ = GOOGLE_LONGLONG(0);
 }
@@ -619,7 +582,7 @@ void AllocationDescription::set_requested_bytes(::google::protobuf::int64 value)
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.requested_bytes)
 }
 
-// optional int64 allocated_bytes = 2;
+// int64 allocated_bytes = 2;
 void AllocationDescription::clear_allocated_bytes() {
   allocated_bytes_ = GOOGLE_LONGLONG(0);
 }
@@ -633,13 +596,13 @@ void AllocationDescription::set_allocated_bytes(::google::protobuf::int64 value)
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.allocated_bytes)
 }
 
-// optional string allocator_name = 3;
+// string allocator_name = 3;
 void AllocationDescription::clear_allocator_name() {
   allocator_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& AllocationDescription::allocator_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.AllocationDescription.allocator_name)
-  return allocator_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return allocator_name_.Get();
 }
 void AllocationDescription::set_allocator_name(const ::std::string& value) {
   
@@ -699,7 +662,7 @@ void AllocationDescription::unsafe_arena_set_allocated_allocator_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.AllocationDescription.allocator_name)
 }
 
-// optional int64 allocation_id = 4;
+// int64 allocation_id = 4;
 void AllocationDescription::clear_allocation_id() {
   allocation_id_ = GOOGLE_LONGLONG(0);
 }
@@ -713,7 +676,7 @@ void AllocationDescription::set_allocation_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.allocation_id)
 }
 
-// optional bool has_single_reference = 5;
+// bool has_single_reference = 5;
 void AllocationDescription::clear_has_single_reference() {
   has_single_reference_ = false;
 }
@@ -727,7 +690,7 @@ void AllocationDescription::set_has_single_reference(bool value) {
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.has_single_reference)
 }
 
-// optional uint64 ptr = 6;
+// uint64 ptr = 6;
 void AllocationDescription::clear_ptr() {
   ptr_ = GOOGLE_ULONGLONG(0);
 }
@@ -741,9 +704,6 @@ void AllocationDescription::set_ptr(::google::protobuf::uint64 value) {
   // @@protoc_insertion_point(field_set:tensorflow.AllocationDescription.ptr)
 }
 
-inline const AllocationDescription* AllocationDescription::internal_default_instance() {
-  return &AllocationDescription_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

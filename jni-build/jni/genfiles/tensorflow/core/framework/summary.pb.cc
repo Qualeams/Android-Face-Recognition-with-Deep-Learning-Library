@@ -18,256 +18,549 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
-
-namespace {
-
-const ::google::protobuf::Descriptor* HistogramProto_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  HistogramProto_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Summary_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Summary_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Summary_Image_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Summary_Image_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Summary_Audio_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Summary_Audio_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Summary_Value_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Summary_Value_reflection_ = NULL;
-struct Summary_ValueOneofInstance {
+class SummaryDescriptionDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SummaryDescription> {
+} _SummaryDescription_default_instance_;
+class HistogramProtoDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<HistogramProto> {
+} _HistogramProto_default_instance_;
+class Summary_ImageDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Summary_Image> {
+} _Summary_Image_default_instance_;
+class Summary_AudioDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Summary_Audio> {
+} _Summary_Audio_default_instance_;
+class Summary_ValueDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Summary_Value> {
+  public:
   float simple_value_;
   ::google::protobuf::internal::ArenaStringPtr obsolete_old_style_histogram_;
   const ::tensorflow::Summary_Image* image_;
   const ::tensorflow::HistogramProto* histo_;
   const ::tensorflow::Summary_Audio* audio_;
   const ::tensorflow::TensorProto* tensor_;
-}* Summary_Value_default_oneof_instance_ = NULL;
+} _Summary_Value_default_instance_;
+class SummaryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Summary> {
+} _Summary_default_instance_;
 
-}  // namespace
+namespace protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto {
 
-
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/framework/summary.proto");
-  GOOGLE_CHECK(file != NULL);
-  HistogramProto_descriptor_ = file->message_type(0);
-  static const int HistogramProto_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, min_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, max_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, num_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, sum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, sum_squares_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, bucket_limit_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, bucket_),
-  };
-  HistogramProto_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      HistogramProto_descriptor_,
-      HistogramProto::internal_default_instance(),
-      HistogramProto_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(HistogramProto),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, _internal_metadata_));
-  Summary_descriptor_ = file->message_type(1);
-  static const int Summary_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary, value_),
-  };
-  Summary_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Summary_descriptor_,
-      Summary::internal_default_instance(),
-      Summary_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Summary),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary, _internal_metadata_));
-  Summary_Image_descriptor_ = Summary_descriptor_->nested_type(0);
-  static const int Summary_Image_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, height_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, width_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, colorspace_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, encoded_image_string_),
-  };
-  Summary_Image_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Summary_Image_descriptor_,
-      Summary_Image::internal_default_instance(),
-      Summary_Image_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Summary_Image),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, _internal_metadata_));
-  Summary_Audio_descriptor_ = Summary_descriptor_->nested_type(1);
-  static const int Summary_Audio_offsets_[5] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, sample_rate_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, num_channels_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, length_frames_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, encoded_audio_string_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, content_type_),
-  };
-  Summary_Audio_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Summary_Audio_descriptor_,
-      Summary_Audio::internal_default_instance(),
-      Summary_Audio_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Summary_Audio),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, _internal_metadata_));
-  Summary_Value_descriptor_ = Summary_descriptor_->nested_type(2);
-  static const int Summary_Value_offsets_[9] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, node_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, tag_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, simple_value_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, obsolete_old_style_histogram_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, image_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, histo_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, audio_),
-    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Summary_Value_default_oneof_instance_, tensor_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, value_),
-  };
-  Summary_Value_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Summary_Value_descriptor_,
-      Summary_Value::internal_default_instance(),
-      Summary_Value_offsets_,
-      -1,
-      -1,
-      -1,
-      Summary_Value_default_oneof_instance_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, _oneof_case_[0]),
-      sizeof(Summary_Value),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, _internal_metadata_));
-}
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+::google::protobuf::Metadata file_level_metadata[6];
+
+}  // namespace
+
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SummaryDescription, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SummaryDescription, type_hint_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, min_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, max_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, num_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, sum_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, sum_squares_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, bucket_limit_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HistogramProto, bucket_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, height_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, width_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, colorspace_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Image, encoded_image_string_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, sample_rate_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, num_channels_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, length_frames_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, encoded_audio_string_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Audio, content_type_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, _internal_metadata_),
+  ~0u,  // no _extensions_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, _oneof_case_[0]),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, node_name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, tag_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), simple_value_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), obsolete_old_style_histogram_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), image_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), histo_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), audio_),
+  PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET((&_Summary_Value_default_instance_), tensor_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary_Value, value_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Summary, value_),
+};
+
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(SummaryDescription)},
+  { 5, -1, sizeof(HistogramProto)},
+  { 16, -1, sizeof(Summary_Image)},
+  { 24, -1, sizeof(Summary_Audio)},
+  { 33, -1, sizeof(Summary_Value)},
+  { 46, -1, sizeof(Summary)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_SummaryDescription_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_HistogramProto_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Summary_Image_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Summary_Audio_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Summary_Value_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Summary_default_instance_),
+};
+
+namespace {
+
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/framework/summary.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      HistogramProto_descriptor_, HistogramProto::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Summary_descriptor_, Summary::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Summary_Image_descriptor_, Summary_Image::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Summary_Audio_descriptor_, Summary_Audio::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Summary_Value_descriptor_, Summary_Value::internal_default_instance());
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 6);
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fsummary_2eproto() {
-  HistogramProto_default_instance_.Shutdown();
-  delete HistogramProto_reflection_;
-  Summary_default_instance_.Shutdown();
-  delete Summary_reflection_;
-  Summary_Image_default_instance_.Shutdown();
-  delete Summary_Image_reflection_;
-  Summary_Audio_default_instance_.Shutdown();
-  delete Summary_Audio_reflection_;
-  Summary_Value_default_instance_.Shutdown();
-  delete Summary_Value_default_oneof_instance_;
-  delete Summary_Value_reflection_;
+void TableStruct::Shutdown() {
+  _SummaryDescription_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
+  _HistogramProto_default_instance_.Shutdown();
+  delete file_level_metadata[1].reflection;
+  _Summary_Image_default_instance_.Shutdown();
+  delete file_level_metadata[2].reflection;
+  _Summary_Audio_default_instance_.Shutdown();
+  delete file_level_metadata[3].reflection;
+  _Summary_Value_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
+  _Summary_default_instance_.Shutdown();
+  delete file_level_metadata[5].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ftensor_2eproto();
-  HistogramProto_default_instance_.DefaultConstruct();
-  Summary_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  Summary_Image_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  Summary_Audio_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  Summary_Value_default_instance_.DefaultConstruct();
-  Summary_Value_default_oneof_instance_ = new Summary_ValueOneofInstance();
-  HistogramProto_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Summary_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Summary_Image_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Summary_Audio_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Summary_Value_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_2eproto::InitDefaults();
+  _SummaryDescription_default_instance_.DefaultConstruct();
+  _HistogramProto_default_instance_.DefaultConstruct();
+  _Summary_Image_default_instance_.DefaultConstruct();
+  _Summary_Audio_default_instance_.DefaultConstruct();
+  _Summary_Value_default_instance_.DefaultConstruct();
+  _Summary_default_instance_.DefaultConstruct();
+  _Summary_Value_default_instance_.simple_value_ = 0;
+  _Summary_Value_default_instance_.obsolete_old_style_histogram_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _Summary_Value_default_instance_.image_ = const_cast< ::tensorflow::Summary_Image*>(
+      ::tensorflow::Summary_Image::internal_default_instance());
+  _Summary_Value_default_instance_.histo_ = const_cast< ::tensorflow::HistogramProto*>(
+      ::tensorflow::HistogramProto::internal_default_instance());
+  _Summary_Value_default_instance_.audio_ = const_cast< ::tensorflow::Summary_Audio*>(
+      ::tensorflow::Summary_Audio::internal_default_instance());
+  _Summary_Value_default_instance_.tensor_ = const_cast< ::tensorflow::TensorProto*>(
+      ::tensorflow::TensorProto::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n\'tensorflow/core/framework/summary.prot"
+      "o\022\ntensorflow\032&tensorflow/core/framework"
+      "/tensor.proto\"\'\n\022SummaryDescription\022\021\n\tt"
+      "ype_hint\030\001 \001(\t\"\207\001\n\016HistogramProto\022\013\n\003min"
+      "\030\001 \001(\001\022\013\n\003max\030\002 \001(\001\022\013\n\003num\030\003 \001(\001\022\013\n\003sum\030"
+      "\004 \001(\001\022\023\n\013sum_squares\030\005 \001(\001\022\030\n\014bucket_lim"
+      "it\030\006 \003(\001B\002\020\001\022\022\n\006bucket\030\007 \003(\001B\002\020\001\"\257\004\n\007Sum"
+      "mary\022(\n\005value\030\001 \003(\0132\031.tensorflow.Summary"
+      ".Value\032X\n\005Image\022\016\n\006height\030\001 \001(\005\022\r\n\005width"
+      "\030\002 \001(\005\022\022\n\ncolorspace\030\003 \001(\005\022\034\n\024encoded_im"
+      "age_string\030\004 \001(\014\032}\n\005Audio\022\023\n\013sample_rate"
+      "\030\001 \001(\002\022\024\n\014num_channels\030\002 \001(\003\022\025\n\rlength_f"
+      "rames\030\003 \001(\003\022\034\n\024encoded_audio_string\030\004 \001("
+      "\014\022\024\n\014content_type\030\005 \001(\t\032\240\002\n\005Value\022\021\n\tnod"
+      "e_name\030\007 \001(\t\022\013\n\003tag\030\001 \001(\t\022\026\n\014simple_valu"
+      "e\030\002 \001(\002H\000\022&\n\034obsolete_old_style_histogra"
+      "m\030\003 \001(\014H\000\022*\n\005image\030\004 \001(\0132\031.tensorflow.Su"
+      "mmary.ImageH\000\022+\n\005histo\030\005 \001(\0132\032.tensorflo"
+      "w.HistogramProtoH\000\022*\n\005audio\030\006 \001(\0132\031.tens"
+      "orflow.Summary.AudioH\000\022)\n\006tensor\030\010 \001(\0132\027"
+      ".tensorflow.TensorProtoH\000B\007\n\005valueB.\n\030or"
+      "g.tensorflow.frameworkB\rSummaryProtosP\001\370"
+      "\001\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\'tensorflow/core/framework/summary.prot"
-    "o\022\ntensorflow\032&tensorflow/core/framework"
-    "/tensor.proto\"\207\001\n\016HistogramProto\022\013\n\003min\030"
-    "\001 \001(\001\022\013\n\003max\030\002 \001(\001\022\013\n\003num\030\003 \001(\001\022\013\n\003sum\030\004"
-    " \001(\001\022\023\n\013sum_squares\030\005 \001(\001\022\030\n\014bucket_limi"
-    "t\030\006 \003(\001B\002\020\001\022\022\n\006bucket\030\007 \003(\001B\002\020\001\"\257\004\n\007Summ"
-    "ary\022(\n\005value\030\001 \003(\0132\031.tensorflow.Summary."
-    "Value\032X\n\005Image\022\016\n\006height\030\001 \001(\005\022\r\n\005width\030"
-    "\002 \001(\005\022\022\n\ncolorspace\030\003 \001(\005\022\034\n\024encoded_ima"
-    "ge_string\030\004 \001(\014\032}\n\005Audio\022\023\n\013sample_rate\030"
-    "\001 \001(\002\022\024\n\014num_channels\030\002 \001(\003\022\025\n\rlength_fr"
-    "ames\030\003 \001(\003\022\034\n\024encoded_audio_string\030\004 \001(\014"
-    "\022\024\n\014content_type\030\005 \001(\t\032\240\002\n\005Value\022\021\n\tnode"
-    "_name\030\007 \001(\t\022\013\n\003tag\030\001 \001(\t\022\026\n\014simple_value"
-    "\030\002 \001(\002H\000\022&\n\034obsolete_old_style_histogram"
-    "\030\003 \001(\014H\000\022*\n\005image\030\004 \001(\0132\031.tensorflow.Sum"
-    "mary.ImageH\000\022+\n\005histo\030\005 \001(\0132\032.tensorflow"
-    ".HistogramProtoH\000\022*\n\005audio\030\006 \001(\0132\031.tenso"
-    "rflow.Summary.AudioH\000\022)\n\006tensor\030\010 \001(\0132\027."
-    "tensorflow.TensorProtoH\000B\007\n\005valueB.\n\030org"
-    ".tensorflow.frameworkB\rSummaryProtosP\001\370\001"
-    "\001b\006proto3", 849);
+      descriptor, 890);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/summary.proto", &protobuf_RegisterTypes);
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ftensor_2eproto();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fsummary_2eproto);
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ftensor_2eproto::AddDescriptors();
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fsummary_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fsummary_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fframework_2fsummary_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
+}  // namespace protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto
 
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int SummaryDescription::kTypeHintFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+SummaryDescription::SummaryDescription()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:tensorflow.SummaryDescription)
+}
+SummaryDescription::SummaryDescription(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.SummaryDescription)
+}
+SummaryDescription::SummaryDescription(const SummaryDescription& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  type_hint_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.type_hint().size() > 0) {
+    type_hint_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_hint(),
+      GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(copy_constructor:tensorflow.SummaryDescription)
 }
 
-}  // namespace
+void SummaryDescription::SharedCtor() {
+  type_hint_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
 
+SummaryDescription::~SummaryDescription() {
+  // @@protoc_insertion_point(destructor:tensorflow.SummaryDescription)
+  SharedDtor();
+}
+
+void SummaryDescription::SharedDtor() {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
+    return;
+  }
+
+  type_hint_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), arena);
+}
+
+void SummaryDescription::ArenaDtor(void* object) {
+  SummaryDescription* _this = reinterpret_cast< SummaryDescription* >(object);
+  (void)_this;
+}
+void SummaryDescription::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void SummaryDescription::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* SummaryDescription::descriptor() {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[0].descriptor;
+}
+
+const SummaryDescription& SummaryDescription::default_instance() {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+SummaryDescription* SummaryDescription::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<SummaryDescription>(arena);
+}
+
+void SummaryDescription::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.SummaryDescription)
+  type_hint_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+
+bool SummaryDescription::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:tensorflow.SummaryDescription)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string type_hint = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_type_hint()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->type_hint().data(), this->type_hint().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "tensorflow.SummaryDescription.type_hint"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:tensorflow.SummaryDescription)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:tensorflow.SummaryDescription)
+  return false;
+#undef DO_
+}
+
+void SummaryDescription::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:tensorflow.SummaryDescription)
+  // string type_hint = 1;
+  if (this->type_hint().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type_hint().data(), this->type_hint().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.SummaryDescription.type_hint");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->type_hint(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:tensorflow.SummaryDescription)
+}
+
+::google::protobuf::uint8* SummaryDescription::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.SummaryDescription)
+  // string type_hint = 1;
+  if (this->type_hint().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type_hint().data(), this->type_hint().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "tensorflow.SummaryDescription.type_hint");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->type_hint(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.SummaryDescription)
+  return target;
+}
+
+size_t SummaryDescription::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.SummaryDescription)
+  size_t total_size = 0;
+
+  // string type_hint = 1;
+  if (this->type_hint().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->type_hint());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void SummaryDescription::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.SummaryDescription)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SummaryDescription* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const SummaryDescription>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.SummaryDescription)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.SummaryDescription)
+    MergeFrom(*source);
+  }
+}
+
+void SummaryDescription::MergeFrom(const SummaryDescription& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.SummaryDescription)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.type_hint().size() > 0) {
+    set_type_hint(from.type_hint());
+  }
+}
+
+void SummaryDescription::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.SummaryDescription)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SummaryDescription::CopyFrom(const SummaryDescription& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.SummaryDescription)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SummaryDescription::IsInitialized() const {
+  return true;
+}
+
+void SummaryDescription::Swap(SummaryDescription* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    SummaryDescription* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
+  }
+}
+void SummaryDescription::UnsafeArenaSwap(SummaryDescription* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void SummaryDescription::InternalSwap(SummaryDescription* other) {
+  type_hint_.Swap(&other->type_hint_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata SummaryDescription::GetMetadata() const {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[0];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// SummaryDescription
+
+// string type_hint = 1;
+void SummaryDescription::clear_type_hint() {
+  type_hint_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+const ::std::string& SummaryDescription::type_hint() const {
+  // @@protoc_insertion_point(field_get:tensorflow.SummaryDescription.type_hint)
+  return type_hint_.Get();
+}
+void SummaryDescription::set_type_hint(const ::std::string& value) {
+  
+  type_hint_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.SummaryDescription.type_hint)
+}
+void SummaryDescription::set_type_hint(const char* value) {
+  
+  type_hint_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.SummaryDescription.type_hint)
+}
+void SummaryDescription::set_type_hint(const char* value,
+    size_t size) {
+  
+  type_hint_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.SummaryDescription.type_hint)
+}
+::std::string* SummaryDescription::mutable_type_hint() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.SummaryDescription.type_hint)
+  return type_hint_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* SummaryDescription::release_type_hint() {
+  // @@protoc_insertion_point(field_release:tensorflow.SummaryDescription.type_hint)
+  
+  return type_hint_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* SummaryDescription::unsafe_arena_release_type_hint() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.SummaryDescription.type_hint)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return type_hint_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+void SummaryDescription::set_allocated_type_hint(::std::string* type_hint) {
+  if (type_hint != NULL) {
+    
+  } else {
+    
+  }
+  type_hint_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type_hint,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.SummaryDescription.type_hint)
+}
+void SummaryDescription::unsafe_arena_set_allocated_type_hint(
+    ::std::string* type_hint) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (type_hint != NULL) {
+    
+  } else {
+    
+  }
+  type_hint_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      type_hint, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.SummaryDescription.type_hint)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -283,7 +576,9 @@ const int HistogramProto::kBucketFieldNumber;
 
 HistogramProto::HistogramProto()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.HistogramProto)
 }
@@ -293,21 +588,22 @@ HistogramProto::HistogramProto(::google::protobuf::Arena* arena)
   bucket_limit_(arena),
   bucket_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.HistogramProto)
 }
-
-void HistogramProto::InitAsDefaultInstance() {
-}
-
 HistogramProto::HistogramProto(const HistogramProto& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      bucket_limit_(from.bucket_limit_),
+      bucket_(from.bucket_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&min_, &from.min_,
+    reinterpret_cast<char*>(&sum_squares_) -
+    reinterpret_cast<char*>(&min_) + sizeof(sum_squares_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.HistogramProto)
 }
 
@@ -342,16 +638,14 @@ void HistogramProto::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* HistogramProto::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return HistogramProto_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[1].descriptor;
 }
 
 const HistogramProto& HistogramProto::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<HistogramProto> HistogramProto_default_instance_;
 
 HistogramProto* HistogramProto::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<HistogramProto>(arena);
@@ -359,29 +653,10 @@ HistogramProto* HistogramProto::New(::google::protobuf::Arena* arena) const {
 
 void HistogramProto::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.HistogramProto)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(HistogramProto, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<HistogramProto*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(min_, sum_squares_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
   bucket_limit_.Clear();
   bucket_.Clear();
+  ::memset(&min_, 0, reinterpret_cast<char*>(&sum_squares_) -
+    reinterpret_cast<char*>(&min_) + sizeof(sum_squares_));
 }
 
 bool HistogramProto::MergePartialFromCodedStream(
@@ -390,13 +665,14 @@ bool HistogramProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.HistogramProto)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional double min = 1;
+      // double min = 1;
       case 1: {
-        if (tag == 9) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -404,14 +680,13 @@ bool HistogramProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(17)) goto parse_max;
         break;
       }
 
-      // optional double max = 2;
+      // double max = 2;
       case 2: {
-        if (tag == 17) {
-         parse_max:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(17u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -419,14 +694,13 @@ bool HistogramProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_num;
         break;
       }
 
-      // optional double num = 3;
+      // double num = 3;
       case 3: {
-        if (tag == 25) {
-         parse_num:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -434,14 +708,13 @@ bool HistogramProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(33)) goto parse_sum;
         break;
       }
 
-      // optional double sum = 4;
+      // double sum = 4;
       case 4: {
-        if (tag == 33) {
-         parse_sum:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -449,14 +722,13 @@ bool HistogramProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(41)) goto parse_sum_squares;
         break;
       }
 
-      // optional double sum_squares = 5;
+      // double sum_squares = 5;
       case 5: {
-        if (tag == 41) {
-         parse_sum_squares:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(41u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -464,43 +736,42 @@ bool HistogramProto::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_bucket_limit;
         break;
       }
 
       // repeated double bucket_limit = 6 [packed = true];
       case 6: {
-        if (tag == 50) {
-         parse_bucket_limit:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_bucket_limit())));
-        } else if (tag == 49) {
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(49u)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 50, input, this->mutable_bucket_limit())));
+                 1, 50u, input, this->mutable_bucket_limit())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_bucket;
         break;
       }
 
       // repeated double bucket = 7 [packed = true];
       case 7: {
-        if (tag == 58) {
-         parse_bucket:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_bucket())));
-        } else if (tag == 57) {
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(57u)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 58, input, this->mutable_bucket())));
+                 1, 58u, input, this->mutable_bucket())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -528,27 +799,27 @@ failure:
 void HistogramProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.HistogramProto)
-  // optional double min = 1;
+  // double min = 1;
   if (this->min() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->min(), output);
   }
 
-  // optional double max = 2;
+  // double max = 2;
   if (this->max() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->max(), output);
   }
 
-  // optional double num = 3;
+  // double num = 3;
   if (this->num() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->num(), output);
   }
 
-  // optional double sum = 4;
+  // double sum = 4;
   if (this->sum() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->sum(), output);
   }
 
-  // optional double sum_squares = 5;
+  // double sum_squares = 5;
   if (this->sum_squares() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->sum_squares(), output);
   }
@@ -557,20 +828,16 @@ void HistogramProto::SerializeWithCachedSizes(
   if (this->bucket_limit_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(6, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
     output->WriteVarint32(_bucket_limit_cached_byte_size_);
-  }
-  for (int i = 0; i < this->bucket_limit_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteDoubleNoTag(
-      this->bucket_limit(i), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDoubleArray(
+      this->bucket_limit().data(), this->bucket_limit_size(), output);
   }
 
   // repeated double bucket = 7 [packed = true];
   if (this->bucket_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(7, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
     output->WriteVarint32(_bucket_cached_byte_size_);
-  }
-  for (int i = 0; i < this->bucket_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteDoubleNoTag(
-      this->bucket(i), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDoubleArray(
+      this->bucket().data(), this->bucket_size(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:tensorflow.HistogramProto)
@@ -578,29 +845,29 @@ void HistogramProto::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* HistogramProto::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.HistogramProto)
-  // optional double min = 1;
+  // double min = 1;
   if (this->min() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->min(), target);
   }
 
-  // optional double max = 2;
+  // double max = 2;
   if (this->max() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->max(), target);
   }
 
-  // optional double num = 3;
+  // double num = 3;
   if (this->num() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->num(), target);
   }
 
-  // optional double sum = 4;
+  // double sum = 4;
   if (this->sum() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->sum(), target);
   }
 
-  // optional double sum_squares = 5;
+  // double sum_squares = 5;
   if (this->sum_squares() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->sum_squares(), target);
   }
@@ -614,7 +881,7 @@ void HistogramProto::SerializeWithCachedSizes(
     target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
       _bucket_limit_cached_byte_size_, target);
   }
-  for (int i = 0; i < this->bucket_limit_size(); i++) {
+  for (int i = 0, n = this->bucket_limit_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteDoubleNoTagToArray(this->bucket_limit(i), target);
   }
@@ -628,7 +895,7 @@ void HistogramProto::SerializeWithCachedSizes(
     target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
       _bucket_cached_byte_size_, target);
   }
-  for (int i = 0; i < this->bucket_size(); i++) {
+  for (int i = 0, n = this->bucket_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteDoubleNoTagToArray(this->bucket(i), target);
   }
@@ -641,36 +908,10 @@ size_t HistogramProto::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.HistogramProto)
   size_t total_size = 0;
 
-  // optional double min = 1;
-  if (this->min() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double max = 2;
-  if (this->max() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double num = 3;
-  if (this->num() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double sum = 4;
-  if (this->sum() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double sum_squares = 5;
-  if (this->sum_squares() != 0) {
-    total_size += 1 + 8;
-  }
-
   // repeated double bucket_limit = 6 [packed = true];
   {
-    size_t data_size = 0;
     unsigned int count = this->bucket_limit_size();
-    data_size = 8UL * count;
+    size_t data_size = 8UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
@@ -684,9 +925,8 @@ size_t HistogramProto::ByteSizeLong() const {
 
   // repeated double bucket = 7 [packed = true];
   {
-    size_t data_size = 0;
     unsigned int count = this->bucket_size();
-    data_size = 8UL * count;
+    size_t data_size = 8UL * count;
     if (data_size > 0) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
@@ -698,6 +938,31 @@ size_t HistogramProto::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // double min = 1;
+  if (this->min() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double max = 2;
+  if (this->max() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double num = 3;
+  if (this->num() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double sum = 4;
+  if (this->sum() != 0) {
+    total_size += 1 + 8;
+  }
+
+  // double sum_squares = 5;
+  if (this->sum_squares() != 0) {
+    total_size += 1 + 8;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -707,7 +972,7 @@ size_t HistogramProto::ByteSizeLong() const {
 
 void HistogramProto::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.HistogramProto)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const HistogramProto* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const HistogramProto>(
           &from);
@@ -716,23 +981,16 @@ void HistogramProto::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.HistogramProto)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void HistogramProto::MergeFrom(const HistogramProto& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.HistogramProto)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void HistogramProto::UnsafeMergeFrom(const HistogramProto& from) {
-  GOOGLE_DCHECK(&from != this);
-  bucket_limit_.UnsafeMergeFrom(from.bucket_limit_);
-  bucket_.UnsafeMergeFrom(from.bucket_);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  bucket_limit_.MergeFrom(from.bucket_limit_);
+  bucket_.MergeFrom(from.bucket_);
   if (from.min() != 0) {
     set_min(from.min());
   }
@@ -761,11 +1019,10 @@ void HistogramProto::CopyFrom(const HistogramProto& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.HistogramProto)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool HistogramProto::IsInitialized() const {
-
   return true;
 }
 
@@ -774,10 +1031,13 @@ void HistogramProto::Swap(HistogramProto* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    HistogramProto temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    HistogramProto* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void HistogramProto::UnsafeArenaSwap(HistogramProto* other) {
@@ -786,29 +1046,25 @@ void HistogramProto::UnsafeArenaSwap(HistogramProto* other) {
   InternalSwap(other);
 }
 void HistogramProto::InternalSwap(HistogramProto* other) {
+  bucket_limit_.UnsafeArenaSwap(&other->bucket_limit_);
+  bucket_.UnsafeArenaSwap(&other->bucket_);
   std::swap(min_, other->min_);
   std::swap(max_, other->max_);
   std::swap(num_, other->num_);
   std::swap(sum_, other->sum_);
   std::swap(sum_squares_, other->sum_squares_);
-  bucket_limit_.UnsafeArenaSwap(&other->bucket_limit_);
-  bucket_.UnsafeArenaSwap(&other->bucket_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata HistogramProto::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = HistogramProto_descriptor_;
-  metadata.reflection = HistogramProto_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[1];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // HistogramProto
 
-// optional double min = 1;
+// double min = 1;
 void HistogramProto::clear_min() {
   min_ = 0;
 }
@@ -822,7 +1078,7 @@ void HistogramProto::set_min(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.HistogramProto.min)
 }
 
-// optional double max = 2;
+// double max = 2;
 void HistogramProto::clear_max() {
   max_ = 0;
 }
@@ -836,7 +1092,7 @@ void HistogramProto::set_max(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.HistogramProto.max)
 }
 
-// optional double num = 3;
+// double num = 3;
 void HistogramProto::clear_num() {
   num_ = 0;
 }
@@ -850,7 +1106,7 @@ void HistogramProto::set_num(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.HistogramProto.num)
 }
 
-// optional double sum = 4;
+// double sum = 4;
 void HistogramProto::clear_sum() {
   sum_ = 0;
 }
@@ -864,7 +1120,7 @@ void HistogramProto::set_sum(double value) {
   // @@protoc_insertion_point(field_set:tensorflow.HistogramProto.sum)
 }
 
-// optional double sum_squares = 5;
+// double sum_squares = 5;
 void HistogramProto::clear_sum_squares() {
   sum_squares_ = 0;
 }
@@ -938,9 +1194,6 @@ HistogramProto::mutable_bucket() {
   return &bucket_;
 }
 
-inline const HistogramProto* HistogramProto::internal_default_instance() {
-  return &HistogramProto_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -954,7 +1207,9 @@ const int Summary_Image::kEncodedImageStringFieldNumber;
 
 Summary_Image::Summary_Image()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.Summary.Image)
 }
@@ -962,21 +1217,25 @@ Summary_Image::Summary_Image(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.Summary.Image)
 }
-
-void Summary_Image::InitAsDefaultInstance() {
-}
-
 Summary_Image::Summary_Image(const Summary_Image& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  encoded_image_string_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.encoded_image_string().size() > 0) {
+    encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.encoded_image_string(),
+      GetArenaNoVirtual());
+  }
+  ::memcpy(&height_, &from.height_,
+    reinterpret_cast<char*>(&colorspace_) -
+    reinterpret_cast<char*>(&height_) + sizeof(colorspace_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.Summary.Image)
 }
 
@@ -1013,16 +1272,14 @@ void Summary_Image::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Summary_Image::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Summary_Image_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[2].descriptor;
 }
 
 const Summary_Image& Summary_Image::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<Summary_Image> Summary_Image_default_instance_;
 
 Summary_Image* Summary_Image::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<Summary_Image>(arena);
@@ -1030,28 +1287,9 @@ Summary_Image* Summary_Image::New(::google::protobuf::Arena* arena) const {
 
 void Summary_Image::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.Summary.Image)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Summary_Image, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<Summary_Image*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(height_, colorspace_);
   encoded_image_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  ::memset(&height_, 0, reinterpret_cast<char*>(&colorspace_) -
+    reinterpret_cast<char*>(&height_) + sizeof(colorspace_));
 }
 
 bool Summary_Image::MergePartialFromCodedStream(
@@ -1060,13 +1298,14 @@ bool Summary_Image::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.Summary.Image)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 height = 1;
+      // int32 height = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1074,14 +1313,13 @@ bool Summary_Image::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_width;
         break;
       }
 
-      // optional int32 width = 2;
+      // int32 width = 2;
       case 2: {
-        if (tag == 16) {
-         parse_width:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1089,14 +1327,13 @@ bool Summary_Image::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_colorspace;
         break;
       }
 
-      // optional int32 colorspace = 3;
+      // int32 colorspace = 3;
       case 3: {
-        if (tag == 24) {
-         parse_colorspace:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1104,20 +1341,18 @@ bool Summary_Image::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_encoded_image_string;
         break;
       }
 
-      // optional bytes encoded_image_string = 4;
+      // bytes encoded_image_string = 4;
       case 4: {
-        if (tag == 34) {
-         parse_encoded_image_string:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_encoded_image_string()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1145,22 +1380,22 @@ failure:
 void Summary_Image::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.Summary.Image)
-  // optional int32 height = 1;
+  // int32 height = 1;
   if (this->height() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
 
-  // optional int32 width = 2;
+  // int32 width = 2;
   if (this->width() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->width(), output);
   }
 
-  // optional int32 colorspace = 3;
+  // int32 colorspace = 3;
   if (this->colorspace() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->colorspace(), output);
   }
 
-  // optional bytes encoded_image_string = 4;
+  // bytes encoded_image_string = 4;
   if (this->encoded_image_string().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->encoded_image_string(), output);
@@ -1171,24 +1406,24 @@ void Summary_Image::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Summary_Image::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.Summary.Image)
-  // optional int32 height = 1;
+  // int32 height = 1;
   if (this->height() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
   }
 
-  // optional int32 width = 2;
+  // int32 width = 2;
   if (this->width() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->width(), target);
   }
 
-  // optional int32 colorspace = 3;
+  // int32 colorspace = 3;
   if (this->colorspace() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->colorspace(), target);
   }
 
-  // optional bytes encoded_image_string = 4;
+  // bytes encoded_image_string = 4;
   if (this->encoded_image_string().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -1203,32 +1438,32 @@ size_t Summary_Image::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.Summary.Image)
   size_t total_size = 0;
 
-  // optional int32 height = 1;
+  // bytes encoded_image_string = 4;
+  if (this->encoded_image_string().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->encoded_image_string());
+  }
+
+  // int32 height = 1;
   if (this->height() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->height());
   }
 
-  // optional int32 width = 2;
+  // int32 width = 2;
   if (this->width() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->width());
   }
 
-  // optional int32 colorspace = 3;
+  // int32 colorspace = 3;
   if (this->colorspace() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->colorspace());
-  }
-
-  // optional bytes encoded_image_string = 4;
-  if (this->encoded_image_string().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->encoded_image_string());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1240,7 +1475,7 @@ size_t Summary_Image::ByteSizeLong() const {
 
 void Summary_Image::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Summary.Image)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const Summary_Image* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const Summary_Image>(
           &from);
@@ -1249,21 +1484,17 @@ void Summary_Image::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Summary.Image)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void Summary_Image::MergeFrom(const Summary_Image& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Summary.Image)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.encoded_image_string().size() > 0) {
+    set_encoded_image_string(from.encoded_image_string());
   }
-}
-
-void Summary_Image::UnsafeMergeFrom(const Summary_Image& from) {
-  GOOGLE_DCHECK(&from != this);
   if (from.height() != 0) {
     set_height(from.height());
   }
@@ -1272,9 +1503,6 @@ void Summary_Image::UnsafeMergeFrom(const Summary_Image& from) {
   }
   if (from.colorspace() != 0) {
     set_colorspace(from.colorspace());
-  }
-  if (from.encoded_image_string().size() > 0) {
-    set_encoded_image_string(from.encoded_image_string());
   }
 }
 
@@ -1289,11 +1517,10 @@ void Summary_Image::CopyFrom(const Summary_Image& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Summary.Image)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool Summary_Image::IsInitialized() const {
-
   return true;
 }
 
@@ -1302,10 +1529,13 @@ void Summary_Image::Swap(Summary_Image* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    Summary_Image temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    Summary_Image* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void Summary_Image::UnsafeArenaSwap(Summary_Image* other) {
@@ -1314,24 +1544,132 @@ void Summary_Image::UnsafeArenaSwap(Summary_Image* other) {
   InternalSwap(other);
 }
 void Summary_Image::InternalSwap(Summary_Image* other) {
+  encoded_image_string_.Swap(&other->encoded_image_string_);
   std::swap(height_, other->height_);
   std::swap(width_, other->width_);
   std::swap(colorspace_, other->colorspace_);
-  encoded_image_string_.Swap(&other->encoded_image_string_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Summary_Image::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Summary_Image_descriptor_;
-  metadata.reflection = Summary_Image_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[2];
 }
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Summary_Image
 
-// -------------------------------------------------------------------
+// int32 height = 1;
+void Summary_Image::clear_height() {
+  height_ = 0;
+}
+::google::protobuf::int32 Summary_Image::height() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.height)
+  return height_;
+}
+void Summary_Image::set_height(::google::protobuf::int32 value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.height)
+}
+
+// int32 width = 2;
+void Summary_Image::clear_width() {
+  width_ = 0;
+}
+::google::protobuf::int32 Summary_Image::width() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.width)
+  return width_;
+}
+void Summary_Image::set_width(::google::protobuf::int32 value) {
+  
+  width_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.width)
+}
+
+// int32 colorspace = 3;
+void Summary_Image::clear_colorspace() {
+  colorspace_ = 0;
+}
+::google::protobuf::int32 Summary_Image::colorspace() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.colorspace)
+  return colorspace_;
+}
+void Summary_Image::set_colorspace(::google::protobuf::int32 value) {
+  
+  colorspace_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.colorspace)
+}
+
+// bytes encoded_image_string = 4;
+void Summary_Image::clear_encoded_image_string() {
+  encoded_image_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+const ::std::string& Summary_Image::encoded_image_string() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.encoded_image_string)
+  return encoded_image_string_.Get();
+}
+void Summary_Image::set_encoded_image_string(const ::std::string& value) {
+  
+  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.encoded_image_string)
+}
+void Summary_Image::set_encoded_image_string(const char* value) {
+  
+  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Image.encoded_image_string)
+}
+void Summary_Image::set_encoded_image_string(const void* value,
+    size_t size) {
+  
+  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Image.encoded_image_string)
+}
+::std::string* Summary_Image::mutable_encoded_image_string() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Image.encoded_image_string)
+  return encoded_image_string_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Image::release_encoded_image_string() {
+  // @@protoc_insertion_point(field_release:tensorflow.Summary.Image.encoded_image_string)
+  
+  return encoded_image_string_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Image::unsafe_arena_release_encoded_image_string() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Image.encoded_image_string)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return encoded_image_string_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+void Summary_Image::set_allocated_encoded_image_string(::std::string* encoded_image_string) {
+  if (encoded_image_string != NULL) {
+    
+  } else {
+    
+  }
+  encoded_image_string_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encoded_image_string,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Image.encoded_image_string)
+}
+void Summary_Image::unsafe_arena_set_allocated_encoded_image_string(
+    ::std::string* encoded_image_string) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (encoded_image_string != NULL) {
+    
+  } else {
+    
+  }
+  encoded_image_string_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      encoded_image_string, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Image.encoded_image_string)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Summary_Audio::kSampleRateFieldNumber;
@@ -1343,7 +1681,9 @@ const int Summary_Audio::kContentTypeFieldNumber;
 
 Summary_Audio::Summary_Audio()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.Summary.Audio)
 }
@@ -1351,21 +1691,30 @@ Summary_Audio::Summary_Audio(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.Summary.Audio)
 }
-
-void Summary_Audio::InitAsDefaultInstance() {
-}
-
 Summary_Audio::Summary_Audio(const Summary_Audio& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  encoded_audio_string_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.encoded_audio_string().size() > 0) {
+    encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.encoded_audio_string(),
+      GetArenaNoVirtual());
+  }
+  content_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.content_type().size() > 0) {
+    content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.content_type(),
+      GetArenaNoVirtual());
+  }
+  ::memcpy(&num_channels_, &from.num_channels_,
+    reinterpret_cast<char*>(&sample_rate_) -
+    reinterpret_cast<char*>(&num_channels_) + sizeof(sample_rate_));
   // @@protoc_insertion_point(copy_constructor:tensorflow.Summary.Audio)
 }
 
@@ -1404,16 +1753,14 @@ void Summary_Audio::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Summary_Audio::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Summary_Audio_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[3].descriptor;
 }
 
 const Summary_Audio& Summary_Audio::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<Summary_Audio> Summary_Audio_default_instance_;
 
 Summary_Audio* Summary_Audio::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<Summary_Audio>(arena);
@@ -1421,29 +1768,10 @@ Summary_Audio* Summary_Audio::New(::google::protobuf::Arena* arena) const {
 
 void Summary_Audio::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.Summary.Audio)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Summary_Audio, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<Summary_Audio*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(num_channels_, sample_rate_);
   encoded_audio_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   content_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  ::memset(&num_channels_, 0, reinterpret_cast<char*>(&sample_rate_) -
+    reinterpret_cast<char*>(&num_channels_) + sizeof(sample_rate_));
 }
 
 bool Summary_Audio::MergePartialFromCodedStream(
@@ -1452,13 +1780,14 @@ bool Summary_Audio::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.Summary.Audio)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional float sample_rate = 1;
+      // float sample_rate = 1;
       case 1: {
-        if (tag == 13) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(13u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1466,14 +1795,13 @@ bool Summary_Audio::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_num_channels;
         break;
       }
 
-      // optional int64 num_channels = 2;
+      // int64 num_channels = 2;
       case 2: {
-        if (tag == 16) {
-         parse_num_channels:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -1481,14 +1809,13 @@ bool Summary_Audio::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_length_frames;
         break;
       }
 
-      // optional int64 length_frames = 3;
+      // int64 length_frames = 3;
       case 3: {
-        if (tag == 24) {
-         parse_length_frames:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
@@ -1496,27 +1823,25 @@ bool Summary_Audio::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_encoded_audio_string;
         break;
       }
 
-      // optional bytes encoded_audio_string = 4;
+      // bytes encoded_audio_string = 4;
       case 4: {
-        if (tag == 34) {
-         parse_encoded_audio_string:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_encoded_audio_string()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_content_type;
         break;
       }
 
-      // optional string content_type = 5;
+      // string content_type = 5;
       case 5: {
-        if (tag == 42) {
-         parse_content_type:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_content_type()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1526,7 +1851,6 @@ bool Summary_Audio::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1554,28 +1878,28 @@ failure:
 void Summary_Audio::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.Summary.Audio)
-  // optional float sample_rate = 1;
+  // float sample_rate = 1;
   if (this->sample_rate() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->sample_rate(), output);
   }
 
-  // optional int64 num_channels = 2;
+  // int64 num_channels = 2;
   if (this->num_channels() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->num_channels(), output);
   }
 
-  // optional int64 length_frames = 3;
+  // int64 length_frames = 3;
   if (this->length_frames() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->length_frames(), output);
   }
 
-  // optional bytes encoded_audio_string = 4;
+  // bytes encoded_audio_string = 4;
   if (this->encoded_audio_string().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->encoded_audio_string(), output);
   }
 
-  // optional string content_type = 5;
+  // string content_type = 5;
   if (this->content_type().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->content_type().data(), this->content_type().length(),
@@ -1590,31 +1914,31 @@ void Summary_Audio::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Summary_Audio::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.Summary.Audio)
-  // optional float sample_rate = 1;
+  // float sample_rate = 1;
   if (this->sample_rate() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->sample_rate(), target);
   }
 
-  // optional int64 num_channels = 2;
+  // int64 num_channels = 2;
   if (this->num_channels() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->num_channels(), target);
   }
 
-  // optional int64 length_frames = 3;
+  // int64 length_frames = 3;
   if (this->length_frames() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->length_frames(), target);
   }
 
-  // optional bytes encoded_audio_string = 4;
+  // bytes encoded_audio_string = 4;
   if (this->encoded_audio_string().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         4, this->encoded_audio_string(), target);
   }
 
-  // optional string content_type = 5;
+  // string content_type = 5;
   if (this->content_type().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->content_type().data(), this->content_type().length(),
@@ -1633,37 +1957,37 @@ size_t Summary_Audio::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.Summary.Audio)
   size_t total_size = 0;
 
-  // optional float sample_rate = 1;
-  if (this->sample_rate() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // optional int64 num_channels = 2;
-  if (this->num_channels() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->num_channels());
-  }
-
-  // optional int64 length_frames = 3;
-  if (this->length_frames() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->length_frames());
-  }
-
-  // optional bytes encoded_audio_string = 4;
+  // bytes encoded_audio_string = 4;
   if (this->encoded_audio_string().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->encoded_audio_string());
   }
 
-  // optional string content_type = 5;
+  // string content_type = 5;
   if (this->content_type().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->content_type());
+  }
+
+  // int64 num_channels = 2;
+  if (this->num_channels() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->num_channels());
+  }
+
+  // int64 length_frames = 3;
+  if (this->length_frames() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->length_frames());
+  }
+
+  // float sample_rate = 1;
+  if (this->sample_rate() != 0) {
+    total_size += 1 + 4;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1675,7 +1999,7 @@ size_t Summary_Audio::ByteSizeLong() const {
 
 void Summary_Audio::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Summary.Audio)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const Summary_Audio* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const Summary_Audio>(
           &from);
@@ -1684,23 +2008,19 @@ void Summary_Audio::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Summary.Audio)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void Summary_Audio::MergeFrom(const Summary_Audio& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Summary.Audio)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.encoded_audio_string().size() > 0) {
+    set_encoded_audio_string(from.encoded_audio_string());
   }
-}
-
-void Summary_Audio::UnsafeMergeFrom(const Summary_Audio& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.sample_rate() != 0) {
-    set_sample_rate(from.sample_rate());
+  if (from.content_type().size() > 0) {
+    set_content_type(from.content_type());
   }
   if (from.num_channels() != 0) {
     set_num_channels(from.num_channels());
@@ -1708,11 +2028,8 @@ void Summary_Audio::UnsafeMergeFrom(const Summary_Audio& from) {
   if (from.length_frames() != 0) {
     set_length_frames(from.length_frames());
   }
-  if (from.encoded_audio_string().size() > 0) {
-    set_encoded_audio_string(from.encoded_audio_string());
-  }
-  if (from.content_type().size() > 0) {
-    set_content_type(from.content_type());
+  if (from.sample_rate() != 0) {
+    set_sample_rate(from.sample_rate());
   }
 }
 
@@ -1727,11 +2044,10 @@ void Summary_Audio::CopyFrom(const Summary_Audio& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Summary.Audio)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool Summary_Audio::IsInitialized() const {
-
   return true;
 }
 
@@ -1740,10 +2056,13 @@ void Summary_Audio::Swap(Summary_Audio* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    Summary_Audio temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    Summary_Audio* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void Summary_Audio::UnsafeArenaSwap(Summary_Audio* other) {
@@ -1752,25 +2071,199 @@ void Summary_Audio::UnsafeArenaSwap(Summary_Audio* other) {
   InternalSwap(other);
 }
 void Summary_Audio::InternalSwap(Summary_Audio* other) {
-  std::swap(sample_rate_, other->sample_rate_);
-  std::swap(num_channels_, other->num_channels_);
-  std::swap(length_frames_, other->length_frames_);
   encoded_audio_string_.Swap(&other->encoded_audio_string_);
   content_type_.Swap(&other->content_type_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(num_channels_, other->num_channels_);
+  std::swap(length_frames_, other->length_frames_);
+  std::swap(sample_rate_, other->sample_rate_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Summary_Audio::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Summary_Audio_descriptor_;
-  metadata.reflection = Summary_Audio_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[3];
 }
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Summary_Audio
 
-// -------------------------------------------------------------------
+// float sample_rate = 1;
+void Summary_Audio::clear_sample_rate() {
+  sample_rate_ = 0;
+}
+float Summary_Audio::sample_rate() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.sample_rate)
+  return sample_rate_;
+}
+void Summary_Audio::set_sample_rate(float value) {
+  
+  sample_rate_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.sample_rate)
+}
+
+// int64 num_channels = 2;
+void Summary_Audio::clear_num_channels() {
+  num_channels_ = GOOGLE_LONGLONG(0);
+}
+::google::protobuf::int64 Summary_Audio::num_channels() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.num_channels)
+  return num_channels_;
+}
+void Summary_Audio::set_num_channels(::google::protobuf::int64 value) {
+  
+  num_channels_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.num_channels)
+}
+
+// int64 length_frames = 3;
+void Summary_Audio::clear_length_frames() {
+  length_frames_ = GOOGLE_LONGLONG(0);
+}
+::google::protobuf::int64 Summary_Audio::length_frames() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.length_frames)
+  return length_frames_;
+}
+void Summary_Audio::set_length_frames(::google::protobuf::int64 value) {
+  
+  length_frames_ = value;
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.length_frames)
+}
+
+// bytes encoded_audio_string = 4;
+void Summary_Audio::clear_encoded_audio_string() {
+  encoded_audio_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+const ::std::string& Summary_Audio::encoded_audio_string() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.encoded_audio_string)
+  return encoded_audio_string_.Get();
+}
+void Summary_Audio::set_encoded_audio_string(const ::std::string& value) {
+  
+  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.encoded_audio_string)
+}
+void Summary_Audio::set_encoded_audio_string(const char* value) {
+  
+  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Audio.encoded_audio_string)
+}
+void Summary_Audio::set_encoded_audio_string(const void* value,
+    size_t size) {
+  
+  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Audio.encoded_audio_string)
+}
+::std::string* Summary_Audio::mutable_encoded_audio_string() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Audio.encoded_audio_string)
+  return encoded_audio_string_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Audio::release_encoded_audio_string() {
+  // @@protoc_insertion_point(field_release:tensorflow.Summary.Audio.encoded_audio_string)
+  
+  return encoded_audio_string_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Audio::unsafe_arena_release_encoded_audio_string() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Audio.encoded_audio_string)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return encoded_audio_string_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+void Summary_Audio::set_allocated_encoded_audio_string(::std::string* encoded_audio_string) {
+  if (encoded_audio_string != NULL) {
+    
+  } else {
+    
+  }
+  encoded_audio_string_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encoded_audio_string,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Audio.encoded_audio_string)
+}
+void Summary_Audio::unsafe_arena_set_allocated_encoded_audio_string(
+    ::std::string* encoded_audio_string) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (encoded_audio_string != NULL) {
+    
+  } else {
+    
+  }
+  encoded_audio_string_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      encoded_audio_string, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Audio.encoded_audio_string)
+}
+
+// string content_type = 5;
+void Summary_Audio::clear_content_type() {
+  content_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+const ::std::string& Summary_Audio::content_type() const {
+  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.content_type)
+  return content_type_.Get();
+}
+void Summary_Audio::set_content_type(const ::std::string& value) {
+  
+  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.content_type)
+}
+void Summary_Audio::set_content_type(const char* value) {
+  
+  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Audio.content_type)
+}
+void Summary_Audio::set_content_type(const char* value,
+    size_t size) {
+  
+  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Audio.content_type)
+}
+::std::string* Summary_Audio::mutable_content_type() {
+  
+  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Audio.content_type)
+  return content_type_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Audio::release_content_type() {
+  // @@protoc_insertion_point(field_release:tensorflow.Summary.Audio.content_type)
+  
+  return content_type_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+}
+::std::string* Summary_Audio::unsafe_arena_release_content_type() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Audio.content_type)
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  
+  return content_type_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      GetArenaNoVirtual());
+}
+void Summary_Audio::set_allocated_content_type(::std::string* content_type) {
+  if (content_type != NULL) {
+    
+  } else {
+    
+  }
+  content_type_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), content_type,
+      GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Audio.content_type)
+}
+void Summary_Audio::unsafe_arena_set_allocated_content_type(
+    ::std::string* content_type) {
+  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
+  if (content_type != NULL) {
+    
+  } else {
+    
+  }
+  content_type_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      content_type, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Audio.content_type)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Summary_Value::kNodeNameFieldNumber;
@@ -1785,7 +2278,9 @@ const int Summary_Value::kTensorFieldNumber;
 
 Summary_Value::Summary_Value()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.Summary.Value)
 }
@@ -1793,31 +2288,57 @@ Summary_Value::Summary_Value(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.Summary.Value)
 }
-
-void Summary_Value::InitAsDefaultInstance() {
-  Summary_Value_default_oneof_instance_->simple_value_ = 0;
-  Summary_Value_default_oneof_instance_->obsolete_old_style_histogram_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  Summary_Value_default_oneof_instance_->image_ = const_cast< ::tensorflow::Summary_Image*>(
-      ::tensorflow::Summary_Image::internal_default_instance());
-  Summary_Value_default_oneof_instance_->histo_ = const_cast< ::tensorflow::HistogramProto*>(
-      ::tensorflow::HistogramProto::internal_default_instance());
-  Summary_Value_default_oneof_instance_->audio_ = const_cast< ::tensorflow::Summary_Audio*>(
-      ::tensorflow::Summary_Audio::internal_default_instance());
-  Summary_Value_default_oneof_instance_->tensor_ = const_cast< ::tensorflow::TensorProto*>(
-      ::tensorflow::TensorProto::internal_default_instance());
-}
-
 Summary_Value::Summary_Value(const Summary_Value& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  node_name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.node_name().size() > 0) {
+    node_name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.node_name(),
+      GetArenaNoVirtual());
+  }
+  tag_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.tag().size() > 0) {
+    tag_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tag(),
+      GetArenaNoVirtual());
+  }
+  clear_has_value();
+  switch (from.value_case()) {
+    case kSimpleValue: {
+      set_simple_value(from.simple_value());
+      break;
+    }
+    case kObsoleteOldStyleHistogram: {
+      set_obsolete_old_style_histogram(from.obsolete_old_style_histogram());
+      break;
+    }
+    case kImage: {
+      mutable_image()->::tensorflow::Summary_Image::MergeFrom(from.image());
+      break;
+    }
+    case kHisto: {
+      mutable_histo()->::tensorflow::HistogramProto::MergeFrom(from.histo());
+      break;
+    }
+    case kAudio: {
+      mutable_audio()->::tensorflow::Summary_Audio::MergeFrom(from.audio());
+      break;
+    }
+    case kTensor: {
+      mutable_tensor()->::tensorflow::TensorProto::MergeFrom(from.tensor());
+      break;
+    }
+    case VALUE_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:tensorflow.Summary.Value)
 }
 
@@ -1858,16 +2379,14 @@ void Summary_Value::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Summary_Value::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Summary_Value_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[4].descriptor;
 }
 
 const Summary_Value& Summary_Value::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<Summary_Value> Summary_Value_default_instance_;
 
 Summary_Value* Summary_Value::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<Summary_Value>(arena);
@@ -1930,13 +2449,14 @@ bool Summary_Value::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.Summary.Value)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string tag = 1;
+      // string tag = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_tag()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1946,14 +2466,13 @@ bool Summary_Value::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(21)) goto parse_simple_value;
         break;
       }
 
-      // optional float simple_value = 2;
+      // float simple_value = 2;
       case 2: {
-        if (tag == 21) {
-         parse_simple_value:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(21u)) {
           clear_value();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1962,64 +2481,61 @@ bool Summary_Value::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        goto after_audio;
         break;
       }
 
-      // optional bytes obsolete_old_style_histogram = 3;
+      // bytes obsolete_old_style_histogram = 3;
       case 3: {
-        if (tag == 26) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_obsolete_old_style_histogram()));
         } else {
           goto handle_unusual;
         }
-        goto after_audio;
         break;
       }
 
-      // optional .tensorflow.Summary.Image image = 4;
+      // .tensorflow.Summary.Image image = 4;
       case 4: {
-        if (tag == 34) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_image()));
         } else {
           goto handle_unusual;
         }
-        goto after_audio;
         break;
       }
 
-      // optional .tensorflow.HistogramProto histo = 5;
+      // .tensorflow.HistogramProto histo = 5;
       case 5: {
-        if (tag == 42) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_histo()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_audio;
         break;
       }
 
-      // optional .tensorflow.Summary.Audio audio = 6;
+      // .tensorflow.Summary.Audio audio = 6;
       case 6: {
-        if (tag == 50) {
-         parse_audio:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_audio()));
         } else {
           goto handle_unusual;
         }
-       after_audio:
-        if (input->ExpectTag(58)) goto parse_node_name;
         break;
       }
 
-      // optional string node_name = 7;
+      // string node_name = 7;
       case 7: {
-        if (tag == 58) {
-         parse_node_name:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_node_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2029,20 +2545,18 @@ bool Summary_Value::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_tensor;
         break;
       }
 
-      // optional .tensorflow.TensorProto tensor = 8;
+      // .tensorflow.TensorProto tensor = 8;
       case 8: {
-        if (tag == 66) {
-         parse_tensor:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(66u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_tensor()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2070,7 +2584,7 @@ failure:
 void Summary_Value::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:tensorflow.Summary.Value)
-  // optional string tag = 1;
+  // string tag = 1;
   if (this->tag().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tag().data(), this->tag().length(),
@@ -2080,36 +2594,36 @@ void Summary_Value::SerializeWithCachedSizes(
       1, this->tag(), output);
   }
 
-  // optional float simple_value = 2;
+  // float simple_value = 2;
   if (has_simple_value()) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->simple_value(), output);
   }
 
-  // optional bytes obsolete_old_style_histogram = 3;
+  // bytes obsolete_old_style_histogram = 3;
   if (has_obsolete_old_style_histogram()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->obsolete_old_style_histogram(), output);
   }
 
-  // optional .tensorflow.Summary.Image image = 4;
+  // .tensorflow.Summary.Image image = 4;
   if (has_image()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *value_.image_, output);
   }
 
-  // optional .tensorflow.HistogramProto histo = 5;
+  // .tensorflow.HistogramProto histo = 5;
   if (has_histo()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, *value_.histo_, output);
   }
 
-  // optional .tensorflow.Summary.Audio audio = 6;
+  // .tensorflow.Summary.Audio audio = 6;
   if (has_audio()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, *value_.audio_, output);
   }
 
-  // optional string node_name = 7;
+  // string node_name = 7;
   if (this->node_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->node_name().data(), this->node_name().length(),
@@ -2119,7 +2633,7 @@ void Summary_Value::SerializeWithCachedSizes(
       7, this->node_name(), output);
   }
 
-  // optional .tensorflow.TensorProto tensor = 8;
+  // .tensorflow.TensorProto tensor = 8;
   if (has_tensor()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       8, *value_.tensor_, output);
@@ -2130,9 +2644,9 @@ void Summary_Value::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Summary_Value::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.Summary.Value)
-  // optional string tag = 1;
+  // string tag = 1;
   if (this->tag().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tag().data(), this->tag().length(),
@@ -2143,40 +2657,40 @@ void Summary_Value::SerializeWithCachedSizes(
         1, this->tag(), target);
   }
 
-  // optional float simple_value = 2;
+  // float simple_value = 2;
   if (has_simple_value()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->simple_value(), target);
   }
 
-  // optional bytes obsolete_old_style_histogram = 3;
+  // bytes obsolete_old_style_histogram = 3;
   if (has_obsolete_old_style_histogram()) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         3, this->obsolete_old_style_histogram(), target);
   }
 
-  // optional .tensorflow.Summary.Image image = 4;
+  // .tensorflow.Summary.Image image = 4;
   if (has_image()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         4, *value_.image_, false, target);
   }
 
-  // optional .tensorflow.HistogramProto histo = 5;
+  // .tensorflow.HistogramProto histo = 5;
   if (has_histo()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         5, *value_.histo_, false, target);
   }
 
-  // optional .tensorflow.Summary.Audio audio = 6;
+  // .tensorflow.Summary.Audio audio = 6;
   if (has_audio()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         6, *value_.audio_, false, target);
   }
 
-  // optional string node_name = 7;
+  // string node_name = 7;
   if (this->node_name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->node_name().data(), this->node_name().length(),
@@ -2187,7 +2701,7 @@ void Summary_Value::SerializeWithCachedSizes(
         7, this->node_name(), target);
   }
 
-  // optional .tensorflow.TensorProto tensor = 8;
+  // .tensorflow.TensorProto tensor = 8;
   if (has_tensor()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -2202,14 +2716,14 @@ size_t Summary_Value::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.Summary.Value)
   size_t total_size = 0;
 
-  // optional string node_name = 7;
+  // string node_name = 7;
   if (this->node_name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->node_name());
   }
 
-  // optional string tag = 1;
+  // string tag = 1;
   if (this->tag().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2217,40 +2731,40 @@ size_t Summary_Value::ByteSizeLong() const {
   }
 
   switch (value_case()) {
-    // optional float simple_value = 2;
+    // float simple_value = 2;
     case kSimpleValue: {
       total_size += 1 + 4;
       break;
     }
-    // optional bytes obsolete_old_style_histogram = 3;
+    // bytes obsolete_old_style_histogram = 3;
     case kObsoleteOldStyleHistogram: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::BytesSize(
           this->obsolete_old_style_histogram());
       break;
     }
-    // optional .tensorflow.Summary.Image image = 4;
+    // .tensorflow.Summary.Image image = 4;
     case kImage: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           *value_.image_);
       break;
     }
-    // optional .tensorflow.HistogramProto histo = 5;
+    // .tensorflow.HistogramProto histo = 5;
     case kHisto: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           *value_.histo_);
       break;
     }
-    // optional .tensorflow.Summary.Audio audio = 6;
+    // .tensorflow.Summary.Audio audio = 6;
     case kAudio: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           *value_.audio_);
       break;
     }
-    // optional .tensorflow.TensorProto tensor = 8;
+    // .tensorflow.TensorProto tensor = 8;
     case kTensor: {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2270,7 +2784,7 @@ size_t Summary_Value::ByteSizeLong() const {
 
 void Summary_Value::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Summary.Value)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const Summary_Value* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const Summary_Value>(
           &from);
@@ -2279,21 +2793,20 @@ void Summary_Value::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Summary.Value)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void Summary_Value::MergeFrom(const Summary_Value& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Summary.Value)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.node_name().size() > 0) {
+    set_node_name(from.node_name());
   }
-}
-
-void Summary_Value::UnsafeMergeFrom(const Summary_Value& from) {
-  GOOGLE_DCHECK(&from != this);
+  if (from.tag().size() > 0) {
+    set_tag(from.tag());
+  }
   switch (from.value_case()) {
     case kSimpleValue: {
       set_simple_value(from.simple_value());
@@ -2323,12 +2836,6 @@ void Summary_Value::UnsafeMergeFrom(const Summary_Value& from) {
       break;
     }
   }
-  if (from.node_name().size() > 0) {
-    set_node_name(from.node_name());
-  }
-  if (from.tag().size() > 0) {
-    set_tag(from.tag());
-  }
 }
 
 void Summary_Value::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2342,11 +2849,10 @@ void Summary_Value::CopyFrom(const Summary_Value& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Summary.Value)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool Summary_Value::IsInitialized() const {
-
   return true;
 }
 
@@ -2355,10 +2861,13 @@ void Summary_Value::Swap(Summary_Value* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    Summary_Value temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    Summary_Value* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void Summary_Value::UnsafeArenaSwap(Summary_Value* other) {
@@ -2371,583 +2880,24 @@ void Summary_Value::InternalSwap(Summary_Value* other) {
   tag_.Swap(&other->tag_);
   std::swap(value_, other->value_);
   std::swap(_oneof_case_[0], other->_oneof_case_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Summary_Value::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Summary_Value_descriptor_;
-  metadata.reflection = Summary_Value_reflection_;
-  return metadata;
-}
-
-
-// -------------------------------------------------------------------
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Summary::kValueFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Summary::Summary()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:tensorflow.Summary)
-}
-Summary::Summary(::google::protobuf::Arena* arena)
-  : ::google::protobuf::Message(),
-  _internal_metadata_(arena),
-  value_(arena) {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
-#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:tensorflow.Summary)
-}
-
-void Summary::InitAsDefaultInstance() {
-}
-
-Summary::Summary(const Summary& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:tensorflow.Summary)
-}
-
-void Summary::SharedCtor() {
-  _cached_size_ = 0;
-}
-
-Summary::~Summary() {
-  // @@protoc_insertion_point(destructor:tensorflow.Summary)
-  SharedDtor();
-}
-
-void Summary::SharedDtor() {
-  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
-  if (arena != NULL) {
-    return;
-  }
-
-}
-
-void Summary::ArenaDtor(void* object) {
-  Summary* _this = reinterpret_cast< Summary* >(object);
-  (void)_this;
-}
-void Summary::RegisterArenaDtor(::google::protobuf::Arena* arena) {
-}
-void Summary::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Summary::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Summary_descriptor_;
-}
-
-const Summary& Summary::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fsummary_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<Summary> Summary_default_instance_;
-
-Summary* Summary::New(::google::protobuf::Arena* arena) const {
-  return ::google::protobuf::Arena::CreateMessage<Summary>(arena);
-}
-
-void Summary::Clear() {
-// @@protoc_insertion_point(message_clear_start:tensorflow.Summary)
-  value_.Clear();
-}
-
-bool Summary::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:tensorflow.Summary)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .tensorflow.Summary.Value value = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_value:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_value()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(10)) goto parse_loop_value;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:tensorflow.Summary)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:tensorflow.Summary)
-  return false;
-#undef DO_
-}
-
-void Summary::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:tensorflow.Summary)
-  // repeated .tensorflow.Summary.Value value = 1;
-  for (unsigned int i = 0, n = this->value_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->value(i), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:tensorflow.Summary)
-}
-
-::google::protobuf::uint8* Summary::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.Summary)
-  // repeated .tensorflow.Summary.Value value = 1;
-  for (unsigned int i = 0, n = this->value_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, this->value(i), false, target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.Summary)
-  return target;
-}
-
-size_t Summary::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:tensorflow.Summary)
-  size_t total_size = 0;
-
-  // repeated .tensorflow.Summary.Value value = 1;
-  {
-    unsigned int count = this->value_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->value(i));
-    }
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Summary::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Summary)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Summary* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Summary>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.Summary)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Summary)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void Summary::MergeFrom(const Summary& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Summary)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void Summary::UnsafeMergeFrom(const Summary& from) {
-  GOOGLE_DCHECK(&from != this);
-  value_.MergeFrom(from.value_);
-}
-
-void Summary::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.Summary)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Summary::CopyFrom(const Summary& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Summary)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool Summary::IsInitialized() const {
-
-  return true;
-}
-
-void Summary::Swap(Summary* other) {
-  if (other == this) return;
-  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
-    InternalSwap(other);
-  } else {
-    Summary temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
-  }
-}
-void Summary::UnsafeArenaSwap(Summary* other) {
-  if (other == this) return;
-  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
-  InternalSwap(other);
-}
-void Summary::InternalSwap(Summary* other) {
-  value_.UnsafeArenaSwap(&other->value_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Summary::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Summary_descriptor_;
-  metadata.reflection = Summary_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[4];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Summary_Image
-
-// optional int32 height = 1;
-void Summary_Image::clear_height() {
-  height_ = 0;
-}
-::google::protobuf::int32 Summary_Image::height() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.height)
-  return height_;
-}
-void Summary_Image::set_height(::google::protobuf::int32 value) {
-  
-  height_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.height)
-}
-
-// optional int32 width = 2;
-void Summary_Image::clear_width() {
-  width_ = 0;
-}
-::google::protobuf::int32 Summary_Image::width() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.width)
-  return width_;
-}
-void Summary_Image::set_width(::google::protobuf::int32 value) {
-  
-  width_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.width)
-}
-
-// optional int32 colorspace = 3;
-void Summary_Image::clear_colorspace() {
-  colorspace_ = 0;
-}
-::google::protobuf::int32 Summary_Image::colorspace() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.colorspace)
-  return colorspace_;
-}
-void Summary_Image::set_colorspace(::google::protobuf::int32 value) {
-  
-  colorspace_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.colorspace)
-}
-
-// optional bytes encoded_image_string = 4;
-void Summary_Image::clear_encoded_image_string() {
-  encoded_image_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-const ::std::string& Summary_Image::encoded_image_string() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Image.encoded_image_string)
-  return encoded_image_string_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void Summary_Image::set_encoded_image_string(const ::std::string& value) {
-  
-  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Image.encoded_image_string)
-}
-void Summary_Image::set_encoded_image_string(const char* value) {
-  
-  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Image.encoded_image_string)
-}
-void Summary_Image::set_encoded_image_string(const void* value,
-    size_t size) {
-  
-  encoded_image_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Image.encoded_image_string)
-}
-::std::string* Summary_Image::mutable_encoded_image_string() {
-  
-  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Image.encoded_image_string)
-  return encoded_image_string_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Image::release_encoded_image_string() {
-  // @@protoc_insertion_point(field_release:tensorflow.Summary.Image.encoded_image_string)
-  
-  return encoded_image_string_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Image::unsafe_arena_release_encoded_image_string() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Image.encoded_image_string)
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return encoded_image_string_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-void Summary_Image::set_allocated_encoded_image_string(::std::string* encoded_image_string) {
-  if (encoded_image_string != NULL) {
-    
-  } else {
-    
-  }
-  encoded_image_string_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encoded_image_string,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Image.encoded_image_string)
-}
-void Summary_Image::unsafe_arena_set_allocated_encoded_image_string(
-    ::std::string* encoded_image_string) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (encoded_image_string != NULL) {
-    
-  } else {
-    
-  }
-  encoded_image_string_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      encoded_image_string, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Image.encoded_image_string)
-}
-
-inline const Summary_Image* Summary_Image::internal_default_instance() {
-  return &Summary_Image_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// Summary_Audio
-
-// optional float sample_rate = 1;
-void Summary_Audio::clear_sample_rate() {
-  sample_rate_ = 0;
-}
-float Summary_Audio::sample_rate() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.sample_rate)
-  return sample_rate_;
-}
-void Summary_Audio::set_sample_rate(float value) {
-  
-  sample_rate_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.sample_rate)
-}
-
-// optional int64 num_channels = 2;
-void Summary_Audio::clear_num_channels() {
-  num_channels_ = GOOGLE_LONGLONG(0);
-}
-::google::protobuf::int64 Summary_Audio::num_channels() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.num_channels)
-  return num_channels_;
-}
-void Summary_Audio::set_num_channels(::google::protobuf::int64 value) {
-  
-  num_channels_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.num_channels)
-}
-
-// optional int64 length_frames = 3;
-void Summary_Audio::clear_length_frames() {
-  length_frames_ = GOOGLE_LONGLONG(0);
-}
-::google::protobuf::int64 Summary_Audio::length_frames() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.length_frames)
-  return length_frames_;
-}
-void Summary_Audio::set_length_frames(::google::protobuf::int64 value) {
-  
-  length_frames_ = value;
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.length_frames)
-}
-
-// optional bytes encoded_audio_string = 4;
-void Summary_Audio::clear_encoded_audio_string() {
-  encoded_audio_string_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-const ::std::string& Summary_Audio::encoded_audio_string() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.encoded_audio_string)
-  return encoded_audio_string_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void Summary_Audio::set_encoded_audio_string(const ::std::string& value) {
-  
-  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.encoded_audio_string)
-}
-void Summary_Audio::set_encoded_audio_string(const char* value) {
-  
-  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Audio.encoded_audio_string)
-}
-void Summary_Audio::set_encoded_audio_string(const void* value,
-    size_t size) {
-  
-  encoded_audio_string_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Audio.encoded_audio_string)
-}
-::std::string* Summary_Audio::mutable_encoded_audio_string() {
-  
-  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Audio.encoded_audio_string)
-  return encoded_audio_string_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Audio::release_encoded_audio_string() {
-  // @@protoc_insertion_point(field_release:tensorflow.Summary.Audio.encoded_audio_string)
-  
-  return encoded_audio_string_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Audio::unsafe_arena_release_encoded_audio_string() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Audio.encoded_audio_string)
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return encoded_audio_string_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-void Summary_Audio::set_allocated_encoded_audio_string(::std::string* encoded_audio_string) {
-  if (encoded_audio_string != NULL) {
-    
-  } else {
-    
-  }
-  encoded_audio_string_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encoded_audio_string,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Audio.encoded_audio_string)
-}
-void Summary_Audio::unsafe_arena_set_allocated_encoded_audio_string(
-    ::std::string* encoded_audio_string) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (encoded_audio_string != NULL) {
-    
-  } else {
-    
-  }
-  encoded_audio_string_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      encoded_audio_string, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Audio.encoded_audio_string)
-}
-
-// optional string content_type = 5;
-void Summary_Audio::clear_content_type() {
-  content_type_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-const ::std::string& Summary_Audio::content_type() const {
-  // @@protoc_insertion_point(field_get:tensorflow.Summary.Audio.content_type)
-  return content_type_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void Summary_Audio::set_content_type(const ::std::string& value) {
-  
-  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:tensorflow.Summary.Audio.content_type)
-}
-void Summary_Audio::set_content_type(const char* value) {
-  
-  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:tensorflow.Summary.Audio.content_type)
-}
-void Summary_Audio::set_content_type(const char* value,
-    size_t size) {
-  
-  content_type_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:tensorflow.Summary.Audio.content_type)
-}
-::std::string* Summary_Audio::mutable_content_type() {
-  
-  // @@protoc_insertion_point(field_mutable:tensorflow.Summary.Audio.content_type)
-  return content_type_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Audio::release_content_type() {
-  // @@protoc_insertion_point(field_release:tensorflow.Summary.Audio.content_type)
-  
-  return content_type_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-::std::string* Summary_Audio::unsafe_arena_release_content_type() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:tensorflow.Summary.Audio.content_type)
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return content_type_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-void Summary_Audio::set_allocated_content_type(::std::string* content_type) {
-  if (content_type != NULL) {
-    
-  } else {
-    
-  }
-  content_type_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), content_type,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:tensorflow.Summary.Audio.content_type)
-}
-void Summary_Audio::unsafe_arena_set_allocated_content_type(
-    ::std::string* content_type) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (content_type != NULL) {
-    
-  } else {
-    
-  }
-  content_type_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      content_type, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Audio.content_type)
-}
-
-inline const Summary_Audio* Summary_Audio::internal_default_instance() {
-  return &Summary_Audio_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
 // Summary_Value
 
-// optional string node_name = 7;
+// string node_name = 7;
 void Summary_Value::clear_node_name() {
   node_name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& Summary_Value::node_name() const {
   // @@protoc_insertion_point(field_get:tensorflow.Summary.Value.node_name)
-  return node_name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.Get();
 }
 void Summary_Value::set_node_name(const ::std::string& value) {
   
@@ -3007,13 +2957,13 @@ void Summary_Value::unsafe_arena_set_allocated_node_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.node_name)
 }
 
-// optional string tag = 1;
+// string tag = 1;
 void Summary_Value::clear_tag() {
   tag_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 const ::std::string& Summary_Value::tag() const {
   // @@protoc_insertion_point(field_get:tensorflow.Summary.Value.tag)
-  return tag_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return tag_.Get();
 }
 void Summary_Value::set_tag(const ::std::string& value) {
   
@@ -3073,7 +3023,7 @@ void Summary_Value::unsafe_arena_set_allocated_tag(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.tag)
 }
 
-// optional float simple_value = 2;
+// float simple_value = 2;
 bool Summary_Value::has_simple_value() const {
   return value_case() == kSimpleValue;
 }
@@ -3102,7 +3052,7 @@ void Summary_Value::set_simple_value(float value) {
   // @@protoc_insertion_point(field_set:tensorflow.Summary.Value.simple_value)
 }
 
-// optional bytes obsolete_old_style_histogram = 3;
+// bytes obsolete_old_style_histogram = 3;
 bool Summary_Value::has_obsolete_old_style_histogram() const {
   return value_case() == kObsoleteOldStyleHistogram;
 }
@@ -3119,7 +3069,7 @@ void Summary_Value::clear_obsolete_old_style_histogram() {
 const ::std::string& Summary_Value::obsolete_old_style_histogram() const {
   // @@protoc_insertion_point(field_get:tensorflow.Summary.Value.obsolete_old_style_histogram)
   if (has_obsolete_old_style_histogram()) {
-    return value_.obsolete_old_style_histogram_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return value_.obsolete_old_style_histogram_.Get();
   }
   return *&::google::protobuf::internal::GetEmptyStringAlreadyInited();
 }
@@ -3211,7 +3161,7 @@ void Summary_Value::unsafe_arena_set_allocated_obsolete_old_style_histogram(::st
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.obsolete_old_style_histogram)
 }
 
-// optional .tensorflow.Summary.Image image = 4;
+// .tensorflow.Summary.Image image = 4;
 bool Summary_Value::has_image() const {
   return value_case() == kImage;
 }
@@ -3299,7 +3249,7 @@ void Summary_Value::set_allocated_image(::tensorflow::Summary_Image* image) {
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.image)
 }
 
-// optional .tensorflow.HistogramProto histo = 5;
+// .tensorflow.HistogramProto histo = 5;
 bool Summary_Value::has_histo() const {
   return value_case() == kHisto;
 }
@@ -3387,7 +3337,7 @@ void Summary_Value::set_allocated_histo(::tensorflow::HistogramProto* histo) {
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.histo)
 }
 
-// optional .tensorflow.Summary.Audio audio = 6;
+// .tensorflow.Summary.Audio audio = 6;
 bool Summary_Value::has_audio() const {
   return value_case() == kAudio;
 }
@@ -3475,7 +3425,7 @@ void Summary_Value::set_allocated_audio(::tensorflow::Summary_Audio* audio) {
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tensorflow.Summary.Value.audio)
 }
 
-// optional .tensorflow.TensorProto tensor = 8;
+// .tensorflow.TensorProto tensor = 8;
 bool Summary_Value::has_tensor() const {
   return value_case() == kTensor;
 }
@@ -3572,11 +3522,253 @@ void Summary_Value::clear_has_value() {
 Summary_Value::ValueCase Summary_Value::value_case() const {
   return Summary_Value::ValueCase(_oneof_case_[0]);
 }
-inline const Summary_Value* Summary_Value::internal_default_instance() {
-  return &Summary_Value_default_instance_.get();
-}
-// -------------------------------------------------------------------
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Summary::kValueFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Summary::Summary()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:tensorflow.Summary)
+}
+Summary::Summary(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena),
+  value_(arena) {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+#endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tensorflow.Summary)
+}
+Summary::Summary(const Summary& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      value_(from.value_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:tensorflow.Summary)
+}
+
+void Summary::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+Summary::~Summary() {
+  // @@protoc_insertion_point(destructor:tensorflow.Summary)
+  SharedDtor();
+}
+
+void Summary::SharedDtor() {
+  ::google::protobuf::Arena* arena = GetArenaNoVirtual();
+  if (arena != NULL) {
+    return;
+  }
+
+}
+
+void Summary::ArenaDtor(void* object) {
+  Summary* _this = reinterpret_cast< Summary* >(object);
+  (void)_this;
+}
+void Summary::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void Summary::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Summary::descriptor() {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[5].descriptor;
+}
+
+const Summary& Summary::default_instance() {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+Summary* Summary::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<Summary>(arena);
+}
+
+void Summary::Clear() {
+// @@protoc_insertion_point(message_clear_start:tensorflow.Summary)
+  value_.Clear();
+}
+
+bool Summary::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:tensorflow.Summary)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .tensorflow.Summary.Value value = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(input->IncrementRecursionDepth());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_value()));
+        } else {
+          goto handle_unusual;
+        }
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:tensorflow.Summary)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:tensorflow.Summary)
+  return false;
+#undef DO_
+}
+
+void Summary::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:tensorflow.Summary)
+  // repeated .tensorflow.Summary.Value value = 1;
+  for (unsigned int i = 0, n = this->value_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->value(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:tensorflow.Summary)
+}
+
+::google::protobuf::uint8* Summary::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:tensorflow.Summary)
+  // repeated .tensorflow.Summary.Value value = 1;
+  for (unsigned int i = 0, n = this->value_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, this->value(i), false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:tensorflow.Summary)
+  return target;
+}
+
+size_t Summary::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tensorflow.Summary)
+  size_t total_size = 0;
+
+  // repeated .tensorflow.Summary.Value value = 1;
+  {
+    unsigned int count = this->value_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->value(i));
+    }
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Summary::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tensorflow.Summary)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Summary* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Summary>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tensorflow.Summary)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.Summary)
+    MergeFrom(*source);
+  }
+}
+
+void Summary::MergeFrom(const Summary& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.Summary)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  value_.MergeFrom(from.value_);
+}
+
+void Summary::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tensorflow.Summary)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Summary::CopyFrom(const Summary& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.Summary)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Summary::IsInitialized() const {
+  return true;
+}
+
+void Summary::Swap(Summary* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    Summary* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
+  }
+}
+void Summary::UnsafeArenaSwap(Summary* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void Summary::InternalSwap(Summary* other) {
+  value_.UnsafeArenaSwap(&other->value_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Summary::GetMetadata() const {
+  protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fsummary_2eproto::file_level_metadata[5];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Summary
 
 // repeated .tensorflow.Summary.Value value = 1;
@@ -3609,9 +3801,6 @@ Summary::value() const {
   return value_;
 }
 
-inline const Summary* Summary::internal_default_instance() {
-  return &Summary_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

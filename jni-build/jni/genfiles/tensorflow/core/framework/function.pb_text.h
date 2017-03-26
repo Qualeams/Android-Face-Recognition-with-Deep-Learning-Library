@@ -19,16 +19,6 @@ bool ProtoParseFromString(
     ::tensorflow::FunctionDefLibrary* msg)
         TF_MUST_USE_RESULT;
 
-// Message-text conversion for tensorflow.FunctionDef.Node
-string ProtoDebugString(
-    const ::tensorflow::FunctionDef_Node& msg);
-string ProtoShortDebugString(
-    const ::tensorflow::FunctionDef_Node& msg);
-bool ProtoParseFromString(
-    const string& s,
-    ::tensorflow::FunctionDef_Node* msg)
-        TF_MUST_USE_RESULT;
-
 // Message-text conversion for tensorflow.FunctionDef
 string ProtoDebugString(
     const ::tensorflow::FunctionDef& msg);

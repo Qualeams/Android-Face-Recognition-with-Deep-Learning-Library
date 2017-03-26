@@ -34,6 +34,8 @@ void AppendProtoDebugString(
   o->AppendNumericIfNotZero("deferred_deletion_bytes", msg.deferred_deletion_bytes());
   o->AppendBoolIfTrue("allow_growth", msg.allow_growth());
   o->AppendStringIfNotEmpty("visible_device_list", ProtobufStringToString(msg.visible_device_list()));
+  o->AppendNumericIfNotZero("polling_active_delay_usecs", msg.polling_active_delay_usecs());
+  o->AppendNumericIfNotZero("polling_inactive_delay_msecs", msg.polling_inactive_delay_msecs());
 }
 
 }  // namespace internal
@@ -53,7 +55,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::GPUOptions* msg) {
-  std::vector<bool> has_seen(5, false);
+  std::vector<bool> has_seen(7, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -68,6 +70,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -111,6 +114,20 @@ bool ProtoParseFromScanner(
           scanner, &str_value)) return false;
       SetProtobufStringSwapAllowed(&str_value, msg->mutable_visible_device_list());
     }
+    else if (identifier == "polling_active_delay_usecs") {
+      if (has_seen[5]) return false;
+      has_seen[5] = true;
+      int32 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_polling_active_delay_usecs(value);
+    }
+    else if (identifier == "polling_inactive_delay_msecs") {
+      if (has_seen[6]) return false;
+      has_seen[6] = true;
+      int32 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_polling_inactive_delay_msecs(value);
+    }
   }
 }
 
@@ -121,6 +138,17 @@ const char* EnumName_OptimizerOptions_Level(
   switch (value) {
     case 0: return "L1";
     case -1: return "L0";
+    default: return "";
+  }
+}
+
+const char* EnumName_OptimizerOptions_GlobalJitLevel(
+    ::tensorflow::OptimizerOptions_GlobalJitLevel value) {
+  switch (value) {
+    case 0: return "DEFAULT";
+    case -1: return "OFF";
+    case 1: return "ON_1";
+    case 2: return "ON_2";
     default: return "";
   }
 }
@@ -154,6 +182,9 @@ void AppendProtoDebugString(
     o->AppendEnumName("opt_level", ::tensorflow::EnumName_OptimizerOptions_Level(msg.opt_level()));
   }
   o->AppendBoolIfTrue("do_function_inlining", msg.do_function_inlining());
+  if (msg.global_jit_level() != 0) {
+    o->AppendEnumName("global_jit_level", ::tensorflow::EnumName_OptimizerOptions_GlobalJitLevel(msg.global_jit_level()));
+  }
 }
 
 }  // namespace internal
@@ -173,7 +204,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::OptimizerOptions* msg) {
-  std::vector<bool> has_seen(4, false);
+  std::vector<bool> has_seen(5, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -188,6 +219,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -224,6 +256,23 @@ bool ProtoParseFromScanner(
         msg->set_opt_level(::tensorflow::OptimizerOptions_Level_L1);
       } else if (value == "L0" || value == "-1") {
         msg->set_opt_level(::tensorflow::OptimizerOptions_Level_L0);
+      } else {
+        return false;
+      }
+    }
+    else if (identifier == "global_jit_level") {
+      if (has_seen[4]) return false;
+      has_seen[4] = true;
+      StringPiece value;
+      if (!parsed_colon || !scanner->RestartCapture().Many(Scanner::LETTER_DIGIT_DASH_UNDERSCORE).GetResult(nullptr, &value)) return false;
+      if (value == "DEFAULT" || value == "0" || value == "-0") {
+        msg->set_global_jit_level(::tensorflow::OptimizerOptions_GlobalJitLevel_DEFAULT);
+      } else if (value == "OFF" || value == "-1") {
+        msg->set_global_jit_level(::tensorflow::OptimizerOptions_GlobalJitLevel_OFF);
+      } else if (value == "ON_1" || value == "1") {
+        msg->set_global_jit_level(::tensorflow::OptimizerOptions_GlobalJitLevel_ON_1);
+      } else if (value == "ON_2" || value == "2") {
+        msg->set_global_jit_level(::tensorflow::OptimizerOptions_GlobalJitLevel_ON_2);
       } else {
         return false;
       }
@@ -267,6 +316,12 @@ void AppendProtoDebugString(
   o->AppendBoolIfTrue("place_pruned_graph", msg.place_pruned_graph());
   o->AppendBoolIfTrue("enable_bfloat16_sendrecv", msg.enable_bfloat16_sendrecv());
   o->AppendNumericIfNotZero("timeline_step", msg.timeline_step());
+  o->AppendNumericIfNotZero("build_cost_model_after", msg.build_cost_model_after());
+  if (msg.has_rewrite_options()) {
+    o->OpenNestedMessage("rewrite_options");
+    ::tensorflow::internal::AppendProtoDebugString(o, msg.rewrite_options());
+    o->CloseNestedMessage();
+  }
 }
 
 }  // namespace internal
@@ -286,7 +341,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::GraphOptions* msg) {
-  std::vector<bool> has_seen(7, false);
+  std::vector<bool> has_seen(9, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -301,6 +356,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -331,33 +387,50 @@ bool ProtoParseFromScanner(
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_build_cost_model(value);
     }
-    else if (identifier == "infer_shapes") {
+    else if (identifier == "build_cost_model_after") {
       if (has_seen[3]) return false;
       has_seen[3] = true;
+      int64 value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
+      msg->set_build_cost_model_after(value);
+    }
+    else if (identifier == "infer_shapes") {
+      if (has_seen[4]) return false;
+      has_seen[4] = true;
       bool value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseBoolFromScanner(scanner, &value)) return false;
       msg->set_infer_shapes(value);
     }
     else if (identifier == "place_pruned_graph") {
-      if (has_seen[4]) return false;
-      has_seen[4] = true;
+      if (has_seen[5]) return false;
+      has_seen[5] = true;
       bool value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseBoolFromScanner(scanner, &value)) return false;
       msg->set_place_pruned_graph(value);
     }
     else if (identifier == "enable_bfloat16_sendrecv") {
-      if (has_seen[5]) return false;
-      has_seen[5] = true;
+      if (has_seen[6]) return false;
+      has_seen[6] = true;
       bool value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseBoolFromScanner(scanner, &value)) return false;
       msg->set_enable_bfloat16_sendrecv(value);
     }
     else if (identifier == "timeline_step") {
-      if (has_seen[6]) return false;
-      has_seen[6] = true;
+      if (has_seen[7]) return false;
+      has_seen[7] = true;
       int32 value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_timeline_step(value);
+    }
+    else if (identifier == "rewrite_options") {
+      if (has_seen[8]) return false;
+      has_seen[8] = true;
+      const char open_char = scanner->Peek();
+      if (open_char != '{' && open_char != '<') return false;
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+      if (!::tensorflow::internal::ProtoParseFromScanner(
+          scanner, true, open_char == '{', msg->mutable_rewrite_options())) return false;
     }
   }
 }
@@ -422,6 +495,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -434,6 +508,83 @@ bool ProtoParseFromScanner(
       int32 value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_num_threads(value);
+    }
+  }
+}
+
+}  // namespace internal
+
+string ProtoDebugString(
+    const ::tensorflow::RPCOptions& msg) {
+  string s;
+  ::tensorflow::strings::ProtoTextOutput o(&s, false);
+  internal::AppendProtoDebugString(&o, msg);
+  o.CloseTopMessage();
+  return s;
+}
+
+string ProtoShortDebugString(
+    const ::tensorflow::RPCOptions& msg) {
+  string s;
+  ::tensorflow::strings::ProtoTextOutput o(&s, true);
+  internal::AppendProtoDebugString(&o, msg);
+  o.CloseTopMessage();
+  return s;
+}
+
+namespace internal {
+
+void AppendProtoDebugString(
+    ::tensorflow::strings::ProtoTextOutput* o,
+    const ::tensorflow::RPCOptions& msg) {
+  o->AppendBoolIfTrue("use_rpc_for_inprocess_master", msg.use_rpc_for_inprocess_master());
+}
+
+}  // namespace internal
+
+bool ProtoParseFromString(
+    const string& s,
+    ::tensorflow::RPCOptions* msg) {
+  msg->Clear();
+  Scanner scanner(s);
+  if (!internal::ProtoParseFromScanner(&scanner, false, false, msg)) return false;
+  scanner.Eos();
+  return scanner.GetResult();
+}
+
+namespace internal {
+
+bool ProtoParseFromScanner(
+    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
+    ::tensorflow::RPCOptions* msg) {
+  std::vector<bool> has_seen(1, false);
+  while(true) {
+    ProtoSpaceAndComments(scanner);
+    if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+      return true;
+    }
+    if (!nested && scanner->empty()) { return true; }
+    scanner->RestartCapture()
+        .Many(Scanner::LETTER_DIGIT_UNDERSCORE)
+        .StopCapture();
+    StringPiece identifier;
+    if (!scanner->GetResult(nullptr, &identifier)) return false;
+    bool parsed_colon = false;
+    (void)parsed_colon;
+    ProtoSpaceAndComments(scanner);
+    if (scanner->Peek() == ':') {
+      parsed_colon = true;
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+    }
+    if (identifier == "use_rpc_for_inprocess_master") {
+      if (has_seen[0]) return false;
+      has_seen[0] = true;
+      bool value;
+      if (!parsed_colon || !::tensorflow::strings::ProtoParseBoolFromScanner(scanner, &value)) return false;
+      msg->set_use_rpc_for_inprocess_master(value);
     }
   }
 }
@@ -467,6 +618,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -551,6 +703,11 @@ void AppendProtoDebugString(
     ::tensorflow::internal::AppendProtoDebugString(o, msg.session_inter_op_thread_pool(i));
     o->CloseNestedMessage();
   }
+  if (msg.has_rpc_options()) {
+    o->OpenNestedMessage("rpc_options");
+    ::tensorflow::internal::AppendProtoDebugString(o, msg.rpc_options());
+    o->CloseNestedMessage();
+  }
 }
 
 }  // namespace internal
@@ -570,7 +727,7 @@ namespace internal {
 bool ProtoParseFromScanner(
     ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
     ::tensorflow::ConfigProto* msg) {
-  std::vector<bool> has_seen(12, false);
+  std::vector<bool> has_seen(13, false);
   while(true) {
     ProtoSpaceAndComments(scanner);
     if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
@@ -585,6 +742,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -706,124 +864,15 @@ bool ProtoParseFromScanner(
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_operation_timeout_in_ms(value);
     }
-  }
-}
-
-}  // namespace internal
-
-string ProtoDebugString(
-    const ::tensorflow::DebugTensorWatch& msg) {
-  string s;
-  ::tensorflow::strings::ProtoTextOutput o(&s, false);
-  internal::AppendProtoDebugString(&o, msg);
-  o.CloseTopMessage();
-  return s;
-}
-
-string ProtoShortDebugString(
-    const ::tensorflow::DebugTensorWatch& msg) {
-  string s;
-  ::tensorflow::strings::ProtoTextOutput o(&s, true);
-  internal::AppendProtoDebugString(&o, msg);
-  o.CloseTopMessage();
-  return s;
-}
-
-namespace internal {
-
-void AppendProtoDebugString(
-    ::tensorflow::strings::ProtoTextOutput* o,
-    const ::tensorflow::DebugTensorWatch& msg) {
-  o->AppendStringIfNotEmpty("node_name", ProtobufStringToString(msg.node_name()));
-  o->AppendNumericIfNotZero("output_slot", msg.output_slot());
-  for (int i = 0; i < msg.debug_ops_size(); ++i) {
-    o->AppendString("debug_ops", ProtobufStringToString(msg.debug_ops(i)));
-  }
-  for (int i = 0; i < msg.debug_urls_size(); ++i) {
-    o->AppendString("debug_urls", ProtobufStringToString(msg.debug_urls(i)));
-  }
-}
-
-}  // namespace internal
-
-bool ProtoParseFromString(
-    const string& s,
-    ::tensorflow::DebugTensorWatch* msg) {
-  msg->Clear();
-  Scanner scanner(s);
-  if (!internal::ProtoParseFromScanner(&scanner, false, false, msg)) return false;
-  scanner.Eos();
-  return scanner.GetResult();
-}
-
-namespace internal {
-
-bool ProtoParseFromScanner(
-    ::tensorflow::strings::Scanner* scanner, bool nested, bool close_curly,
-    ::tensorflow::DebugTensorWatch* msg) {
-  std::vector<bool> has_seen(4, false);
-  while(true) {
-    ProtoSpaceAndComments(scanner);
-    if (nested && (scanner->Peek() == (close_curly ? '}' : '>'))) {
+    else if (identifier == "rpc_options") {
+      if (has_seen[12]) return false;
+      has_seen[12] = true;
+      const char open_char = scanner->Peek();
+      if (open_char != '{' && open_char != '<') return false;
       scanner->One(Scanner::ALL);
       ProtoSpaceAndComments(scanner);
-      return true;
-    }
-    if (!nested && scanner->empty()) { return true; }
-    scanner->RestartCapture()
-        .Many(Scanner::LETTER_DIGIT_UNDERSCORE)
-        .StopCapture();
-    StringPiece identifier;
-    if (!scanner->GetResult(nullptr, &identifier)) return false;
-    bool parsed_colon = false;
-    ProtoSpaceAndComments(scanner);
-    if (scanner->Peek() == ':') {
-      parsed_colon = true;
-      scanner->One(Scanner::ALL);
-      ProtoSpaceAndComments(scanner);
-    }
-    if (identifier == "node_name") {
-      if (has_seen[0]) return false;
-      has_seen[0] = true;
-      string str_value;
-      if (!parsed_colon || !::tensorflow::strings::ProtoParseStringLiteralFromScanner(
-          scanner, &str_value)) return false;
-      SetProtobufStringSwapAllowed(&str_value, msg->mutable_node_name());
-    }
-    else if (identifier == "output_slot") {
-      if (has_seen[1]) return false;
-      has_seen[1] = true;
-      int32 value;
-      if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
-      msg->set_output_slot(value);
-    }
-    else if (identifier == "debug_ops") {
-      const bool is_list = (scanner->Peek() == '[');
-      do {
-        if (is_list) {
-          scanner->One(Scanner::ALL);
-          ProtoSpaceAndComments(scanner);
-        }
-        string str_value;
-        if (!parsed_colon || !::tensorflow::strings::ProtoParseStringLiteralFromScanner(
-            scanner, &str_value)) return false;
-        SetProtobufStringSwapAllowed(&str_value, msg->add_debug_ops());
-      } while (is_list && scanner->Peek() == ',');
-      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
-    }
-    else if (identifier == "debug_urls") {
-      const bool is_list = (scanner->Peek() == '[');
-      do {
-        if (is_list) {
-          scanner->One(Scanner::ALL);
-          ProtoSpaceAndComments(scanner);
-        }
-        string str_value;
-        if (!parsed_colon || !::tensorflow::strings::ProtoParseStringLiteralFromScanner(
-            scanner, &str_value)) return false;
-        SetProtobufStringSwapAllowed(&str_value, msg->add_debug_urls());
-      } while (is_list && scanner->Peek() == ',');
-      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
+      if (!::tensorflow::internal::ProtoParseFromScanner(
+          scanner, true, open_char == '{', msg->mutable_rpc_options())) return false;
     }
   }
 }
@@ -869,12 +918,12 @@ void AppendProtoDebugString(
   }
   o->AppendNumericIfNotZero("timeout_in_ms", msg.timeout_in_ms());
   o->AppendNumericIfNotZero("inter_op_thread_pool", msg.inter_op_thread_pool());
-  for (int i = 0; i < msg.debug_tensor_watch_opts_size(); ++i) {
-    o->OpenNestedMessage("debug_tensor_watch_opts");
-    ::tensorflow::internal::AppendProtoDebugString(o, msg.debug_tensor_watch_opts(i));
+  o->AppendBoolIfTrue("output_partition_graphs", msg.output_partition_graphs());
+  if (msg.has_debug_options()) {
+    o->OpenNestedMessage("debug_options");
+    ::tensorflow::internal::AppendProtoDebugString(o, msg.debug_options());
     o->CloseNestedMessage();
   }
-  o->AppendBoolIfTrue("output_partition_graphs", msg.output_partition_graphs());
 }
 
 }  // namespace internal
@@ -909,6 +958,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;
@@ -946,28 +996,22 @@ bool ProtoParseFromScanner(
       if (!parsed_colon || !::tensorflow::strings::ProtoParseNumericFromScanner(scanner, &value)) return false;
       msg->set_inter_op_thread_pool(value);
     }
-    else if (identifier == "debug_tensor_watch_opts") {
-      const bool is_list = (scanner->Peek() == '[');
-      do {
-        if (is_list) {
-          scanner->One(Scanner::ALL);
-          ProtoSpaceAndComments(scanner);
-        }
-        const char open_char = scanner->Peek();
-        if (open_char != '{' && open_char != '<') return false;
-        scanner->One(Scanner::ALL);
-        ProtoSpaceAndComments(scanner);
-        if (!::tensorflow::internal::ProtoParseFromScanner(
-            scanner, true, open_char == '{', msg->add_debug_tensor_watch_opts())) return false;
-      } while (is_list && scanner->Peek() == ',');
-      if (is_list && !scanner->OneLiteral("]").GetResult()) return false;
-    }
     else if (identifier == "output_partition_graphs") {
-      if (has_seen[4]) return false;
-      has_seen[4] = true;
+      if (has_seen[3]) return false;
+      has_seen[3] = true;
       bool value;
       if (!parsed_colon || !::tensorflow::strings::ProtoParseBoolFromScanner(scanner, &value)) return false;
       msg->set_output_partition_graphs(value);
+    }
+    else if (identifier == "debug_options") {
+      if (has_seen[4]) return false;
+      has_seen[4] = true;
+      const char open_char = scanner->Peek();
+      if (open_char != '{' && open_char != '<') return false;
+      scanner->One(Scanner::ALL);
+      ProtoSpaceAndComments(scanner);
+      if (!::tensorflow::internal::ProtoParseFromScanner(
+          scanner, true, open_char == '{', msg->mutable_debug_options())) return false;
     }
   }
 }
@@ -1046,6 +1090,7 @@ bool ProtoParseFromScanner(
     StringPiece identifier;
     if (!scanner->GetResult(nullptr, &identifier)) return false;
     bool parsed_colon = false;
+    (void)parsed_colon;
     ProtoSpaceAndComments(scanner);
     if (scanner->Peek() == ':') {
       parsed_colon = true;

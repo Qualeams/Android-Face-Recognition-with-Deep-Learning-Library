@@ -18,122 +18,119 @@
 // @@protoc_insertion_point(includes)
 
 namespace tensorflow {
+class GraphDefDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<GraphDef> {
+} _GraphDef_default_instance_;
+
+namespace protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* GraphDef_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  GraphDef_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[1];
 
 }  // namespace
 
+const ::google::protobuf::uint32 TableStruct::offsets[] = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, node_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, versions_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, version_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, library_),
+};
 
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto() {
-  protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "tensorflow/core/framework/graph.proto");
-  GOOGLE_CHECK(file != NULL);
-  GraphDef_descriptor_ = file->message_type(0);
-  static const int GraphDef_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, node_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, versions_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, version_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, library_),
-  };
-  GraphDef_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      GraphDef_descriptor_,
-      GraphDef::internal_default_instance(),
-      GraphDef_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(GraphDef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GraphDef, _internal_metadata_));
-}
+static const ::google::protobuf::internal::MigrationSchema schemas[] = {
+  { 0, -1, sizeof(GraphDef)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_GraphDef_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "tensorflow/core/framework/graph.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, NULL, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GraphDef_descriptor_, GraphDef::internal_default_instance());
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 1);
 }
 
 }  // namespace
 
-void protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fgraph_2eproto() {
-  GraphDef_default_instance_.Shutdown();
-  delete GraphDef_reflection_;
+void TableStruct::Shutdown() {
+  _GraphDef_default_instance_.Shutdown();
+  delete file_level_metadata[0].reflection;
 }
 
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fnode_5fdef_2eproto();
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2ffunction_2eproto();
-  ::tensorflow::protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fversions_2eproto();
-  GraphDef_default_instance_.DefaultConstruct();
-  GraphDef_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2fnode_5fdef_2eproto::InitDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ffunction_2eproto::InitDefaults();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2fversions_2eproto::InitDefaults();
+  _GraphDef_default_instance_.DefaultConstruct();
+  _GraphDef_default_instance_.get_mutable()->versions_ = const_cast< ::tensorflow::VersionDef*>(
+      ::tensorflow::VersionDef::internal_default_instance());
+  _GraphDef_default_instance_.get_mutable()->library_ = const_cast< ::tensorflow::FunctionDefLibrary*>(
+      ::tensorflow::FunctionDefLibrary::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto_once_);
-void protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto_once_,
-                 &protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] = {
+      "\n%tensorflow/core/framework/graph.proto\022"
+      "\ntensorflow\032(tensorflow/core/framework/n"
+      "ode_def.proto\032(tensorflow/core/framework"
+      "/function.proto\032(tensorflow/core/framewo"
+      "rk/versions.proto\"\235\001\n\010GraphDef\022!\n\004node\030\001"
+      " \003(\0132\023.tensorflow.NodeDef\022(\n\010versions\030\004 "
+      "\001(\0132\026.tensorflow.VersionDef\022\023\n\007version\030\003"
+      " \001(\005B\002\030\001\022/\n\007library\030\002 \001(\0132\036.tensorflow.F"
+      "unctionDefLibraryB,\n\030org.tensorflow.fram"
+      "eworkB\013GraphProtosP\001\370\001\001b\006proto3"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n%tensorflow/core/framework/graph.proto\022"
-    "\ntensorflow\032(tensorflow/core/framework/n"
-    "ode_def.proto\032(tensorflow/core/framework"
-    "/function.proto\032(tensorflow/core/framewo"
-    "rk/versions.proto\"\235\001\n\010GraphDef\022!\n\004node\030\001"
-    " \003(\0132\023.tensorflow.NodeDef\022(\n\010versions\030\004 "
-    "\001(\0132\026.tensorflow.VersionDef\022\023\n\007version\030\003"
-    " \001(\005B\002\030\001\022/\n\007library\030\002 \001(\0132\036.tensorflow.F"
-    "unctionDefLibraryB,\n\030org.tensorflow.fram"
-    "eworkB\013GraphProtosP\001\370\001\001b\006proto3", 391);
+      descriptor, 391);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "tensorflow/core/framework/graph.proto", &protobuf_RegisterTypes);
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fnode_5fdef_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2ffunction_2eproto();
-  ::tensorflow::protobuf_AddDesc_tensorflow_2fcore_2fframework_2fversions_2eproto();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_tensorflow_2fcore_2fframework_2fgraph_2eproto);
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2fnode_5fdef_2eproto::AddDescriptors();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2ffunction_2eproto::AddDescriptors();
+  ::tensorflow::protobuf_tensorflow_2fcore_2fframework_2fversions_2eproto::AddDescriptors();
+  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto_once_);
-void protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto_once_,
-                 &protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fgraph_2eproto {
-  StaticDescriptorInitializer_tensorflow_2fcore_2fframework_2fgraph_2eproto() {
-    protobuf_AddDesc_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_tensorflow_2fcore_2fframework_2fgraph_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
-
-}  // namespace
+}  // namespace protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto
 
 
 // ===================================================================
@@ -241,7 +238,9 @@ const int GraphDef::kLibraryFieldNumber;
 
 GraphDef::GraphDef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:tensorflow.GraphDef)
 }
@@ -250,32 +249,35 @@ GraphDef::GraphDef(::google::protobuf::Arena* arena)
   _internal_metadata_(arena),
   node_(arena) {
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::InitDefaults();
 #endif  // GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:tensorflow.GraphDef)
 }
-
-void GraphDef::InitAsDefaultInstance() {
-  versions_ = const_cast< ::tensorflow::VersionDef*>(
-      ::tensorflow::VersionDef::internal_default_instance());
-  library_ = const_cast< ::tensorflow::FunctionDefLibrary*>(
-      ::tensorflow::FunctionDefLibrary::internal_default_instance());
-}
-
 GraphDef::GraphDef(const GraphDef& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      node_(from.node_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_versions()) {
+    versions_ = new ::tensorflow::VersionDef(*from.versions_);
+  } else {
+    versions_ = NULL;
+  }
+  if (from.has_library()) {
+    library_ = new ::tensorflow::FunctionDefLibrary(*from.library_);
+  } else {
+    library_ = NULL;
+  }
+  version_ = from.version_;
   // @@protoc_insertion_point(copy_constructor:tensorflow.GraphDef)
 }
 
 void GraphDef::SharedCtor() {
-  versions_ = NULL;
-  library_ = NULL;
-  version_ = 0;
+  ::memset(&versions_, 0, reinterpret_cast<char*>(&version_) -
+    reinterpret_cast<char*>(&versions_) + sizeof(version_));
   _cached_size_ = 0;
 }
 
@@ -290,8 +292,10 @@ void GraphDef::SharedDtor() {
     return;
   }
 
-  if (this != &GraphDef_default_instance_.get()) {
+  if (this != internal_default_instance()) {
     delete versions_;
+  }
+  if (this != internal_default_instance()) {
     delete library_;
   }
 }
@@ -308,16 +312,14 @@ void GraphDef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* GraphDef::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GraphDef_descriptor_;
+  protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::file_level_metadata[0].descriptor;
 }
 
 const GraphDef& GraphDef::default_instance() {
-  protobuf_InitDefaults_tensorflow_2fcore_2fframework_2fgraph_2eproto();
+  protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<GraphDef> GraphDef_default_instance_;
 
 GraphDef* GraphDef::New(::google::protobuf::Arena* arena) const {
   return ::google::protobuf::Arena::CreateMessage<GraphDef>(arena);
@@ -325,12 +327,16 @@ GraphDef* GraphDef::New(::google::protobuf::Arena* arena) const {
 
 void GraphDef::Clear() {
 // @@protoc_insertion_point(message_clear_start:tensorflow.GraphDef)
-  if (GetArenaNoVirtual() == NULL && versions_ != NULL) delete versions_;
-  versions_ = NULL;
-  version_ = 0;
-  if (GetArenaNoVirtual() == NULL && library_ != NULL) delete library_;
-  library_ = NULL;
   node_.Clear();
+  if (GetArenaNoVirtual() == NULL && versions_ != NULL) {
+    delete versions_;
+  }
+  versions_ = NULL;
+  if (GetArenaNoVirtual() == NULL && library_ != NULL) {
+    delete library_;
+  }
+  library_ = NULL;
+  version_ = 0;
 }
 
 bool GraphDef::MergePartialFromCodedStream(
@@ -339,43 +345,40 @@ bool GraphDef::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:tensorflow.GraphDef)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .tensorflow.NodeDef node = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(input->IncrementRecursionDepth());
-         parse_loop_node:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_node()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_node;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(18)) goto parse_library;
         break;
       }
 
-      // optional .tensorflow.FunctionDefLibrary library = 2;
+      // .tensorflow.FunctionDefLibrary library = 2;
       case 2: {
-        if (tag == 18) {
-         parse_library:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_library()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_version;
         break;
       }
 
-      // optional int32 version = 3 [deprecated = true];
+      // int32 version = 3 [deprecated = true];
       case 3: {
-        if (tag == 24) {
-         parse_version:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -383,20 +386,18 @@ bool GraphDef::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_versions;
         break;
       }
 
-      // optional .tensorflow.VersionDef versions = 4;
+      // .tensorflow.VersionDef versions = 4;
       case 4: {
-        if (tag == 34) {
-         parse_versions:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_versions()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -430,18 +431,18 @@ void GraphDef::SerializeWithCachedSizes(
       1, this->node(i), output);
   }
 
-  // optional .tensorflow.FunctionDefLibrary library = 2;
+  // .tensorflow.FunctionDefLibrary library = 2;
   if (this->has_library()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->library_, output);
   }
 
-  // optional int32 version = 3 [deprecated = true];
+  // int32 version = 3 [deprecated = true];
   if (this->version() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->version(), output);
   }
 
-  // optional .tensorflow.VersionDef versions = 4;
+  // .tensorflow.VersionDef versions = 4;
   if (this->has_versions()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->versions_, output);
@@ -452,7 +453,7 @@ void GraphDef::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* GraphDef::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+  (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:tensorflow.GraphDef)
   // repeated .tensorflow.NodeDef node = 1;
   for (unsigned int i = 0, n = this->node_size(); i < n; i++) {
@@ -461,19 +462,19 @@ void GraphDef::SerializeWithCachedSizes(
         1, this->node(i), false, target);
   }
 
-  // optional .tensorflow.FunctionDefLibrary library = 2;
+  // .tensorflow.FunctionDefLibrary library = 2;
   if (this->has_library()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         2, *this->library_, false, target);
   }
 
-  // optional int32 version = 3 [deprecated = true];
+  // int32 version = 3 [deprecated = true];
   if (this->version() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->version(), target);
   }
 
-  // optional .tensorflow.VersionDef versions = 4;
+  // .tensorflow.VersionDef versions = 4;
   if (this->has_versions()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -488,27 +489,6 @@ size_t GraphDef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:tensorflow.GraphDef)
   size_t total_size = 0;
 
-  // optional .tensorflow.VersionDef versions = 4;
-  if (this->has_versions()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->versions_);
-  }
-
-  // optional int32 version = 3 [deprecated = true];
-  if (this->version() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->version());
-  }
-
-  // optional .tensorflow.FunctionDefLibrary library = 2;
-  if (this->has_library()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->library_);
-  }
-
   // repeated .tensorflow.NodeDef node = 1;
   {
     unsigned int count = this->node_size();
@@ -520,6 +500,27 @@ size_t GraphDef::ByteSizeLong() const {
     }
   }
 
+  // .tensorflow.VersionDef versions = 4;
+  if (this->has_versions()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->versions_);
+  }
+
+  // .tensorflow.FunctionDefLibrary library = 2;
+  if (this->has_library()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->library_);
+  }
+
+  // int32 version = 3 [deprecated = true];
+  if (this->version() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->version());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -529,7 +530,7 @@ size_t GraphDef::ByteSizeLong() const {
 
 void GraphDef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:tensorflow.GraphDef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const GraphDef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const GraphDef>(
           &from);
@@ -538,30 +539,23 @@ void GraphDef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:tensorflow.GraphDef)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void GraphDef::MergeFrom(const GraphDef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:tensorflow.GraphDef)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void GraphDef::UnsafeMergeFrom(const GraphDef& from) {
-  GOOGLE_DCHECK(&from != this);
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   node_.MergeFrom(from.node_);
   if (from.has_versions()) {
     mutable_versions()->::tensorflow::VersionDef::MergeFrom(from.versions());
   }
-  if (from.version() != 0) {
-    set_version(from.version());
-  }
   if (from.has_library()) {
     mutable_library()->::tensorflow::FunctionDefLibrary::MergeFrom(from.library());
+  }
+  if (from.version() != 0) {
+    set_version(from.version());
   }
 }
 
@@ -576,11 +570,10 @@ void GraphDef::CopyFrom(const GraphDef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:tensorflow.GraphDef)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool GraphDef::IsInitialized() const {
-
   return true;
 }
 
@@ -589,10 +582,13 @@ void GraphDef::Swap(GraphDef* other) {
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    GraphDef temp;
-    temp.UnsafeMergeFrom(*this);
-    CopyFrom(*other);
-    other->CopyFrom(temp);
+    GraphDef* temp = New(GetArenaNoVirtual());
+    temp->MergeFrom(*other);
+    other->CopyFrom(*this);
+    InternalSwap(temp);
+    if (GetArenaNoVirtual() == NULL) {
+      delete temp;
+    }
   }
 }
 void GraphDef::UnsafeArenaSwap(GraphDef* other) {
@@ -603,18 +599,14 @@ void GraphDef::UnsafeArenaSwap(GraphDef* other) {
 void GraphDef::InternalSwap(GraphDef* other) {
   node_.UnsafeArenaSwap(&other->node_);
   std::swap(versions_, other->versions_);
-  std::swap(version_, other->version_);
   std::swap(library_, other->library_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(version_, other->version_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata GraphDef::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = GraphDef_descriptor_;
-  metadata.reflection = GraphDef_reflection_;
-  return metadata;
+  protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_tensorflow_2fcore_2fframework_2fgraph_2eproto::file_level_metadata[0];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -650,7 +642,7 @@ GraphDef::node() const {
   return node_;
 }
 
-// optional .tensorflow.VersionDef versions = 4;
+// .tensorflow.VersionDef versions = 4;
 bool GraphDef::has_versions() const {
   return this != internal_default_instance() && versions_ != NULL;
 }
@@ -699,7 +691,7 @@ const ::tensorflow::VersionDef& GraphDef::versions() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.GraphDef.versions)
 }
 
-// optional int32 version = 3 [deprecated = true];
+// int32 version = 3 [deprecated = true];
 void GraphDef::clear_version() {
   version_ = 0;
 }
@@ -713,7 +705,7 @@ void GraphDef::set_version(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:tensorflow.GraphDef.version)
 }
 
-// optional .tensorflow.FunctionDefLibrary library = 2;
+// .tensorflow.FunctionDefLibrary library = 2;
 bool GraphDef::has_library() const {
   return this != internal_default_instance() && library_ != NULL;
 }
@@ -762,9 +754,6 @@ const ::tensorflow::FunctionDefLibrary& GraphDef::library() const {
   // @@protoc_insertion_point(field_set_allocated:tensorflow.GraphDef.library)
 }
 
-inline const GraphDef* GraphDef::internal_default_instance() {
-  return &GraphDef_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

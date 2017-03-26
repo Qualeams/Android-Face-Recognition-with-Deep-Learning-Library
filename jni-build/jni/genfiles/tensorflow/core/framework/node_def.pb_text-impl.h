@@ -6,6 +6,8 @@
 #include "tensorflow/core/framework/attr_value.pb_text-impl.h"
 #include "tensorflow/core/framework/node_def.pb.h"
 #include "tensorflow/core/framework/node_def.pb_text.h"
+#include "tensorflow/core/framework/resource_handle.pb.h"
+#include "tensorflow/core/framework/resource_handle.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor.pb.h"
 #include "tensorflow/core/framework/tensor.pb_text-impl.h"
 #include "tensorflow/core/framework/tensor_shape.pb.h"
