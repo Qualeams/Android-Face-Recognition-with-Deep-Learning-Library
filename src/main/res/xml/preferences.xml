@@ -38,13 +38,13 @@
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Maximum Camera View Width"
             android:key="key_maximum_camera_view_width"
-            android:defaultValue="640"
+            android:defaultValue="320"
             android:numeric="integer"
             />
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Maximum Camera View Height"
             android:key="key_maximum_camera_view_height"
-            android:defaultValue="480"
+            android:defaultValue="240"
             android:numeric="integer"
             />
         <Preference

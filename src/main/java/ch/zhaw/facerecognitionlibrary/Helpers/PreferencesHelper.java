@@ -95,7 +95,7 @@ public class PreferencesHelper {
         }
     }
 
-    public List<String> getStandardPostrocessing(Usage usage){
+    public List<String> getStandardPostprocessing(Usage usage){
         if (usage == Usage.RECOGNITION){
             return getPreferenceList("key_standard_post");
         } else if (usage == Usage.DETECTION){

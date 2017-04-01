@@ -21,7 +21,6 @@ import android.util.Log;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
-import org.opencv.core.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +107,7 @@ public class PreProcessorFactory {
 
             preProcessorDetection.setFaces(preprocessingMode);
             preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
+            preProcessorRecognition = commandFactory.executeCommand(resources.getString(R.string.crop), preProcessorRecognition);
 
             if (eyeDetectionEnabled) {
                 Eyes[] eyes = preProcessorRecognition.setEyes();
@@ -137,7 +137,7 @@ public class PreProcessorFactory {
         preprocessings.addAll(preferencesHelper.getBrightnessPreprocessing(usage));
         preprocessings.addAll(preferencesHelper.getContoursPreprocessing(usage));
         preprocessings.addAll(preferencesHelper.getContrastPreprocessing(usage));
-        preprocessings.addAll(preferencesHelper.getStandardPostrocessing(usage));
+        preprocessings.addAll(preferencesHelper.getStandardPostprocessing(usage));
         return preprocessings;
     }
 
