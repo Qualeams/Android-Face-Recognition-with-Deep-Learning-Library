@@ -33,6 +33,7 @@ import java.util.List;
 
 import ch.zhaw.facerecognitionlibrary.Helpers.Eyes;
 import ch.zhaw.facerecognitionlibrary.Helpers.FaceDetection;
+import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
 import ch.zhaw.facerecognitionlibrary.Helpers.PreferencesHelper;
 
 public class PreProcessor {
@@ -113,6 +114,13 @@ public class PreProcessor {
     }
 
     public int getAngle() { return angle; }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+        for (Mat img : images){
+            MatOperation.rotate_90n(img, angle);
+        }
+    }
 
     public Mat getImg() {
         return img;

@@ -107,6 +107,7 @@ public class PreProcessorFactory {
 
             preProcessorDetection.setFaces(preprocessingMode);
             preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
+            preProcessorRecognition.setAngle(preProcessorDetection.getAngle());
             preProcessorRecognition = commandFactory.executeCommand(resources.getString(R.string.crop), preProcessorRecognition);
 
             if (eyeDetectionEnabled) {
