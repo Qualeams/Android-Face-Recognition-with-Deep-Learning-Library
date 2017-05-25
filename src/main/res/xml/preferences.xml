@@ -245,10 +245,10 @@
             android:numeric="integer"
             android:key="key_inputSize"/>
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
-            android:title="Image mean"
-            android:defaultValue="128"
+            android:title="Number of channels"
+            android:defaultValue="3"
             android:numeric="integer"
-            android:key="key_imageMean"/>
+            android:key="key_channels" />
         <ch.zhaw.facerecognition.Helpers.EditTextPreference
             android:title="Output size"
             android:defaultValue="4096"

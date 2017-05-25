@@ -161,8 +161,8 @@ public class PreferencesHelper {
         return Integer.valueOf(sharedPreferences.getString("key_inputSize", "224"));
     }
 
-    public int getTensorFlowImageMean(){
-        return Integer.valueOf(sharedPreferences.getString("key_imageMean", "128"));
+    public int getTensorFlowChannels(){
+        return Integer.valueOf(sharedPreferences.getString("key_channels", "3"));
     }
 
     public int getTensorFlowOutputSize(){

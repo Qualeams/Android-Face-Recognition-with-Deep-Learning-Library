@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 25
-        versionName "1.4.1"
+        versionName "1.5.0"
     }
     buildTypes {
         release {
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile project(':openCVLibrary320')
+    compile 'org.tensorflow:tensorflow-android:1.2.0-rc0'
 }
