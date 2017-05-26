@@ -9,7 +9,7 @@ Code has been derived from the following sources:
 - LIBSVM - https://github.com/cjlin1/libsvm
 - AndroidLibSvm - https://github.com/yctung/AndroidLibSvm
 - TensorFlow - https://github.com/tensorflow/tensorflow
-- TensorFlow Android Demo - https://github.com/miyosuda/TensorFlowAndroidDemo
+- facenet - https://github.com/davidsandberg/facenet/pull/240
 - Caffe - https://github.com/BVLC/caffe
 - caffe-android-demo - https://github.com/sh1r0/caffe-android-demo
 - caffe-android-lib - https://github.com/sh1r0/caffe-android-lib
@@ -29,7 +29,7 @@ Most parameters are set in the settings/preferences.
 Either train and classify by passing images (OpenCV Mat object) to the library or if features already obtained from the image (getFeatureVector), the feature vector can be passed (OpenCV Mat object) together with the flag "featuresAlreadyExtracted" set to 'true'.
 
 ### Android NDK - C++
-The libs for LIBSVM and TensorFlow can be compiled outside of Android Studio with the make command (the Makefile is located under /jni-build).
+The libs for LIBSVM can be compiled outside of Android Studio with the make command (the Makefile is located under /jni-build).
 There are 3 different usages:
 - make clean (executes ndk-build clean)
 - make (executes ndk-build)

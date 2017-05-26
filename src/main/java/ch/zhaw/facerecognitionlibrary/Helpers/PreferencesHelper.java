@@ -154,19 +154,27 @@ public class PreferencesHelper {
     }
 
     public int getFaceSize(){
-        return Integer.valueOf(sharedPreferences.getString("key_faceSize", "224"));
+        return Integer.valueOf(sharedPreferences.getString("key_faceSize", "160"));
     }
 
     public int getTensorFlowInputSize(){
-        return Integer.valueOf(sharedPreferences.getString("key_inputSize", "224"));
+        return Integer.valueOf(sharedPreferences.getString("key_inputSize", "160"));
     }
 
-    public int getTensorFlowChannels(){
-        return Integer.valueOf(sharedPreferences.getString("key_channels", "3"));
+    public int getTensorFlowInputChannels(){
+        return Integer.valueOf(sharedPreferences.getString("key_inputChannels", "3"));
+    }
+
+    public int getTensorFlowImageMean(){
+        return Integer.valueOf(sharedPreferences.getString("key_imageMean", "128"));
+    }
+
+    public int getTensorFlowImageStd(){
+        return Integer.valueOf(sharedPreferences.getString("key_imageStd", "128"));
     }
 
     public int getTensorFlowOutputSize(){
-        return Integer.valueOf(sharedPreferences.getString("key_outputSize", "1024"));
+        return Integer.valueOf(sharedPreferences.getString("key_outputSize", "128"));
     }
 
     public String getTensorFlowInputLayer(){
@@ -174,11 +182,11 @@ public class PreferencesHelper {
     }
 
     public String getTensorFlowOutputLayer(){
-        return sharedPreferences.getString("key_outputLayer", "avgpool0");
+        return sharedPreferences.getString("key_outputLayer", "embeddings");
     }
 
     public String getTensorFlowModelFile(){
-        return sharedPreferences.getString("key_modelFileTensorFlow", "tensorflow_inception_graph.pb");
+        return sharedPreferences.getString("key_modelFileTensorFlow", "facenet.pb");
     }
 
     public float getPCAThreshold(){

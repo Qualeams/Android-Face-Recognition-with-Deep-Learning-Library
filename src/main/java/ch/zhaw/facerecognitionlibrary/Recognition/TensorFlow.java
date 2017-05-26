@@ -16,14 +16,16 @@ limitations under the License.
 package ch.zhaw.facerecognitionlibrary.Recognition;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
-import org.opencv.core.CvType;
+import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.utils.Converters;
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +46,10 @@ public class TensorFlow implements Recognition {
     private String outputLayer;
 
     private int inputSize;
-    private int outputSize;
-
     private int channels;
+    private int imageMean;
+    private int imageStd;
+    private int outputSize;
 
     private Recognition rec;
 
@@ -58,14 +61,23 @@ public class TensorFlow implements Recognition {
         String dataPath = FileHelper.TENSORFLOW_PATH;
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
         inputSize = preferencesHelper.getTensorFlowInputSize();
+        channels = preferencesHelper.getTensorFlowInputChannels();
+        imageMean = preferencesHelper.getTensorFlowImageMean();
+        imageStd = preferencesHelper.getTensorFlowImageStd();
         outputSize = preferencesHelper.getTensorFlowOutputSize();
         inputLayer = preferencesHelper.getTensorFlowInputLayer();
         outputLayer = preferencesHelper.getTensorFlowOutputLayer();
-        channels = preferencesHelper.getTensorFlowChannels();
+
         String modelFile = preferencesHelper.getTensorFlowModelFile();
         Boolean classificationMethod = preferencesHelper.getClassificationMethodTFCaffe();
 
-        inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), dataPath + modelFile);
+        // Use internal assets file as fallback, if no model file is provided
+        File file = new File(dataPath + modelFile);
+        if(file.exists()){
+            inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), dataPath + modelFile);
+        } else {
+            inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), modelFile);
+        }
 
         if(classificationMethod){
             rec = new SupportVectorMachine(context, method);
@@ -135,15 +147,19 @@ public class TensorFlow implements Recognition {
     }
 
     private float[] getPixels(Mat img){
-        img.convertTo(img, CvType.CV_32FC4);
-        float[] pixels = new float[img.rows() * img.cols() * channels];
-        for (int col=0; col<img.cols(); col++){
-            for (int row=0; row<img.rows(); row++){
-                pixels[col*row] = (float)img.get(row, col)[0];
-                pixels[col*row + 1] = (float)img.get(row, col)[1];
-                pixels[col*row + 2] = (float)img.get(row, col)[2];
-            }
+        Bitmap bmp = Bitmap.createBitmap(inputSize, inputSize, Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(img, bmp);
+        int[] intValues = new int[inputSize * inputSize];
+        bmp.getPixels(intValues, 0, inputSize, 0, 0, inputSize, inputSize);
+
+        float[] floatValues = new float[inputSize * inputSize * channels];
+        for (int i = 0; i < intValues.length; ++i) {
+            final int val = intValues[i];
+            floatValues[i * 3 + 0] = (((float)((val >> 16) & 0xFF)) - imageMean) / imageStd;
+            floatValues[i * 3 + 1] = (((float)((val >> 8) & 0xFF)) - imageMean) / imageStd;
+            floatValues[i * 3 + 2] = (((float)(val & 0xFF)) - imageMean) / imageStd;
         }
-        return pixels;
+
+        return floatValues;
     }
 }

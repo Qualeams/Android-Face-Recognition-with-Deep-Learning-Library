@@ -25,14 +25,7 @@
         <item>@string/grayscale</item>
         <item>@string/eyeAlignment</item>
     </string-array>
-    <string-array name="standard_pre_default">
-        <item>@string/grayscale</item>
-        <item>@string/eyeAlignment</item>
-    </string-array>
     <string-array name="brightness">
-        <item>@string/gammaCorrection</item>
-    </string-array>
-    <string-array name="brightness_default">
         <item>@string/gammaCorrection</item>
     </string-array>
     <string-array name="contours">
@@ -41,9 +34,6 @@
         <item>@string/lbp</item>
     </string-array>
     <string-array name="contrast">
-        <item>@string/histogrammEqualization</item>
-    </string-array>
-    <string-array name="contrast_default">
         <item>@string/histogrammEqualization</item>
     </string-array>
     <string-array name="standard_post">
