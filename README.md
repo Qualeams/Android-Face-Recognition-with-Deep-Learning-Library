@@ -37,8 +37,7 @@ compile 'ch.zhaw:facerecognitionlibrary:1.5.2'
 
 ### Include as an Android module from source
 1. git clone https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning-Library.git
-2. Import the openCV library in an existing Android Studio project
-3. Import the facerecognitionlibrary in the existing Android Studio project (has dependencies to the openCV library)
+2. Import the facerecognitionlibrary in the existing Android Studio project
 
 ### Parameters
 Most parameters are set in the settings/preferences.
