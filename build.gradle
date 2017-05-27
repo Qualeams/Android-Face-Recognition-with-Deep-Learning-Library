@@ -1,40 +1,23 @@
-apply plugin: 'com.android.library'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-ext {
-    PUBLISH_GROUP_ID = 'ch.zhaw'
-    PUBLISH_ARTIFACT_ID =  'facerecognitionlibrary'
-    PUBLISH_VERSION = '1.5.2'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
 }
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 21
-        versionCode 27
-        versionName "1.5.2"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library"
         }
     }
-
-    lintOptions {
-        abortOnError false
-    }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'ch.zhaw:opencv:3.2.0'
-    compile 'org.tensorflow:tensorflow-android:1.2.0-rc0'
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
-
-apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'
