@@ -18,7 +18,24 @@ Code has been derived from the following sources:
 ![alt tag](https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning/blob/master/AppArchitecture.png)
 
 ## Usage
-### Include as an Android module
+### Include as an Android module from bintray
+1. Add bintray repository to the project build.gradle file
+
+```
+repositories {
+    maven {
+        url  "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library" 
+    }
+}
+```
+
+2. Add library dependency to the module/app build.gradle file
+
+```
+compile 'ch.zhaw:facerecognitionlibrary:1.5.2'
+```
+
+### Include as an Android module from source
 1. git clone https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning-Library.git
 2. Import the openCV library in an existing Android Studio project
 3. Import the facerecognitionlibrary in the existing Android Studio project (has dependencies to the openCV library)
