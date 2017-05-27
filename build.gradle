@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+ext {
+    PUBLISH_GROUP_ID = 'ch.zhaw'
+    PUBLISH_ARTIFACT_ID =  'facerecognitionlibrary'
+    PUBLISH_VERSION = '1.5.2'
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -7,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 25
-        versionName "1.5.1"
+        versionCode 27
+        versionName "1.5.2"
     }
     buildTypes {
         release {
@@ -27,6 +33,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
-    compile project(':openCVLibrary320')
+    compile 'ch.zhaw:opencv:3.2.0'
     compile 'org.tensorflow:tensorflow-android:1.2.0-rc0'
 }
+
+apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'
