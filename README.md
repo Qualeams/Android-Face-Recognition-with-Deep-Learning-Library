@@ -17,6 +17,9 @@ Code has been derived from the following sources:
 ## App architecture
 ![alt tag](https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning/blob/master/AppArchitecture.png)
 
+## JavaDoc
+https://qualeams.github.io/Android-Face-Recognition-with-Deep-Learning-Library/
+
 ## Usage
 ### Include as an Android module from bintray
 1. Add bintray repository to the project build.gradle file
