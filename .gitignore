@@ -1,2 +1,12 @@
 build/*.*
 openCVLibrary310/*.*
+
+# Gradle files
+.gradle/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Intellij
+*.iml
+.idea

@@ -103,7 +103,10 @@ public class TensorFlow implements Recognition {
 
     @Override
     public String recognize(Mat img, String expectedLabel) {
-        return rec.recognize(getFeatureVector(img), expectedLabel);
+        Mat feature = getFeatureVector(img);
+        String str = rec.recognize(feature, expectedLabel);
+        feature.release();
+        return str;
     }
 
     @Override

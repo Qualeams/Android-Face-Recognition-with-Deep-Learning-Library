@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.media.FaceDetector;
+import android.util.Log;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -84,9 +85,11 @@ public class PreProcessor {
 
         if (preprocessingMode == PreProcessorFactory.PreprocessingMode.RECOGNITION && preferencesHelper.getDetectionMethod()){
             // Change the image rotation to the angle where the face was detected
-            images.remove(0);
+            Mat img = images.remove(0);
             images.add(faceDetection.getImg());
-            setImages(images);
+            if(img != faceDetection.getImg()) {
+                img.release();
+            }
         }
     }
 
@@ -141,4 +144,26 @@ public class PreProcessor {
     public void normalize0255(Mat norm){
         Core.normalize(norm, norm, 0, 255, Core.NORM_MINMAX, CvType.CV_8UC1);
     }
+
+    //Release images
+    public void releaseImages() {
+        if (images == null || images.size() == 0)
+            return;
+        try {
+            for (int i = 0; i < images.size(); i++) {
+                if (images.get(i) != null) {
+                    images.get(i).release();
+                } else {
+                    Log.e("PreProcessor","releaseImages null image(" + i + "/" + images.size() +")");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            images.clear();
+            images = null;
+        }
+    }
+
 }

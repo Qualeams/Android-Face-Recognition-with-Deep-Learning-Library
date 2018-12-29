@@ -83,7 +83,7 @@ public class KNearestNeighbor implements Recognition{
         img = getFeatureVector(img);
         addImage(img, expectedLabel, true);
         nearest = knn.findNearest(img,k,result);
-
+        img.release();
         return labelMap.getKey((int) nearest);
     }
 

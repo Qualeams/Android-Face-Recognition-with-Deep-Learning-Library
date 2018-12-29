@@ -46,7 +46,6 @@ public class PreProcessorFactory {
     public enum PreprocessingMode {DETECTION, RECOGNITION};
     private PreProcessor preProcessorRecognition;
     private PreProcessor preProcessorDetection;
-    private List<Mat> images;
     public CommandFactory commandFactory;
     private FaceDetection faceDetection;
     private boolean eyeDetectionEnabled;
@@ -72,17 +71,23 @@ public class PreProcessorFactory {
     public List<Mat> getCroppedImage(Mat img){
         preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img), context);
         List<String> preprocessingsDetection = getPreprocessings(PreferencesHelper.Usage.DETECTION);
-        images = new ArrayList<Mat>();
+        ArrayList<Mat> images = new ArrayList<Mat>();
         images.add(img);
         preProcessorRecognition = new PreProcessor(faceDetection, images, context);
 
         try {
             preprocess(preProcessorDetection, preprocessingsDetection);
             preProcessorRecognition.setFaces(PreprocessingMode.RECOGNITION);
+            if(preProcessorRecognition.getFaces() == null || preProcessorRecognition.getFaces().length == 0) {
+                Log.d("getCroppedImage", "No face detected");
+                return null;
+            }
+
             preProcessorRecognition = commandFactory.executeCommand(resources.getString(R.string.crop), preProcessorRecognition);
             if (eyeDetectionEnabled) {
                 Eyes[] eyes = preProcessorRecognition.setEyes();
                 if (eyes == null || eyes[0] == null){
+                    preProcessorRecognition.releaseImages();
                     return null;
                 }
             }
@@ -90,6 +95,8 @@ public class PreProcessorFactory {
         } catch (NullPointerException e){
             Log.d("getCroppedImage", "No face detected");
             return null;
+        } finally {
+            preProcessorDetection.releaseImages();
         }
         return preProcessorRecognition.getImages();
     }
@@ -98,7 +105,7 @@ public class PreProcessorFactory {
 
         preProcessorDetection = new PreProcessor(faceDetection, getCopiedImageList(img), context);
 
-        images = new ArrayList<Mat>();
+        ArrayList<Mat> images = new ArrayList<Mat>();
         images.add(img);
         preProcessorRecognition = new PreProcessor(faceDetection, images, context);
 
@@ -106,6 +113,11 @@ public class PreProcessorFactory {
             preprocess(preProcessorDetection, getPreprocessings(PreferencesHelper.Usage.DETECTION));
 
             preProcessorDetection.setFaces(preprocessingMode);
+
+            if(preProcessorDetection.getFaces()==null || preProcessorDetection.getFaces().length == 0) {
+                preProcessorDetection.releaseImages();
+                return null;
+            }
             preProcessorRecognition.setFaces(preProcessorDetection.getFaces());
             preProcessorRecognition.setAngle(preProcessorDetection.getAngle());
             preProcessorRecognition = commandFactory.executeCommand(resources.getString(R.string.crop), preProcessorRecognition);
@@ -113,6 +125,8 @@ public class PreProcessorFactory {
             if (eyeDetectionEnabled) {
                 Eyes[] eyes = preProcessorRecognition.setEyes();
                 if (eyes == null || eyes[0] == null){
+                    preProcessorDetection.releaseImages();
+                    preProcessorRecognition.releaseImages();
                     return null;
                 }
             }
@@ -122,12 +136,14 @@ public class PreProcessorFactory {
             }
 
         } catch (NullPointerException e){
+            preProcessorDetection.releaseImages();
             Log.d("getProcessedImage", "No face detected");
             return null;
         }
         if (preprocessingMode == PreprocessingMode.DETECTION){
             return preProcessorDetection.getImages();
         } else {
+            preProcessorDetection.releaseImages();
             return preProcessorRecognition.getImages();
         }
     }

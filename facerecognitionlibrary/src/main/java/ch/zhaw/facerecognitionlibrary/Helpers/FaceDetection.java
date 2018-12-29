@@ -146,6 +146,8 @@ public class FaceDetection {
         Mat leftHalfImg = img.submat(leftHalf);
         leftEyeDetector.detectMultiScale(leftHalfImg, leftEyes);
 
+        rightHalfImg.release();
+        leftHalfImg.release();
         if (rightEyes.empty() || leftEyes.empty() || rightEyes.toArray().length > 1 || leftEyes.toArray().length > 1){
             return null;
         }
